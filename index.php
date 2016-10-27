@@ -94,9 +94,9 @@
 				<?php if ($presence_radiation == true) : ?>
 					<tbody>
 						<td>Rayonnement solaire</td>
-						<td><?php echo $radiation; ?></td>
+						<td><?php echo $radiation; ?> W/m²</td>
 						<td></td>
-						<td><?php echo $maxradiation; ?> à <?php echo $maxradiationtime; ?></td>
+						<td><?php echo $maxradiation; ?> W/m² à <?php echo $maxradiationtime; ?></td>
 					</tbody>
 				<?php endif; ?>
 				</table>
