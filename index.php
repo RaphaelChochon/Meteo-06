@@ -83,12 +83,22 @@
 						<td><?php echo $minwind; ?> km/h à <?php echo $minwindtime; ?></td>
 						<td><?php echo $maxwind; ?> km/h à <?php echo $maxwindtime; ?> (<?php echo $maxwinddir; ?>°)</td>
 					</tbody>
+				<?php if ($presence_uv == true) : ?>
 					<tbody>
 						<td>Indice UV</td>
 						<td><?php echo $uv; ?></td>
 						<td><?php echo $minuv; ?> à <?php echo $minuvtime; ?></td>
 						<td><?php echo $maxuv; ?> à <?php echo $maxuvtime; ?></td>
 					</tbody>
+				<?php endif; ?>
+				<?php if ($presence_radiation == true) : ?>
+					<tbody>
+						<td>Rayonnement solaire</td>
+						<td><?php echo $radiation; ?></td>
+						<td></td>
+						<td><?php echo $maxradiation; ?> à <?php echo $maxradiationtime; ?></td>
+					</tbody>
+				<?php endif; ?>
 				</table>
 			</div>
 		</div>

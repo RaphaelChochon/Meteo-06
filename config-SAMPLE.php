@@ -18,6 +18,13 @@
 	-------------------------------------------------------------*/
 	$version_site = "0.2"; // DO NOT MODIFY THIS. It is used to know the version of the site installed.
 
+	// CONNECT BDD MySQL WEEWX
+	$server ="localhost"; //localhost or host adress/IP
+	$user="weewx_for_example"; // User MySQL
+	$pass="passe"; // password
+	$db_name="weewx"; // BDD name
+	$db_table="archive"; // table name
+
 	// GENERAL CONFIG
 	$station_name = "Name of my station";
 	$short_station_name = "Short name";
@@ -50,11 +57,8 @@
 	$timelapse_archive_url_1 = "archives/nice/"; // URL or path to archive 1
 	$timelapse_archive_url_2 = ""; // URL or path to archive 2
 
-	// CONNECT BDD MySQL WEEWX
-	$server ="localhost"; //localhost or host adress/IP
-	$user="weewx_for_example"; // User MySQL
-	$pass="passe"; // password
-	$db_name="weewx"; // BDD name
-	$db_table="archive"; // table name
+	// SONDES
+	$presence_uv = true; // If true, display values in the tables and charts
+	$presence_radiation = false; // If true, display values in the tables and charts
 
 ?>
