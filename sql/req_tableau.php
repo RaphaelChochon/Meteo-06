@@ -124,12 +124,12 @@
 	$maxheatindex = round($row[3],1);
 	$maxheatindextime = date('H\hi',$row[4]);
 
-<?php if ($presence_radiation == true){
+if ($presence_radiation == true){
 	// On récupère les valeurs max et min du rayonnement solaire
 	$res = mysql_query("select * from $db_name.archive_day_radiation order by dateTime DESC limit 1;") or die(mysql_error());
 	$row = mysql_fetch_row($res);
 	$maxradiation = round($row[3],1);
 	$maxradiationtime = date('H\hi',$row[4]);
-};?>
+};
 
 ?>
