@@ -98,6 +98,12 @@
 						<td></td>
 						<td><?php echo $maxradiation; ?> W/m² à <?php echo $maxradiationtime; ?></td>
 					</tbody>
+					<tbody>
+						<td>Évapotranspiration (ET)</td>
+						<td><?php echo $et; ?> mm</td>
+						<td>Cumul journée : <?php echo $etcumul; ?> mm</td>
+						<td><?php echo $maxet; ?> mm à <?php echo $maxettime; ?></td>
+					</tbody>
 				<?php endif; ?>
 				</table>
 			</div>

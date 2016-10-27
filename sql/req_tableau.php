@@ -29,6 +29,10 @@
 	$rain = mysql_query("select sum(rain) from $db_name.$db_table where dateTime>'$today';");
 	$he = mysql_fetch_row($rain);
 	$cumul = round($he[0]*10,1);
+	$et = round($row[19],3);
+	$etreq = mysql_query("select sum(ET) from $db_name.$db_table where dateTime>'$today';");
+	$etrequ = mysql_fetch_row($etreq);
+	$etcumul = round($etrequ[0],2);
 
 	// Calcul des précipitations 24/48/72 heures glissantes
 	// On récupère le timestamp du dernier enregistrement
@@ -118,18 +122,24 @@
 	$minwindchilltime = date('H\hi',$row[2]);
 	$minwindchill = round($row[1],1);
 
-	// On récupère les valeurs max et min de l'indice de chaleur
+	// On récupère les valeurs max de l'indice de chaleur
 	$res = mysql_query("select * from $db_name.archive_day_heatindex order by dateTime DESC limit 1;") or die(mysql_error());
 	$row = mysql_fetch_row($res);
 	$maxheatindex = round($row[3],1);
 	$maxheatindextime = date('H\hi',$row[4]);
 
 if ($presence_radiation == true){
-	// On récupère les valeurs max et min du rayonnement solaire
+	// On récupère les valeurs max du rayonnement solaire
 	$res = mysql_query("select * from $db_name.archive_day_radiation order by dateTime DESC limit 1;") or die(mysql_error());
 	$row = mysql_fetch_row($res);
 	$maxradiation = round($row[3],1);
 	$maxradiationtime = date('H\hi',$row[4]);
+
+	// On récupère les valeurs max de l'ET
+	$res = mysql_query("select * from $db_name.archive_day_ET order by dateTime DESC limit 1;") or die(mysql_error());
+	$row = mysql_fetch_row($res);
+	$maxet = round($row[3],1);
+	$maxettime = date('H\hi',$row[4]);
 };
 
 ?>
