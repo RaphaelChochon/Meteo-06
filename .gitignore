@@ -1,0 +1,6 @@
+sftp-config.json
+config.php
+json/*
+sql/makejson_last.php
+vendors/bootstrap-3.3.7/*
+webcam/*

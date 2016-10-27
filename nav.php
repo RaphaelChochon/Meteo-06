@@ -1,0 +1,50 @@
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="./">Accueil</a>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<?php if ($presence_webcam == true){
+					echo '<li><a href="webcam.php">Webcam</a></li>';
+				};?>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tableaux récap.<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="tableau_semaine.php">Semaine</a></li>
+						<li><a href="tableau_mois.php">Mois</a></li>
+						<li><a href="tableau_annee.php">Année</a></li>
+						<li><a href="records.php">Records</a></li>
+					</ul>
+				</li>
+				<li><a href="graph_48h.php">Graphiques 48 heures</a></li>
+				<li><a href="archives.php">Archives</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Réseau de stations<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="http://cagnes.meteo06.fr" target="blank">Cagnes/Mer</a></li>
+						<li><a href="http://clans.meteo06.fr" target="blank">Clans</a></li>
+						<li><a href="http://gilette.meteo06.fr" target="blank">Gilette</a></li>
+						<li><a href="http://gve-meteo-carlone.unice.fr/" target="blank">Nice-Carlone</a></li>
+						<li><a href="http://smdv.meteo06.fr" target="blank">Saint Martin du Var</a></li>
+						<li class="divider"></li>
+						<li><a href="http://nicemeteo.fr" target="blank">Site de l'association</a></li>
+						<li class="divider"></li>
+						<li><a href="https://www.facebook.com/NiceMeteo/" target="blank">Page Facebook</a></li>
+					</ul>
+				</li>
+				<li><a href="a-propos.php">A propos</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#">Contact</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
