@@ -47,7 +47,7 @@
 				<table class="table table-striped table-bordered table-responsive table-hover">
 					<thead>
 						<tr>
-						<th>Paramètre</th>
+						<th>Paramètres</th>
 						<th>Valeur actuelle</th>
 						<th class="text-info">Mini du jour</th>
 						<th class="text-danger">Maxi du jour</th>
@@ -89,8 +89,27 @@
 						<td><?php echo $minuv; ?> à <?php echo $minuvtime; ?></td>
 						<td><?php echo $maxuv; ?> à <?php echo $maxuvtime; ?></td>
 					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12" align="center">
+				<h3>Précipitations</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12" align="center">
+				<table class="table table-striped table-bordered table-responsive table-hover">
+					<thead>
+						<tr>
+						<th>Paramètres</th>
+						<th>Valeur actuelle</th>
+						<th class="text-info">Mini du jour</th>
+						<th class="text-danger">Maxi du jour</th>
+						</tr>
+					</thead>
 					<tbody>
-						<td>Intensité pluie actuelle</td>
+						<td>Intensité pluie</td>
 						<td><?php echo $rainrate; ?> mm/h</td>
 						<td><?php echo $minrainRate; ?> mm/h à <?php echo $minrainRatetime; ?></td>
 						<td><?php echo $maxrainRate; ?> mm/h à <?php echo $maxrainRatetime; ?></td>
@@ -126,7 +145,7 @@
 				<table class="table table-striped table-bordered table-responsive table-hover">
 					<thead>
 						<tr>
-						<th>Paramètre</th>
+						<th>Paramètres</th>
 						<th>Valeur actuelle</th>
 						<th><span class="text-info">Mini</span>/<span class="text-danger">Maxi</span> du jour</th>
 						</tr>
