@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
-		<title><?php echo $short_station_name; ?> | Tableau semaine</title>
+		<title><?php echo $short_station_name; ?> | Tableau 7 jours</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
