@@ -10,6 +10,10 @@
 
 
 
+### 0.3 -
+* Ajout de paramètres UV et rayonnement dans le fichier de conf, selon si la station est équipée de la sonde ou non
+* Ajout de l'évapotranspiration, mais problème avec son calcul sur la journée
+
 ### 0.2 - 17/10/2016
 * Ajout du fichier de configuration (config.php) incluant les paramètres généraux du site et les paramètres de connexion à la BDD MySQL de Weewx.
 

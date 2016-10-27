@@ -29,10 +29,10 @@
 	$rain = mysql_query("select sum(rain) from $db_name.$db_table where dateTime>'$today';");
 	$he = mysql_fetch_row($rain);
 	$cumul = round($he[0]*10,1);
-	$et = round($row[19],3);
+	$et = round($row[19]*10,3);
 	$etreq = mysql_query("select sum(ET) from $db_name.$db_table where dateTime>'$today';");
 	$etrequ = mysql_fetch_row($etreq);
-	$etcumul = round($etrequ[0],2);
+	$etcumul = round($etrequ[0]*10,2);
 
 	// Calcul des précipitations 24/48/72 heures glissantes
 	// On récupère le timestamp du dernier enregistrement
@@ -138,7 +138,7 @@ if ($presence_radiation == true){
 	// On récupère les valeurs max de l'ET
 	$res = mysql_query("select * from $db_name.archive_day_ET order by dateTime DESC limit 1;") or die(mysql_error());
 	$row = mysql_fetch_row($res);
-	$maxet = round($row[3],1);
+	$maxet = round($row[3]*10,3);
 	$maxettime = date('H\hi',$row[4]);
 };
 
