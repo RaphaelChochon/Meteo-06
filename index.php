@@ -33,7 +33,7 @@
 
 		<!-- DEBUT DU SCRIPT PHP -->
 		<!-- Va permettre de récupérer les dernières valeurs en BDD -->
-		<?php require("sql/req_tableau.php");?>
+		<?php require("sql/req_tableau_jour.php");?>
 		<!-- FIN DU SCRIPT PHP -->
 
 
