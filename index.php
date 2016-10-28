@@ -154,8 +154,6 @@
 				<h3>Indices calculés</h3>
 			</div>
 		</div>
-
-
 		<div class="row">
 			<div class="col-md-12" align="center">
 				<table class="table table-striped table-bordered table-responsive table-hover">

@@ -20,7 +20,6 @@
 	$windgustdir = round($row[13],2);
 	$hygro = round($row[9],1);
 	$barometer = round($row[3],1);
-	if(!$row[21]) {$uv=0;} else {$uv=$row[21];}
 	$radiation = round($row[20],2);
 	$heatindex = round($row[18],1);
 	$windchill = round($row[17],1);
@@ -29,10 +28,17 @@
 	$rain = mysql_query("select sum(rain) from $db_name.$db_table where dateTime>'$today';");
 	$he = mysql_fetch_row($rain);
 	$cumul = round($he[0]*10,1);
+
+if ($presence_uv == true){
+	if(!$row[21]) {$uv=0;} else {$uv=$row[21];}
+};
+
+if ($presence_radiation == true){
 	$et = round($row[19]*10,3);
 	$etreq = mysql_query("select sum(ET) from $db_name.$db_table where dateTime>'$today';");
 	$etrequ = mysql_fetch_row($etreq);
 	$etcumul = round($etrequ[0]*10,2);
+};
 
 	// Calcul des précipitations 24/48/72 heures glissantes
 	// On récupère le timestamp du dernier enregistrement
@@ -108,6 +114,7 @@
 	$maxwindtime = date('H\hi',$row[4]);
 	$maxwinddir = round($row[9],2);
 
+if ($presence_uv == true){
 	// On récupère les valeurs max et min de l'UV
 	$res = mysql_query("select * from $db_name.archive_day_UV order by dateTime DESC limit 1;") or die(mysql_error());
 	$row = mysql_fetch_row($res);
@@ -115,6 +122,7 @@
 	$minuv = round($row[1],1);
 	$maxuv = round($row[3],1);
 	$maxuvtime = date('H\hi',$row[4]);
+};
 
 	// On récupère les valeurs max et min du refroidissement éolien
 	$res = mysql_query("select * from $db_name.archive_day_windchill order by dateTime DESC limit 1;") or die(mysql_error());
