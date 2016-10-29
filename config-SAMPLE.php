@@ -16,7 +16,10 @@
 	Raphaël CHOCHON pour l'association Nice Météo 06
 	http://nicemeteo.fr
 	-------------------------------------------------------------*/
-	$version_site = "0.2"; // DO NOT MODIFY THIS. It is used to know the version of the site installed.
+	require_once("version.php");
+	$version_site = $code_version; // DO NOT MODIFY THIS. It is used to know the version of the site installed.
+	/*-----------------------------------------------------------*/
+
 
 	// CONNECT BDD MySQL WEEWX
 	$server ="localhost"; //localhost or host adress/IP
