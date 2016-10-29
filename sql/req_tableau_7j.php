@@ -96,13 +96,13 @@ if ($presence_radiation == true){
 	$maxradiationtime7j = date('d/m/Y à H\hi',$row[0]);
 
 	// Max évapotranspiration
-	$res=mysql_query("select dateTime, ET from $db_name.$db_table where dateTime >= '$start7j' and dateTime <= '$stop' and ET = (select max(ET) from $db_name.$db_table where dateTime >= '$start7j' and dateTime <= '$stop');") or die (mysql_error());
+	$res=mysql_query("select dateTime, ET from $db_name.$db_table where dateTime >= '$start7j' and dateTime <= '$stop' and dateTime >= '$timestamp_maj_weewx_3_6_0' and ET = (select max(ET) from $db_name.$db_table where dateTime >= '$start7j' and dateTime <= '$stop' and dateTime >= '$timestamp_maj_weewx_3_6_0');") or die (mysql_error());
 	$row = mysql_fetch_row($res);
 	$maxet7j = round($row[1],1);
 	$maxettime7j = date('d/m/Y à H\hi',$row[0]);
 
 	// Cumul évapotranspiration
-	$res = mysql_query("select sum(ET) from $db_name.$db_table where dateTime >= '$start7j' and dateTime <= '$stop';") or die (mysql_error());
+	$res = mysql_query("select sum(ET) from $db_name.$db_table where dateTime >= '$start7j' and dateTime <= '$stop' and dateTime >= '$timestamp_maj_weewx_3_6_0';") or die (mysql_error());
 	$etrequ = mysql_fetch_row($res);
 	$cumulet7j = round($etrequ[0]*10,2);
 };

@@ -62,5 +62,6 @@
 	// SONDES
 	$presence_uv = true; // If true, display values in the tables and charts
 	$presence_radiation = false; // If true, display values in the tables and charts
+	$timestamp_maj_weewx_3_6_0 = "1477605600"; // Before update Weewx 3.6.0 the calcul of ET is wrong. http://www.timestamp.fr/
 
 ?>

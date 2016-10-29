@@ -16,6 +16,7 @@
 * Ajout du modèle de station dans les params et dans le footer
 * Ajout des pages récaps 7 et 30 jours
 * Ajout du paramètre de date de l'installation de la station (de la mise en service de la BDD MySQL Weewx)
+* Ajout du paramètre de date de MAJ vers Weewx 3.6.0. Avant cette date l'ET était mal calculée et est donc inutilisable. On inclus donc ce paramètre dans les requetes des tableaux récaps 7, 30 jours etc... pour ne pas prendre en compte les valeurs avant cette date.
 
 ### 0.2 - 17/10/2016
 * Ajout du fichier de configuration (config.php) incluant les paramètres généraux du site et les paramètres de connexion à la BDD MySQL de Weewx.
