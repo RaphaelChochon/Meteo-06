@@ -22,7 +22,7 @@ enregistrements des dernières 48 heures.
 $path = "../json/";
 
 // appel du script de connexion
-require("connect.php");
+require_once("connect.php");
 
 // On récupère le timestamp du dernier enregistrement
 $sql="select max(dateTime) from $db";

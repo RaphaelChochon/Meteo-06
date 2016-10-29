@@ -1,6 +1,6 @@
 <?php
 	// appel du script de connexion
-	require("connect.php");
+	require_once("connect.php");
 
 	// On récupère le dernier enregistrement, et son datetime
 	$res=mysql_query("select dateTime from $db_name.$db_table order by dateTime desc limit 1;") or die(mysql_error());

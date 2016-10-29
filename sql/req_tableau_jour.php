@@ -1,6 +1,6 @@
 <?php
 	// appel du script de connexion
-	require("connect.php");
+	require_once("connect.php");
 
 	mysql_select_db($db_name);
 
