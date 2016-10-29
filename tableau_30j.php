@@ -88,7 +88,7 @@
 					<tbody>
 						<td>Évapotranspiration</td>
 						<td>Cumul sur 30 jours : <?php echo $cumulet30j; ?> mm</td>
-						<td><?php echo $maxet30j; ?> mm le <?php echo $maxettime30j; ?></td>
+						<td><?php echo $maxet30j; ?> mm/<?php echo $archive_interval; ?>min le <?php echo $maxettime30j; ?></td>
 					</tbody>
 				<?php endif; ?>
 				</table>

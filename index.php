@@ -100,9 +100,9 @@
 					</tbody>
 					<tbody>
 						<td>Évapotranspiration (ET)</td>
-						<td><?php echo $et; ?> mm</td>
+						<td><?php echo $et; ?> mm/<?php echo $archive_interval; ?>min</td>
 						<td>Cumul journée : <?php echo $etcumul; ?> mm</td>
-						<td><?php echo $maxet; ?> mm à <?php echo $maxettime; ?></td>
+						<td><?php echo $maxet; ?> mm/<?php echo $archive_interval; ?>min à <?php echo $maxettime; ?></td>
 					</tbody>
 				<?php endif; ?>
 				</table>
