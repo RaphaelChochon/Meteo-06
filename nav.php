@@ -22,7 +22,7 @@
 						<li><a href="tableau_30j.php">30 jours glissants</a></li>
 						<li><a href="tableau_mois.php">Mois par mois</a></li>
 						<li><a href="tableau_annee.php">Année</a></li>
-						<li><a href="records.php">Records</a></li>
+						<li><a href="tableau_records.php">Records</a></li>
 					</ul>
 				</li>
 				<li><a href="graph_48h.php">Graphiques 48 heures</a></li>

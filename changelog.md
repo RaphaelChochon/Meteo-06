@@ -3,7 +3,6 @@
 ### ToDo
 * Graphiques dynamiques sur 48 heures
 * Graphique Highstock pour consultation des archives au dela des 48 dernières heures
-* Tableau récap (comme sur la page d'accueil) des 7 derniers jours glissants, 30 jours glissants et 365 jours glissants
 * Tableau récap pour chaque mois de l'année, et pour chaque année
 * Remplir la page a-propos.php (a voir comment la remplir avec le fichier de config)
 * Réduire le logo en mode mobile (plutôt que d'en afficher un autre plus petit comme actuellement)
@@ -17,6 +16,7 @@
 * Ajout des pages récaps 7 et 30 jours
 * Ajout du paramètre de date de l'installation de la station (de la mise en service de la BDD MySQL Weewx)
 * Ajout du paramètre de date de MAJ vers Weewx 3.6.0. Avant cette date l'ET était mal calculée et est donc inutilisable. On inclus donc ce paramètre dans les requetes des tableaux récaps 7, 30 jours etc... pour ne pas prendre en compte les valeurs avant cette date.
+* Ajout de la page record
 
 ### 0.2 - 17/10/2016
 * Ajout du fichier de configuration (config.php) incluant les paramètres généraux du site et les paramètres de connexion à la BDD MySQL de Weewx.
