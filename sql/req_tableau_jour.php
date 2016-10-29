@@ -101,8 +101,8 @@ if ($presence_radiation == true){
 	$res = mysql_query("select * from $db_name.archive_day_rainRate order by dateTime DESC limit 1;") or die(mysql_error());
 	$row = mysql_fetch_row($res);
 	$minrainRatetime = date('H\hi',$row[2]);
-	$minrainRate = round($row[1],1);
-	$maxrainRate = round($row[3],1);
+	$minrainRate = round($row[1]*10,1);
+	$maxrainRate = round($row[3]*10,1);
 	$maxrainRatetime = date('H\hi',$row[4]);
 
 	// On récupère les valeurs max et min des rafales de vent

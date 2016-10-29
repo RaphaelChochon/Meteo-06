@@ -111,7 +111,7 @@ if ($presence_radiation == true){
 	// Max précipitations
 	$res=mysql_query("select dateTime, rainRate from $db_name.$db_table where dateTime >= '$start7j' and dateTime <= '$stop' and rainRate = (select max(rainRate) from $db_name.$db_table where dateTime >= '$start7j' and dateTime <= '$stop');") or die (mysql_error());
 	$row = mysql_fetch_row($res);
-	$maxrainrate7j = round($row[1],1);
+	$maxrainrate7j = round($row[1]*10,1);
 	$maxrainratetime7j = date('d/m/Y à H\hi',$row[0]);
 
 	// Cumul précipitations
