@@ -9,7 +9,7 @@
 
 
 
-### 0.3 -
+### 0.3 - 29/10/2016
 * Ajout de paramètres UV et rayonnement dans le fichier de conf, selon si la station est équipée de la sonde ou non
 * Ajout de l'évapotranspiration mais nécéssite Weewx en version minimum 3.6.0 (OK pour Clans en 3.6.1), sinon le cumul journalier est complètement aberrant
 * Ajout du modèle de station dans les params et dans le footer
