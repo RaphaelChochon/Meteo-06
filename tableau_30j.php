@@ -42,7 +42,7 @@
 				<table class="table table-striped table-bordered table-responsive table-hover">
 					<thead>
 						<tr>
-						<th>Paramètres</th>
+						<th>Paramètre</th>
 						<th class="text-info">Mini/30 jours</th>
 						<th class="text-danger">Maxi/30 jours</th>
 						</tr>
@@ -63,7 +63,7 @@
 						<td><?php echo $maxdewpoint30j; ?> °C le <?php echo $maxdewpointtime30j; ?></td>
 					</tbody>
 					<tbody>
-						<td>Pression atmosphérique</td>
+						<td>Pression atmo.</td>
 						<td><?php echo $minbarometer30j; ?> hPa le <?php echo $minbarometertime30j; ?></td>
 						<td><?php echo $maxbarometer30j; ?> hPa le <?php echo $maxbarometertime30j; ?></td>
 					</tbody>
@@ -86,7 +86,7 @@
 						<td><?php echo $maxradiation30j; ?> W/m² le <?php echo $maxradiationtime30j; ?></td>
 					</tbody>
 					<tbody>
-						<td>Évapotranspiration</td>
+						<td>Évapo-transpiration (ET)</td>
 						<td>Cumul sur 30 jours : <?php echo $cumulet30j; ?> mm</td>
 						<td><?php echo $maxet30j; ?> mm/<?php echo $archive_interval; ?>min le <?php echo $maxettime30j; ?></td>
 					</tbody>

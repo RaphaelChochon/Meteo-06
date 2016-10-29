@@ -42,7 +42,7 @@
 				<table class="table table-striped table-bordered table-responsive table-hover">
 					<thead>
 						<tr>
-						<th>Paramètres</th>
+						<th>Paramètre</th>
 						<th class="text-info">Mini/7 jours</th>
 						<th class="text-danger">Maxi/7 jours</th>
 						</tr>
@@ -63,7 +63,7 @@
 						<td><?php echo $maxdewpoint7j; ?> °C le <?php echo $maxdewpointtime7j; ?></td>
 					</tbody>
 					<tbody>
-						<td>Pression atmosphérique</td>
+						<td>Pression atmo.</td>
 						<td><?php echo $minbarometer7j; ?> hPa le <?php echo $minbarometertime7j; ?></td>
 						<td><?php echo $maxbarometer7j; ?> hPa le <?php echo $maxbarometertime7j; ?></td>
 					</tbody>
@@ -86,7 +86,7 @@
 						<td><?php echo $maxradiation7j; ?> W/m² le <?php echo $maxradiationtime7j; ?></td>
 					</tbody>
 					<tbody>
-						<td>Évapotranspiration</td>
+						<td>Évapo-transpiration (ET)</td>
 						<td>Cumul sur 7 jours : <?php echo $cumulet7j; ?> mm</td>
 						<td><?php echo $maxet7j; ?> mm/<?php echo $archive_interval; ?>min le <?php echo $maxettime7j; ?></td>
 					</tbody>

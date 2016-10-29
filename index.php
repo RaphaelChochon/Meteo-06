@@ -72,13 +72,13 @@
 						<td><?php echo $maxdewpoint; ?> °C à <?php echo $maxdewpointtime; ?></td>
 					</tbody>
 					<tbody>
-						<td>Pression atmosphérique</td>
+						<td>Pression atmo.</td>
 						<td><?php echo $barometer; ?> hPa</td>
 						<td><?php echo $minbarometer; ?> hPa à <?php echo $minbarometertime; ?></td>
 						<td><?php echo $maxbarometer; ?> hPa à <?php echo $maxbarometertime; ?></td>
 					</tbody>
 					<tbody>
-						<td>Vitesse du vent (rafale/10min et direction)</td>
+						<td>Vitesse du vent (rafale / 10min et direction)</td>
 						<td><?php echo $wind; ?> km/h (<?php echo $windgust; ?> km/h direction <?php echo $windgustdir; ?> °)</td>
 						<td><?php echo $minwind; ?> km/h à <?php echo $minwindtime; ?></td>
 						<td><?php echo $maxwind; ?> km/h à <?php echo $maxwindtime; ?> (<?php echo $maxwinddir; ?>°)</td>
@@ -99,7 +99,7 @@
 						<td><?php echo $maxradiation; ?> W/m² à <?php echo $maxradiationtime; ?></td>
 					</tbody>
 					<tbody>
-						<td>Évapotranspiration (ET)</td>
+						<td>Évapo-transpiration (ET)</td>
 						<td><?php echo $et; ?> mm/<?php echo $archive_interval; ?>min</td>
 						<td>Cumul journée : <?php echo $etcumul; ?> mm</td>
 						<td><?php echo $maxet; ?> mm/<?php echo $archive_interval; ?>min à <?php echo $maxettime; ?></td>
