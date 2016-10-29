@@ -98,6 +98,12 @@ if ($presence_radiation == true){
 	$maxrainraterec = round($row[0]*10,1);
 	$maxrainratetimerec = date('d/m/Y à H\hi',$row[1]);
 
+	// Jour le plus pluvieux
+	$res=mysql_query("SELECT sum, dateTime FROM $db_name.archive_day_rain WHERE sum = (SELECT max(sum) FROM $db_name.archive_day_rain);") or die (mysql_error());
+	$row = mysql_fetch_row($res);
+	$maxrainrec = round($row[0]*10,1);
+	$maxraintimerec = date('d/m/Y',$row[1]);
+
 
 	// Windchill mini
 	$res=mysql_query("SELECT min, mintime FROM $db_name.archive_day_windchill WHERE min = (SELECT min(min) FROM $db_name.archive_day_windchill);") or die (mysql_error());

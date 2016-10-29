@@ -7,7 +7,8 @@
 * Remplir la page a-propos.php (a voir comment la remplir avec le fichier de config)
 * Réduire le logo en mode mobile (plutôt que d'en afficher un autre plus petit comme actuellement)
 
-
+### 0.4 -
+* Ajout du jour le plus pluvieux dans les records
 
 ### 0.3 - 29/10/2016
 * Ajout de paramètres UV et rayonnement dans le fichier de conf, selon si la station est équipée de la sonde ou non

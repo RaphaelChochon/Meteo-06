@@ -108,6 +108,10 @@
 						<td>Intensité pluie</td>
 						<td><span class="text-danger">Maxi </span><?php echo $maxrainraterec; ?> mm/h le <?php echo $maxrainratetimerec; ?></td>
 					</tbody>
+					<tbody>
+						<td>Jour le plus pluvieux (de minuit à 23h59)</td>
+						<td><?php echo $maxrainrec; ?> mm le <?php echo $maxraintimerec; ?></td>
+					</tbody>
 				</table>
 			</div>
 		</div>
