@@ -6,10 +6,12 @@
 * Tableau récap pour chaque mois de l'année, et pour chaque année
 * Remplir la page a-propos.php (a voir comment la remplir avec le fichier de config)
 * Réduire le logo en mode mobile (plutôt que d'en afficher un autre plus petit comme actuellement)
+* Mettre le logo en paramètre afin de pouvoir personnaliser le site en fonction de la loc
 
 ### 0.4 -
 * Ajout du jour le plus pluvieux dans les records
 * Changement du système de numéro de version du site
+* Récupération du pas de temps de l'archivage dans la colonne "interval" en BDD plutot que de la rentrer manuellement dans le fichier de conf
 
 ### 0.3 - 29/10/2016
 * Ajout de paramètres UV et rayonnement dans le fichier de conf, selon si la station est équipée de la sonde ou non

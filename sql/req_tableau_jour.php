@@ -4,14 +4,6 @@
 
 	mysql_select_db($db_name);
 
-	// On récupère le dernier enregistrement, et son datetime
-	$res=mysql_query("select * from $db_name.$db_table order by dateTime desc limit 1;") or die(mysql_error());
-	$row = mysql_fetch_row($res);
-	$dateTime = $row[0];
-	$date=date('d/m/Y',$dateTime);
-	$heure=date('H\hi',$dateTime);
-
-
 	// On récupère les valeurs actuelles
 	$dewpoint = round($row[16],1);
 	$temp = round($row[7],1);

@@ -2,14 +2,6 @@
 	// appel du script de connexion
 	require_once("connect.php");
 
-	// On récupère le dernier enregistrement, et son datetime
-	$res=mysql_query("select dateTime from $db_name.$db_table order by dateTime desc limit 1;") or die(mysql_error());
-	$row = mysql_fetch_row($res);
-	$dateTime = $row[0];
-	$date=date('d/m/Y',$dateTime);
-	$heure=date('H\hi',$dateTime);
-
-
 	// On récupère le timestamp du dernier enregistrement
 	$sql="select max(dateTime) from $db_name.$db_table";
 	$query=mysql_query($sql);

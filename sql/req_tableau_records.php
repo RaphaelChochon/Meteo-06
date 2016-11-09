@@ -2,13 +2,6 @@
 	// appel du script de connexion
 	require_once("connect.php");
 
-	// On récupère le dernier enregistrement, et son datetime
-	$res=mysql_query("SELECT dateTime FROM $db_name.$db_table ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
-	$row = mysql_fetch_row($res);
-	$dateTime = $row[0];
-	$date=date('d/m/Y',$dateTime);
-	$heure=date('H\hi',$dateTime);
-
 	// Temp mini
 	$res=mysql_query("SELECT min, mintime FROM $db_name.archive_day_outTemp WHERE min = (SELECT min(min) FROM $db_name.archive_day_outTemp);") or die (mysql_error());
 	$row = mysql_fetch_row($res);
