@@ -18,6 +18,7 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tableaux récap.<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
+						<li><a href="tableau_hier.php">Hier</a></li>
 						<li><a href="tableau_7j.php">7 jours glissants</a></li>
 						<li><a href="tableau_30j.php">30 jours glissants</a></li>
 						<li><a href="tableau_mois.php">Mois par mois</a></li>

@@ -12,6 +12,7 @@
 * Ajout du jour le plus pluvieux dans les records
 * Changement du système de numéro de version du site
 * Récupération du pas de temps de l'archivage dans la colonne "interval" en BDD plutot que de la rentrer manuellement dans le fichier de conf
+* Ajout d'une page tableau récap pour la veille "tableau_hier.php"
 
 ### 0.3 - 29/10/2016
 * Ajout de paramètres UV et rayonnement dans le fichier de conf, selon si la station est équipée de la sonde ou non
