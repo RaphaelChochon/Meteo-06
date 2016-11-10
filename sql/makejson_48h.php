@@ -21,8 +21,11 @@ enregistrements des dernières 48 heures.
 // Chemin d'export des fichiers JSON
 $path = "../json/";
 
-// appel du script de connexion
-require_once("connect.php");
+// appel du script de config et connexion à la BDD
+require_once('../config.php');
+	$db=$db_name.".".$db_table;
+	mysql_connect($server,$user,$pass) or die ("Erreur SQL : ".mysql_error() );
+
 
 // On récupère le timestamp du dernier enregistrement
 $sql="select max(dateTime) from $db";
