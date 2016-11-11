@@ -34,6 +34,8 @@
 	$station_model = "Oregon Scientific WMR200"; //Station model : Oregon Scientific WMR200, WMR88 ; Davis VP2 etc.
 	$date_install_station = "01/01/1970"; // Start of the database MySQL Weewx, at format dd/mm/aaaa
 	$name_manager_footer = "l'association Nice Météo 06"; // Manager name or association maintaining station
+	$name_manager_graph = "Association Nice Météo 06"; // Name which appears in the charts
+	$site_manager_graph = "http://nicemeteo06.fr"; // URL of site on click to the name manager in the charts
 	$contact_mail_footer = "nice.meteo06[at]example.com"; // mail address to contact the station manager
 
 	// WEBCAM

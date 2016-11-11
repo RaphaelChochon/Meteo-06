@@ -85,8 +85,8 @@
 						x: -20
 					},
 					credits: {
-						text: 'Association Nice Météo 06',
-						href: 'http://nicemeteo.fr'
+						text: '<?php echo $name_manager_graph; ?>',
+						href: '<?php echo $site_manager_graph; ?>'
 					},
 					xAxis: {
 						type: 'datetime',
