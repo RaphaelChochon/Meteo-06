@@ -21,11 +21,14 @@ enregistrements des dernières 48 heures.
 // Chemin d'export des fichiers JSON
 $path = "../json/";
 
-// appel du script de connexion
-require_once("connect.php");
+// appel du script de config et connexion à la BDD
+require_once('../config.php');
+	$db=$db_name.".".$db_table;
+	mysql_connect($server,$user,$pass) or die ("Erreur SQL : ".mysql_error() );
+
 
 // On récupère le timestamp du dernier enregistrement
-$sql="select max(dateTime) from $db";
+$sql="SELECT max(dateTime) FROM $db";
 $query=mysql_query($sql);
 $list=mysql_fetch_array($query);
 
@@ -33,16 +36,29 @@ $list=mysql_fetch_array($query);
 $stop=$list[0];
 $start48=$stop-(86400*2);
 
-//temperature
-$json_temp = "[";
-$res=mysql_query("select datetime, IFNULL(outTemp,'null') as outTemp from $db where dateTime >= '$start48' and dateTime <= '$stop' order by 1;");
+
+//time
+$json_time = "[";
+$res=mysql_query("SELECT datetime FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;");
 $i=0;
 while($row=mysql_fetch_row($res)) {
 	$when=$row[0];
-		$temp = $row[1];
 		if(is_int($i)) {
 			$timestamp=$when*1000;
-			$json_temp.= "[$temp],\n";
+			$json_time.= "$timestamp,";
+		}
+		$i++;
+}
+$json_time.="]";
+
+//temperature
+$json_temp = "[";
+$res=mysql_query("SELECT datetime, IFNULL(outTemp,'null') AS outTemp FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;");
+$i=0;
+while($row=mysql_fetch_row($res)) {
+		$temp = $row[1];
+		if(is_int($i)) {
+			$json_temp.= "$temp,";
 		}
 		$i++;
 }
@@ -50,14 +66,12 @@ $json_temp.="]";
 
 //temp rose
 $json_rose = "[";
-$res=mysql_query("select datetime,dewpoint from $db where dateTime >= '$start48' and dateTime <= '$stop' order by 1;");
+$res=mysql_query("SELECT datetime, IFNULL(dewpoint,'null') AS dewpoint FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;");
 $i=0;
 while($row=mysql_fetch_row($res)) {
-		$when=$row[0];
+		$rose = $row[1];
 		if(is_int($i)) {
-			$temp = round($row[1],1);
-			$timestamp=$when*1000;
-			$json_rose.= "[$timestamp,$temp],\n";
+			$json_rose.= "$rose,";
 		}
 		$i++;
 }
@@ -65,14 +79,12 @@ $json_rose.="]";
 
 //barometre
 $json_baro = "[";
-$res=mysql_query("select datetime,barometer from $db where dateTime >= '$start48' and dateTime <= '$stop' order by 1;;");
+$res=mysql_query("SELECT datetime, IFNULL(barometer,'null') AS barometer FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;;");
 $i=0;
 while($row=mysql_fetch_row($res)) {
-		$timestamp=$row[0];
-		$timestamp=$timestamp*1000;
-		$data=round($row[1],1);
+		$barometer= $row[1];
 		if (is_int($i)) {
-		$json_baro.= "[$timestamp,$data],\n";
+			$json_baro.= "$barometer,";
 		}
 		$i++;
 }
@@ -80,14 +92,12 @@ $json_baro.="]";
 
 //hygro
 $json_hygro = "[";
-$res=mysql_query("select datetime,outHumidity from $db where dateTime >= '$start48' and dateTime <= '$stop' order by 1;");
+$res=mysql_query("SELECT datetime, IFNULL(outHumidity,'null') AS outHumidity FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;");
 $i=0;
 while($row=mysql_fetch_row($res)) {
-		$timestamp=$row[0];
-		$timestamp=$timestamp*1000;
-		$data=round($row[1],0);
+		$hygro= $row[1];
 		if (is_int($i)) {
-		$json_hygro.= "[$timestamp,$data],\n";
+			$json_hygro.= "$hygro,";
 		}
 		$i++;
 }
@@ -95,28 +105,24 @@ $json_hygro.="]";
 
 //vent
 $json_vent = "[";
-$res=mysql_query("select datetime,WindSpeed from $db where dateTime >= '$start48' and dateTime <= '$stop' order by 1;");
+$res=mysql_query("SELECT datetime, IFNULL(windSpeed,'null') AS windSpeed FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;");
 $i=0;
 while($row=mysql_fetch_row($res)) {
-		$timestamp=$row[0];
-		$timestamp=$timestamp*1000;
-		$vent=round($row[1],1);
+		$vent=$row[1];
 		if(is_int($i)) {
-		$json_vent.= "[$timestamp,$vent],\n";
+			$json_vent.= "$vent,";
 		}
 		$i++;
 }
 $json_vent.="]";
 
 $json_rafales = "[";
-$res=mysql_query("select datetime,WindGust from $db where dateTime >= '$start48' and dateTime <= '$stop' order by 1;");
+$res=mysql_query("SELECT datetime, IFNULL(windGust,'null') AS windGust FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;");
 $i=0;
 while($row=mysql_fetch_row($res)) {
-		$timestamp=$row[0];
-		$timestamp=$timestamp*1000;
-		$vent=round($row[1],1);
+		$vent=$row[1];
 		if(is_int($i)) {
-		$json_rafales.= "[$timestamp,$vent],\n";
+			$json_rafales.= "$vent,";
 		}
 		$i++;
 }
@@ -124,6 +130,11 @@ $json_rafales.="]";
 
 
 //write files
+$file = $path."time_48h.json";
+$fp=fopen($file,'w');
+fwrite($fp,$json_time);
+fclose($fp);
+
 $file = $path."vent_48h.json";
 $fp=fopen($file,'w');
 fwrite($fp,$json_vent);
