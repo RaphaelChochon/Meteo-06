@@ -137,7 +137,7 @@ while($row=mysql_fetch_row($res)) {
 		if ($rain == 'null') {
 			$rain2 = 'null';
 		}else{
-			$rain2 = rain * 10;
+			$rain2 = $rain * 10;
 		}
 		if(is_int($i)) {
 			$json_precip.= "$rain2,";
