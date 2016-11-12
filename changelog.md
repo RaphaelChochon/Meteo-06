@@ -18,6 +18,7 @@
 * Ajout en paramètres de nom et de l'URL de l'asso qui apparait dans les crédits des graphiques
 * Ajout de quelques paramètres supplémentaires dans le makejson_48h
 * Ajout de graphiques highcharts sur 48 heures (Température-Humidité, Pression, Précipitations, UV, Rayonnement solaire)
+* Ajout plotBands et plotLines à minuit sur graph de temp
 
 ### 0.3 - 29/10/2016
 * Ajout de paramètres UV et rayonnement dans le fichier de conf, selon si la station est équipée de la sonde ou non

@@ -46,6 +46,10 @@
 			eval('var data_et = <?php include 'json/et_48h.json' ?>');
 		<?php endif; ?>
 
+		<?php require_once 'sql/req_graph_48h.php' ?>
+		eval('var minuit = <?php echo $minuit; ?>');
+		eval('var debut = <?php echo $debut; ?>');
+		eval('var minuit_hier = <?php echo $minuit_hier; ?>');
 
 		function comArr(unitsArray) {
 			var outarr = [];
@@ -106,7 +110,42 @@
 					},
 					xAxis: {
 						type: 'datetime',
+						dateTimeLabelFormats: {day: '%H:%M', hour: '%H:%M'},
+						tickInterval: 7200*1000,
 						crosshair: true,
+						plotBands: [{
+							color: '#e0ffff',
+							from: debut,
+							to: minuit,
+						}],
+						plotLines: [{
+							value: minuit,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							label: {
+								text: 'minuit',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: minuit_hier,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						}],
 						//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 					},
 					yAxis: [{
