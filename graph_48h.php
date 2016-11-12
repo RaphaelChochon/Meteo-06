@@ -845,23 +845,43 @@
 		<!-- DEBUT DU CORPS DE PAGE -->
 		<div class="row">
 			<div class="col-md-12" align="center">
-				<div id="graph_temp_hygro" style="width:100%; height:400px;"></div>
-				<br>
-				<div id="graph_pression" style="width:100%; height:400px;"></div>
-				<br>
-				<div id="graph_precip" style="width:100%; height:400px;"></div>
-				<?php if ($presence_uv == true) : ?>
-					<br>
-					<div id="graph_uv" style="width:100%; height:400px;"></div>
-				<?php endif; ?>
-				<?php if ($presence_radiation == true) : ?>
-					<br>
-					<div id="graph_rad" style="width:100%; height:400px;"></div>
-					<br>
-					<div id="graph_et" style="width:100%; height:400px;"></div>
-				<?php endif; ?>
+				<div id="graph_temp_hygro" style="width:100%; height: 400px;"></div>
 			</div>
 		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-12" align="center">
+				<div id="graph_pression" style="width:100%; height:400px;"></div>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-12" align="center">
+				<div id="graph_precip" style="width:100%; height:400px;"></div>
+			</div>
+		</div>
+		<?php if ($presence_uv == true) : ?>
+		<hr>
+		<div class="row">
+			<div class="col-md-12" align="center">
+				<div id="graph_uv" style="width:100%; height:400px;"></div>
+			</div>
+		</div>
+		<?php endif; ?>
+		<?php if ($presence_radiation == true) : ?>
+		<hr>
+		<div class="row">
+			<div class="col-md-12" align="center">
+				<div id="graph_rad" style="width:100%; height:400px;"></div>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-12" align="center">
+				<div id="graph_et" style="width:100%; height:400px;"></div>
+			</div>
+		</div>
+		<?php endif; ?>
 
 
 
