@@ -27,10 +27,9 @@
 		<nav>
 			<?php include 'nav.php';?>
 		</nav>
-
-		<!--
-			DEBUT SCRIPT HIGHCHARTS
-		-->
+	<!--
+		DEBUT SCRIPT HIGHCHARTS
+	-->
 		<script>
 		eval('var time = <?php include 'json/time_48h.json' ?>');
 		eval('var data_outTemp = <?php include 'json/temperature_48h.json' ?>');
@@ -53,7 +52,9 @@
 		eval('var minuit = <?php echo $minuit; ?>');
 		eval('var debut = <?php echo $debut; ?>');
 		eval('var minuit_hier = <?php echo $minuit_hier; ?>');
-
+/*
+	FONCTION TIME
+ */
 		function comArr(unitsArray) {
 			var outarr = [];
 			for (var i = 0; i < time.length; i++) {
@@ -61,10 +62,9 @@
 			}
 			return outarr;
 		}
-
-
-
-
+/*
+	DEBUT GRAPHS
+ */
 			$(function () {
 				Highcharts.setOptions({
 					global: {
@@ -149,7 +149,6 @@
 								x: 12,
 							}
 						}],
-						//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 					},{ // Axe esclave
 						type: 'datetime',
 						linkedTo: 0,
@@ -242,7 +241,6 @@
 						visible: false,
 					}]
 				});
-
 /*
 	START GRAPH pression
  */
@@ -306,7 +304,6 @@
 								x: 12,
 							}
 						}],
-						//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 					},{ // Axe esclave
 						type: 'datetime',
 						linkedTo: 0,
@@ -355,8 +352,6 @@
 						//zIndex: 1,
 					}]
 				});
-
-
 /*
 	START GRAPH VENT
  */
@@ -420,7 +415,6 @@
 								x: 12,
 							}
 						}],
-						//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 					},{ // Axe esclave
 						type: 'datetime',
 						linkedTo: 0,
@@ -477,8 +471,6 @@
 					}],
 					tooltip: {
 						shared: true,
-						//pointFormat: '<span style="color:{series.color}">{series.name} :</span> <b>{point.y}</b><br/>',
-						//valueSuffix: '°C',
 						valueDecimals: 1,
 						formatter: function() {
 							var s = '<b>'+ Highcharts.dateFormat('%e %B à %H:%M', this.x) +'</b>';
@@ -537,8 +529,6 @@
 						visible:false,
 					}]
 				});
-
-
 /*
 	START GRAPH precip
  */
@@ -602,7 +592,6 @@
 								x: 12,
 							}
 						}],
-						//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 					},{ // Axe esclave
 						type: 'datetime',
 						linkedTo: 0,
@@ -625,12 +614,6 @@
 						lineColor: '#4169e1',
 						lineWidth: 1,
 						min:0,
-						//minRange : 0.1,
-						//max:1,
-						//softMin:0,
-						//softMax:1,
-						//tickAmount: 1,
-						//softThreshold: false,
 						title: {
 							text: 'Précipitations (mm)',
 							style: {
@@ -658,8 +641,6 @@
 						//zIndex: 1,
 					}]
 				});
-
-
 <?php if ($presence_uv == true) : ?>
 /*
 	START GRAPH UV
@@ -724,7 +705,6 @@
 								x: 12,
 							}
 						}],
-						//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 					},{ // Axe esclave
 						type: 'datetime',
 						linkedTo: 0,
@@ -747,12 +727,6 @@
 						lineColor: '#ff7200',
 						lineWidth: 1,
 						min:0,
-						//minRange : 0.1,
-						//max:1,
-						//softMin:0,
-						//softMax:1,
-						//tickAmount: 1,
-						//softThreshold: false,
 						title: {
 							text: 'Indice UV',
 							style: {
@@ -846,7 +820,6 @@
 								x: 12,
 							}
 						}],
-						//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 					},{ // Axe esclave
 						type: 'datetime',
 						linkedTo: 0,
@@ -869,12 +842,6 @@
 						lineColor: '#e5d42b',
 						lineWidth: 1,
 						min:0,
-						//minRange : 0.1,
-						//max:1,
-						//softMin:0,
-						//softMax:1,
-						//tickAmount: 1,
-						//softThreshold: false,
 						title: {
 							text: 'Rayonnement solaire (W/m²)',
 							style: {
@@ -965,7 +932,6 @@
 								x: 12,
 							}
 						}],
-						//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 					},{ // Axe esclave
 						type: 'datetime',
 						linkedTo: 0,
@@ -988,12 +954,6 @@
 						lineColor: '#e5d42b',
 						lineWidth: 1,
 						min:0,
-						//minRange : 0.1,
-						//max:1,
-						//softMin:0,
-						//softMax:1,
-						//tickAmount: 1,
-						//softThreshold: false,
 						title: {
 							text: 'Évapotranspiration (mm/<?php echo $archive_interval; ?> min)',
 							style: {
@@ -1022,29 +982,14 @@
 					}]
 				});
 <?php endif; ?>
-
-
-
+/*
+	FIN DES GRAPHS
+ */
 			});
-
-
-
-
-
-
-
-
 		</script>
-
-		<!--
-			FIN SCRIPT HIGHCHARTS
-		-->
-
-
-
-
-
-
+<!--
+	FIN SCRIPT HIGHCHARTS
+-->
 
 		<!-- DEBUT DU CORPS DE PAGE -->
 		<div class="row">
@@ -1092,8 +1037,6 @@
 			</div>
 		</div>
 		<?php endif; ?>
-
-
 
 	<footer>
 		<?php include 'foot.php';?>
