@@ -225,6 +225,7 @@
 						connectNulls: true,
 						zIndex: 1,
 						color: '#ff0000',
+						negativeColor:'#0d1cc5',
 					},{
 						name: 'Humidité',
 						type: 'area',
