@@ -1,7 +1,6 @@
 ## Changelog Meteo 06
 
 ### ToDo
-* Graphiques dynamiques sur 48 heures
 * Graphique Highstock pour consultation des archives au dela des 48 dernières heures
 * Tableau récap pour chaque mois de l'année, et pour chaque année
 * Remplir la page a-propos.php (a voir comment la remplir avec le fichier de config)
@@ -17,8 +16,9 @@
 * Ajout d'une page tableau récap pour la veille "tableau_hier.php"
 * Ajout en paramètres de nom et de l'URL de l'asso qui apparait dans les crédits des graphiques
 * Ajout de quelques paramètres supplémentaires dans le makejson_48h
-* Ajout de graphiques highcharts sur 48 heures (Température-Humidité, Pression, Précipitations, UV, Rayonnement solaire)
+* Ajout de graphiques highcharts sur 48 heures (Température-Humidité, Pression, Vent, Précipitations, UV, Rayonnement solaire, Évapotranspiration)
 * Ajout plotBands et plotLines à minuit sur graph de temp
+* Bannière informative en page d'accueil en paramètres, activable et modifiable à souhait.
 
 ### 0.3 - 29/10/2016
 * Ajout de paramètres UV et rayonnement dans le fichier de conf, selon si la station est équipée de la sonde ou non
