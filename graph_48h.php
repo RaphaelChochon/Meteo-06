@@ -269,7 +269,7 @@
 						crosshair: true,
 						plotBands: [{
 							color: '#e0ffff',
-							from: debut,
+							from: minuit_hier,
 							to: minuit,
 						}],
 						plotLines: [{
@@ -379,7 +379,7 @@
 						crosshair: true,
 						plotBands: [{
 							color: '#e0ffff',
-							from: debut,
+							from: minuit_hier,
 							to: minuit,
 						}],
 						plotLines: [{
@@ -498,7 +498,7 @@
 						crosshair: true,
 						plotBands: [{
 							color: '#e0ffff',
-							from: debut,
+							from: minuit_hier,
 							to: minuit,
 						}],
 						plotLines: [{
@@ -617,7 +617,7 @@
 						crosshair: true,
 						plotBands: [{
 							color: '#e0ffff',
-							from: debut,
+							from: minuit_hier,
 							to: minuit,
 						}],
 						plotLines: [{
@@ -733,7 +733,7 @@
 						crosshair: true,
 						plotBands: [{
 							color: '#e0ffff',
-							from: debut,
+							from: minuit_hier,
 							to: minuit,
 						}],
 						plotLines: [{
