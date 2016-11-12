@@ -9,7 +9,7 @@
 * Favicon
 * Piwik en params
 
-### 0.4 -
+### 0.4 - 12/11/2016
 * Ajout du jour le plus pluvieux dans les records
 * Changement du système de numéro de version du site
 * Récupération du pas de temps de l'archivage dans la colonne "interval" en BDD plutot que de la rentrer manuellement dans le fichier de conf
