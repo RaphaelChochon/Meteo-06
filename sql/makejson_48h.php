@@ -189,6 +189,19 @@ if ($presence_radiation == true){
 	$json_ET.="]";
 };
 
+//DIRECTION VENT
+$json_dir_vent = "[";
+	$res=mysql_query("SELECT datetime, IFNULL(windDir,'null') AS winDir FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;");
+	$i=0;
+	while($row=mysql_fetch_row($res)) {
+			$dir_vent = $row[1];
+			if(is_int($i)) {
+				$json_dir_vent.= "$dir_vent,";
+			}
+			$i++;
+	}
+$json_dir_vent.="]";
+
 //write files
 $file = $path."time_48h.json";
 $fp=fopen($file,'w');
@@ -248,5 +261,10 @@ if ($presence_radiation == true){
 	fwrite($fp,$json_ET);
 	fclose($fp);
 };
+
+$file = $path."dir_vent_48h.json";
+$fp=fopen($file,'w');
+fwrite($fp,$json_dir_vent);
+fclose($fp);
 
 ?>

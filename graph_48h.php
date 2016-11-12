@@ -37,6 +37,9 @@
 		eval('var data_hygro = <?php include 'json/hygrometrie_48h.json' ?>');
 		eval('var data_rosee = <?php include 'json/rosee_48h.json' ?>');
 		eval('var data_pression = <?php include 'json/pression_48h.json' ?>');
+		eval('var data_vent = <?php include 'json/vent_48h.json' ?>');
+		eval('var data_rafales = <?php include 'json/rafales_48h.json' ?>');
+		eval('var data_dir_vent = <?php include 'json/dir_vent_48h.json' ?>');
 		eval('var data_precip = <?php include 'json/precipitations_48h.json' ?>');
 		<?php if ($presence_uv == true) : ?>
 			eval('var data_uv = <?php include 'json/uv_48h.json' ?>');
@@ -90,7 +93,7 @@
 					chart: {
 						type : 'line',
 						zoomType: 'x',
-						alignTicks: false,
+						//alignTicks: false,
 					},
 					title: {
 						text: 'Température et humidité des dernières 48 heures',
@@ -346,6 +349,186 @@
 						//zIndex: 1,
 					}]
 				});
+
+
+/*
+	START GRAPH VENT
+ */
+				var vent = Highcharts.chart ('graph_vent', {
+					chart: {
+						type : 'line',
+						zoomType: 'x',
+						//alignTicks: false,
+					},
+					title: {
+						text: 'Vent des dernières 48 heures',
+						//x: -20 //center
+					},
+					subtitle: {
+						text: 'Station <?php echo $station_name; ?>',
+						//x: -20
+					},
+					credits: {
+						text: '<?php echo $name_manager_graph; ?>',
+						href: '<?php echo $site_manager_graph; ?>'
+					},
+					exporting: {
+						filename: '<?php echo $short_station_name; ?> Vent',
+						//scale: 2,
+					},
+					xAxis: [{
+						type: 'datetime',
+						dateTimeLabelFormats: {day: '%H:%M', hour: '%H:%M'},
+						tickInterval: 7200*1000,
+						crosshair: true,
+						plotBands: [{
+							color: '#e0ffff',
+							from: minuit_hier,
+							to: minuit,
+						}],
+						plotLines: [{
+							value: minuit,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							label: {
+								text: 'minuit',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: minuit_hier,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						}],
+						//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+					},{ // Axe esclave
+						type: 'datetime',
+						linkedTo: 0,
+						//opposite: true,
+						tickInterval: 7200 * 1000 * 8,
+						labels: {
+							align:"center",
+							formatter: function () {
+								return Highcharts.dateFormat('%A', this.value);
+							}
+						}
+					}],
+					yAxis: [{
+						// Axe 0
+						//className: 'highcharts-color-0',
+						//crosshair:true,
+						lineColor: '#3399FF',
+						lineWidth: 1,
+						min:0,
+						title: {
+							text: 'Vitesse (km/h)',
+							style: {
+								"color": "#3399FF",
+							},
+						},
+						labels:{
+							style: {
+								"color": "#3399FF",
+							},
+						},
+					},{
+						opposite:true,
+						reversed:true,
+						max : 360,
+						min: 0,
+						categories: ['Nord','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','N-E','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','Est','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','S-E','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','Sud','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','S-O','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','Ouest','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','N-O','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''],
+							endOnTick: true,
+							tickInterval:45,
+							minorTickInterval:45,
+							title: {
+							text: 'Direction moyenne',
+								style: {
+									"color": "#9400d3",
+								},
+							},
+							labels:{
+								style: {
+									"color": "#9400d3",
+								},
+							},
+					}],
+					tooltip: {
+						shared: true,
+						//pointFormat: '<span style="color:{series.color}">{series.name} :</span> <b>{point.y}</b><br/>',
+						//valueSuffix: '°C',
+						valueDecimals: 1,
+						formatter: function() {
+							var s = '<b>'+ Highcharts.dateFormat('%e %B à %H:%M', this.x) +'</b>';
+							$.each(this.points, function(i, point) {
+								var unit = {
+									'Vent moyen': ' km/h',
+									'Rafales': ' km/h',
+									'Direction moyenne': '',
+								}[this.point.series.name];
+								s = s + '<br>' + '<span style="color:'+ point.series.color +'">' + point.series.name + '</span> : <b>'+Highcharts.numberFormat(point.y,1,","," ") + unit + '</b>';
+							});
+						return s;
+						},
+					},
+					plotOptions: {
+						series: {
+							marker: {
+								enabled: false
+							}
+						}
+					},
+					series: [{
+						name: 'Vent moyen',
+						type: 'area',
+						lineColor: 'rgba(51,153,255,0.75)',
+						fillColor: 'rgba(51,153,255,0.5)',
+						//lineWidth: 0.5,
+						//fillOpacity:0.2,
+						data: comArr(data_vent),
+						connectNulls: true,
+						//zIndex: 1,
+					},{
+						name: 'Rafales',
+						type: 'spline',
+						color: 'rgba(255,0,0,0.65)',
+						//lineWidth: '0.2',
+						data: comArr(data_rafales),
+						connectNulls: true,
+						//zIndex: 2,
+					},{
+						name: 'Direction moyenne',
+						type: 'scatter',
+						data: comArr(data_dir_vent),
+						connectNulls: true,
+						zIndex: 1,
+						yAxis: 1,
+						color:'rgba(148,0,211,0.75)',
+						marker: {
+							symbol: 'circle',
+							enabled: true,
+							lineWidth: 0,
+							radius:2,
+							color:'rgba(148,0,211,0.75)',
+							//fillColor: '#9400d3',
+						},
+						visible:false,
+					}]
+				});
+
 
 /*
 	START GRAPH precip
@@ -852,6 +1035,12 @@
 		<div class="row">
 			<div class="col-md-12" align="center">
 				<div id="graph_pression" style="width:100%; height:400px;"></div>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-12" align="center">
+				<div id="graph_vent" style="width:100%; height:400px;"></div>
 			</div>
 		</div>
 		<hr>
