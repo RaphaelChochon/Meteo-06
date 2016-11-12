@@ -158,7 +158,7 @@
 						labels: {
 							align:"center",
 							formatter: function () {
-								return Highcharts.dateFormat('%A', this.value);
+								return Highcharts.dateFormat('%a %e %b', this.value);
 							}
 						}
 					}],
