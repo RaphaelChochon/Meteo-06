@@ -181,8 +181,13 @@ if ($presence_radiation == true){
 	$i=0;
 	while($row=mysql_fetch_row($res)) {
 			$et = $row[1];
+			if ($et == 'null') {
+				$et2 = 'null';
+			}else{
+				$et2 = $et * 10;
+			}
 			if(is_int($i)) {
-				$json_ET.= "$et,";
+				$json_ET.= "$et2,";
 			}
 			$i++;
 	}
