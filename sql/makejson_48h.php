@@ -79,7 +79,7 @@ $json_rose.="]";
 
 //barometre
 $json_baro = "[";
-$res=mysql_query("SELECT datetime, IFNULL(barometer,'null') AS barometer FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;;");
+$res=mysql_query("SELECT datetime, IFNULL(barometer,'null') AS barometer FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;");
 $i=0;
 while($row=mysql_fetch_row($res)) {
 		$barometer= $row[1];
@@ -128,6 +128,66 @@ while($row=mysql_fetch_row($res)) {
 }
 $json_rafales.="]";
 
+//precipitations
+$json_precip = "[";
+$res=mysql_query("SELECT datetime, IFNULL(rain,'null') AS rain FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;");
+$i=0;
+while($row=mysql_fetch_row($res)) {
+		$rain = $row[1];
+		if ($rain == 'null') {
+			$rain2 = 'null';
+		}else{
+			$rain2 = rain * 10;
+		}
+		if(is_int($i)) {
+			$json_precip.= "$rain2,";
+		}
+		$i++;
+}
+$json_precip.="]";
+
+if ($presence_uv == true){
+	//UV
+	$json_uv = "[";
+	$res=mysql_query("SELECT datetime, IFNULL(UV,'null') AS UV FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;");
+	$i=0;
+	while($row=mysql_fetch_row($res)) {
+			$uv = $row[1];
+			if(is_int($i)) {
+				$json_uv.= "$uv,";
+			}
+			$i++;
+	}
+	$json_uv.="]";
+};
+
+if ($presence_radiation == true){
+	//RADIATION
+	$json_radiation = "[";
+	$res=mysql_query("SELECT datetime, IFNULL(radiation,'null') AS radiation FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;");
+	$i=0;
+	while($row=mysql_fetch_row($res)) {
+			$rad = $row[1];
+			if(is_int($i)) {
+				$json_radiation.= "$rad,";
+			}
+			$i++;
+	}
+	$json_radiation.="]";
+
+	//ET
+	$json_ET = "[";
+	$res=mysql_query("SELECT datetime, IFNULL(ET,'null') AS ET FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;");
+	$i=0;
+	while($row=mysql_fetch_row($res)) {
+			$et = $row[1];
+			if(is_int($i)) {
+				$json_ET.= "$et,";
+			}
+			$i++;
+	}
+	$json_ET.="]";
+};
 
 //write files
 $file = $path."time_48h.json";
@@ -164,5 +224,29 @@ $file = $path."rosee_48h.json";
 $fp=fopen($file,'w');
 fwrite($fp,$json_rose);
 fclose($fp);
+
+$file = $path."precipitations_48h.json";
+$fp=fopen($file,'w');
+fwrite($fp,$json_precip);
+fclose($fp);
+
+if ($presence_uv == true){
+	$file = $path."uv_48h.json";
+	$fp=fopen($file,'w');
+	fwrite($fp,$json_uv);
+	fclose($fp);
+};
+
+if ($presence_radiation == true){
+	$file = $path."radiation_48h.json";
+	$fp=fopen($file,'w');
+	fwrite($fp,$json_radiation);
+	fclose($fp);
+
+	$file = $path."et_48h.json";
+	$fp=fopen($file,'w');
+	fwrite($fp,$json_ET);
+	fclose($fp);
+};
 
 ?>

@@ -4,3 +4,4 @@ sql/makejson_last.php
 vendors/bootstrap-3.3.7/*
 webcam/*
 json/*
+vendors/custom/charts.css
