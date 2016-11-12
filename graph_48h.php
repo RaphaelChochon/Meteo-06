@@ -1079,7 +1079,7 @@
 	</footer>
 	</div>
 	<!--<link href="vendors/custom/charts.css" rel="stylesheet">-->
-	<!-- <link href="https://code.highcharts.com/css/highcharts.css" rel="stylesheet"> -->
+	<link href="https://code.highcharts.com/css/highcharts.css" rel="stylesheet">
 	<link href="vendors/bootswatch-flatly/bootstrap.min.css" rel="stylesheet">
 	<link href="vendors/custom/custom.css" rel="stylesheet">
 	<script src="vendors/bootstrap/js/bootstrap.min.js"></script>
