@@ -90,7 +90,7 @@
 					chart: {
 						type : 'line',
 						zoomType: 'x',
-						//alignTicks: false,
+						alignTicks: false,
 					},
 					title: {
 						text: 'Température et humidité des dernières 48 heures',
@@ -108,14 +108,14 @@
 						filename: '<?php echo $short_station_name; ?> Temperature',
 						//scale: 2,
 					},
-					xAxis: {
+					xAxis: [{
 						type: 'datetime',
 						dateTimeLabelFormats: {day: '%H:%M', hour: '%H:%M'},
 						tickInterval: 7200*1000,
 						crosshair: true,
 						plotBands: [{
 							color: '#e0ffff',
-							from: debut,
+							from: minuit_hier,
 							to: minuit,
 						}],
 						plotLines: [{
@@ -147,7 +147,18 @@
 							}
 						}],
 						//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-					},
+					},{ // Axe esclave
+						type: 'datetime',
+						linkedTo: 0,
+						//opposite: true,
+						tickInterval: 7200 * 1000 * 8,
+						labels: {
+							align:"center",
+							formatter: function () {
+								return Highcharts.dateFormat('%A', this.value);
+							}
+						}
+					}],
 					yAxis: [{
 						// Axe 0
 						//className: 'highcharts-color-0',
@@ -251,11 +262,57 @@
 						filename: '<?php echo $short_station_name; ?> Pression',
 						//scale: 2,
 					},
-					xAxis: {
+					xAxis: [{
 						type: 'datetime',
+						dateTimeLabelFormats: {day: '%H:%M', hour: '%H:%M'},
+						tickInterval: 7200*1000,
 						crosshair: true,
+						plotBands: [{
+							color: '#e0ffff',
+							from: debut,
+							to: minuit,
+						}],
+						plotLines: [{
+							value: minuit,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							label: {
+								text: 'minuit',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: minuit_hier,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						}],
 						//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-					},
+					},{ // Axe esclave
+						type: 'datetime',
+						linkedTo: 0,
+						//opposite: true,
+						tickInterval: 7200 * 1000 * 8,
+						labels: {
+							align:"center",
+							formatter: function () {
+								return Highcharts.dateFormat('%A', this.value);
+							}
+						}
+					}],
 					yAxis: {
 						// Axe 0
 						//className: 'highcharts-color-0',
@@ -315,11 +372,57 @@
 						filename: '<?php echo $short_station_name; ?> Precipitations',
 						//scale: 2,
 					},
-					xAxis: {
+					xAxis: [{
 						type: 'datetime',
+						dateTimeLabelFormats: {day: '%H:%M', hour: '%H:%M'},
+						tickInterval: 7200*1000,
 						crosshair: true,
+						plotBands: [{
+							color: '#e0ffff',
+							from: debut,
+							to: minuit,
+						}],
+						plotLines: [{
+							value: minuit,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							label: {
+								text: 'minuit',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: minuit_hier,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						}],
 						//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-					},
+					},{ // Axe esclave
+						type: 'datetime',
+						linkedTo: 0,
+						//opposite: true,
+						tickInterval: 7200 * 1000 * 8,
+						labels: {
+							align:"center",
+							formatter: function () {
+								return Highcharts.dateFormat('%A', this.value);
+							}
+						}
+					}],
 					yAxis: {
 						// Axe 0
 						//className: 'highcharts-color-0',
@@ -388,11 +491,57 @@
 						filename: '<?php echo $short_station_name; ?> UV',
 						//scale: 2,
 					},
-					xAxis: {
+					xAxis: [{
 						type: 'datetime',
+						dateTimeLabelFormats: {day: '%H:%M', hour: '%H:%M'},
+						tickInterval: 7200*1000,
 						crosshair: true,
+						plotBands: [{
+							color: '#e0ffff',
+							from: debut,
+							to: minuit,
+						}],
+						plotLines: [{
+							value: minuit,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							label: {
+								text: 'minuit',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: minuit_hier,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						}],
 						//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-					},
+					},{ // Axe esclave
+						type: 'datetime',
+						linkedTo: 0,
+						//opposite: true,
+						tickInterval: 7200 * 1000 * 8,
+						labels: {
+							align:"center",
+							formatter: function () {
+								return Highcharts.dateFormat('%A', this.value);
+							}
+						}
+					}],
 					yAxis: {
 						// Axe 0
 						//className: 'highcharts-color-0',
@@ -461,11 +610,57 @@
 						filename: '<?php echo $short_station_name; ?> Rayonnement solaire',
 						//scale: 2,
 					},
-					xAxis: {
+					xAxis: [{
 						type: 'datetime',
+						dateTimeLabelFormats: {day: '%H:%M', hour: '%H:%M'},
+						tickInterval: 7200*1000,
 						crosshair: true,
+						plotBands: [{
+							color: '#e0ffff',
+							from: debut,
+							to: minuit,
+						}],
+						plotLines: [{
+							value: minuit,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							label: {
+								text: 'minuit',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: minuit_hier,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						}],
 						//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-					},
+					},{ // Axe esclave
+						type: 'datetime',
+						linkedTo: 0,
+						//opposite: true,
+						tickInterval: 7200 * 1000 * 8,
+						labels: {
+							align:"center",
+							formatter: function () {
+								return Highcharts.dateFormat('%A', this.value);
+							}
+						}
+					}],
 					yAxis: {
 						// Axe 0
 						//className: 'highcharts-color-0',
@@ -531,11 +726,57 @@
 						filename: '<?php echo $short_station_name; ?> Évapotranspiration',
 						//scale: 2,
 					},
-					xAxis: {
+					xAxis: [{
 						type: 'datetime',
+						dateTimeLabelFormats: {day: '%H:%M', hour: '%H:%M'},
+						tickInterval: 7200*1000,
 						crosshair: true,
+						plotBands: [{
+							color: '#e0ffff',
+							from: debut,
+							to: minuit,
+						}],
+						plotLines: [{
+							value: minuit,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							label: {
+								text: 'minuit',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: minuit_hier,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						}],
 						//categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-					},
+					},{ // Axe esclave
+						type: 'datetime',
+						linkedTo: 0,
+						//opposite: true,
+						tickInterval: 7200 * 1000 * 8,
+						labels: {
+							align:"center",
+							formatter: function () {
+								return Highcharts.dateFormat('%A', this.value);
+							}
+						}
+					}],
 					yAxis: {
 						// Axe 0
 						//className: 'highcharts-color-0',
