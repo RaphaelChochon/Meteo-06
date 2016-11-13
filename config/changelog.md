@@ -6,12 +6,18 @@
 * Remplir la page a-propos.php (a voir comment la remplir avec le fichier de config)
 * Réduire le logo en mode mobile (plutôt que d'en afficher un autre plus petit comme actuellement)
 * Mettre le logo en paramètre afin de pouvoir personnaliser le site en fonction de la loc
-* Favicon
 * Piwik en params
+* Revoir les webcams
+* HighMaps pour les mois
 
-### 0.5 -
+### 0.5 - 13/11/2016
 * Déplacement de l'ensemble des fichiers de configuration dans un dossier "config" pour simplifier et faciliter la configuration du site
 * Correction du dossier "json" qui n'était plus créé à l'installation mais qui est indispensable
+* Ajout de plusieurs favicons
+* Ajout d'un système pour repérer facilement si la station est en-ligne ou hors-ligne. Si hors-ligne, affichage en rouge de la dernière date d'actualisation et d'un message avertissant depuis combien d'heures et minutes elle est hors-ligne
+* Ajout du widget de vigilance Météo-France d'InfoClimat
+* Ajout du radar de pluie d'InfoClimat, paramétrables via le fichier de config
+* Ajout des réseaux sociaux à côté de l'image radar (Facebook et Twitter) personnalisable via un fichier à part
 
 ### 0.4 - 12/11/2016
 * Ajout du jour le plus pluvieux dans les records
