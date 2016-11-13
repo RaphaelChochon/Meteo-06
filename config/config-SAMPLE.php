@@ -79,9 +79,12 @@
 	$banniere_info_titre = "Attention !"; // title
 	$banniere_info_message = "Ce site est en travaux, des bugs peuvent encore être présents, soyez donc indulgent.<br>Toute l'équipe vous en remercie";
 
+	// WIDGET VIGILANCE METEO-FRANCE
+	$vigi_dpt_mf = "06,83,04"; // Number of French departments - ex: "06" - ex: "06,83,04"
+
 	// RADAR
-	$radar_url="http://www.infoclimat.fr/api/UzBUfgU%2FBzJWflZgBTwHZFwuBW4AZ1Z%2BAmlbNVV8ADFWPFVgVmUFNAYwBTNTZwloUz5dPAdjV2FTMg%3D%3D/radar/sud_est?4f360c88e3aabaf99aeb8edfecc08542";
-	$radar_source="InfoClimat";
-	$radar_source_url="http://www.infoclimat.fr/cartes-meteo-temps-reel-images-satellites-infrarouge-visible-haute-resolution.html?i=radar-sud_est";
+	$radar_url="http://www.infoclimat.fr/api/UzBUfgU%2FBzJWflZgBTwHZFwuBW4AZ1Z%2BAmlbNVV8ADFWPFVgVmUFNAYwBTNTZwloUz5dPAdjV2FTMg%3D%3D/radar/sud_est?4f360c88e3aabaf99aeb8edfecc08542"; // URL of radar
+	$radar_source="InfoClimat"; // source radar
+	$radar_source_url="http://www.infoclimat.fr/cartes-meteo-temps-reel-images-satellites-infrarouge-visible-haute-resolution.html?i=radar-sud_est"; // URL source radar
 
 ?>

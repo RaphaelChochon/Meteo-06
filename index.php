@@ -179,15 +179,18 @@
 			</div>
 			<div class="col-md-3" align="center">
 				<h4><b>Vigilances Météo-France</b></h4>
-				<iframe id="vigi_mf" src="http://www.infoclimat.fr/infoclimat/vignette_vigi.php?d=06,83,04"></iframe>
+				<iframe id="vigi_mf" src="http://www.infoclimat.fr/infoclimat/vignette_vigi.php?d=<?php echo $vigi_dpt_mf; ?>"></iframe>
 			</div>
 		</div>
-		<hr>
 		<div class="row">
-			<div class="col-md-12" align="center">
-				<h3>Radar de précipitations</h3>
+			<div class="col-md-9" align="center">
+				<h4><b>Radar de précipitations</b></h4>
 				<p><img class="image" src="<?php echo $radar_url; ?>" border="2px solid black"><br>
 				Source : <a href="<?php echo $radar_source_url; ?>" target="blank"><?php echo $radar_source; ?></a></p>
+			</div>
+			<div class="col-md-3" align="center">
+				<h4><b>Réseaux sociaux</b></h4>
+				<?php include 'config/res_sociaux.php';?>
 			</div>
 		</div>
 	<footer>
