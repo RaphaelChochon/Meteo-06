@@ -46,6 +46,11 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12" align="center">
+				<p>Bienvenue sur le site de la station météo de <?php echo $station_name; ?>. Vous y touverez les données météos de la station en direct, mais aussi des tableaux récapitulatifs sur plusieurs périodes et des graphiques. <?php if ($presence_webcam == true){echo'Une webcam est également disponible sur cette station <a href="webcam.php">en cliquant ici</a>';};?></p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12" align="center">
 				<table class="table table-striped table-bordered table-responsive table-hover">
 					<thead>
 						<tr>
