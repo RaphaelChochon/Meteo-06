@@ -9,6 +9,10 @@
 * Favicon
 * Piwik en params
 
+### 0.5 -
+* Déplacement de l'ensemble des fichiers de configuration dans un dossier "config" pour simplifier et faciliter la configuration du site
+* Correction du dossier "json" qui n'était plus créé à l'installation mais qui est indispensable
+
 ### 0.4 - 12/11/2016
 * Ajout du jour le plus pluvieux dans les records
 * Changement du système de numéro de version du site
