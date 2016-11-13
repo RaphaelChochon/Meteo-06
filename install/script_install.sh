@@ -1,3 +1,3 @@
 #!/bin/bash
-cd ../sql/
+cd ../config/
 chmod +x json_cron.sh

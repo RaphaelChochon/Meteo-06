@@ -4,4 +4,4 @@ sql/makejson_last.php
 vendors/bootstrap-3.3.7/*
 webcam/*
 vendors/custom/charts.css
-sql/json_cron.sh
+config/json_cron.sh
