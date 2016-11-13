@@ -1,4 +1,4 @@
-<?php require_once 'config.php';?>
+<?php require_once 'config/config.php';?>
 <?php require_once 'sql/import.php';?>
 <!DOCTYPE html>
 <html lang="fr">

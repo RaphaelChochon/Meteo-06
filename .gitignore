@@ -1,5 +1,5 @@
 sftp-config.json
-config.php
+config/config.php
 sql/makejson_last.php
 vendors/bootstrap-3.3.7/*
 webcam/*
