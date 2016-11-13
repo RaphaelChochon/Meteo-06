@@ -14,3 +14,7 @@ body{
 .online_station {
 	color:#48ba4e;
 }
+
+.image {
+	max-width: 100%;
+}

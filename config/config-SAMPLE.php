@@ -73,11 +73,15 @@
 	// OFFLINE STATION
 	$offline_time= "600"; // Time in seconds after which the station is declared offline - Default 10 min
 
-
 	// BANNIERE INFO
 	$banniere_info_active = true; // enable banniere
 	$banniere_info_type = "warning"; // change color banniere. Value possible : danger/warning/success/info => http://bootswatch.com/flatly/
 	$banniere_info_titre = "Attention !"; // title
 	$banniere_info_message = "Ce site est en travaux, des bugs peuvent encore être présents, soyez donc indulgent.<br>Toute l'équipe vous en remercie";
+
+	// RADAR
+	$radar_url="http://www.infoclimat.fr/api/UzBUfgU%2FBzJWflZgBTwHZFwuBW4AZ1Z%2BAmlbNVV8ADFWPFVgVmUFNAYwBTNTZwloUz5dPAdjV2FTMg%3D%3D/radar/sud_est?4f360c88e3aabaf99aeb8edfecc08542";
+	$radar_source="InfoClimat";
+	$radar_source_url="http://www.infoclimat.fr/cartes-meteo-temps-reel-images-satellites-infrarouge-visible-haute-resolution.html?i=radar-sud_est";
 
 ?>

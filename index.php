@@ -190,6 +190,14 @@
 				</table>
 			</div>
 		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-12" align="center">
+				<h3>Radar de précipitations</h3>
+				<p><img class="image" src="<?php echo $radar_url; ?>" border="2px solid black"><br>
+				Source : <a href="<?php echo $radar_source_url; ?>" target="blank"><?php echo $radar_source; ?></a></p>
+			</div>
+		</div>
 	<footer>
 		<?php include 'foot.php';?>
 	</footer>
