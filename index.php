@@ -121,12 +121,8 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12" align="center">
-				<h3>Précipitations</h3>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-9" align="center">
+				<h4><b>Précipitations</b></h4>
 				<table class="table table-striped table-bordered table-responsive table-hover">
 					<thead>
 						<tr>
@@ -159,15 +155,7 @@
 						<td colspan='3'><?php echo $cumul72; ?> mm</td>
 					</tbody>
 				</table>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12" align="center">
-				<h3>Indices calculés</h3>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12" align="center">
+				<h4><b>Indices calculés</b></h4>
 				<table class="table table-striped table-bordered table-responsive table-hover">
 					<thead>
 						<tr>
@@ -188,6 +176,10 @@
 
 					</tbody>
 				</table>
+			</div>
+			<div class="col-md-3" align="center">
+				<h4><b>Vigilances Météo-France</b></h4>
+				<iframe id="vigi_mf" src="http://www.infoclimat.fr/infoclimat/vignette_vigi.php?d=06,83,04"></iframe>
 			</div>
 		</div>
 		<hr>
