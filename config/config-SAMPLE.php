@@ -70,6 +70,10 @@
 	$timestamp_maj_weewx_3_6_0 = "1477605600"; // Before update Weewx 3.6.0 the calcul of ET is wrong. http://www.timestamp.fr/
 
 
+	// OFFLINE STATION
+	$offline_time= "600"; // Time in seconds after which the station is declared offline - Default 10 min
+
+
 	// BANNIERE INFO
 	$banniere_info_active = true; // enable banniere
 	$banniere_info_type = "warning"; // change color banniere. Value possible : danger/warning/success/info => http://bootswatch.com/flatly/

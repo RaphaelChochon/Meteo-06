@@ -41,12 +41,17 @@
 
 		<div class="row">
 			<div class="col-md-12" align="center">
-				<h3>Derniers relevés de la station le <?php echo $date; ?> à <?php echo $heure; ?></h3>
+				<p>Bienvenue sur le site de la station météo de <?php echo $station_name; ?>. Vous y touverez les données météos de la station en direct, mais aussi des tableaux récapitulatifs sur plusieurs périodes et des graphiques. <?php if ($presence_webcam == true){echo'Une webcam est également disponible sur cette station <a href="webcam.php">en cliquant ici</a>';};?></p>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12" align="center">
-				<p>Bienvenue sur le site de la station météo de <?php echo $station_name; ?>. Vous y touverez les données météos de la station en direct, mais aussi des tableaux récapitulatifs sur plusieurs périodes et des graphiques. <?php if ($presence_webcam == true){echo'Une webcam est également disponible sur cette station <a href="webcam.php">en cliquant ici</a>';};?></p>
+				<h3 <?php if ($diff>$offline_time){echo'class="offline_station"';}echo'class="online_station"';?>>Derniers relevés de la station le <?php echo $date; ?> à <?php echo $heure; ?></h3>
+				<?php if ($diff>$offline_time) : ?>
+					<h4 class="offline_station">Station actuellement hors ligne depuis
+						<?php echo $heures; ?> h et <?php echo $minutes; ?> min
+					</h4>
+				<?php endif; ?>
 			</div>
 		</div>
 		<div class="row">

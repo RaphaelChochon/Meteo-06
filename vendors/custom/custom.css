@@ -5,3 +5,12 @@ body{
 #webcam_header {
 	height: 130px;
 }
+
+.offline_station {
+	color:#FF0000;
+	font-weight: bold;
+}
+
+.online_station {
+	color:#48ba4e;
+}
