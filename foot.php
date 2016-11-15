@@ -9,3 +9,6 @@
 		</div>
 	</div>
 </div>
+<?php if ($enable_web_analytics == true){
+	include 'config/web_analytics.php';
+};?>

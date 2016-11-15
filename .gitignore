@@ -5,3 +5,4 @@ vendors/bootstrap-3.3.7/*
 webcam/*
 vendors/custom/charts.css
 config/json_cron.sh
+config/web_analytics.php
