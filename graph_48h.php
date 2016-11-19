@@ -956,7 +956,7 @@
 						lineWidth: 1,
 						min:0,
 						title: {
-							text: 'Évapotranspiration (mm/<?php echo $archive_interval; ?> min)',
+							text: 'Évapotranspiration (mm/h)',
 							style: {
 								"color": "#e5d42b",
 							},
@@ -971,15 +971,20 @@
 						//shared: true,
 						pointFormat: '<span style="color:{series.color}">{series.name} :</span> <b>{point.y}</b><br/>',
 						valueDecimals: 3,
-						valueSuffix: ' mm/<?php echo $archive_interval; ?> min',
+						valueSuffix: ' mm/heure',
 					},
 					series: [{
 						name: 'Évapotranspiration',
-						type: 'area',
+						type: 'column',
 						data: comArr(data_et),
-						connectNulls: true,
+						//connectNulls: true,
 						color: '#e5d42b',
 						//zIndex: 1,
+						pointPadding: 0,
+						groupPadding: 0,
+						borderWidth: 0,
+						shadow: false,
+						borderWidth: 10,
 					}]
 				});
 <?php endif; ?>

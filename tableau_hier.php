@@ -94,7 +94,7 @@
 					<tbody>
 						<td>Évapo-transpiration (ET)</td>
 						<td>Cumul sur 7 jours : <?php echo $cumulethier; ?> mm</td>
-						<td><?php echo $maxethier; ?> mm/<?php echo $archive_interval; ?>min le <?php echo $maxettimehier; ?></td>
+						<td><?php echo $maxethier; ?> mm/heure le <?php echo $maxettimehier; ?></td>
 					</tbody>
 				<?php endif; ?>
 				</table>

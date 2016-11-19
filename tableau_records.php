@@ -96,7 +96,7 @@
 					<tbody>
 						<td>Évapo-transpiration (ET)</td>
 						<td></td>
-						<td><?php echo $maxetrec; ?> mm le <?php echo $maxettimerec; ?></td>
+						<td><?php echo $maxetrec; ?> mm/heure le <?php echo $maxettimerec; ?></td>
 					</tbody>
 				<?php endif; ?>
 				</table>
