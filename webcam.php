@@ -29,34 +29,28 @@
 			<div class="col-md-12" align="center">
 				<div class="panel panel-info">
 					<div class="panel-heading">
-						<h3 class="panel-title">Webcam <?php echo $station_name; ?> - <?php echo $webcam_view_1; ?></h3>
+						<h3 class="panel-title">Webcam <?php echo $station_name; ?></h3>
 					</div>
 					<div class="panel-body">
 						<div class="row">
-							<div class="col-md-12" align="center"><div class="thumbnail"><img id="webcam_last" src="<?php echo $webcam_url_1; ?>" alt="<?php echo $station_name; ?>"></div></div>
+							<div class="col-md-12" align="center">
+								<h4><?php echo $webcam_view_1; ?></h4>
+								<div class="thumbnail"><img id="webcam_last" src="<?php echo $webcam_url_1; ?>" alt="<?php echo $station_name; ?>"></div>
+								<!--
+									IF PRESENCE_SECOND_WEBCAM TRUE
+								-->
+								<?php if ($presence_second_webcam == true) : ?>
+								<h4><?php echo $webcam_view_2; ?></h4>
+								<div class="thumbnail"><img id="webcam_last" src="<?php echo $webcam_url_2; ?>" alt="<?php echo $station_name; ?>"></div>
+								<?php endif; ?>
+								<!--
+									END IF
+								-->
+							</div>
 						</div>
 						Cette image est rafraichie toutes les <?php echo $webcam_refresh_1; ?> minutes et contient les derniers relevés de la station météo positionnée quelques dizaine de mètres plus loin.
 					</div>
 				</div>
-			<!--
-				IF PRESENCE_SECOND_WEBCAM TRUE
-			-->
-			<?php if ($presence_second_webcam == true) : ?>
-				<div class="panel panel-info">
-					<div class="panel-heading">
-						<h3 class="panel-title">Webcam <?php echo $station_name; ?> - <?php echo $webcam_view_2; ?></h3>
-					</div>
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-md-12" align="center"><div class="thumbnail"><img id="webcam_last" src="<?php echo $webcam_url_2; ?>" alt="<?php echo $station_name; ?>"></div></div>
-						</div>
-						Cette image est rafraichie toutes les <?php echo $webcam_refresh_2; ?> minutes et contient les derniers relevés de la station météo positionnée quelques dizaine de mètres plus loin.
-					</div>
-				</div>
-			<?php endif; ?>
-			<!--
-				END IF
-			-->
 				<div class="panel panel-info">
 					<div class="panel-heading">
 						<h3 class="panel-title">Timelapse de la veille</h3>

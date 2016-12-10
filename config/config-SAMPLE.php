@@ -49,7 +49,6 @@
 	$webcam_view_2 = "Plein Nord"; // Viewing angle of the webcam 2. ex Plein Nord
 
 	$webcam_refresh_1 = "5"; // refresh rate of webam in minutes
-	$webcam_refresh_2 = $webcam_refresh_1; //Keep this value if both cameras have the same refresh rate
 
 	// TIMELAPSE
 	$timelapse_poster_url_1 = "timelapse/nice.jpg"; // URL or path of miniature timelapse 1
