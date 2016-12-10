@@ -4,11 +4,18 @@
 * Graphique Highstock pour consultation des archives au dela des 48 dernières heures
 * Tableau récap pour chaque mois de l'année, et pour chaque année
 * Remplir la page a-propos.php (a voir comment la remplir avec le fichier de config)
-* Réduire le logo en mode mobile (plutôt que d'en afficher un autre plus petit comme actuellement)
-* Mettre le logo en paramètre afin de pouvoir personnaliser le site en fonction de la loc
-* Piwik en params
-* Revoir les webcams
 * HighMaps pour les mois
+* Ajout d'un export de graphs miniatures pour mettre en signature par exemple sur IC ou autres (idée Thibaut Valbonne)
+
+
+### 0.6 - 10/12/2016
+* Ajout d'une page ``web_analytics.php`` permettant d'ajouter un code de suivi sur toutes les pages du site
+* Modifications pour l'ET qui est finalement retournée chaque heure directement par la VP2 et non calculée à chaque interval par Weewx - Changement du graph en colonne - Changement de l'affichage en page d'accueil
+* Remodelage de la page des webcams
+* Mise en params d'un onglet supplémentaire dans le menu de navigation, paramétrable via un fichier "config/additional_menu.php"
+* Ajout dans le script d'install de la copie auto des fichiers SAMPLE pour faciliter la première install
+* Ajout d'une définition pour l'ET via popover
+* Le logo n'est maintenant chargé plus qu'une seule fois, et est réduit en CSS si affichage mobile - En modifiant l'image ``img/logo.jpg`` on peut ainsi modifier son logo et afficher ce que l'on veut.
 
 ### 0.5 - 13/11/2016
 * Déplacement de l'ensemble des fichiers de configuration dans un dossier "config" pour simplifier et faciliter la configuration du site
