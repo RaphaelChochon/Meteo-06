@@ -13,7 +13,17 @@
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
+		<link href="vendors/bootswatch-flatly/bootstrap.min.css" rel="stylesheet">
+		<link href="vendors/custom/custom.css" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="vendors/bootstrap/js/tooltip.js"></script>
+		<script src="vendors/bootstrap/js/popover.js"></script>
+		<script src="vendors/bootstrap/js/bootstrap.min.js"></script>
+		<script>
+			$(function () {
+				$('[data-toggle="popover"]').popover()
+			})
+		</script>
 	</head>
 	<body>
 	<div class="container">
@@ -94,7 +104,7 @@
 						<td><?php echo $maxradiationrec; ?> W/m² le <?php echo $maxradiationtimerec; ?></td>
 					</tbody>
 					<tbody>
-						<td>Évapo-transpiration (ET)</td>
+						<td><span><a tabindex="0" data-placement="right" data-toggle="popover" data-trigger="focus" data-content="Quantité d'eau évaporée dans l'atmosphère, que ce soit par évaporation d'eau liquide (eau libre ou eau du sol) ou par transpiration de la biomasse. ENCYCL. : L'évaporation et la transpiration permettent à l'atmosphère de s'enrichir en eau, compensant ainsi les pertes dues aux précipitations. C'est pourquoi l'intensité de ces deux processus est fortement liée à la tension de vapeur de l'air. (Source : Larousse, dictionnaire du climat, G. Beltrando, L. Chémery ; 1995)">Évapo-transpiration (ET)</a></span></td>
 						<td></td>
 						<td><?php echo $maxetrec; ?> mm/heure le <?php echo $maxettimerec; ?></td>
 					</tbody>
@@ -130,11 +140,11 @@
 			<div class="col-md-12" align="center">
 				<table class="table table-striped table-bordered table-responsive table-hover">
 					<tbody>
-						<td><abbr title="Le refroidissement éolien, parfois aussi appelé facteur vent dans le langage populaire, désigne la sensation de froid produite par le vent sur un organisme qui dégage de la chaleur, alors que la température réelle de l'air ambiant ne s'abaisse pas. (Source : Wikipedia)"><a href="https://fr.wikipedia.org/wiki/Refroidissement_%C3%A9olien" target="blank">Refroidissement éolien</a></abbr></td>
+						<td><span><a tabindex="0" data-placement="right" data-toggle="popover" data-trigger="focus" data-content="Le refroidissement éolien, parfois aussi appelé facteur vent dans le langage populaire, désigne la sensation de froid produite par le vent sur un organisme qui dégage de la chaleur, alors que la température réelle de l'air ambiant ne s'abaisse pas. (Source : Wikipedia).">Refroidissement éolien</a></span></td>
 						<td><span class="text-info">Mini</span> <?php echo $minwindchillrec; ?> °C le <?php echo $minwindchilltimerec; ?></td>
 					</tbody>
 					<tbody>
-						<td><abbr title="Indice développé aux États-Unis qui combine la température de l'air ambiant et l'humidité relative pour tenter de déterminer la perception de la température que ressent le corps humain. (Source : Wikipedia)"><a href="https://fr.wikipedia.org/wiki/Indice_de_chaleur" target="blank">Indice de chaleur</a></abbr></td>
+						<td><span><a tabindex="0" data-placement="right" data-toggle="popover" data-trigger="focus" data-content="Indice développé aux États-Unis qui combine la température de l'air ambiant et l'humidité relative pour tenter de déterminer la perception de la température que ressent le corps humain. (Source : Wikipedia).">Indice de chaleur</a></span></td>
 						<td><span class="text-danger">Maxi</span> <?php echo $maxheatindexrec; ?> °C le <?php echo $maxheatindextimerec; ?></td>
 
 					</tbody>
@@ -154,8 +164,5 @@
 		<?php include 'foot.php';?>
 	</footer>
 	</div>
-	<link href="vendors/bootswatch-flatly/bootstrap.min.css" rel="stylesheet">
-	<link href="vendors/custom/custom.css" rel="stylesheet">
-	<script src="vendors/bootstrap/js/bootstrap.min.js"></script>
 	</body>
 </html>
