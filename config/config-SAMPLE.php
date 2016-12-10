@@ -72,6 +72,9 @@
 	// WEB ANALYTIC
 	$enable_web_analytics = false; // REQUIRES the file "config/web_analytics.php" to be created, otherwise it will cause an error! => Insert the tracking code inside (PIWIK or GOOGLE ANALYTICS)
 
+	// ADDITIONAL MENU
+	$additional_menu = true; // If enabled, activates an additional menu in the navigation bar, linked to the file "config/additional_menu.php"
+
 	// OFFLINE STATION
 	$offline_time= "600"; // Time in seconds after which the station is declared offline - Default 10 min
 

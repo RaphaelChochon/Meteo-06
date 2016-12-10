@@ -6,3 +6,4 @@ webcam/*
 vendors/custom/charts.css
 config/json_cron.sh
 config/web_analytics.php
+config/additional_menu.php
