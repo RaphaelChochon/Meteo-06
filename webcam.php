@@ -36,19 +36,21 @@
 							<div class="col-md-12" align="center">
 								<h4><?php echo $webcam_view_1; ?></h4>
 								<div class="thumbnail"><img id="webcam_last" src="<?php echo $webcam_url_1; ?>" alt="<?php echo $station_name; ?>"></div>
+								<p>Image rafraichie toutes les <?php echo $webcam_refresh_1; ?> minutes</p>
 								<!--
 									IF PRESENCE_SECOND_WEBCAM TRUE
 								-->
 								<?php if ($presence_second_webcam == true) : ?>
+								<hr>
 								<h4><?php echo $webcam_view_2; ?></h4>
 								<div class="thumbnail"><img id="webcam_last" src="<?php echo $webcam_url_2; ?>" alt="<?php echo $station_name; ?>"></div>
+								<p>Image rafraichie toutes les <?php echo $webcam_refresh_2; ?> minutes</p>
 								<?php endif; ?>
 								<!--
 									END IF
 								-->
 							</div>
 						</div>
-						Cette image est rafraichie toutes les <?php echo $webcam_refresh_1; ?> minutes et contient les derniers relevés de la station météo positionnée quelques dizaine de mètres plus loin.
 					</div>
 				</div>
 				<div class="panel panel-info">
@@ -60,48 +62,41 @@
 							<div class="col-md-12" align="center">
 								<video controls width="100%" preload="metadata" poster="<?php echo $timelapse_poster_url_1; ?>">
 								<source src="<?php echo $timelapse_url_1; ?>" type="video/webm" />
-							</video>
+								</video>
+							<p>Ce timelapse est réalisé tous les soirs (vers 22h30 environ), à partir des images de la webcam collectées toute la journée (soit une image toutes les <?php echo $webcam_refresh_1; ?> minutes).</p>
 							</div>
-						</div>
-						Ce timelapse est réalisé tous les soirs (vers 22h30 environ), à partir des images de la webcam collectées toute la journée (soit une image toutes les <?php echo $webcam_refresh_1; ?> minutes).<br><br>
-					<?php if ($presence_archive_timelapse == true) : ?>
-						<div class="col-md-6 col-md-offset-3" align="center">
-							<a href="<?php echo $timelapse_archive_url_1; ?>" target="blank" class="btn btn-default btn-lg btn-block">Accéder aux archives ici</a>
-						</div>
-					<?php endif; ?>
-					</div>
-				</div>
 
-			<!--
-			IF PRESENCE_SECOND_WEBCAM TRUE
-			-->
-			<?php if ($presence_second_timelapse == true) : ?>
-				<div class="panel panel-info">
-					<div class="panel-heading">
-						<h3 class="panel-title">Timelapse de la veille</h3>
-					</div>
-					<div class="panel-body">
-						<div class="row">
+						<?php if ($presence_archive_timelapse == true) : ?>
+							<div class="col-md-6 col-md-offset-3" align="center">
+								<a href="<?php echo $timelapse_archive_url_1; ?>" target="blank" class="btn btn-default btn-lg btn-block">Accéder aux archives ici</a>
+								<br>
+							</div>
+						<?php endif; ?>
+						</div>
+					<!--
+						IF PRESENCE_SECOND_TIMELAPSE TRUE
+					-->
+					<?php if ($presence_second_timelapse == true) : ?>
+					<div class="row">
 							<div class="col-md-12" align="center">
+							<hr>
 								<video controls width="100%" preload="metadata" poster="<?php echo $timelapse_poster_url_2; ?>">
 								<source src="<?php echo $timelapse_url_2; ?>" type="video/webm" />
-							</video>
+								</video>
+							<p>Ce timelapse est réalisé tous les soirs (vers 22h30 environ), à partir des images de la webcam collectées toute la journée (soit une image toutes les <?php echo $webcam_refresh_2; ?> minutes).</p>
 							</div>
-						</div>
-						Ce timelapse est réalisé tous les soirs (vers 22h30 environ), à partir des images de la webcam collectées toute la journée (soit une image toutes les <?php echo $webcam_refresh_2; ?> minutes).<br><br>
-					<?php if ($presence_archive_timelapse == true) : ?>
-						<div class="col-md-6 col-md-offset-3" align="center">
-							<a href="<?php echo $timelapse_archive_url_2; ?>" target="blank" class="btn btn-default btn-lg btn-block">Accéder aux archives ici</a>
-						</div>
+							<?php if ($presence_archive_timelapse == true) : ?>
+								<div class="col-md-6 col-md-offset-3" align="center">
+									<a href="<?php echo $timelapse_archive_url_2; ?>" target="blank" class="btn btn-default btn-lg btn-block">Accéder aux archives ici</a>
+								</div>
+							<?php endif; ?>
+					</div>
 					<?php endif; ?>
+					<!--
+						END IF
+					-->
 					</div>
 				</div>
-			<?php endif; ?>
-			<!--
-				END IF
-			-->
-
-
 			</div>
 		</div>
 
