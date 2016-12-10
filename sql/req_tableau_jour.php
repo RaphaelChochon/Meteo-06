@@ -4,6 +4,19 @@
 
 	mysql_select_db($db_name);
 
+	// Calcul des précipitations 24/48/72 heures glissantes et cumul ET, etc.
+	// On récupère le timestamp du dernier enregistrement
+	$sql="SELECT max(dateTime) FROM $db_name.$db_table";
+	$query=mysql_query($sql);
+	$list=mysql_fetch_array($query);
+
+	// On détermine le stop et le start de façon à récupérer dans la prochaine requête que les données des dernières xx heures
+	$stop=$list[0];
+	$start1=$stop-(3599);
+	$start24=$stop-(86400);
+	$start48=$stop-(86400*2);
+	$start72=$stop-(86400*3);
+
 	// On récupère les valeurs actuelles
 	$dewpoint = round($row[16],1);
 	$temp = round($row[7],1);
@@ -26,23 +39,15 @@ if ($presence_uv == true){
 };
 
 if ($presence_radiation == true){
-	$et = round($row[19]*10,3);
+	//$et = round($row[19]*10,3);
+	$et_1h = mysql_query("SELECT sum(ET) FROM $db_name.$db_table WHERE dateTime>= '$start1' AND dateTime <= '$stop';");
+	$et_1h_requ = mysql_fetch_row($et_1h);
+	$et = round($et_1h_requ[0]*10,3);
+	//
 	$etreq = mysql_query("SELECT sum(ET) FROM $db_name.$db_table WHERE dateTime>'$today';");
 	$etrequ = mysql_fetch_row($etreq);
 	$etcumul = round($etrequ[0]*10,2);
 };
-
-	// Calcul des précipitations 24/48/72 heures glissantes
-	// On récupère le timestamp du dernier enregistrement
-	$sql="SELECT max(dateTime) FROM archive";
-	$query=mysql_query($sql);
-	$list=mysql_fetch_array($query);
-
-	// On détermine le stop et le start de façon à récupérer dans la prochaine requête que les données des dernières xx heures
-	$stop=$list[0];
-	$start24=$stop-(86400);
-	$start48=$stop-(86400*2);
-	$start72=$stop-(86400*3);
 
 	$rain24 = mysql_query("SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start24' AND dateTime <= '$stop' ORDER BY 1;");
 	$he24 = mysql_fetch_row($rain24);
