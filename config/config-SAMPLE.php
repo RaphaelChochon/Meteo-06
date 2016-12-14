@@ -37,6 +37,7 @@
 	$name_manager_graph = "Association Nice Météo 06"; // Name which appears in the charts
 	$site_manager_graph = "http://nicemeteo06.fr"; // URL of site on click to the name manager in the charts
 	$contact_mail_footer = "nice.meteo06[at]example.com"; // mail address to contact the station manager
+	$extension_logo = "jpg"; // Logo extension format : "png" or "jpg" or "jpeg" etc.
 
 	// WEBCAM
 	$presence_webcam = true; // if true change header title and menu
