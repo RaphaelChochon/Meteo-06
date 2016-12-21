@@ -6,7 +6,14 @@
 * Remplir la page a-propos.php (a voir comment la remplir avec le fichier de config)
 * HighMaps pour les mois
 * Ajout d'un export de graphs miniatures pour mettre en signature par exemple sur IC ou autres (idée Thibaut Valbonne)
+* Highstock - variation des températures journalières
+* Page interieur
 
+
+### 0.7.0 - 21/12/2016
+* Ajout de la possibilité de changer le format d'extension du fichier logo en png, jpg ou jpeg etc.
+* Fix : Remodelage de la page des webcams pour les timelapses
+* Déplacement du chargement des ressources CSS et JS dans le header au profit de l'affichage et au dépens de certains benchmark (ressources appelées dans le header et non plus en fin de body)
 
 ### 0.6 - 10/12/2016
 * Ajout d'une page ``web_analytics.php`` permettant d'ajouter un code de suivi sur toutes les pages du site
