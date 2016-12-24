@@ -7,8 +7,10 @@
 * HighMaps pour les mois
 * Ajout d'un export de graphs miniatures pour mettre en signature par exemple sur IC ou autres (idée Thibaut Valbonne)
 * Highstock - variation des températures journalières
-* Page interieur
 
+
+### 0.8.0 - 24/12/2016 - Cadeau de Noël
+* Ajout d'une page "interieur.php" avec des graphiques sur 48h, 7jours et 30 jours de la température et humidité intérieur.
 
 ### 0.7.0 - 21/12/2016
 * Ajout de la possibilité de changer le format d'extension du fichier logo en png, jpg ou jpeg etc.
