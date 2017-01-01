@@ -86,6 +86,104 @@ while($row=mysql_fetch_row($res)) {
 }
 $json_hygro.="]";
 
+//PRESSION
+$json_baro = "[";
+$res=mysql_query("SELECT datetime, IFNULL(barometer,'null') AS barometer FROM $db ORDER BY dateTime ASC;");
+$i=0;
+while($row=mysql_fetch_row($res)) {
+		$timestamp=$row[0];
+		$timestamp=$timestamp*1000;
+		$baro = $row[1];
+		if ($baro == 'null') {
+			$baro = 'null';
+		}else{
+			$baro = round($baro,1);
+		}
+		if(is_int($i)) {
+			$json_baro.= "[$timestamp,$baro],\n";
+		}
+		$i++;
+}
+$json_baro.="]";
+
+//VENT
+$json_vent = "[";
+$res=mysql_query("SELECT datetime, IFNULL(windSpeed,'null') AS windSpeed FROM $db ORDER BY dateTime ASC;");
+$i=0;
+while($row=mysql_fetch_row($res)) {
+		$timestamp=$row[0];
+		$timestamp=$timestamp*1000;
+		$vent = $row[1];
+		if ($vent == 'null') {
+			$vent = 'null';
+		}else{
+			$vent = round($vent,1);
+		}
+		if(is_int($i)) {
+			$json_vent.= "[$timestamp,$vent],\n";
+		}
+		$i++;
+}
+$json_vent.="]";
+
+$json_rafales = "[";
+$res=mysql_query("SELECT datetime, IFNULL(windGust,'null') AS windGust FROM $db ORDER BY dateTime ASC;");
+$i=0;
+while($row=mysql_fetch_row($res)) {
+		$timestamp=$row[0];
+		$timestamp=$timestamp*1000;
+		$rafales = $row[1];
+		if ($rafales == 'null') {
+			$rafales = 'null';
+		}else{
+			$rafales = round($rafales,1);
+		}
+		if(is_int($i)) {
+			$json_rafales.= "[$timestamp,$rafales],\n";
+		}
+		$i++;
+}
+$json_rafales.="]";
+
+$json_direction = "[";
+$res=mysql_query("SELECT datetime, IFNULL(windDir,'null') AS windDir FROM $db ORDER BY dateTime ASC;");
+$i=0;
+while($row=mysql_fetch_row($res)) {
+		$timestamp=$row[0];
+		$timestamp=$timestamp*1000;
+		$direction = $row[1];
+		if ($direction == 'null') {
+			$direction = 'null';
+		}else{
+			$direction = round($direction,1);
+		}
+		if(is_int($i)) {
+			$json_direction.= "[$timestamp,$direction],\n";
+		}
+		$i++;
+}
+$json_direction.="]";
+
+// PRECIP
+$json_precipitations = "[";
+$res=mysql_query("SELECT datetime, IFNULL(sum,'null') AS sum FROM $db_name.archive_day_rain ORDER BY dateTime ASC;");
+$i=0;
+while($row=mysql_fetch_row($res)) {
+		$timestamp=$row[0];
+		$timestamp=$timestamp*1000;
+		$pluie = $row[1];
+		if ($pluie == 'null') {
+			$pluie = 'null';
+		}else{
+			$pluie = round($pluie*10,1);
+		}
+		if(is_int($i)) {
+			$json_precipitations.= "[$timestamp,$pluie],\n";
+		}
+		$i++;
+}
+$json_precipitations.="]";
+
 
 //write files
 $file = $path."temperature.json";
@@ -101,6 +199,31 @@ fclose($fp);
 $file = $path."humidite.json";
 $fp=fopen($file,'w');
 fwrite($fp,$json_hygro);
+fclose($fp);
+
+$file = $path."pression.json";
+$fp=fopen($file,'w');
+fwrite($fp,$json_baro);
+fclose($fp);
+
+$file = $path."vent.json";
+$fp=fopen($file,'w');
+fwrite($fp,$json_vent);
+fclose($fp);
+
+$file = $path."rafales.json";
+$fp=fopen($file,'w');
+fwrite($fp,$json_rafales);
+fclose($fp);
+
+$file = $path."direction.json";
+$fp=fopen($file,'w');
+fwrite($fp,$json_direction);
+fclose($fp);
+
+$file = $path."precipitations-jour.json";
+$fp=fopen($file,'w');
+fwrite($fp,$json_precipitations);
 fclose($fp);
 
 ?>

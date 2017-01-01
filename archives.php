@@ -21,6 +21,9 @@
 		<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 	</head>
 	<body>
+	<script type="text/javascript">
+		$('#ajax-loading').hide();
+	</script>
 	<div class="container">
 		<header>
 			<?php include 'header.php';?>
@@ -29,9 +32,36 @@
 		<nav>
 			<?php include 'nav.php';?>
 		</nav>
-		<!--
-			DEBUT SCRIPT HIGHCHARTS
-		-->
+<!-- DEBUT DU CORPS DE PAGE -->
+		<div class="row">
+			<div class="col-md-12" align="center">
+				<h3>Archives de la station</h3>
+				<h4 <?php if ($diff>$offline_time){echo'class="offline_station"';}echo'class="online_station"';?>>Derniers relevés de la station le <?php echo $date; ?> à <?php echo $heure; ?></h4>
+				<?php if ($diff>$offline_time) : ?>
+					<h4 class="offline_station">Station actuellement hors ligne depuis
+						<?php echo $heures; ?> h et <?php echo $minutes; ?> min
+					</h4>
+				<?php endif; ?>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12" align="center">
+				<p>Vous trouverez sur cette page l'historique complet des données archivées de la station. Il est préférable de consulter cette page depuis un ordinateur de bureau.<br>Vous pouvez zoomer sur une zone spécifique, faire apparaitre une infobulle au passage de la soucis ou au clic sur mobile, et afficher/masquer un paramètre météo en cliquant sur son intitulé dans la légende.</p>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-12" align="center">
+				<div id="ajax-loading">
+					<p>Le chargement des données est en cours et peut être relativement long.<br>Patientez quelques secondes...</p>
+					<img src="img/loading.gif"/>
+				</div>
+				<div id="container" style="height: 500px"></div>
+			</div>
+		</div>
+<!--
+	DEBUT SCRIPT HIGHCHARTS
+-->
 <script type="text/javascript">
 /*
 	FONCTION JSONP
@@ -62,20 +92,23 @@ $(function () {
 		// Démarrage du compteur
 		seriesCounter = 0,
 		// Déclaration des variables que l'on va charger
-		names = ['Temperature', 'Humidite', 'Rosee'];
+		//ids = ['1','2','3','4','5','6,','7']
+		names = ['Temperature', 'Humidite', 'Rosee', 'Pression', 'Vent', 'Rafales', 'Direction','Precipitations-Jour'];
 		// Et des options qu'on va leur attribuer (dans l'ordre !)
-		types = ['spline', 'area', 'spline']; // add types
-		visibles = [true, true, false];
-		colors = ['#ff0000', '#3399FF', '#1c23e4'];
-		negativeColors = ['#0d1cc5', '', ''];
-		zIndexs = [1];
-		yAxiss = [0,1,0];
+		types = ['spline', 'area', 'spline', 'spline', 'spline', 'spline', 'scatter', 'column']; // add types
+		visibles = [true, true, false, true, false, false, false, true];
+		colors = ['#ff0000', '#3399FF', '#1c23e4', '#1be300', 'rgba(109, 128, 147, 0.75)', 'rgba(18, 21, 25, 0.75)', 'rgba(148,0,211,0.75)', '#4169e1'];
+		negativeColors = ['#0d1cc5', '', '', '', '', '', '', ''];
+		zIndexs = [1,,,,1,1,1];
+		yAxiss = [0,1,0,2,3,3,4,5];
 /*
 	FONCTION EACH
  */
 	$.each(names, function(i, name) {
+		$('#ajax-loading').show();
 		$.getJSON('json/archives/jsonp.php?filename='+ name.toLowerCase() +'.json&callback=?', function (data) {
 			seriesOptions[i] = {
+				//id: ids[i],
 				name: name,
 				data: data,
 				type: types[i],
@@ -85,13 +118,14 @@ $(function () {
 				zIndex: zIndexs[i],
 				yAxis: yAxiss[i],
 				tooltip: {
-					valueDecimals: 1
+					valueDecimals: 1,
 				},
 				connectNulls: true,
 			};
 			// Indentation du compteur
 			seriesCounter+= 1;
 			if (seriesCounter === names.length) {
+				$('#ajax-loading').hide();
 				createChart();
 			}
 		});
@@ -101,7 +135,7 @@ $(function () {
  */
 	function createChart() {
 		// Create the chart
-		Highcharts.stockChart('temperature', {
+		Highcharts.stockChart('container', {
 			chart: {
 				zoomType: 'x'
 			},
@@ -183,39 +217,100 @@ $(function () {
 						"color": "#3399FF",
 					},
 				},
+			},{
+				// Axe 2
+				opposite: true,
+				//min:0,
+				//max: 100,
+				lineColor: '#1be300',
+				lineWidth: 1,
+				title: {
+					text: 'Pression (hPa)',
+					style: {
+						"color": "#1be300",
+					},
+				},
+				labels:{
+					style: {
+						"color": "#1be300",
+					},
+				},
+			},{
+				// Axe 3
+				opposite: false,
+				//min:0,
+				//max: 100,
+				lineColor: 'rgb(109, 128, 147)',
+				lineWidth: 1,
+				title: {
+					text: 'Vitesse vent (km/h)',
+					style: {
+						"color": "rgb(109, 128, 147)",
+					},
+				},
+				labels:{
+					style: {
+						"color": "rgb(109, 128, 147)",
+					},
+				},
+			},{
+				// Axe 4
+				opposite:false,
+				reversed:true,
+				max : 360,
+				min: 0,
+				lineColor: '#9400d3',
+				lineWidth: 1,
+				categories: ['Nord','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','N-E','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','Est','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','S-E','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','Sud','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','S-O','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','Ouest','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','N-O','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',''],
+					endOnTick: true,
+					tickInterval:45,
+					minorTickInterval:45,
+					title: {
+					text: 'Direction moyenne',
+						style: {
+							"color": "#9400d3",
+						},
+					},
+					labels:{
+						style: {
+							"color": "#9400d3",
+						},
+					},
+			},{
+				// Axe 5
+				opposite:true,
+				crosshair:true,
+				lineColor: '#4169e1',
+				lineWidth: 1,
+				//min:0,
+				title: {
+					text: 'Précipitations Journ. (mm)',
+					style: {
+						"color": "#4169e1",
+					},
+				},
+				labels:{
+					style: {
+						"color": "#4169e1",
+					},
+				},
 			}],
 			series: seriesOptions,
+			plotOptions: {
+				scatter: {
+					marker: {
+						symbol: 'circle',
+						enabled: true,
+						lineWidth: 0,
+						radius:2,
+						color:'rgba(148,0,211,0.75)',
+					},
+				},
+			},
 		});
 	};
 });
 </script>
-
-		<!-- DEBUT DU CORPS DE PAGE -->
-		<div class="row">
-			<div class="col-md-12" align="center">
-				<h3>Archives de la station</h3>
-				<h4 <?php if ($diff>$offline_time){echo'class="offline_station"';}echo'class="online_station"';?>>Derniers relevés de la station le <?php echo $date; ?> à <?php echo $heure; ?></h4>
-				<?php if ($diff>$offline_time) : ?>
-					<h4 class="offline_station">Station actuellement hors ligne depuis
-						<?php echo $heures; ?> h et <?php echo $minutes; ?> min
-					</h4>
-				<?php endif; ?>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12" align="center">
-				<p>Vous trouverez sur cette page l'historique complet des données archivées de la station. Il est préférable de consulter cette page depuis un ordinateur de bureau.<br>Vous pouvez zoomer sur une zone spécifique, faire apparaitre une infobulle au passage de la soucis ou au clic sur mobile, et afficher/masquer un paramètre météo en cliquant sur son intitulé dans la légende.</p>
-			</div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-md-12" align="center">
-				<div id="temperature" style="height: 400px"></div>
-			</div>
-		</div>
-
-
-
 	<footer>
 		<?php include 'foot.php';?>
 	</footer>
