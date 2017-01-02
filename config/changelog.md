@@ -8,6 +8,8 @@
 * Ajout d'un export de graphs miniatures pour mettre en signature par exemple sur IC ou autres (idée Thibaut Valbonne)
 * Highstock - variation des températures journalières
 
+### 0.8.1 - 02/01/2017
+* Fix ``.gitignore`` du dossier img qui causait problème si changement du logo
 
 ### 0.8.0 - 24/12/2016 - Cadeau de Noël
 * Ajout d'une page "interieur.php" avec des graphiques sur 48h, 7jours et 30 jours de la température et humidité intérieur.
