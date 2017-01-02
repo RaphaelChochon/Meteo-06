@@ -1,12 +1,14 @@
 ## Changelog Meteo 06
 
 ### ToDo
-* Graphique Highstock pour consultation des archives au dela des 48 dernières heures
 * Tableau récap pour chaque mois de l'année, et pour chaque année
 * Remplir la page a-propos.php (a voir comment la remplir avec le fichier de config)
 * HighMaps pour les mois
 * Ajout d'un export de graphs miniatures pour mettre en signature par exemple sur IC ou autres (idée Thibaut Valbonne)
 * Highstock - variation des températures journalières
+
+### 0.9.0 - 02/01/2017
+* Graphique Highstock pour consultation de toutes les archives de la station
 
 ### 0.8.1 - 02/01/2017
 * Fix ``.gitignore`` du dossier img qui causait problème si changement du logo
