@@ -7,6 +7,10 @@
 * Ajout d'un export de graphs miniatures pour mettre en signature par exemple sur IC ou autres (idée Thibaut Valbonne)
 * Highstock - variation des températures journalières
 
+### 0.9.1 -06/01/2017
+* Ajout de la station de Valbonne dans le menu additionnel
+* Changement du message d'avertissement à l'attention des utilisateurs mobiles pour la page d'archive (graphique très long à charger et non adapté à la consultation mobile)
+
 ### 0.9.0 - 02/01/2017
 * Graphique Highstock pour consultation de toutes les archives de la station
 
