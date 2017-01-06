@@ -46,7 +46,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12" align="center">
-				<p>Vous trouverez sur cette page l'historique complet des données archivées de la station. Il est préférable de consulter cette page depuis un ordinateur de bureau.<br>Vous pouvez zoomer sur une zone spécifique, faire apparaitre une infobulle au passage de la soucis ou au clic sur mobile, et afficher/masquer un paramètre météo en cliquant sur son intitulé dans la légende.</p>
+				<p>Vous trouverez sur cette page l'historique complet des données archivées de la station.<br>Vous pouvez zoomer sur une zone spécifique, faire apparaitre une infobulle au passage de la soucis ou au clic sur mobile, et afficher/masquer un paramètre météo en cliquant sur son intitulé dans la légende.<br><b>Il est préférable de consulter cette page depuis un ordinateur de bureau. Sur mobile le graphique pourrait ne pas apparaître</b></p>
 			</div>
 		</div>
 		<hr>
