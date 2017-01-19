@@ -495,17 +495,47 @@
 <!--
 	FIN SCRIPT HIGHCHARTS
 -->
+		<!-- DEBUT DU SCRIPT PHP -->
+		<!-- Va permettre de récupérer les dernières valeurs en BDD -->
+		<?php require("sql/req_tableau_interieur.php");?>
+		<!-- FIN DU SCRIPT PHP -->
 
 		<!-- DEBUT DU CORPS DE PAGE -->
 		<div class="row">
 			<div class="col-md-12" align="center">
-				<h3>Graphiques intérieurs des 48 dernières heures</h3>
+				<h3>Données des sondes intérieures </h3>
 				<h4 <?php if ($diff>$offline_time){echo'class="offline_station"';}echo'class="online_station"';?>>Derniers relevés de la station le <?php echo $date; ?> à <?php echo $heure; ?></h4>
 				<?php if ($diff>$offline_time) : ?>
 					<h4 class="offline_station">Station actuellement hors ligne depuis
 						<?php echo $heures; ?> h et <?php echo $minutes; ?> min
 					</h4>
 				<?php endif; ?>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12" align="center">
+				<table class="table table-striped table-bordered table-responsive table-hover">
+					<thead>
+						<tr>
+						<th>Paramètres</th>
+						<th>Valeur actuelle</th>
+						<th class="text-info">Mini du jour</th>
+						<th class="text-danger">Maxi du jour</th>
+						</tr>
+					</thead>
+					<tbody>
+						<td>Température intérieure</td>
+						<td><?php echo $inTemp; ?> °C</td>
+						<td><?php echo $mintemp; ?> °C à <?php echo $mintemptime; ?></td>
+						<td><?php echo $maxtemp; ?> °C à <?php echo $maxtemptime; ?></td>
+					</tbody>
+					<tbody>
+						<td>Hygrométrie intérieure</td>
+						<td><?php echo $inHumidity; ?> %</td>
+						<td><?php echo $minhygro; ?> % à <?php echo $minhygrotime; ?></td>
+						<td><?php echo $maxhygro; ?> % à <?php echo $maxhygrotime; ?></td>
+					</tbody>
+				</table>
 			</div>
 		</div>
 		<hr>
