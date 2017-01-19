@@ -44,7 +44,7 @@
 
 		<div class="row">
 			<div class="col-md-12" align="center">
-				<h3>Résumé de la journée d'hier (<?php echo $yesterday_human; ?> - <?php echo $stophier_human; ?></h3>
+				<h3>Résumé de la journée d'hier (<?php echo $yesterday_human; ?> - <?php echo $stophier_human; ?>)</h3>
 				<h4 <?php if ($diff>$offline_time){echo'class="offline_station"';}echo'class="online_station"';?>>Derniers relevés de la station le <?php echo $date; ?> à <?php echo $heure; ?></h4>
 				<?php if ($diff>$offline_time) : ?>
 					<h4 class="offline_station">Station actuellement hors ligne depuis
