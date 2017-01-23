@@ -190,7 +190,7 @@
 			</div>
 			<div class="col-md-3" align="center">
 				<h4><b>Vigilances Météo-France</b></h4>
-				<iframe id="vigi_mf" src="http://www.infoclimat.fr/infoclimat/vignette_vigi.php?d=<?php echo $vigi_dpt_mf; ?>"></iframe>
+				<iframe id="vigi_mf" src="//www.infoclimat.fr/infoclimat/vignette_vigi.php?d=<?php echo $vigi_dpt_mf; ?>"></iframe>
 			</div>
 		</div>
 		<div class="row">
