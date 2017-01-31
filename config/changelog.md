@@ -6,8 +6,14 @@
 * HighMaps pour les mois
 * Ajout d'un export de graphs miniatures pour mettre en signature par exemple sur IC ou autres (idée Thibaut Valbonne)
 * Highstock - variation des températures journalières
+* Pour les WMR = si dans la BDD temp est égale à null, alors afficher NA au lieu de 0
 
-### 0.9.1 -06/01/2017
+### 0.9.2 - 31/01/2017
+* Correctif de petites coquilles dans le texte
+* Ajout d'un tableau des dernières valeurs des sondes intérieures
+* Ajout d'une image générée en PHP de 250*175px intégrant un (très) bref résumé des valeurs de la station. Peut être intégrée n'importe ou via une balise html img (but d'intégration dans la map via une popup)
+
+### 0.9.1 - 06/01/2017
 * Ajout de la station de Valbonne dans le menu additionnel
 * Changement du message d'avertissement à l'attention des utilisateurs mobiles pour la page d'archive (graphique très long à charger et non adapté à la consultation mobile)
 
