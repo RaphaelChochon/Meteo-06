@@ -10,3 +10,4 @@ config/web_analytics.php
 config/res_sociaux.php
 config/additional_menu.php
 config/widget_vigi.php
+config/a-propos.php

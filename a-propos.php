@@ -27,16 +27,11 @@
 		<nav>
 			<?php include 'nav.php';?>
 		</nav>
-
 		<!-- DEBUT DU CORPS DE PAGE -->
-		<div class="row">
-			<div class="col-md-12" align="center">
-
-			</div>
-		</div>
-
-
-
+		<?php {
+			include 'config/a-propos.php';
+		};?>
+		<!-- FIN DU CORPS DE PAGE -->
 	<footer>
 		<?php include 'foot.php';?>
 	</footer>
