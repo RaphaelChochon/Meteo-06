@@ -2,11 +2,17 @@
 
 ### ToDo
 * Tableau récap pour chaque mois de l'année, et pour chaque année
-* Remplir la page a-propos.php (a voir comment la remplir avec le fichier de config)
+* Proposer un SAMPLE plus fourni pour la page a propos avec par exemple une petite librairie permettant d'afficher des photos de manière pratique et jolie
 * HighMaps pour les mois
 * Ajout d'un export de graphs miniatures pour mettre en signature par exemple sur IC ou autres (idée Thibaut Valbonne)
 * Highstock - variation des températures journalières
 * Pour les WMR = si dans la BDD temp est égale à null, alors afficher NA au lieu de 0
+
+### 0.9.3 - 06/02/2017
+* Correctif d'une coquille dans ``sql/import.php``
+* Ajout du widget de vigilance de MF dans un fichier à part qui est donc complètement personnalisable
+* Ajout du contenu de la page ``a-propos.php`` dans une autre page ``config/a-propos.php`` la rendant elle aussi complètement personnalisable en fonction des besoins. Cela facilitera les modifications vu que cette page est spécifique à chaque station
+* Petite modification dans le menu additionnel
 
 ### 0.9.2 - 31/01/2017
 * Correctif de petites coquilles dans le texte
