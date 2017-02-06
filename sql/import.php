@@ -15,7 +15,7 @@
 	$diff=abs($now-$dateTime);
 	$tmp = $diff;
 	$secondes = $tmp % 60;
-	$tmp = floor( ($tmp - $seconds) /60 );
+	$tmp = floor( ($tmp - $secondes) /60 );
 	$minutes = $tmp % 60;
 	$tmp = floor( ($tmp - $minutes)/60 );
 	$heures = $tmp % 24;
