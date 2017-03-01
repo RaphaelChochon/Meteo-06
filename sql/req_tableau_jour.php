@@ -104,9 +104,8 @@
 	$cumul = round($he[0]*10,1);
 
 if ($presence_uv == true){
-	if(!$row[21]){
-		$uv='N/A';
-	}elseif ($row[21] == null){
+	$uv_check = $row[21];
+	if($row[21]== null){
 		$uv='N/A';
 	}else{
 		$uv=$row[21];
