@@ -18,24 +18,99 @@
 	$start72=$stop-(86400*3);
 
 	// On récupère les valeurs actuelles
-	$dewpoint = round($row[16],1);
-	$temp = round($row[7],1);
-	$wind = round($row[10],1);
-	$windgust = round($row[12],1);
-	$windgustdir = round($row[13],2);
-	$hygro = round($row[9],1);
-	$barometer = round($row[3],1);
-	$radiation = round($row[20],2);
-	$heatindex = round($row[18],1);
-	$windchill = round($row[17],1);
-	$rainrate = round($row[14]*10,1);
+	// Mais d'abord on vérifie si la valeur actuelle n'est pas null
+	$dewpoint_check = $row[16];
+	if($dewpoint_check == null){
+		// si elle est null, alors on lui donne la valeur N/A
+		$dewpoint = 'N/A';
+	}else{
+		// sinon on l'arrondie
+		$dewpoint = round($row[16],1);
+	}
+	//
+	$temp_check = $row[7];
+	if ($temp_check == null){
+		$temp = 'N/A';
+	}else{
+		$temp = round($row[7],1);
+	}
+	//
+	$wind_check = $row[10];
+	if ($wind_check == null){
+		$wind = 'N/A';
+	}else{
+		$wind = round($row[10],1);
+	}
+	//
+	$windgust_check = $row[12];
+	if ($windgust_check == null){
+		$windgust = 'N/A';
+	}else{
+		$windgust = round($row[12],1);
+	}
+	//
+	$windgustdir_check = $row[13];
+	if ($windgustdir_check == null){
+		$windgustdir = 'N/A';
+	}else{
+		$windgustdir = round($row[13],1);
+	}
+	//
+	$hygro_check = $row[9];
+	if ($hygro_check == null){
+		$hygro = 'N/A';
+	}else{
+		$hygro = round($row[9],1);
+	}
+	//
+	$barometer_check = $row[3];
+	if ($barometer_check == null){
+		$barometer = 'N/A';
+	}else{
+		$barometer = round($row[3],1);
+	}
+	//
+	$radiation_check = $row[20];
+	if ($radiation_check == null){
+		$radiation = 'N/A';
+	}else{
+		$radiation = round($row[20],1);
+	}
+	//
+	$heatindex_check = $row[18];
+	if ($heatindex_check == null){
+		$heatindex = 'N/A';
+	}else{
+		$heatindex = round($row[18],1);
+	}
+	//
+	$windchill_check = $row[17];
+	if ($windchill_check == null){
+		$windchill = 'N/A';
+	}else{
+		$windchill = round($row[17],1);
+	}
+	//
+	$rainrate_check = $row[14];
+	if ($rainrate_check == null){
+		$rainrate = 'N/A';
+	}else{
+		$rainrate = round($row[14],1);
+	}
+	//
 	$today = strtotime('today midnight');
 	$rain = mysql_query("SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime>'$today';");
 	$he = mysql_fetch_row($rain);
 	$cumul = round($he[0]*10,1);
 
 if ($presence_uv == true){
-	if(!$row[21]) {$uv=0;} else {$uv=$row[21];}
+	if(!$row[21]){
+		$uv='N/A';
+	}elseif ($row[21] == null){
+		$uv='N/A';
+	}else{
+		$uv=$row[21];
+	}
 };
 
 if ($presence_radiation == true){

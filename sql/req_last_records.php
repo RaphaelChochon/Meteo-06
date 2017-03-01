@@ -6,8 +6,22 @@
 	$res=mysql_query("SELECT * FROM $db_name.$db_table ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
 	$row = mysql_fetch_row($res);
 	// On récupère les valeurs actuelles
-	$temp = round($row[7],1);
-	$wind = round($row[10],1);
+	// Mais d'abord on vérifie si la valeur actuelle n'est pas null
+	$temp_check = $row[7];
+	if ($temp_check == null){
+		// si elle est null, alors on lui donne la valeur N/A
+		$temp = 'N/A';
+	}else{
+		// sinon on l'arrondie
+		$temp = round($row[7],1);
+	}
+	//
+	$wind_check = $row[10];
+	if ($wind_check == null){
+		$wind = 'N/A';
+	}else{
+		$wind = round($row[10],1);
+	}
 
 	// On récupère les valeurs max et min des précipitations
 	$res = mysql_query("SELECT * FROM $db_name.archive_day_rainRate ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
