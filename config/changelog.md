@@ -6,7 +6,12 @@
 * HighMaps pour les mois
 * Ajout d'un export de graphs miniatures pour mettre en signature par exemple sur IC ou autres (idée Thibaut Valbonne)
 * Highstock - variation des températures journalières
-* Pour les WMR = si dans la BDD temp est égale à null, alors afficher NA au lieu de 0
+* Un peu de SEO sur toutes les pages pour améliorer tout ça ?
+* Ajout de l'altitude de la station quelque part ?
+
+### 0.9.4 - 01/03/2017
+* Correctif d'une coquille dans ``img_resume_250.php``
+* Affichage de la mention 'N/A' sur le tableau des valeurs actuelles quand un problème survient au niveau de la station et qu'elle renvoit des valeurs 'null' en BdD
 
 ### 0.9.3 - 06/02/2017
 * Correctif d'une coquille dans ``sql/import.php``
