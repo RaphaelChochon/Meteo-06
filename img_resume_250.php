@@ -74,7 +74,7 @@
 	elseif ($diff<$offline_time)
 		$test_offline = $green;
 
-	ImageRectangle ($image, 4, 4, 246, 171, $couleur);
+	ImageRectangle ($image, 4, 4, 246, 171, $noir);
 	imagestring($image, $font1, ($img_w/2)-($width1/2), 10, $string1, $noir);
 	imagestring($image, $font2, ($img_w/2)-($width2/2), 25, $string2, $test_offline);
 	imagestring($image, $fontTiret, ($img_w/2)-($widthTiret/2), 35, $stringTiret, $noir);
