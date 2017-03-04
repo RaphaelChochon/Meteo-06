@@ -95,7 +95,7 @@
 	if ($rainrate_check == null){
 		$rainrate = 'N/A';
 	}else{
-		$rainrate = round($row[14],1);
+		$rainrate = round($row[14]*10,1);
 	}
 	//
 	$today = strtotime('today midnight');
