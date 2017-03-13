@@ -110,7 +110,7 @@
 					<tbody>
 						<td>Indice UV</td>
 						<td><?php echo $uv; ?></td>
-						<td><?php echo $minuv; ?> à <?php echo $minuvtime; ?></td>
+						<td></td>
 						<td><?php echo $maxuv; ?> à <?php echo $maxuvtime; ?></td>
 					</tbody>
 				<?php endif; ?>
@@ -134,38 +134,73 @@
 		<div class="row">
 			<div class="col-md-9" align="center">
 				<h4><b>Précipitations</b></h4>
-				<table class="table table-striped table-bordered table-responsive table-hover">
-					<thead>
-						<tr>
-						<th>Paramètres</th>
-						<th>Valeur actuelle</th>
-						<th class="text-info">Mini du jour</th>
-						<th class="text-danger">Maxi du jour</th>
-						</tr>
-					</thead>
-					<tbody>
-						<td>Intensité pluie</td>
-						<td><?php echo $rainrate; ?> mm/h</td>
-						<td><?php echo $minrainRate; ?> mm/h à <?php echo $minrainRatetime; ?></td>
-						<td><?php echo $maxrainRate; ?> mm/h à <?php echo $maxrainRatetime; ?></td>
-					</tbody>
-					<tbody>
-						<td>Cumul de pluie aujourd'hui</td>
-						<td colspan='3'><?php echo $cumul; ?> mm</td>
-					</tbody>
-					<tbody>
-						<td>Cumul pluie / 24h glissantes</td>
-						<td colspan='3'><?php echo $cumul24; ?> mm</td>
-					</tbody>
-					<tbody>
-						<td>Cumul pluie / 48h glissantes</td>
-						<td colspan='3'><?php echo $cumul48; ?> mm</td>
-					</tbody>
-					<tbody>
-						<td>Cumul pluie / 72h glissantes</td>
-						<td colspan='3'><?php echo $cumul72; ?> mm</td>
-					</tbody>
-				</table>
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#precip-recentes" data-toggle="tab" aria-expanded="true">Cumuls récents</a></li>
+					<li class=""><a href="#precip-old" data-toggle="tab" aria-expanded="false">12 h et +</a></li>
+				</ul>
+				<!-- ONGLETS -->
+				<div id="myTabContent" class="tab-content">
+					<!-- Onglet précip récentes -->
+					<div class="tab-pane fade active in" id="precip-recentes">
+						<table class="table table-striped table-bordered table-responsive table-hover">
+							<thead>
+								<tr>
+								<th>Paramètres</th>
+								<th>Valeur actuelle</th>
+								<th class="text-danger">Maxi du jour</th>
+								</tr>
+							</thead>
+							<tbody>
+								<td>Intensité pluie</td>
+								<td><?php echo $rainrate; ?> mm/h</td>
+								<td><?php echo $maxrainRate; ?> mm/h à <?php echo $maxrainRatetime; ?></td>
+							</tbody>
+							<tbody>
+								<td>Cumul de pluie aujourd'hui</td>
+								<td colspan='2'><?php echo $cumul; ?> mm</td>
+							</tbody>
+							<tbody>
+								<td>Cumul de pluie 1h</td>
+								<td colspan='2'><?php echo $cumul1; ?> mm</td>
+							</tbody>
+							<tbody>
+								<td>Cumul de pluie 3h</td>
+								<td colspan='2'><?php echo $cumul3; ?> mm</td>
+							</tbody>
+							<tbody>
+								<td>Cumul de pluie 6h</td>
+								<td colspan='2'><?php echo $cumul6; ?> mm</td>
+							</tbody>
+						</table>
+					</div>
+					<!-- Onglet précips old -->
+					<div class="tab-pane fade" id="precip-old">
+						<table class="table table-striped table-bordered table-responsive table-hover">
+							<thead>
+								<tr>
+								<th>Paramètres</th>
+								<th>Valeur</th>
+								</tr>
+							</thead>
+							<tbody>
+								<td>Cumul pluie / 12h glissantes</td>
+								<td><?php echo $cumul12; ?> mm</td>
+							</tbody>
+							<tbody>
+								<td>Cumul pluie / 24h glissantes</td>
+								<td><?php echo $cumul24; ?> mm</td>
+							</tbody>
+							<tbody>
+								<td>Cumul pluie / 48h glissantes</td>
+								<td><?php echo $cumul48; ?> mm</td>
+							</tbody>
+							<tbody>
+								<td>Cumul pluie / 72h glissantes</td>
+								<td><?php echo $cumul72; ?> mm</td>
+							</tbody>
+						</table>
+					</div>
+				</div>
 				<h4><b>Indices calculés</b></h4>
 				<table class="table table-striped table-bordered table-responsive table-hover">
 					<thead>

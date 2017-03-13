@@ -13,6 +13,9 @@
 	// On détermine le stop et le start de façon à récupérer dans la prochaine requête que les données des dernières xx heures
 	$stop=$list[0];
 	$start1=$stop-(3599);
+	$start3=$stop-(10800);
+	$start6=$stop-(21600);
+	$start12=$stop-(43200);
 	$start24=$stop-(86400);
 	$start48=$stop-(86400*2);
 	$start72=$stop-(86400*3);
@@ -123,6 +126,22 @@ if ($presence_radiation == true){
 	$etcumul = round($etrequ[0]*10,2);
 };
 
+	$rain1 = mysql_query("SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start1' AND dateTime <= '$stop' ORDER BY 1;");
+	$he1 = mysql_fetch_row($rain1);
+	$cumul1 = round($he1[0]*10,1);
+
+	$rain3 = mysql_query("SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start3' AND dateTime <= '$stop' ORDER BY 1;");
+	$he3 = mysql_fetch_row($rain3);
+	$cumul3 = round($he3[0]*10,1);
+
+	$rain6 = mysql_query("SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start6' AND dateTime <= '$stop' ORDER BY 1;");
+	$he6 = mysql_fetch_row($rain6);
+	$cumul6 = round($he6[0]*10,1);
+
+	$rain12 = mysql_query("SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start12' AND dateTime <= '$stop' ORDER BY 1;");
+	$he12 = mysql_fetch_row($rain12);
+	$cumul12 = round($he12[0]*10,1);
+
 	$rain24 = mysql_query("SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start24' AND dateTime <= '$stop' ORDER BY 1;");
 	$he24 = mysql_fetch_row($rain24);
 	$cumul24 = round($he24[0]*10,1);
@@ -171,8 +190,6 @@ if ($presence_radiation == true){
 	// On récupère les valeurs max et min des précipitations
 	$res = mysql_query("SELECT * FROM $db_name.archive_day_rainRate ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
 	$row = mysql_fetch_row($res);
-	$minrainRatetime = date('H\hi',$row[2]);
-	$minrainRate = round($row[1]*10,1);
 	$maxrainRate = round($row[3]*10,1);
 	$maxrainRatetime = date('H\hi',$row[4]);
 
@@ -189,8 +206,6 @@ if ($presence_uv == true){
 	// On récupère les valeurs max et min de l'UV
 	$res = mysql_query("SELECT * FROM $db_name.archive_day_UV ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
 	$row = mysql_fetch_row($res);
-	$minuvtime = date('H\hi',$row[2]);
-	$minuv = round($row[1],1);
 	$maxuv = round($row[3],1);
 	$maxuvtime = date('H\hi',$row[4]);
 };
