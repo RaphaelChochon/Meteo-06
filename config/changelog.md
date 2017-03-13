@@ -9,6 +9,12 @@
 * Un peu de SEO sur toutes les pages pour améliorer tout ça ?
 * Ajout de l'altitude de la station quelque part ?
 
+### 0.9.5 - 13/03/2017
+* Ajout des précipitations sur 1, 3, 6 et 12 heures
+* Réagencement des précipitations dans deux onglets différents pour prendre moins de place
+* Correctif de l'ET de la page des records
+* Divers correctifs concernant l'affichage des N/A (UV et rainRate)
+
 ### 0.9.4 - 01/03/2017
 * Correctif d'une coquille dans ``img_resume_250.php``
 * Affichage de la mention 'N/A' sur le tableau des valeurs actuelles quand un problème survient au niveau de la station et qu'elle renvoit des valeurs 'null' en BdD
