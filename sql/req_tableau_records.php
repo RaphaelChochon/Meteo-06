@@ -80,7 +80,7 @@ if ($presence_radiation == true){
 	// Max évapotranspiration
 	$res=mysql_query("SELECT max, maxtime FROM $db_name.archive_day_ET WHERE dateTime >= '$timestamp_maj_weewx_3_6_0' AND max = (SELECT max(max) FROM $db_name.archive_day_ET WHERE dateTime >= '$timestamp_maj_weewx_3_6_0');") or die (mysql_error());
 	$row = mysql_fetch_row($res);
-	$maxetrec = round($row[0],1);
+	$maxetrec = round($row[0],3);
 	$maxettimerec = date('d/m/Y à H\hi',$row[1]);
 };
 
