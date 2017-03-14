@@ -27,7 +27,14 @@
 					</ul>
 				</li>
 				<li><a href="graph_48h.php">Graphiques 48 heures</a></li>
-				<li><a href="archives.php">Archives</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Archives<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="noaa.php">Accès aux tableaux NOAA<br>Rapports mensuels et annuels</a></li>
+						<li class="divider"></li>
+						<li><a href="archives.php">Graphique de toutes les archives<br>Attention, lent à charger...</a></li>
+					</ul>
+				</li>
 				<li class="dropdown">
 					<?php if ($additional_menu == true){
 						include 'config/additional_menu.php';
