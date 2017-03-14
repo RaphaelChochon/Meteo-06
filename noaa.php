@@ -48,16 +48,16 @@
 			<h4>Rapports mensuels :</h4>
 			<select name="Month" onchange="openNoaaFileMonth(value)">
 				<?php
-					if($dossier = opendir('NOAA/raw/month')) {
-						while(false !== ($fichier = readdir($dossier))) {
-							if($fichier != '.' && $fichier != '..' && $fichier != '.gitignore') {
-								$properName = substr("$fichier", 5, 7);
-								//echo '<option value="$fichier">$fichier</option>';
-								echo '<option value="',$fichier,'">',$properName,'</option>';
-								//echo '<li><a href="./NOAA/raw/' . $fichier . '">' . $fichier . '</a></li>';
-							}
+					$path = "NOAA/raw/month";
+					$blacklist = array('.','..');
+					// get everything except hidden files
+					$files = preg_grep('/^([^.])/', scandir($path));
+					// boucle
+					foreach ($files as $file) {
+						if (!in_array($file, $blacklist)) {
+							$properName = substr("$file", 5, 7);
+							echo '<option value="',$file,'">',$properName,'</option>';
 						}
-					closedir($dossier);
 					}
 				?>
 				<option selected value="#">- Selectionnez le mois -</option>'
@@ -66,14 +66,16 @@
 			<h4>Rapports annuels :</h4>
 			<select name="Year" onchange="openNoaaFileYear(value)">
 				<?php
-					if($dossier = opendir('NOAA/raw/year')) {
-						while(false !== ($fichier = readdir($dossier))) {
-							if($fichier != '.' && $fichier != '..' && $fichier != '.gitignore') {
-								$properName = substr("$fichier", 5, 4);
-								echo '<option value="',$fichier,'">',$properName,'</option>';
-							}
+					$path = "NOAA/raw/year";
+					$blacklist = array('.','..');
+					// get everything except hidden files
+					$files = preg_grep('/^([^.])/', scandir($path));
+					// boucle
+					foreach ($files as $file) {
+						if (!in_array($file, $blacklist)) {
+							$properName = substr("$file", 5, 4);
+							echo '<option value="',$file,'">',$properName,'</option>';
 						}
-					closedir($dossier);
 					}
 				?>
 				<option selected value="#">- Selectionnez l'année -</option>'
