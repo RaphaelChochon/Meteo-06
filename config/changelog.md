@@ -9,6 +9,10 @@
 * Un peu de SEO sur toutes les pages pour améliorer tout ça ?
 * Ajout de l'altitude de la station quelque part ?
 
+### 0.9.6 - 14/03/2017
+* Ajout d'un répertoire ``NOAA`` pour stocker les fichiers txt générés par Weewx (rapports climato mensuelles et annuelles)
+* Ajout d'une page ``noaa.php`` permettant de consulter la liste des fichiers NOAA générés par Weewx, et d'y accéder
+
 ### 0.9.5 - 13/03/2017
 * Ajout des précipitations sur 1, 3, 6 et 12 heures
 * Réagencement des précipitations dans deux onglets différents pour prendre moins de place
