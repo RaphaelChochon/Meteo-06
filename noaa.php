@@ -43,7 +43,17 @@
 		<!-- DEBUT DU CORPS DE PAGE -->
 		<div class="row">
 			<div class="col-md-12" align="center">
-			<h2>Rapports climatologiques de la station au format NOAA</h2>
+				<h2>Rapports climatologiques de la station au format NOAA</h2>
+				<h4 <?php if ($diff>$offline_time){echo'class="offline_station"';}echo'class="online_station"';?>>Derniers relevés de la station le <?php echo $date; ?> à <?php echo $heure; ?></h4>
+				<?php if ($diff>$offline_time) : ?>
+					<h4 class="offline_station">Station actuellement hors ligne depuis
+						<?php echo $jours; ?> jour(s) <?php echo $heures; ?> h et <?php echo $minutes; ?> min
+					</h4>
+				<?php endif; ?>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12" align="center">
 			<p>Vous pouvez via les listes déroulantes ci-dessous, accéder aux rapports climatologiques mensuels et annuels bruts de la station au format "NOAA". Ce sont des fichiers texte très simple qui sont mis à jours toutes les nuits.</p>
 			<h4>Rapports mensuels :</h4>
 			<select name="Month" onchange="openNoaaFileMonth(value)">
