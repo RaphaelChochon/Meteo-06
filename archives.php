@@ -170,7 +170,7 @@ $(function () {
 				text: 'Historique des températures et humidités'
 			},
 			subtitle: {
-				text: 'Station <?php echo $station_name; ?>',
+				text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
 			},
 			credits: {
 				text: '<?php echo $name_manager_graph; ?>',

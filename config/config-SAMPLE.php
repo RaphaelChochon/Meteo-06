@@ -32,6 +32,7 @@
 	$station_name = "Name of my station";
 	$short_station_name = "Short name";
 	$station_model = "Oregon Scientific WMR200"; //Station model : Oregon Scientific WMR200, WMR88 ; Davis VP2 etc.
+	$station_altitude = "---"; // Elevation/altitude of the station in meters
 	$date_install_station = "01/01/1970"; // Start of the database MySQL Weewx, at format dd/mm/aaaa
 	$name_manager_footer = "l'association Nice Météo 06"; // Manager name or association maintaining station
 	$name_manager_graph = "Association Nice Météo 06"; // Name which appears in the charts

@@ -105,7 +105,7 @@
 						//x: -20 //center
 					},
 					subtitle: {
-						text: 'Station <?php echo $station_name; ?>',
+						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
 						//x: -20
 					},
 					credits: {
@@ -261,7 +261,7 @@
 						//x: -20 //center
 					},
 					subtitle: {
-						text: 'Station <?php echo $station_name; ?>',
+						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
 						//x: -20
 					},
 					credits: {
@@ -372,7 +372,7 @@
 						//x: -20 //center
 					},
 					subtitle: {
-						text: 'Station <?php echo $station_name; ?>',
+						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
 						//x: -20
 					},
 					credits: {
@@ -549,7 +549,7 @@
 						//x: -20 //center
 					},
 					subtitle: {
-						text: 'Station <?php echo $station_name; ?>',
+						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
 						//x: -20
 					},
 					credits: {
@@ -662,7 +662,7 @@
 						//x: -20 //center
 					},
 					subtitle: {
-						text: 'Station <?php echo $station_name; ?>',
+						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
 						//x: -20
 					},
 					credits: {
@@ -777,7 +777,7 @@
 						//x: -20 //center
 					},
 					subtitle: {
-						text: 'Station <?php echo $station_name; ?>',
+						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
 						//x: -20
 					},
 					credits: {
@@ -889,7 +889,7 @@
 						//x: -20 //center
 					},
 					subtitle: {
-						text: 'Station <?php echo $station_name; ?>',
+						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
 						//x: -20
 					},
 					credits: {
