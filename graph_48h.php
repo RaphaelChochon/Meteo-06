@@ -114,7 +114,8 @@
 					},
 					exporting: {
 						filename: '<?php echo $short_station_name; ?> Temperature',
-						//scale: 2,
+						sourceHeight: '400',
+						sourceWidth: '1200',
 					},
 					xAxis: [{
 						type: 'datetime',
@@ -270,7 +271,8 @@
 					},
 					exporting: {
 						filename: '<?php echo $short_station_name; ?> Pression',
-						//scale: 2,
+						sourceHeight: '400',
+						sourceWidth: '1200',
 					},
 					xAxis: [{
 						type: 'datetime',
@@ -381,7 +383,8 @@
 					},
 					exporting: {
 						filename: '<?php echo $short_station_name; ?> Vent',
-						//scale: 2,
+						sourceHeight: '400',
+						sourceWidth: '1200',
 					},
 					xAxis: [{
 						type: 'datetime',
@@ -558,7 +561,8 @@
 					},
 					exporting: {
 						filename: '<?php echo $short_station_name; ?> Precipitations',
-						//scale: 2,
+						sourceHeight: '400',
+						sourceWidth: '1200',
 					},
 					xAxis: [{
 						type: 'datetime',
@@ -671,7 +675,8 @@
 					},
 					exporting: {
 						filename: '<?php echo $short_station_name; ?> UV',
-						//scale: 2,
+						sourceHeight: '400',
+						sourceWidth: '1200',
 					},
 					xAxis: [{
 						type: 'datetime',
@@ -786,7 +791,8 @@
 					},
 					exporting: {
 						filename: '<?php echo $short_station_name; ?> Rayonnement solaire',
-						//scale: 2,
+						sourceHeight: '400',
+						sourceWidth: '1200',
 					},
 					xAxis: [{
 						type: 'datetime',
@@ -898,7 +904,8 @@
 					},
 					exporting: {
 						filename: '<?php echo $short_station_name; ?> Évapotranspiration',
-						//scale: 2,
+						sourceHeight: '400',
+						sourceWidth: '1200',
 					},
 					xAxis: [{
 						type: 'datetime',
