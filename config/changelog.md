@@ -7,7 +7,13 @@
 * Ajout d'un export de graphs miniatures pour mettre en signature par exemple sur IC ou autres (idée Thibaut Valbonne)
 * Highstock - variation des températures journalières
 * Un peu de SEO sur toutes les pages pour améliorer tout ça ?
-* Ajout de l'altitude de la station quelque part ?
+* Agrandir la largeur des graphs 48h exportés !!!
+* Faire une page avec graphiques rxcheckpourcent etc
+
+### 0.9.7 - 16/03/2017
+* Ajout de l'altitude dans le bas de page et dans les graphiques
+* Ajout des jours dans le mode offline de la station
+* Suppression de la décimale pour le graph 48h du rayonnement solaire
 
 ### 0.9.6 - 14/03/2017
 * Ajout d'un répertoire ``NOAA`` pour stocker les fichiers txt générés par Weewx (rapports climato mensuelles et annuelles)
