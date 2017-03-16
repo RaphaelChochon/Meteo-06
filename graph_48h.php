@@ -863,7 +863,7 @@
 					tooltip: {
 						//shared: true,
 						pointFormat: '<span style="color:{series.color}">{series.name} :</span> <b>{point.y}</b><br/>',
-						valueDecimals: 1,
+						valueDecimals: 0,
 						valueSuffix: ' W/m²',
 					},
 					series: [{
