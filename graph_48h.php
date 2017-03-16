@@ -748,7 +748,7 @@
 					tooltip: {
 						//shared: true,
 						pointFormat: '<span style="color:{series.color}">{series.name} :</span> <b>{point.y}</b><br/>',
-						valueDecimals: 0,
+						valueDecimals: 1,
 						//valueSuffix: '',
 					},
 					series: [{
