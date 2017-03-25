@@ -31,6 +31,7 @@
 	// GENERAL CONFIG
 	$station_name = "Name of my station";
 	$short_station_name = "Short name";
+	$url_site="https://myweathersite.fr"; // URL of the site WITHOUT the slash at the end ('subdomain.domain.tld' for example). This is important for SEO tools (google referencing for example)
 	$station_model = "Oregon Scientific WMR200"; //Station model : Oregon Scientific WMR200, WMR88 ; Davis VP2 etc.
 	$station_altitude = "---"; // Elevation/altitude of the station in meters
 	$date_install_station = "01/01/1970"; // Start of the database MySQL Weewx, at format dd/mm/aaaa
@@ -91,5 +92,14 @@
 	$radar_url="//www.infoclimat.fr/api/UzBUfgU%2FBzJWflZgBTwHZFwuBW4AZ1Z%2BAmlbNVV8ADFWPFVgVmUFNAYwBTNTZwloUz5dPAdjV2FTMg%3D%3D/radar/sud_est?4f360c88e3aabaf99aeb8edfecc08542"; // URL of radar
 	$radar_source="InfoClimat"; // source radar
 	$radar_source_url="http://www.infoclimat.fr/cartes-meteo-temps-reel-images-satellites-infrarouge-visible-haute-resolution.html?i=radar-sud_est"; // URL source radar
+
+	// FACEBOOK
+	$fb_app_id=""; // Facebook application ID
+
+	// TWITTER
+	$tw_account_name=""; // Twitter account name WITH arobas (@)
+
+	// HASHTAG
+	$hashtag_meteo=""; // Hashtag to the choice you want to put forward in META SEO tags Facebook and company ("#Météo06" for example). Not required
 
 ?>

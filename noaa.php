@@ -1,12 +1,29 @@
 <?php require_once 'config/config.php';?>
 <?php require_once 'sql/import.php';?>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr-FR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 	<head>
 		<title><?php echo $short_station_name; ?> | NOAA</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- Balises META SEO pour le referencement Google, Facebook Twitter etc. -->
+		<meta name="description" content="Fichiers NOAA de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>"/>
+		<meta property="og:locale" content="fr_FR" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="<?php echo $short_station_name; ?> | NOAA" />
+		<meta property="og:description" content="Fichiers NOAA de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>" />
+		<meta property="og:url" content="<?php echo $url_site; ?>" />
+		<meta property="og:site_name" content="<?php echo $short_station_name; ?>" />
+		<meta property="fb:app_id" content="<?php echo $fb_app_id; ?>" />
+		<meta property="og:image" content="<?php echo $url_site; ?>/img/capture_site.jpg" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:description" content="Fichiers NOAA de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>" />
+		<meta name="twitter:title" content="<?php echo $short_station_name; ?> | NOAA" />
+		<meta name="twitter:site" content="<?php echo $tw_account_name; ?>" />
+		<meta name="twitter:image" content="<?php echo $url_site; ?>/img/capture_site.jpg" />
+		<meta name="twitter:creator" content="<?php echo $tw_account_name; ?>" />
+		<!-- Fin des balises META SEO -->
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
