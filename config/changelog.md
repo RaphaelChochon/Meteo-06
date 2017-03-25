@@ -6,9 +6,14 @@
 * HighMaps pour les mois
 * Ajout d'un export de graphs miniatures pour mettre en signature par exemple sur IC ou autres (idée Thibaut Valbonne)
 * Highstock - variation des températures journalières
-* Un peu de SEO sur toutes les pages pour améliorer tout ça ?
-* Agrandir la largeur des graphs 48h exportés !!!
 * Faire une page avec graphiques rxcheckpourcent etc
+* "Mode scientifique" avec vitesse vent en m/s etc.
+
+### 0.9.8 - 25/03/2017
+* Modification de la largeur et de la hauteur de l'image à l'exportation des graphs 48h (1200*400px)
+* Ajout de différentes balises META pour aider le SEO et les partages Facebook et Twitter sur toutes les pages.
+* Ajout de paramètres dans le fichier de config pour supporter les nouvelles META (``$fb_app_id``, ``$tw_account_name``, ``$hashtag_meteo``, ``$url_site``)
+* Modification du header afin de suppr la duplication du doctype
 
 ### 0.9.7 - 16/03/2017
 * Ajout de l'altitude dans le bas de page et dans les graphiques
