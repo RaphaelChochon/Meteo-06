@@ -9,6 +9,9 @@
 * Faire une page avec graphiques rxcheckpourcent etc
 * "Mode scientifique" avec vitesse vent en m/s etc.
 
+### 0.9.9 - 25/03/2017 bis
+* Correctif des URLs canoniques qui étaient fausses
+
 ### 0.9.8 - 25/03/2017
 * Modification de la largeur et de la hauteur de l'image à l'exportation des graphs 48h (1200*400px)
 * Ajout de différentes balises META pour aider le SEO et les partages Facebook et Twitter sur toutes les pages.
