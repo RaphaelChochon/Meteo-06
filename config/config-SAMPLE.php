@@ -32,6 +32,7 @@
 	$station_name = "Name of my station";
 	$short_station_name = "Short name";
 	$url_site="https://myweathersite.fr"; // URL of the site WITHOUT the slash at the end ('subdomain.domain.tld' for example). This is important for SEO tools (google referencing for example)
+	$SSL = true; // If the site is in https (SSL on) then it's true, otherwise write false
 	$station_model = "Oregon Scientific WMR200"; //Station model : Oregon Scientific WMR200, WMR88 ; Davis VP2 etc.
 	$station_altitude = "---"; // Elevation/altitude of the station in meters
 	$date_install_station = "01/01/1970"; // Start of the database MySQL Weewx, at format dd/mm/aaaa
