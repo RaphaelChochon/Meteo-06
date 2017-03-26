@@ -8,6 +8,14 @@
 * Highstock - variation des températures journalières
 * Faire une page avec graphiques rxcheckpourcent etc
 * "Mode scientifique" avec vitesse vent en m/s etc.
+* Corriger l'image de partage tw
+* .htaccess ?
+* robots.txt
+
+### 0.9.10 - 26/03/2017
+* Correctif og:url (debug : https://developers.facebook.com/tools/debug/)
+* Support du SSL pour URL canonique et og:url en ajoutant un paramètre dans le fichier de config pour savoir si le site est en HTTPS ou pas (``$SSL``)
+* Redimensionnement de l'image de partage et ajout des balises META ``og:image:type``, ``og:image:width`` et ``og:image:height`` pour précharger l'image au moment du partage fb/tw etc. (https://developers.facebook.com/docs/sharing/best-practices/#precaching)
 
 ### 0.9.9 - 25/03/2017 bis
 * Correctif des URLs canoniques qui étaient fausses
