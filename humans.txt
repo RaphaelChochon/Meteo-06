@@ -1,0 +1,22 @@
+/* TEAM */
+Webdeveloper: Raphaël CHOCHON
+Contact     : contact [at] meteo06.fr
+Twitter     : @Raph_Nice
+Location    : Nice, France
+
+/* THANKS */
+Thomas ROUILLARD for his help and bug comments.
+
+/* ASSOCIATION */
+Association Nice Météo 06
+Location: Nice, France
+Members : Antony BRUNAIN, Matthieu DANIEL, Tristan BERGEN, Raphaël CHOCHON
+
+/* SITE */
+Last update     : constantly updated... for the time being (https://github.com/RaphaelChochon/Meteo-06/releases)
+Languages       : French fr-FR
+Doctype         : HTML5
+Standards       : HTML5, CSS3
+Components      : Bootstrap, jQuery, Hightcharts
+Software        : Sublime Text, Notepad++, FileZilla
+Weather Software: Weewx (https://github.com/weewx/weewx), the best ! with MySQL DB
