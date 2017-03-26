@@ -8,9 +8,15 @@
 * Highstock - variation des températures journalières
 * Faire une page avec graphiques rxcheckpourcent etc
 * "Mode scientifique" avec vitesse vent en m/s etc.
-* Corriger l'image de partage tw
 * .htaccess ?
-* robots.txt
+* sitemap.xml => risque d'être compliqué pour intégrer automatiquement le domaine du site dans un fichier XML...
+
+### 0.9.11 - 26/03/2017 bis
+* Correction image de partage Twitter
+* Ajout d'un fichier ``robots.txt``
+* Ajout de ``noindex`` et ``nofollow`` sur la page ``interieur.php`` (http://robots-txt.com/meta-robots/)
+* Ajout ``humans.txt``
+* Alignement des paramètres dans le fichier ``config-SAMPLE.php``, bien + propre et + accessible. Envisager de le faire systématiquement pour les fichiers CSS etc... (Rappel : Ctrl+Alt+A pour ST3)
 
 ### 0.9.10 - 26/03/2017
 * Correctif og:url (debug : https://developers.facebook.com/tools/debug/)
@@ -18,7 +24,7 @@
 * Redimensionnement de l'image de partage et ajout des balises META ``og:image:type``, ``og:image:width`` et ``og:image:height`` pour précharger l'image au moment du partage fb/tw etc. (https://developers.facebook.com/docs/sharing/best-practices/#precaching)
 
 ### 0.9.9 - 25/03/2017 bis
-* Correctif des URLs canoniques qui étaient fausses
+* Correctif des URLs canoniques qui étaient fausses (http://www.scriptol.fr/scripts/canonical.php)
 
 ### 0.9.8 - 25/03/2017
 * Modification de la largeur et de la hauteur de l'image à l'exportation des graphs 48h (1200*400px)

@@ -1,3 +1,3 @@
 <?php
-	$code_version = "0.9.10";
+	$code_version = "0.9.11";
 ?>
