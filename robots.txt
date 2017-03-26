@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /interieur.php
+Disallow: /modele.php
+Disallow: /install/
+Disallow: /json/
+Disallow: /NOAA/
