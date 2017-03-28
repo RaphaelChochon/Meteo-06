@@ -2,7 +2,6 @@
 
 ### ToDo
 * Tableau récap pour chaque mois de l'année, et pour chaque année
-* Proposer un SAMPLE plus fourni pour la page a propos avec par exemple une petite librairie permettant d'afficher des photos de manière pratique et jolie
 * HighMaps pour les mois
 * Ajout d'un export de graphs miniatures pour mettre en signature par exemple sur IC ou autres (idée Thibaut Valbonne)
 * Highstock - variation des températures journalières
@@ -10,6 +9,9 @@
 * "Mode scientifique" avec vitesse vent en m/s etc.
 * .htaccess ?
 * sitemap.xml => risque d'être compliqué pour intégrer automatiquement le domaine du site dans un fichier XML...
+
+### 0.10.0 - 28/03/2017
+* Ajout d'un exemple pour la page "A propos" de la station, avec intégration d'onglets et de "carousel" Bootstrap pour intégrer quelques photos.
 
 ### 0.9.11 - 26/03/2017 bis
 * Correction image de partage Twitter
