@@ -29,16 +29,12 @@
 		<nav>
 			<?php include 'nav.php';?>
 		</nav>
-
 		<!-- DEBUT DU CORPS DE PAGE -->
 		<div class="row">
-			<div class="col-md-12" align="center">
-
+			<div class="col-md-12 divCenter">
+				<p>Cette fonctionnalité n'est pas encore disponible, pour consulter les rapports mensuels veuillez vous reporter <a href="noaa.php">aux tableaux NOAA</a>.</p>
 			</div>
 		</div>
-
-
-
 	<footer>
 		<?php include 'foot.php';?>
 	</footer>

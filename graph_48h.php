@@ -1033,7 +1033,7 @@
 
 		<!-- DEBUT DU CORPS DE PAGE -->
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 				<h3>Graphiques des 48 dernières heures</h3>
 				<h4 <?php if ($diff>$offline_time){echo'class="offline_station"';}echo'class="online_station"';?>>Derniers relevés de la station le <?php echo $date; ?> à <?php echo $heure; ?></h4>
 				<?php if ($diff>$offline_time) : ?>
@@ -1044,38 +1044,38 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 				<p>Vous trouverez sur cette page les relevés de la station sur les 48 dernières heures sous forme de graphiques. Ils sont mis à jour toutes les 5 minutes.<br>Vous pouvez zoomer sur une zone spécifique, faire apparaitre une infobulle au passage de la souris ou au clic sur mobile, et afficher/masquer un paramètre météo en cliquant sur son intitulé dans la légende. Ils sont également exportables en cliquant sur le bouton au-dessus à droite de chaque graphique.</p>
 			</div>
 		</div>
 		<hr>
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 				<div id="graph_temp_hygro" style="width:100%; height: 400px;"></div>
 			</div>
 		</div>
 		<hr>
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 				<div id="graph_pression" style="width:100%; height:400px;"></div>
 			</div>
 		</div>
 		<hr>
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 				<div id="graph_vent" style="width:100%; height:400px;"></div>
 			</div>
 		</div>
 		<hr>
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 				<div id="graph_precip" style="width:100%; height:400px;"></div>
 			</div>
 		</div>
 		<?php if ($presence_uv == true) : ?>
 		<hr>
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 				<div id="graph_uv" style="width:100%; height:400px;"></div>
 			</div>
 		</div>
@@ -1083,13 +1083,13 @@
 		<?php if ($presence_radiation == true) : ?>
 		<hr>
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 				<div id="graph_rad" style="width:100%; height:400px;"></div>
 			</div>
 		</div>
 		<hr>
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 				<div id="graph_et" style="width:100%; height:400px;"></div>
 			</div>
 		</div>

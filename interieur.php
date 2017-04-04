@@ -505,7 +505,7 @@
 
 		<!-- DEBUT DU CORPS DE PAGE -->
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 				<h3>Données des sondes intérieures </h3>
 				<h4 <?php if ($diff>$offline_time){echo'class="offline_station"';}echo'class="online_station"';?>>Derniers relevés de la station le <?php echo $date; ?> à <?php echo $heure; ?></h4>
 				<?php if ($diff>$offline_time) : ?>
@@ -516,50 +516,53 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12" align="center">
-				<table class="table table-striped table-bordered table-responsive table-hover">
+			<div class="col-md-12 divCenter">
+				<table class="table table-striped table-bordered table-responsive table-hover tabLeft">
 					<thead>
 						<tr>
-						<th>Paramètres</th>
-						<th>Valeur actuelle</th>
-						<th class="text-info">Mini du jour</th>
-						<th class="text-danger">Maxi du jour</th>
+							<th>Paramètres</th>
+							<th>Valeur actuelle</th>
+							<th class="text-info">Mini du jour</th>
+							<th class="text-danger">Maxi du jour</th>
 						</tr>
 					</thead>
 					<tbody>
-						<td>Température intérieure</td>
-						<td><?php echo $inTemp; ?> °C</td>
-						<td><?php echo $mintemp; ?> °C à <?php echo $mintemptime; ?></td>
-						<td><?php echo $maxtemp; ?> °C à <?php echo $maxtemptime; ?></td>
+						<tr>
+							<td>Température intérieure</td>
+							<td><?php echo $inTemp; ?> °C</td>
+							<td><?php echo $mintemp; ?> °C à <?php echo $mintemptime; ?></td>
+							<td><?php echo $maxtemp; ?> °C à <?php echo $maxtemptime; ?></td>
+						</tr>
 					</tbody>
 					<tbody>
-						<td>Hygrométrie intérieure</td>
-						<td><?php echo $inHumidity; ?> %</td>
-						<td><?php echo $minhygro; ?> % à <?php echo $minhygrotime; ?></td>
-						<td><?php echo $maxhygro; ?> % à <?php echo $maxhygrotime; ?></td>
+						<tr>
+							<td>Hygrométrie intérieure</td>
+							<td><?php echo $inHumidity; ?> %</td>
+							<td><?php echo $minhygro; ?> % à <?php echo $minhygrotime; ?></td>
+							<td><?php echo $maxhygro; ?> % à <?php echo $maxhygrotime; ?></td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
 		<hr>
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 				<div id="graph_temp_hygro" style="width:100%; height: 400px;"></div>
 			</div>
 		</div>
 		<hr>
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 				<div id="graph_temp_hygro_7j" style="width:100%; height: 400px;"></div>
 			</div>
 		</div>
 		<hr>
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 				<div id="graph_temp_hygro_30j" style="width:100%; height: 400px;"></div>
 			</div>
 		</div>
-
 	<footer>
 		<?php include 'foot.php';?>
 	</footer>

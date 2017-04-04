@@ -52,14 +52,14 @@
 
 		<!-- DEBUT DU CORPS DE PAGE -->
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 				<div class="panel panel-info">
 					<div class="panel-heading">
 						<h3 class="panel-title">Webcam <?php echo $station_name; ?></h3>
 					</div>
 					<div class="panel-body">
 						<div class="row">
-							<div class="col-md-12" align="center">
+							<div class="col-md-12 divCenter">
 								<h4><?php echo $webcam_view_1; ?></h4>
 								<div class="thumbnail"><img id="webcam_last" src="<?php echo $webcam_url_1; ?>" alt="<?php echo $station_name; ?>"></div>
 								<p>Image rafraichie toutes les <?php echo $webcam_refresh_1; ?> minutes</p>
@@ -85,7 +85,7 @@
 					</div>
 					<div class="panel-body">
 						<div class="row">
-							<div class="col-md-12" align="center">
+							<div class="col-md-12 divCenter">
 								<video controls width="100%" preload="metadata" poster="<?php echo $timelapse_poster_url_1; ?>">
 								<source src="<?php echo $timelapse_url_1; ?>" type="video/webm" />
 								</video>
@@ -93,7 +93,7 @@
 							</div>
 
 						<?php if ($presence_archive_timelapse == true) : ?>
-							<div class="col-md-6 col-md-offset-3" align="center">
+							<div class="col-md-6 col-md-offset-3 divCenter">
 								<a href="<?php echo $timelapse_archive_url_1; ?>" target="blank" class="btn btn-default btn-lg btn-block">Accéder aux archives ici</a>
 								<br>
 							</div>
@@ -104,7 +104,7 @@
 					-->
 					<?php if ($presence_second_timelapse == true) : ?>
 					<div class="row">
-							<div class="col-md-12" align="center">
+							<div class="col-md-12 divCenter">
 							<hr>
 								<video controls width="100%" preload="metadata" poster="<?php echo $timelapse_poster_url_2; ?>">
 								<source src="<?php echo $timelapse_url_2; ?>" type="video/webm" />
@@ -112,7 +112,7 @@
 							<p>Ce timelapse est réalisé tous les soirs (vers 22h30 environ), à partir des images de la webcam collectées toute la journée (soit une image toutes les <?php echo $webcam_refresh_2; ?> minutes).</p>
 							</div>
 							<?php if ($presence_archive_timelapse == true) : ?>
-								<div class="col-md-6 col-md-offset-3" align="center">
+								<div class="col-md-6 col-md-offset-3 divCenter">
 									<a href="<?php echo $timelapse_archive_url_2; ?>" target="blank" class="btn btn-default btn-lg btn-block">Accéder aux archives ici</a>
 								</div>
 							<?php endif; ?>

@@ -49,7 +49,7 @@
 
 		<!-- DEBUT DU CORPS DE PAGE -->
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 
 			</div>
 		</div>

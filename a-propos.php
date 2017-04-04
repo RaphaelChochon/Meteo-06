@@ -57,8 +57,8 @@
 		<br>
 		<hr>
 		<div class="row">
-			<div class="col-md-12" align="center">
-				<a href="humans.txt" target="_blank"><img src="img/logo-humans.png" width="200" max-width="200"></a>
+			<div class="col-md-12 divCenter">
+				<a href="humans.txt" target="_blank"><img src="img/logo-humans.png" alt="Fichier humans.txt" width="200" max-width="200"></a>
 			</div>
 		</div>
 		<br>

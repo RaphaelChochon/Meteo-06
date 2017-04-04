@@ -56,7 +56,7 @@
 		</nav>
 <!-- DEBUT DU CORPS DE PAGE -->
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 				<h3>Archives de la station</h3>
 				<h4 <?php if ($diff>$offline_time){echo'class="offline_station"';}echo'class="online_station"';?>>Derniers relevés de la station le <?php echo $date; ?> à <?php echo $heure; ?></h4>
 				<?php if ($diff>$offline_time) : ?>
@@ -67,16 +67,16 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 				<p>Vous trouverez sur cette page l'historique complet des données archivées de la station.<br>Vous pouvez zoomer sur une zone spécifique, faire apparaitre une infobulle au passage de la soucis ou au clic sur mobile, et afficher/masquer un paramètre météo en cliquant sur son intitulé dans la légende.<br><b>Il est préférable de consulter cette page depuis un ordinateur de bureau. Sur mobile le graphique pourrait ne pas apparaître</b></p>
 			</div>
 		</div>
 		<hr>
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 				<div id="ajax-loading">
 					<p>Le chargement des données est en cours et peut être relativement long.<br>Patientez quelques secondes...</p>
-					<img src="img/loading.gif"/>
+					<img src="img/loading.gif" alt="loading" />
 				</div>
 				<div id="container" style="height: 500px"></div>
 			</div>

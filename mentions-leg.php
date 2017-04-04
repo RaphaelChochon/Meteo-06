@@ -29,7 +29,7 @@
 
 		<!-- DEBUT DU CORPS DE PAGE -->
 		<div class="row">
-			<div class="col-md-12" align="center">
+			<div class="col-md-12 divCenter">
 				<div class="alert alert-dismissible alert-danger">
 				<h1>Réserves de responsabilités</h1>
 				<h3>Toutes les données sont fournises uniquement à titre indicatif</h3>
