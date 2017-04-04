@@ -24,3 +24,17 @@ body{
 .image {
 	max-width: 100%;
 }
+
+.imgRadar {
+	border-width:2px;
+	border-color:black;
+	border-style:solid;
+}
+
+.divCenter {
+	text-align:center;
+}
+
+.tabLeft {
+	text-align:left;
+}
