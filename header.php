@@ -1,5 +1,5 @@
 	<div class="row">
-			<div class="hidden-xs hidden-sm col-md-3 divCenter"><a href="./"><img src="img/logo.<?php echo $extension_logo; ?>" style="max-height: 130px;"></a></div>
+			<div class="hidden-xs hidden-sm col-md-3 divCenter"><a href="./"><img src="img/logo.<?php echo $extension_logo; ?>" alt="logo" style="max-height: 130px;"></a></div>
 			<div class="hidden-md hidden-lg divCenter"><a href="./"><img src="img/logo.<?php echo $extension_logo; ?>" alt="logo" style="max-height: 100px;"></a></div>
 			<div class="col-md-9 divCenter">
 				<h1><?php if ($presence_webcam == true){

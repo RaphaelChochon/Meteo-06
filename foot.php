@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-md-12" align="center">
+	<div class="col-md-12 divCenter">
 		<div class="well">
 			<p>Maintenance de la station par <a href="<?php echo $site_manager_graph; ?>" target="blank"><?php echo $name_manager_footer; ?></a><br>
 			<a href="mentions-leg.php"> Mentions légales et réserves de responsabilités</a><br>
