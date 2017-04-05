@@ -9,7 +9,7 @@
 -->
 <!-- Affichage de la date et l'heure de dernière MAJ des données -->
 <div class="row">
-	<div class="col-md-12" align="center">
+	<div class="col-md-12 divCenter">
 		<h3 <?php if ($diff>$offline_time){echo'class="offline_station"';}echo'class="online_station"';?>>Derniers relevés de la station le <?php echo $date; ?> à <?php echo $heure; ?></h3>
 		<?php if ($diff>$offline_time) : ?>
 			<h4 class="offline_station">Station actuellement hors ligne depuis
