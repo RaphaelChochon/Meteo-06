@@ -1,14 +1,13 @@
 ## Changelog Meteo 06
 
 ### ToDo
-* Tableau récap pour chaque mois de l'année, et pour chaque année
-* HighMaps pour les mois
-* Ajout d'un export de graphs miniatures pour mettre en signature par exemple sur IC ou autres (idée Thibaut Valbonne)
-* Highstock - variation des températures journalières
-* Faire une page avec graphiques rxcheckpourcent etc
-* "Mode scientifique" avec vitesse vent en m/s etc.
-* .htaccess ?
-* sitemap.xml => risque d'être compliqué pour intégrer automatiquement le domaine du site dans un fichier XML...
+Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
+
+### 0.11.0 - 05/04/2017
+* Rédaction du readme avec premières étapes d'installation, à finir !
+* Ajout d'une redirection des tableaux récaps mois/mois et année/année vers les rapports NOAA
+* Mise en conformité avec le W3C
+* Retouches mineures du fichier de config
 
 ### 0.10.0 - 28/03/2017
 * Ajout d'un exemple pour la page "A propos" de la station, avec intégration d'onglets et de "carousel" Bootstrap pour intégrer quelques photos.
