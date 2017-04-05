@@ -22,16 +22,16 @@
 
 
 	// CONNECT BDD MySQL WEEWX
-	$server  ="localhost"; //localhost or host adress/IP
-	$user    ="weewx_for_example"; // User MySQL
-	$pass    ="passe"; // password
-	$db_name ="weewx"; // BDD name
-	$db_table="archive"; // table name
+	$server  = "localhost"; //localhost or host adress/IP
+	$user    = "weewx_for_example"; // User MySQL
+	$pass    = "passe"; // password
+	$db_name = "weewx"; // BDD name
+	$db_table= "archive"; // table name
 
 	// GENERAL CONFIG
 	$station_name        = "Name of my station";
 	$short_station_name  = "Short name";
-	$url_site            ="https://myweathersite.fr"; // URL of the site WITHOUT the slash at the end ('subdomain.domain.tld' for example). This is important for SEO tools (google referencing for example)
+	$url_site            = "https://myweathersite.fr"; // URL of the site WITHOUT the slash at the end ('subdomain.domain.tld' for example). This is important for SEO tools (google referencing for example)
 	$SSL                 = true; // If the site is in https (SSL on) then it's true, otherwise write false
 	$station_model       = "Oregon Scientific WMR200"; //Station model : Oregon Scientific WMR200, WMR88 ; Davis VP2 etc.
 	$station_altitude    = "---"; // Elevation/altitude of the station in meters
@@ -86,21 +86,21 @@
 	// BANNIERE INFO
 	$banniere_info_active = true; // enable banniere
 	$banniere_info_type   = "warning"; // change color banniere. Value possible : danger/warning/success/info => http://bootswatch.com/flatly/
-	$banniere_info_titre  = "Attention !"; // title
-	$banniere_info_message= "Ce site est en travaux, des bugs peuvent encore être présents, soyez donc indulgent.<br>Toute l'équipe vous en remercie";
+	$banniere_info_titre  = "Site en cours de déploiement"; // title
+	$banniere_info_message= "Ce site est en cours de déploiement, il se peut donc que vous rencontriez encore quelques bugs.";
 
 	// RADAR
-	$radar_url       ="//www.infoclimat.fr/api/UzBUfgU%2FBzJWflZgBTwHZFwuBW4AZ1Z%2BAmlbNVV8ADFWPFVgVmUFNAYwBTNTZwloUz5dPAdjV2FTMg%3D%3D/radar/sud_est?4f360c88e3aabaf99aeb8edfecc08542"; // URL of radar
-	$radar_source    ="InfoClimat"; // source radar
-	$radar_source_url="http://www.infoclimat.fr/cartes-meteo-temps-reel-images-satellites-infrarouge-visible-haute-resolution.html?i=radar-sud_est"; // URL source radar
+	$radar_url       = "//www.infoclimat.fr/api/UzBUfgU%2FBzJWflZgBTwHZFwuBW4AZ1Z%2BAmlbNVV8ADFWPFVgVmUFNAYwBTNTZwloUz5dPAdjV2FTMg%3D%3D/radar/sud_est?4f360c88e3aabaf99aeb8edfecc08542"; // URL of radar
+	$radar_source    = "InfoClimat"; // source radar
+	$radar_source_url= "http://www.infoclimat.fr/cartes-meteo-temps-reel-images-satellites-infrarouge-visible-haute-resolution.html?i=radar-sud_est"; // URL source radar
 
 	// FACEBOOK
-	$fb_app_id=""; // Facebook application ID
+	$fb_app_id = ""; // Facebook application ID
 
 	// TWITTER
-	$tw_account_name=""; // Twitter account name WITH arobas (@)
+	$tw_account_name = ""; // Twitter account name WITH arobas (@)
 
 	// HASHTAG
-	$hashtag_meteo=""; // Hashtag to the choice you want to put forward in META SEO tags Facebook and company ("#Météo06" for example). Not required
+	$hashtag_meteo = ""; // Hashtag to the choice you want to put forward in META SEO tags Facebook and company ("#Météo06" for example). Not required
 
 ?>
