@@ -130,12 +130,22 @@
 							<td><?php echo $maxbarometer; ?> hPa à <?php echo $maxbarometertime; ?></td>
 						</tr>
 					</tbody>
+				</table>
+				<table class="table table-striped table-bordered table-responsive table-hover tabLeft">
+					<thead>
+						<tr>
+							<th>Paramètres</th>
+							<th>Valeur actuelle</th>
+							<th>Moy./10 min</th>
+							<th><span class="text-danger">Maxi du jour</span></th>
+						</tr>
+					</thead>
 					<tbody>
 						<tr>
-							<td>Vitesse du vent (rafale / 10min et direction)</td>
-							<td><?php echo $wind; ?> km/h (<?php echo $windgust; ?> km/h direction <?php echo $windgustdir; ?> °)</td>
-							<td><?php echo $minwind; ?> km/h à <?php echo $minwindtime; ?></td>
-							<td><?php echo $maxwind; ?> km/h à <?php echo $maxwindtime; ?> (<?php echo $maxwinddir; ?>°)</td>
+							<td>Vent moyen<br>Rafale</td>
+							<td><?php echo $wind; ?> km/h<br><?php echo $windgust; ?> km/h</td>
+							<td><?php echo $avg_wind_10; ?> km/h dir. <?php echo $cardinalDir; ?> (<?php echo $avg_windDir_10; ?>°)<br><?php echo $max_windGust_10; ?> km/h dir. <?php echo $cardinalGustDir; ?> (<?php echo $avg_windGustDir_10; ?>°)</td>
+							<td>|<?php echo $maxwind; ?> km/h à <?php echo $maxwindtime; ?><br>|Dir. <?php echo $cardinalMaxWindDir; ?> (<?php echo $maxwinddir; ?>°)</td>
 						</tr>
 					</tbody>
 				<?php if ($presence_uv == true) : ?>
@@ -143,7 +153,7 @@
 						<tr>
 							<td>Indice UV</td>
 							<td><?php echo $uv; ?></td>
-							<td></td>
+							<td><?php echo $avg_UV_10; ?></td>
 							<td><?php echo $maxuv; ?> à <?php echo $maxuvtime; ?></td>
 						</tr>
 					</tbody>
@@ -153,7 +163,7 @@
 						<tr>
 							<td>Rayonnement solaire</td>
 							<td><?php echo $radiation; ?> W/m²</td>
-							<td></td>
+							<td><?php echo $avg_radiation_10; ?> W/m²</td>
 							<td><?php echo $maxradiation; ?> W/m² à <?php echo $maxradiationtime; ?></td>
 						</tr>
 					</tbody>

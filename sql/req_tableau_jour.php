@@ -12,6 +12,7 @@
 
 	// On détermine le stop et le start de façon à récupérer dans la prochaine requête que les données des dernières xx heures
 	$stop=$list[0];
+	$minutes10=$stop-(600);
 	$start1=$stop-(3599);
 	$start3=$stop-(10800);
 	$start6=$stop-(21600);
@@ -20,14 +21,43 @@
 	$start48=$stop-(86400*2);
 	$start72=$stop-(86400*3);
 
-	// On récupère les valeurs actuelles
+	// Fonction pour convertir les directions de vent de degré° à cardinal
+	function wind_cardinals($deg) {
+		$cardinalDirections = array(
+			'N' => array(348.75, 360),
+			'N' => array(0, 11.25),
+			'NNE' => array(11.25, 33.75),
+			'NE' => array(33.75, 56.25),
+			'ENE' => array(56.25, 78.75),
+			'E' => array(78.75, 101.25),
+			'ESE' => array(101.25, 123.75),
+			'SE' => array(123.75, 146.25),
+			'SSE' => array(146.25, 168.75),
+			'S' => array(168.75, 191.25),
+			'SSW' => array(191.25, 213.75),
+			'SW' => array(213.75, 236.25),
+			'WSW' => array(236.25, 258.75),
+			'W' => array(258.75, 281.25),
+			'WNW' => array(281.25, 303.75),
+			'NW' => array(303.75, 326.25),
+			'NNW' => array(326.25, 348.75)
+		);
+		foreach ($cardinalDirections as $dir => $angles) {
+			if ($deg >= $angles[0] && $deg < $angles[1]) {
+				$cardinal = $dir;
+			}
+		}
+		return $cardinal;
+	};
+
+	// On récupère les valeurs actuelles simple
 	// Mais d'abord on vérifie si la valeur actuelle n'est pas null
 	$dewpoint_check = $row[16];
 	if($dewpoint_check == null){
 		// si elle est null, alors on lui donne la valeur N/A
 		$dewpoint = 'N/A';
 	}else{
-		// sinon on l'arrondie
+		// sinon on l'arrondie (eventuellement) et on l'affiche
 		$dewpoint = round($row[16],1);
 	}
 	//
@@ -36,27 +66,6 @@
 		$temp = 'N/A';
 	}else{
 		$temp = round($row[7],1);
-	}
-	//
-	$wind_check = $row[10];
-	if ($wind_check == null){
-		$wind = 'N/A';
-	}else{
-		$wind = round($row[10],1);
-	}
-	//
-	$windgust_check = $row[12];
-	if ($windgust_check == null){
-		$windgust = 'N/A';
-	}else{
-		$windgust = round($row[12],1);
-	}
-	//
-	$windgustdir_check = $row[13];
-	if ($windgustdir_check == null){
-		$windgustdir = 'N/A';
-	}else{
-		$windgustdir = round($row[13],1);
 	}
 	//
 	$hygro_check = $row[9];
@@ -73,12 +82,37 @@
 		$barometer = round($row[3],1);
 	}
 	//
-	$radiation_check = $row[20];
-	if ($radiation_check == null){
-		$radiation = 'N/A';
+	$wind_check = $row[10];
+	if ($wind_check == null){
+		$wind = 'N/A';
 	}else{
-		$radiation = round($row[20],1);
+		$wind = round($row[10],1);
 	}
+	//
+	$windgust_check = $row[12];
+	if ($windgust_check == null){
+		$windgust = 'N/A';
+	}else{
+		$windgust = round($row[12],1);
+	}
+	//
+	if ($presence_radiation == true){
+		$radiation_check = $row[20];
+		if ($radiation_check == null){
+			$radiation = 'N/A';
+		}else{
+			$radiation = round($row[20],1);
+		}
+	};
+	//
+	if ($presence_uv == true){
+		$uv_check = $row[21];
+		if($row[21]== null){
+			$uv='N/A';
+		}else{
+			$uv=$row[21];
+		}
+	};
 	//
 	$heatindex_check = $row[18];
 	if ($heatindex_check == null){
@@ -101,31 +135,49 @@
 		$rainrate = round($row[14]*10,1);
 	}
 	//
+	// Calcul du cumul de précipitations de la journée
 	$today = strtotime('today midnight');
 	$rain = mysql_query("SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime>'$today';");
 	$he = mysql_fetch_row($rain);
 	$cumul = round($he[0]*10,1);
 
-if ($presence_uv == true){
-	$uv_check = $row[21];
-	if($row[21]== null){
-		$uv='N/A';
-	}else{
-		$uv=$row[21];
-	}
-};
+	// Calcul de la moyenne sur 10 minutes du vent moyen
+	$res = mysql_query("SELECT AVG(windSpeed) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';") or die(mysql_error());
+	$row = mysql_fetch_row($res);
+	$avg_wind_10 = round($row[0],1);
 
-if ($presence_radiation == true){
-	//$et = round($row[19]*10,3);
-	$et_1h = mysql_query("SELECT sum(ET) FROM $db_name.$db_table WHERE dateTime>= '$start1' AND dateTime <= '$stop';");
-	$et_1h_requ = mysql_fetch_row($et_1h);
-	$et = round($et_1h_requ[0]*10,3);
-	//
-	$etreq = mysql_query("SELECT sum(ET) FROM $db_name.$db_table WHERE dateTime>'$today';");
-	$etrequ = mysql_fetch_row($etreq);
-	$etcumul = round($etrequ[0]*10,2);
-};
+	// Calcul de la moyenne sur 10 minutes de la direction du vent moyen
+	$res = mysql_query("SELECT AVG(windDir) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';") or die(mysql_error());
+	$row = mysql_fetch_row($res);
+	$avg_windDir_10 = round($row[0],1);
+	$cardinalDir = wind_cardinals($avg_windDir_10);
 
+	// Récupération de la rafale max sur les 10 dernières minutes
+	$res = mysql_query("SELECT max(windGust) FROM $db_name.$db_table WHERE dateTime>'$minutes10';") or die(mysql_error());
+	$row = mysql_fetch_row($res);
+	$max_windGust_10 = round($row[0],1);
+
+	// Calcul de la moyenne sur 10 minutes de la direction des rafales de vent
+	$res = mysql_query("SELECT AVG(windGustDir) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';") or die(mysql_error());
+	$row = mysql_fetch_row($res);
+	$avg_windGustDir_10 = round($row[0],1);
+	$cardinalGustDir = wind_cardinals($avg_windGustDir_10);
+
+	// ET
+	if ($presence_radiation == true){
+		// Calcul de l'ET sur la dernière heure
+		$et_1h = mysql_query("SELECT sum(ET) FROM $db_name.$db_table WHERE dateTime>= '$start1' AND dateTime <= '$stop';");
+		$et_1h_requ = mysql_fetch_row($et_1h);
+		$et = round($et_1h_requ[0]*10,3);
+
+		// Calcul du cumul d'ET de la journée
+		$etreq = mysql_query("SELECT sum(ET) FROM $db_name.$db_table WHERE dateTime>'$today';");
+		$etrequ = mysql_fetch_row($etreq);
+		$etcumul = round($etrequ[0]*10,2);
+	};
+
+
+	// Calcul des précipitations cumulées sur différents pas de temps
 	$rain1 = mysql_query("SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start1' AND dateTime <= '$stop' ORDER BY 1;");
 	$he1 = mysql_fetch_row($rain1);
 	$cumul1 = round($he1[0]*10,1);
@@ -193,47 +245,58 @@ if ($presence_radiation == true){
 	$maxrainRate = round($row[3]*10,1);
 	$maxrainRatetime = date('H\hi',$row[4]);
 
-	// On récupère les valeurs max et min des rafales de vent
+	// On récupère les valeurs max des rafales de vent
 	$res = mysql_query("SELECT * FROM $db_name.archive_day_wind ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
 	$row = mysql_fetch_row($res);
-	$minwindtime = date('H\hi',$row[2]);
-	$minwind = round($row[1],1);
 	$maxwind = round($row[3],1);
 	$maxwindtime = date('H\hi',$row[4]);
 	$maxwinddir = round($row[9],2);
+	$cardinalMaxWindDir = wind_cardinals($maxwinddir);
 
-if ($presence_uv == true){
-	// On récupère les valeurs max et min de l'UV
-	$res = mysql_query("SELECT * FROM $db_name.archive_day_UV ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
-	$row = mysql_fetch_row($res);
-	$maxuv = round($row[3],1);
-	$maxuvtime = date('H\hi',$row[4]);
-};
+	// UV
+	if ($presence_uv == true){
+		// Calcul de la moyenne sur 10 minutes de l'indice UV
+		$res = mysql_query("SELECT AVG(UV) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';") or die(mysql_error());
+		$row = mysql_fetch_row($res);
+		$avg_UV_10 = round($row[0],1);
 
-	// On récupère les valeurs max et min du refroidissement éolien
+		// On récupère les valeurs max de l'UV
+		$res = mysql_query("SELECT * FROM $db_name.archive_day_UV ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
+		$row = mysql_fetch_row($res);
+		$maxuv = round($row[3],1);
+		$maxuvtime = date('H\hi',$row[4]);
+	};
+
+	// On récupère la valeur min du refroidissement éolien
 	$res = mysql_query("SELECT * FROM $db_name.archive_day_windchill ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
 	$row = mysql_fetch_row($res);
 	$minwindchilltime = date('H\hi',$row[2]);
 	$minwindchill = round($row[1],1);
 
-	// On récupère les valeurs max de l'indice de chaleur
+	// On récupère la valeur max de l'indice de chaleur
 	$res = mysql_query("SELECT * FROM $db_name.archive_day_heatindex ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
 	$row = mysql_fetch_row($res);
 	$maxheatindex = round($row[3],1);
 	$maxheatindextime = date('H\hi',$row[4]);
 
-if ($presence_radiation == true){
-	// On récupère les valeurs max du rayonnement solaire
-	$res = mysql_query("SELECT * FROM $db_name.archive_day_radiation ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
-	$row = mysql_fetch_row($res);
-	$maxradiation = round($row[3],1);
-	$maxradiationtime = date('H\hi',$row[4]);
+	// Rayonnement solaire et ET
+	if ($presence_radiation == true){
+		// Calcul de la moyenne sur 10 minutes du rayonnement solaire (radiation)
+		$res = mysql_query("SELECT AVG(radiation) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';") or die(mysql_error());
+		$row = mysql_fetch_row($res);
+		$avg_radiation_10 = round($row[0],1);
 
-	// On récupère les valeurs max de l'ET
-	$res = mysql_query("SELECT * FROM $db_name.archive_day_ET ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
-	$row = mysql_fetch_row($res);
-	$maxet = round($row[3]*10,3);
-	$maxettime = date('H\hi',$row[4]);
-};
+		// On récupère les valeurs max du rayonnement solaire
+		$res = mysql_query("SELECT * FROM $db_name.archive_day_radiation ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
+		$row = mysql_fetch_row($res);
+		$maxradiation = round($row[3],1);
+		$maxradiationtime = date('H\hi',$row[4]);
+
+		// On récupère les valeurs max de l'ET
+		$res = mysql_query("SELECT * FROM $db_name.archive_day_ET ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
+		$row = mysql_fetch_row($res);
+		$maxet = round($row[3]*10,3);
+		$maxettime = date('H\hi',$row[4]);
+	};
 
 ?>
