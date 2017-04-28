@@ -42,13 +42,13 @@
 			{
 				var url = "NOAA/raw/month/";
 				url = url + file_name;
-				window.location=url;
+				window.open(url,'_blank');
 			}
 			function openNoaaFileYear(file_name)
 			{
 				var url = "NOAA/raw/year/";
 				url = url + file_name;
-				window.location=url;
+				window.open(url,'_blank');
 			}
 		</script>
 	</head>
