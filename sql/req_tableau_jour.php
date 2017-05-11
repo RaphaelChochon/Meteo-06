@@ -152,8 +152,8 @@
 	$avg_windDir_10 = round($row[0],1);
 	$cardinalDir = wind_cardinals($avg_windDir_10);
 
-	// Récupération de la rafale max sur les 10 dernières minutes
-	$res = mysql_query("SELECT max(windGust) FROM $db_name.$db_table WHERE dateTime>'$minutes10';") or die(mysql_error());
+	// Caclul de la moyenne des rafales sur les 10 dernières minutes
+	$res = mysql_query("SELECT AVG(windGust) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';") or die(mysql_error());
 	$row = mysql_fetch_row($res);
 	$max_windGust_10 = round($row[0],1);
 
