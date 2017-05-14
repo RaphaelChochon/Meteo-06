@@ -3,6 +3,11 @@
 ### ToDo
 Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 
+### 0.11.1 - 14/05/2017
+* Ajout des moyennes sur 10min pour le vent, les UV et le rayonnement
+* Ajout des directions du vent en texte en + des degrès (N, NNO, NO, etc.)
+* Ouverture des rapports TXT NOAA dans un nouvel onglet
+
 ### 0.11.0 - 05/04/2017
 * Rédaction du readme avec premières étapes d'installation, à finir !
 * Ajout d'une redirection des tableaux récaps mois/mois et année/année vers les rapports NOAA
