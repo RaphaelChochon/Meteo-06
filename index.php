@@ -144,7 +144,7 @@
 						<tr>
 							<td>Vent moyen<br>Rafale</td>
 							<td><?php echo $wind; ?> km/h<br><?php echo $windgust; ?> km/h</td>
-							<td><?php echo $avg_wind_10; ?> km/h dir. <?php echo $cardinalDir; ?> (<?php echo $avg_windDir_10; ?>°)<br><?php echo $max_windGust_10; ?> km/h dir. <?php echo $cardinalGustDir; ?> (<?php echo $avg_windGustDir_10; ?>°)</td>
+							<td><?php echo $avg_wind_10; ?> km/h dir. <?php echo $cardinalDir; ?> (<?php echo $avg_windDir_10; ?>°)<br><?php echo $avg_windGust_10; ?> km/h dir. <?php echo $cardinalGustDir; ?> (<?php echo $avg_windGustDir_10; ?>°)</td>
 							<td>|<?php echo $maxwind; ?> km/h à <?php echo $maxwindtime; ?><br>|Dir. <?php echo $cardinalMaxWindDir; ?> (<?php echo $maxwinddir; ?>°)</td>
 						</tr>
 					</tbody>

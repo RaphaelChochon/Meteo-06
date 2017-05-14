@@ -155,7 +155,7 @@
 	// Caclul de la moyenne des rafales sur les 10 dernières minutes
 	$res = mysql_query("SELECT AVG(windGust) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';") or die(mysql_error());
 	$row = mysql_fetch_row($res);
-	$max_windGust_10 = round($row[0],1);
+	$avg_windGust_10 = round($row[0],1);
 
 	// Calcul de la moyenne sur 10 minutes de la direction des rafales de vent
 	$res = mysql_query("SELECT AVG(windGustDir) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';") or die(mysql_error());
