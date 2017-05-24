@@ -44,6 +44,7 @@
 		<script src="https://code.highcharts.com/highcharts.js"></script>
 		<!-- <script src="https://code.highcharts.com/js/highcharts-more.js"></script> -->
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+		<script src="vendors/custom/highcharts_export-csv.js"></script>
 	</head>
 	<body>
 	<div class="container">
@@ -105,12 +106,15 @@
 						decimalPoint: ',',
 						resetZoom: 'Reset zoom',
 						resetZoomTitle: 'Reset zoom à 1:1',
-						downloadPNG: "Télécharger au format PNG image",
-						downloadJPEG: "Télécharger au format JPEG image",
-						downloadPDF: "Télécharger au format PDF document",
-						downloadSVG: "Télécharger au format SVG vector image",
+						downloadPNG: "Télécharger au format PNG",
+						downloadJPEG: "Télécharger au format JPEG",
+						downloadPDF: "Télécharger au format PDF",
+						downloadSVG: "Télécharger au format SVG",
+						downloadCSV: "Télécharger les données<br>dans un fichier CSV",
+						downloadXLS: "Télécharger les données<br>dans un fichier XLS (Excel)",
 						printChart: "Imprimer le graphique",
-						loading: "Chargement..."
+						viewData: "Afficher/masquer les données brut sous forme<br>d'un tableau ci-dessous (BETA)",
+						loading: "Chargement des données en cours..."
 					}
 				});
 /*
@@ -138,6 +142,9 @@
 						filename: '<?php echo $short_station_name; ?> Temperature',
 						sourceHeight: '400',
 						sourceWidth: '1200',
+						csv: {
+							itemDelimiter:';',
+						},
 					},
 					xAxis: [{
 						type: 'datetime',
@@ -295,6 +302,9 @@
 						filename: '<?php echo $short_station_name; ?> Pression',
 						sourceHeight: '400',
 						sourceWidth: '1200',
+						csv: {
+							itemDelimiter:';',
+						},
 					},
 					xAxis: [{
 						type: 'datetime',
@@ -407,6 +417,9 @@
 						filename: '<?php echo $short_station_name; ?> Vent',
 						sourceHeight: '400',
 						sourceWidth: '1200',
+						csv: {
+							itemDelimiter:';',
+						},
 					},
 					xAxis: [{
 						type: 'datetime',
@@ -585,6 +598,9 @@
 						filename: '<?php echo $short_station_name; ?> Precipitations',
 						sourceHeight: '400',
 						sourceWidth: '1200',
+						csv: {
+							itemDelimiter:';',
+						},
 					},
 					xAxis: [{
 						type: 'datetime',
@@ -699,6 +715,9 @@
 						filename: '<?php echo $short_station_name; ?> UV',
 						sourceHeight: '400',
 						sourceWidth: '1200',
+						csv: {
+							itemDelimiter:';',
+						},
 					},
 					xAxis: [{
 						type: 'datetime',
@@ -815,6 +834,9 @@
 						filename: '<?php echo $short_station_name; ?> Rayonnement solaire',
 						sourceHeight: '400',
 						sourceWidth: '1200',
+						csv: {
+							itemDelimiter:';',
+						},
 					},
 					xAxis: [{
 						type: 'datetime',
@@ -928,6 +950,9 @@
 						filename: '<?php echo $short_station_name; ?> Évapotranspiration',
 						sourceHeight: '400',
 						sourceWidth: '1200',
+						csv: {
+							itemDelimiter:';',
+						},
 					},
 					xAxis: [{
 						type: 'datetime',

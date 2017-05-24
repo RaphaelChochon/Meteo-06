@@ -38,3 +38,18 @@ body{
 .tabLeft {
 	text-align:left;
 }
+
+/*Tableau de données HighCharts*/
+/*https://github.com/highcharts/export-csv*/
+.highcharts-data-table table {
+	border-collapse:collapse;
+	border-spacing:0;
+	background:white;
+	margin:auto;
+}
+.highcharts-data-table td, .highcharts-data-table th {
+	font-family:sans-serif;
+	font-size:10pt;
+	border:1px solid silver;
+	padding:0.5em;
+}
