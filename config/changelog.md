@@ -3,6 +3,10 @@
 ### ToDo
 Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 
+### 0.12.0 - 30/05/2017
+* Ajout de la possibilité d'exporter les données des graphiques 48 heures en CSV, XLS, ou simplement d'afficher les données brutes dans un tableau directement sous le graphique.
+* Modification du code source du plugin ``export-data`` de Highcharts pour laisser la possibilité de masquer le tableau une fois qu'il est affiché sous le graphique, en recliquant sur le bouton. Voir => https://github.com/highcharts/export-csv/issues/102
+
 ### 0.11.1 - 14/05/2017
 * Ajout des moyennes sur 10min pour le vent, les UV et le rayonnement
 * Ajout des directions du vent en texte en + des degrès (N, NNO, NO, etc.)
