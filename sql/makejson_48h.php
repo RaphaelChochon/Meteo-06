@@ -192,6 +192,19 @@ if ($presence_radiation == true){
 			$i++;
 	}
 	$json_ET.="]";
+
+	//rxCheck
+	$json_rxCheckPercent = "[";
+		$res=mysql_query("SELECT datetime, IFNULL(rxCheckPercent,'null') AS rxCheckPercent FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;");
+		$i=0;
+		while($row=mysql_fetch_row($res)) {
+				$rx = $row[1];
+				if(is_int($i)) {
+					$json_rxCheckPercent.= "$rx,";
+				}
+				$i++;
+		}
+	$json_rxCheckPercent.="]";
 };
 
 //DIRECTION VENT
@@ -264,6 +277,11 @@ if ($presence_radiation == true){
 	$file = $path."et_48h.json";
 	$fp=fopen($file,'w');
 	fwrite($fp,$json_ET);
+	fclose($fp);
+
+	$file = $path."rx_48h.json";
+	$fp=fopen($file,'w');
+	fwrite($fp,$json_rxCheckPercent);
 	fclose($fp);
 };
 

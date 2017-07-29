@@ -42,6 +42,7 @@
 		eval('var time_48h = <?php include 'json/indoor/time_48h.json' ?>');
 		eval('var data_intemp_48h = <?php include 'json/indoor/intemp_48h.json' ?>');
 		eval('var data_inhygro_48h = <?php include 'json/indoor/inhygro_48h.json' ?>');
+		eval('var data_rx_48h = <?php include 'json/rx_48h.json' ?>');
 
 		eval('var time_7j = <?php include 'json/indoor/time_7j.json' ?>');
 		eval('var data_intemp_7j = <?php include 'json/indoor/intemp_7j.json' ?>');
@@ -105,6 +106,142 @@
 						loading: "Chargement..."
 					}
 				});
+
+/*
+	START GRAPH RX
+ */
+
+				var rx = Highcharts.chart ('graph_rx', {
+					chart: {
+						type : 'line',
+						zoomType: 'x',
+						//alignTicks: false,
+					},
+					title: {
+						text: 'Pourcentage de réception',
+						//x: -20 //center
+					},
+					subtitle: {
+						text: 'Station <?php echo $station_name; ?>',
+						//x: -20
+					},
+					credits: {
+						text: '<?php echo $name_manager_graph; ?>',
+						href: '<?php echo $site_manager_graph; ?>'
+					},
+					exporting: {
+						filename: '<?php echo $short_station_name; ?> RX',
+						//scale: 2,
+					},
+					xAxis: [{
+						type: 'datetime',
+						dateTimeLabelFormats: {day: '%H:%M', hour: '%H:%M'},
+						tickInterval: 7200*1000,
+						crosshair: true,
+						plotBands: [{
+							color: '#e0ffff',
+							from: minuit_hier,
+							to: minuit,
+						}],
+						plotLines: [{
+							value: minuit,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							label: {
+								text: 'minuit',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: minuit_hier,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						}],
+					},{ // Axe esclave
+						type: 'datetime',
+						linkedTo: 0,
+						//opposite: true,
+						tickInterval: 7200 * 1000 * 8,
+						labels: {
+							align:"center",
+							formatter: function () {
+								return Highcharts.dateFormat('%a %e %b', this.value);
+							},
+							style:{
+								fontSize: "8px",
+							},
+						}
+					}],
+					yAxis: [{
+						// Axe 0
+						//className: 'highcharts-color-0',
+						//crosshair:true,
+						lineColor: '#FF0000',
+						lineWidth: 1,
+						title: {
+							text: 'RX (%)',
+							style: {
+								"color": "#ff0000",
+							},
+						},
+						labels:{
+							style: {
+								"color": "#ff0000",
+							},
+						},
+					}],
+					tooltip: {
+						shared: true,
+						//valueSuffix: '°C',
+						valueDecimals: 1,
+						formatter: function() {
+							var s = '<b>'+ Highcharts.dateFormat('%e %B à %H:%M', this.x) +'</b>';
+							$.each(this.points, function(i, point) {
+								var unit = {
+									'RX': ' %',
+								}[this.point.series.name];
+								s = s + '<br>' + '<span style="color:'+ point.series.color +'">' + point.series.name + '</span> : <b>'+Highcharts.numberFormat(point.y,1,","," ") + unit + '</b>';
+							});
+						return s;
+						},
+					},
+					series: [{
+						name: 'RX',
+						type: 'spline',
+						data: comArr(data_rx_48h),
+						zones: [{
+							value: 50,
+							color: '#ff266e'
+						},{
+							value: 75,
+							color: '#ffb626'
+						},{
+							color: '#34c400'
+						}],
+						connectNulls: true,
+						zIndex: 1,
+						//color: '#ff0000',
+						//negativeColor:'#0d1cc5',
+					}]
+				});
+/*
+	FIN GRAPH RX
+ */
+
 /*
 	START GRAPH TEMP/HYGRO 48H
  */
@@ -543,6 +680,12 @@
 						</tr>
 					</tbody>
 				</table>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-12 divCenter">
+				<div id="graph_rx" style="width:100%; height: 400px;"></div>
 			</div>
 		</div>
 		<hr>
