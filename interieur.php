@@ -687,12 +687,14 @@
 				</table>
 			</div>
 		</div>
+		<?php if ($presence_radiation == true) : ?>
 		<hr>
 		<div class="row">
 			<div class="col-md-12 divCenter">
 				<div id="graph_rx" style="width:100%; height: 400px;"></div>
 			</div>
 		</div>
+		<?php endif; ?>
 		<hr>
 		<div class="row">
 			<div class="col-md-12 divCenter">
