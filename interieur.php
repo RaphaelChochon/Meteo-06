@@ -42,7 +42,10 @@
 		eval('var time_48h = <?php include 'json/indoor/time_48h.json' ?>');
 		eval('var data_intemp_48h = <?php include 'json/indoor/intemp_48h.json' ?>');
 		eval('var data_inhygro_48h = <?php include 'json/indoor/inhygro_48h.json' ?>');
-		eval('var data_rx_48h = <?php include 'json/rx_48h.json' ?>');
+
+		<?php if ($presence_radiation == true) : ?>
+			eval('var data_rx_48h = <?php include 'json/rx_48h.json' ?>');
+		<?php endif; ?>
 
 		eval('var time_7j = <?php include 'json/indoor/time_7j.json' ?>');
 		eval('var data_intemp_7j = <?php include 'json/indoor/intemp_7j.json' ?>');
@@ -107,6 +110,7 @@
 					}
 				});
 
+<?php if ($presence_radiation == true) : ?>
 /*
 	START GRAPH RX
  */
@@ -241,6 +245,7 @@
 /*
 	FIN GRAPH RX
  */
+<?php endif; ?>
 
 /*
 	START GRAPH TEMP/HYGRO 48H
