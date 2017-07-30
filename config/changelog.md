@@ -3,6 +3,11 @@
 ### ToDo
 Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 
+### 0.12.1 - 30/07/2017
+* Ajout pour les VP2 (disposant du rayonnement solaire - solution encore bancale, à revoir!) d'un graphique de qualité de réception (à partir de la valeur ``rxCheckPercent``) sur la page ``interieur.php`` (#6)
+* Changement du sample de menu additionnel (ajout de Nice Pessicart VP2 et de Vence en prévision...)
+* Quelques modifications mineures au niveau du script d'installation ``install/script_install.sh``
+
 ### 0.12.0 - 30/05/2017
 * Ajout de la possibilité d'exporter les données des graphiques 48 heures en CSV, XLS, ou simplement d'afficher les données brutes dans un tableau directement sous le graphique.
 * Modification du code source du plugin ``export-data`` de Highcharts pour laisser la possibilité de masquer le tableau une fois qu'il est affiché sous le graphique, en recliquant sur le bouton. Voir => https://github.com/highcharts/export-csv/issues/102
