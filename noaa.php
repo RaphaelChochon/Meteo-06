@@ -78,7 +78,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12 divCenter">
-			<p>Vous pouvez via les listes déroulantes ci-dessous, accéder aux rapports climatologiques mensuels et annuels bruts de la station au format "NOAA". Ce sont des fichiers texte très simple qui sont mis à jours toutes les nuits.</p>
+			<p>Vous pouvez via les listes déroulantes ci-dessous, accéder aux rapports climatologiques mensuels et annuels bruts de la station au format "NOAA". Ce sont des fichiers texte très simple qui sont mis à jours tous les quarts d'heures.</p>
 			<h4>Rapports mensuels :</h4>
 			<select name="Month" onchange="openNoaaFileMonth(value)">
 				<?php
