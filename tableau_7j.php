@@ -187,14 +187,14 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td><span><a tabindex="0" data-placement="right" data-toggle="popover" data-trigger="focus" data-content="Le refroidissement éolien, parfois aussi appelé facteur vent dans le langage populaire, désigne la sensation de froid produite par le vent sur un organisme qui dégage de la chaleur, alors que la température réelle de l'air ambiant ne s'abaisse pas. (Source : Wikipedia).">Refroidissement éolien</a></span></td>
-							<td><span class="text-info">Mini</span> <?php echo $minwindchill7j; ?> °C le <?php echo $minwindchilltime7j; ?></td>
+							<td><span><a tabindex="0" data-placement="right" data-toggle="popover" data-trigger="focus" data-content="Aussi appelé windchill, le refroidissement éolien, parfois aussi appelé facteur vent dans le langage populaire, désigne la sensation de froid produite par le vent sur un organisme qui dégage de la chaleur, alors que la température réelle de l'air ambiant ne s'abaisse pas. (Source : Wikipedia). Cette donnée n'a pas d'unité et ne correspond pas à une température observée.">Refroidissement éolien</a></span></td>
+							<td><span class="text-info">Mini</span> <?php echo $minwindchill7j; ?> le <?php echo $minwindchilltime7j; ?></td>
 						</tr>
 					</tbody>
 					<tbody>
 						<tr>
-							<td><span><a tabindex="0" data-placement="right" data-toggle="popover" data-trigger="focus" data-content="Indice développé aux États-Unis qui combine la température de l'air ambiant et l'humidité relative pour tenter de déterminer la perception de la température que ressent le corps humain. (Source : Wikipedia).">Indice de chaleur</a></span></td>
-							<td><span class="text-danger">Maxi</span> <?php echo $maxheatindex7j; ?> °C le <?php echo $maxheatindextime7j; ?></td>
+							<td><span><a tabindex="0" data-placement="right" data-toggle="popover" data-trigger="focus" data-content="Aussi appelé humidex, c'est un indice développé aux États-Unis qui combine la température de l'air ambiant et l'humidité relative pour tenter de déterminer la perception de la température que ressent le corps humain. (Source : Wikipedia). Cette donnée n'a pas d'unité et ne correspond pas à une température observée.">Indice de chaleur</a></span></td>
+							<td><span class="text-danger">Maxi</span> <?php echo $maxheatindex7j; ?> le <?php echo $maxheatindextime7j; ?></td>
 						</tr>
 					</tbody>
 				</table>
