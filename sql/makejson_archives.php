@@ -11,7 +11,7 @@ WITHOUT ANY WARRANTY;
 ----
 Modification and addition by Raphaël CHOCHON for
 association Nice Météo 06
-http://nicemeteo.fr
+http://meteo06.fr
 Création de fichiers json pour différents paramètres, à partir
 de la BDD MySQL de Weewx. Ces fichiers JSON contiennent TOUS les
 enregistrements de la BDD.
@@ -24,13 +24,14 @@ $path = "../json/archives/";
 // appel du script de config et connexion à la BDD
 require_once('../config/config.php');
 	$db=$db_name.".".$db_table;
-	mysql_connect($server,$user,$pass) or die ("Erreur SQL : ".mysql_error() );
+	$conn = mysqli_connect($server,$user,$pass,$db_name);
 
 //TEMPERATURE
 $json_temp = "[";
-$res=mysql_query("SELECT datetime, IFNULL(outTemp,'null') AS outTemp FROM $db ORDER BY dateTime ASC;");
+$sql = "SELECT datetime, IFNULL(outTemp,'null') AS outTemp FROM $db ORDER BY dateTime ASC;";
+$res = $conn->query($sql);
 $i=0;
-while($row=mysql_fetch_row($res)) {
+while($row=mysqli_fetch_row($res)) {
 		$timestamp=$row[0];
 		$timestamp=$timestamp*1000;
 		$temp = $row[1];
@@ -48,9 +49,10 @@ $json_temp.="]";
 
 //ROSEE
 $json_rosee = "[";
-$res=mysql_query("SELECT datetime, IFNULL(dewpoint,'null') AS dewpoint FROM $db ORDER BY dateTime ASC;");
+$sql = "SELECT datetime, IFNULL(dewpoint,'null') AS dewpoint FROM $db ORDER BY dateTime ASC;";
+$res = $conn->query($sql);
 $i=0;
-while($row=mysql_fetch_row($res)) {
+while($row=mysqli_fetch_row($res)) {
 		$timestamp=$row[0];
 		$timestamp=$timestamp*1000;
 		$rosee = $row[1];
@@ -68,9 +70,10 @@ $json_rosee.="]";
 
 //HYGRO
 $json_hygro = "[";
-$res=mysql_query("SELECT datetime, IFNULL(outHumidity,'null') AS outHumidity FROM $db ORDER BY dateTime ASC;");
+$sql = "SELECT datetime, IFNULL(outHumidity,'null') AS outHumidity FROM $db ORDER BY dateTime ASC;";
+$res = $conn->query($sql);
 $i=0;
-while($row=mysql_fetch_row($res)) {
+while($row=mysqli_fetch_row($res)) {
 		$timestamp=$row[0];
 		$timestamp=$timestamp*1000;
 		$hygro = $row[1];
@@ -88,9 +91,10 @@ $json_hygro.="]";
 
 //PRESSION
 $json_baro = "[";
-$res=mysql_query("SELECT datetime, IFNULL(barometer,'null') AS barometer FROM $db ORDER BY dateTime ASC;");
+$sql = "SELECT datetime, IFNULL(barometer,'null') AS barometer FROM $db ORDER BY dateTime ASC;";
+$res = $conn->query($sql);
 $i=0;
-while($row=mysql_fetch_row($res)) {
+while($row=mysqli_fetch_row($res)) {
 		$timestamp=$row[0];
 		$timestamp=$timestamp*1000;
 		$baro = $row[1];
@@ -108,9 +112,10 @@ $json_baro.="]";
 
 //VENT
 $json_vent = "[";
-$res=mysql_query("SELECT datetime, IFNULL(windSpeed,'null') AS windSpeed FROM $db ORDER BY dateTime ASC;");
+$sql = "SELECT datetime, IFNULL(windSpeed,'null') AS windSpeed FROM $db ORDER BY dateTime ASC;";
+$res = $conn->query($sql);
 $i=0;
-while($row=mysql_fetch_row($res)) {
+while($row=mysqli_fetch_row($res)) {
 		$timestamp=$row[0];
 		$timestamp=$timestamp*1000;
 		$vent = $row[1];
@@ -127,9 +132,10 @@ while($row=mysql_fetch_row($res)) {
 $json_vent.="]";
 
 $json_rafales = "[";
-$res=mysql_query("SELECT datetime, IFNULL(windGust,'null') AS windGust FROM $db ORDER BY dateTime ASC;");
+$sql = "SELECT datetime, IFNULL(windGust,'null') AS windGust FROM $db ORDER BY dateTime ASC;";
+$res = $conn->query($sql);
 $i=0;
-while($row=mysql_fetch_row($res)) {
+while($row=mysqli_fetch_row($res)) {
 		$timestamp=$row[0];
 		$timestamp=$timestamp*1000;
 		$rafales = $row[1];
@@ -146,9 +152,10 @@ while($row=mysql_fetch_row($res)) {
 $json_rafales.="]";
 
 $json_direction = "[";
-$res=mysql_query("SELECT datetime, IFNULL(windDir,'null') AS windDir FROM $db ORDER BY dateTime ASC;");
+$sql = "SELECT datetime, IFNULL(windDir,'null') AS windDir FROM $db ORDER BY dateTime ASC;";
+$res = $conn->query($sql);
 $i=0;
-while($row=mysql_fetch_row($res)) {
+while($row=mysqli_fetch_row($res)) {
 		$timestamp=$row[0];
 		$timestamp=$timestamp*1000;
 		$direction = $row[1];
@@ -166,9 +173,10 @@ $json_direction.="]";
 
 // PRECIP
 $json_precipitations = "[";
-$res=mysql_query("SELECT datetime, IFNULL(sum,'null') AS sum FROM $db_name.archive_day_rain ORDER BY dateTime ASC;");
+$sql = "SELECT datetime, IFNULL(sum,'null') AS sum FROM $db_name.archive_day_rain ORDER BY dateTime ASC;";
+$res = $conn->query($sql);
 $i=0;
-while($row=mysql_fetch_row($res)) {
+while($row=mysqli_fetch_row($res)) {
 		$timestamp=$row[0];
 		$timestamp=$timestamp*1000;
 		$pluie = $row[1];

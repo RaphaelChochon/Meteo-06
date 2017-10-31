@@ -2,13 +2,13 @@
 	// appel du script de connexion
 	require_once("connect.php");
 
-	mysql_select_db($db_name);
+	//mysql_select_db($db_name);
 
 	// Calcul des précipitations 24/48/72 heures glissantes et cumul ET, etc.
 	// On récupère le timestamp du dernier enregistrement
 	$sql="SELECT max(dateTime) FROM $db_name.$db_table";
-	$query=mysql_query($sql);
-	$list=mysql_fetch_array($query);
+	$query = $conn->query($sql);
+	$list=mysqli_fetch_array($query);
 
 	// On détermine le stop et le start de façon à récupérer dans la prochaine requête que les données des dernières xx heures
 	$stop=$list[0];
@@ -137,117 +137,137 @@
 	//
 	// Calcul du cumul de précipitations de la journée
 	$today = strtotime('today midnight');
-	$rain = mysql_query("SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime>'$today';");
-	$he = mysql_fetch_row($rain);
+	$rain_sql = "SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime>'$today';";
+	$rain = $conn->query($rain_sql);
+	$he = mysqli_fetch_row($rain);
 	$cumul = round($he[0]*10,1);
 
 	// Calcul de la moyenne sur 10 minutes du vent moyen
-	$res = mysql_query("SELECT AVG(windSpeed) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';") or die(mysql_error());
-	$row = mysql_fetch_row($res);
+	$sql = "SELECT AVG(windSpeed) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';";
+	$res = $conn->query($sql);
+	$row = mysqli_fetch_row($res);
 	$avg_wind_10 = round($row[0],1);
 
 	// Calcul de la moyenne sur 10 minutes de la direction du vent moyen
-	$res = mysql_query("SELECT AVG(windDir) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';") or die(mysql_error());
-	$row = mysql_fetch_row($res);
+	$sql = "SELECT AVG(windDir) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';";
+	$res = $conn->query($sql);
+	$row = mysqli_fetch_row($res);
 	$avg_windDir_10 = round($row[0],1);
 	$cardinalDir = wind_cardinals($avg_windDir_10);
 
 	// Caclul de la moyenne des rafales sur les 10 dernières minutes
-	$res = mysql_query("SELECT AVG(windGust) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';") or die(mysql_error());
-	$row = mysql_fetch_row($res);
+	$sql = "SELECT AVG(windGust) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';";
+	$res = $conn->query($sql);
+	$row = mysqli_fetch_row($res);
 	$avg_windGust_10 = round($row[0],1);
 
 	// Calcul de la moyenne sur 10 minutes de la direction des rafales de vent
-	$res = mysql_query("SELECT AVG(windGustDir) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';") or die(mysql_error());
-	$row = mysql_fetch_row($res);
+	$sql = "SELECT AVG(windGustDir) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';";
+	$res = $conn->query($sql);
+	$row = mysqli_fetch_row($res);
 	$avg_windGustDir_10 = round($row[0],1);
 	$cardinalGustDir = wind_cardinals($avg_windGustDir_10);
 
 	// ET
 	if ($presence_radiation == true){
 		// Calcul de l'ET sur la dernière heure
-		$et_1h = mysql_query("SELECT sum(ET) FROM $db_name.$db_table WHERE dateTime>= '$start1' AND dateTime <= '$stop';");
-		$et_1h_requ = mysql_fetch_row($et_1h);
+		$sql = "SELECT sum(ET) FROM $db_name.$db_table WHERE dateTime>= '$start1' AND dateTime <= '$stop';";
+		$et_1h = $conn->query($sql);
+		$et_1h_requ = mysqli_fetch_row($et_1h);
 		$et = round($et_1h_requ[0]*10,3);
 
 		// Calcul du cumul d'ET de la journée
-		$etreq = mysql_query("SELECT sum(ET) FROM $db_name.$db_table WHERE dateTime>'$today';");
-		$etrequ = mysql_fetch_row($etreq);
+		$sql = "SELECT sum(ET) FROM $db_name.$db_table WHERE dateTime>'$today';";
+		$etreq = $conn->query($sql);
+		$etrequ = mysqli_fetch_row($etreq);
 		$etcumul = round($etrequ[0]*10,2);
 	};
 
 
 	// Calcul des précipitations cumulées sur différents pas de temps
-	$rain1 = mysql_query("SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start1' AND dateTime <= '$stop' ORDER BY 1;");
-	$he1 = mysql_fetch_row($rain1);
+	$sql = "SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start1' AND dateTime <= '$stop' ORDER BY 1;";
+	$rain1 = $conn->query($sql);
+	$he1 = mysqli_fetch_row($rain1);
 	$cumul1 = round($he1[0]*10,1);
 
-	$rain3 = mysql_query("SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start3' AND dateTime <= '$stop' ORDER BY 1;");
-	$he3 = mysql_fetch_row($rain3);
+	$sql = "SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start3' AND dateTime <= '$stop' ORDER BY 1;";
+	$rain3 = $conn->query($sql);
+	$he3 = mysqli_fetch_row($rain3);
 	$cumul3 = round($he3[0]*10,1);
 
-	$rain6 = mysql_query("SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start6' AND dateTime <= '$stop' ORDER BY 1;");
-	$he6 = mysql_fetch_row($rain6);
+	$sql = "SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start6' AND dateTime <= '$stop' ORDER BY 1;";
+	$rain6 = $conn->query($sql);
+	$he6 = mysqli_fetch_row($rain6);
 	$cumul6 = round($he6[0]*10,1);
 
-	$rain12 = mysql_query("SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start12' AND dateTime <= '$stop' ORDER BY 1;");
-	$he12 = mysql_fetch_row($rain12);
+	$sql = "SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start12' AND dateTime <= '$stop' ORDER BY 1;";
+	$rain12 = $conn->query($sql);
+	$he12 = mysqli_fetch_row($rain12);
 	$cumul12 = round($he12[0]*10,1);
 
-	$rain24 = mysql_query("SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start24' AND dateTime <= '$stop' ORDER BY 1;");
-	$he24 = mysql_fetch_row($rain24);
+	$sql = "SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start24' AND dateTime <= '$stop' ORDER BY 1;";
+	$rain24 = $conn->query($sql);
+	$he24 = mysqli_fetch_row($rain24);
 	$cumul24 = round($he24[0]*10,1);
 
-	$rain48 = mysql_query("SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;");
-	$he48 = mysql_fetch_row($rain48);
+	$sql = "SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;";
+	$rain48 = $conn->query($sql);
+	$he48 = mysqli_fetch_row($rain48);
 	$cumul48 = round($he48[0]*10,1);
 
-	$rain72 = mysql_query("SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start72' AND dateTime <= '$stop' ORDER BY 1;");
-	$he72 = mysql_fetch_row($rain72);
+	$sql = "SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start72' AND dateTime <= '$stop' ORDER BY 1;";
+	$rain72 = $conn->query($sql);
+	$he72 = mysqli_fetch_row($rain72);
 	$cumul72 = round($he72[0]*10,1);
 
 
 	// On récupère les valeurs max et min de la température
-	$res = mysql_query("SELECT * FROM $db_name.archive_day_outTemp ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
-	$row = mysql_fetch_row($res);
+	$sql = "SELECT * FROM $db_name.archive_day_outTemp ORDER BY dateTime DESC LIMIT 1;";
+	$res = $conn->query($sql);
+	$row = mysqli_fetch_row($res);
 	$mintemptime = date('H\hi',$row[2]);
 	$mintemp = round($row[1],1);
 	$maxtemp = round($row[3],1);
 	$maxtemptime = date('H\hi',$row[4]);
 
 	// On récupère les valeurs max et min de l'hygro
-	$res = mysql_query("SELECT * FROM $db_name.archive_day_outHumidity ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
-	$row = mysql_fetch_row($res);
+	$sql = "SELECT * FROM $db_name.archive_day_outHumidity ORDER BY dateTime DESC LIMIT 1;";
+	$res = $conn->query($sql);
+	$row = mysqli_fetch_row($res);
 	$minhygrotime = date('H\hi',$row[2]);
 	$minhygro = round($row[1],1);
 	$maxhygro = round($row[3],1);
 	$maxhygrotime = date('H\hi',$row[4]);
 
 	// On récupère les valeurs max et min du pt de rosée
-	$res = mysql_query("SELECT * FROM $db_name.archive_day_dewpoint ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
-	$row = mysql_fetch_row($res);
+	$sql = "SELECT * FROM $db_name.archive_day_dewpoint ORDER BY dateTime DESC LIMIT 1;";
+	$res = $conn->query($sql);
+	$row = mysqli_fetch_row($res);
 	$mindewpointtime = date('H\hi',$row[2]);
 	$mindewpoint = round($row[1],1);
 	$maxdewpoint = round($row[3],1);
 	$maxdewpointtime = date('H\hi',$row[4]);
 
 	// On récupère les valeurs max et min de la pression
-	$res = mysql_query("SELECT * FROM $db_name.archive_day_barometer ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
-	$row = mysql_fetch_row($res);
+	$sql = "SELECT * FROM $db_name.archive_day_barometer ORDER BY dateTime DESC LIMIT 1;";
+	$res = $conn->query($sql);
+	$row = mysqli_fetch_row($res);
 	$minbarometertime = date('H\hi',$row[2]);
 	$minbarometer = round($row[1],1);
 	$maxbarometer = round($row[3],1);
 	$maxbarometertime = date('H\hi',$row[4]);
 
 	// On récupère les valeurs max et min des précipitations
-	$res = mysql_query("SELECT * FROM $db_name.archive_day_rainRate ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
-	$row = mysql_fetch_row($res);
+	$sql = "SELECT * FROM $db_name.archive_day_rainRate ORDER BY dateTime DESC LIMIT 1;";
+	$res = $conn->query($sql);
+	$row = mysqli_fetch_row($res);
 	$maxrainRate = round($row[3]*10,1);
 	$maxrainRatetime = date('H\hi',$row[4]);
 
 	// On récupère les valeurs max des rafales de vent
-	$res = mysql_query("SELECT * FROM $db_name.archive_day_wind ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
-	$row = mysql_fetch_row($res);
+	$sql = "SELECT * FROM $db_name.archive_day_wind ORDER BY dateTime DESC LIMIT 1;";
+	$res = $conn->query($sql);
+	$row = mysqli_fetch_row($res);
 	$maxwind = round($row[3],1);
 	$maxwindtime = date('H\hi',$row[4]);
 	$maxwinddir = round($row[9],2);
@@ -256,45 +276,52 @@
 	// UV
 	if ($presence_uv == true){
 		// Calcul de la moyenne sur 10 minutes de l'indice UV
-		$res = mysql_query("SELECT AVG(UV) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';") or die(mysql_error());
-		$row = mysql_fetch_row($res);
+		$sql = "SELECT AVG(UV) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';";
+		$res = $conn->query($sql);
+		$row = mysqli_fetch_row($res);
 		$avg_UV_10 = round($row[0],1);
 
 		// On récupère les valeurs max de l'UV
-		$res = mysql_query("SELECT * FROM $db_name.archive_day_UV ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
-		$row = mysql_fetch_row($res);
+		$sql = "SELECT * FROM $db_name.archive_day_UV ORDER BY dateTime DESC LIMIT 1;";
+		$res = $conn->query($sql);
+		$row = mysqli_fetch_row($res);
 		$maxuv = round($row[3],1);
 		$maxuvtime = date('H\hi',$row[4]);
 	};
 
 	// On récupère la valeur min du refroidissement éolien
-	$res = mysql_query("SELECT * FROM $db_name.archive_day_windchill ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
-	$row = mysql_fetch_row($res);
+	$sql = "SELECT * FROM $db_name.archive_day_windchill ORDER BY dateTime DESC LIMIT 1;";
+	$res = $conn->query($sql);
+	$row = mysqli_fetch_row($res);
 	$minwindchilltime = date('H\hi',$row[2]);
 	$minwindchill = round($row[1],1);
 
 	// On récupère la valeur max de l'indice de chaleur
-	$res = mysql_query("SELECT * FROM $db_name.archive_day_heatindex ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
-	$row = mysql_fetch_row($res);
+	$sql = "SELECT * FROM $db_name.archive_day_heatindex ORDER BY dateTime DESC LIMIT 1;";
+	$res = $conn->query($sql);
+	$row = mysqli_fetch_row($res);
 	$maxheatindex = round($row[3],1);
 	$maxheatindextime = date('H\hi',$row[4]);
 
 	// Rayonnement solaire et ET
 	if ($presence_radiation == true){
 		// Calcul de la moyenne sur 10 minutes du rayonnement solaire (radiation)
-		$res = mysql_query("SELECT AVG(radiation) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';") or die(mysql_error());
-		$row = mysql_fetch_row($res);
+		$sql = "SELECT AVG(radiation) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';";
+		$res = $conn->query($sql);
+		$row = mysqli_fetch_row($res);
 		$avg_radiation_10 = round($row[0],1);
 
 		// On récupère les valeurs max du rayonnement solaire
-		$res = mysql_query("SELECT * FROM $db_name.archive_day_radiation ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
-		$row = mysql_fetch_row($res);
+		$sql = "SELECT * FROM $db_name.archive_day_radiation ORDER BY dateTime DESC LIMIT 1;";
+		$res = $conn->query($sql);
+		$row = mysqli_fetch_row($res);
 		$maxradiation = round($row[3],1);
 		$maxradiationtime = date('H\hi',$row[4]);
 
 		// On récupère les valeurs max de l'ET
-		$res = mysql_query("SELECT * FROM $db_name.archive_day_ET ORDER BY dateTime DESC LIMIT 1;") or die(mysql_error());
-		$row = mysql_fetch_row($res);
+		$sql = "SELECT * FROM $db_name.archive_day_ET ORDER BY dateTime DESC LIMIT 1;";
+		$res = $conn->query($sql);
+		$row = mysqli_fetch_row($res);
 		$maxet = round($row[3]*10,3);
 		$maxettime = date('H\hi',$row[4]);
 	};
