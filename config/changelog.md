@@ -3,6 +3,9 @@
 ### ToDo
 Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 
+### 0.13.0 - 18/12/2017
+* Adaptation connexion MySQLi pour la compatibilité PHP 7
+
 ### 0.12.1 - 30/07/2017
 * Ajout pour les VP2 (disposant du rayonnement solaire - solution encore bancale, à revoir!) d'un graphique de qualité de réception (à partir de la valeur ``rxCheckPercent``) sur la page ``interieur.php`` (#6)
 * Changement du sample de menu additionnel (ajout de Nice Pessicart VP2 et de Vence en prévision...)
