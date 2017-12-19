@@ -30,7 +30,11 @@
 		<div id="myTabContent" class="tab-content">
 			<!-- Onglet station -->
 			<div class="tab-pane fade active in" id="station">
-				<p>Bonjour, je suis une station météo, on m'appelle "<?php echo $station_name; ?>" et mes données sont hébergées sur ce site Internet. Ce dernier me permet de me connecter à mes utilisateurs en leur fournissant tous les paramètres météos que je mesure en direct. C'est <?php echo $name_manager_footer; ?> (<a href="<?php echo $site_manager_graph; ?>" target="_blank">site Internet de l'association</a>) qui s'occupe de moi et héberge ce site.<br>C'est aussi cette association et plus particulièrement Raphaël CHOCHON qui développe ce site, c'est donc la plus part du temps à lui qu'il faut se plaindre si vous trouvez un bug (pour le contacter : contact [at] meteo06.fr). Tout son travail est hébergé sur la plateforme GitHub (<a href="https://github.com/RaphaelChochon/Meteo-06" target="_blank">ici</a>) et donc tout le code disponible est réutilisable. Le « changelog » du site permettant de suivre les nouveautés du site, les améliorations, les corrections de bugs, etc. est disponible <a href="https://github.com/RaphaelChochon/Meteo-06/blob/master/config/changelog.md" target="_blank">ici aussi</a>.</p>
+				<p>
+					Cette station s'appelle "<?php echo $station_name; ?>", et ses données sont hébergées sur ce site internet. C’est <?php echo $name_manager_footer; ?> (<a href="<?php echo $site_manager_graph; ?>" target="_blank">site Internet de l'association</a>) qui l’héberge et la maintient. C’est aussi cette association et plus particulièrement Raphaël CHOCHON qui développe ce site, c’est donc à lui qu’il faut se plaindre si vous trouvez un bug (et il ne faut surtout pas hésiter. Différents moyens de le contacter : <a href="humans.txt">humans.txt</a>).<br><br>
+					Tout le code de ce site est hébergé sur la plateforme GitHub (<a href="https://github.com/RaphaelChochon/Meteo-06" target="_blank">ici</a>). Il est donc récupérable et réutilisable dans son entièreté ou juste morceau par morceau.<br>
+					Le « changelog » du site permettant de suivre les nouveautés du site, les améliorations, les corrections de bugs, etc. est disponible <a href="https://github.com/RaphaelChochon/Meteo-06/blob/master/config/changelog.md" target="_blank">ici aussi</a>.
+				</p>
 			</div>
 			<!-- Onglet asso -->
 			<div class="tab-pane fade" id="asso">
@@ -54,12 +58,26 @@
 			<div class="tab-pane fade active in" id="stationmeteo">
 				<br>
 				<div class="col-md-6">
-					<p>La station météo est une <?php echo $station_model; ?>.<br>
-					Elle est installée depuis le <?php echo $date_install_station; ?>.<br>
-					Elle se situe sur la commune de [NOM de la COMMUNE] et plus précisément [PRECISION EMPLACEMENT] à <?php echo $station_altitude; ?> mètres d'altitude.</p>
-					<p>Ses données sont récupérées via un <a href="https://www.raspberrypi.org/" target="_blank">Raspberry Pi</a> et le logiciel <a href="http://www.weewx.com/" target="_blank">Weewx (linux)</a> toutes les <?php echo $archive_interval; ?> minutes. Elles sont ensuite envoyées au serveur de l’association dans une base de données MySQL afin d'être affichée sur ce site.</p>
-					<p>[PRECISION sur L'EMPLACEMENT des SONDES]</p>
-					<p>Toutes les images peuvent être ouvertes en grand (clic-doit et "ouvrir l'image dans un nouvel onglet")</p>
+					<p>
+						<b>Modèle de station :</b> <?php echo $station_model; ?>.<br>
+						<b>Date d'installation :</b> <?php echo $date_install_station; ?>.<br>
+						<b>Altitude de la station :</b> <?php echo $station_altitude; ?> mètres<br>
+						<b>Position de la station :</b> <?php echo $station_position; ?><br>
+						<b>Exposition de la station :</b> <?php echo $station_exposure; ?><br>
+						Elle se situe sur la commune de <?php echo $station_commune; ?> et plus précisément [PRECISION EMPLACEMENT]
+					</p>
+					<p>
+						<b>Précautions particulières vis à vis des données :</b> <?php echo $station_precautions; ?><br>
+						[PRECISION sur L'EMPLACEMENT des SONDES]
+					</p>
+					<p>
+						Fiche technique et descriptive de la station au format PDF <a href="fiche-station.pdf">disponible ici</a> (si disponible), afin d'avoir une traçabilité des éventuelles maintenances.
+					</p>
+					<p>
+						Ses données sont récupérées via un <a href="https://www.raspberrypi.org/" target="_blank">Raspberry Pi</a> et le logiciel <a href="http://www.weewx.com/" target="_blank">Weewx (linux)</a> toutes les <?php echo $archive_interval; ?> minutes. Elles sont ensuite envoyées au serveur de l’association dans une base de données afin d'être affichées sur ce site.</p>
+					<p>
+						Toutes les images peuvent être ouvertes en grand (clic-doit et "ouvrir l'image dans un nouvel onglet")
+					</p>
 				</div>
 				<div class="col-md-6">
 				<style>.carousel-img{width:auto;height:350px;max-height:350px;background-color:#5f666d;color:white;}</style>
@@ -158,9 +176,9 @@
 			<!-- Onglet serveur -->
 			<div class="tab-pane fade" id="serveur">
 				<br>
-				<p>C'est un serveur OVH qui héberge ce site, avec une configuration classique pour le web (Apache2, PHP-FPM, MySQL, etc.).</p>
+				<p>C'est un serveur dédié Online qui héberge ce site, avec une configuration web (Nginx, PHP-FPM 7, MariaDB, etc.).</p>
 				<p>Les données issues de la station météo sont conservées dans une base de donnée, et permettent la création d'archives sous formes de graphiques, de tableaux etc.</p>
-				<p>Les images brutes de la webcam ne sont conservées que sur une journée afin de produire un timelpase tous les soirs, et ce dernier est archivé sur un autre serveur (Kimsufi).</p>
+				<p>Les images brutes de la webcam ne sont conservées que sur une journée afin de produire un timelpase tous les soirs, et ce dernier est archivé sur un autre serveur (Kimsufi KS-2).</p>
 			</div>
 		</div>
 	</div>

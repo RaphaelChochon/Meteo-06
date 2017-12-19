@@ -31,10 +31,14 @@
 	// GENERAL CONFIG
 	$station_name        = "Name of my station";
 	$short_station_name  = "Short name";
+	$station_commune     = "NA"; // Name of the municipality of installation of the station, example : Nice, Paris, Marseille, etc.
 	$url_site            = "https://myweathersite.fr"; // URL of the site WITHOUT the slash at the end ('subdomain.domain.tld' for example). This is important for SEO tools (google referencing for example)
 	$SSL                 = true; // If the site is in https (SSL on) then it's true, otherwise write false
 	$station_model       = "Oregon Scientific WMR200"; //Station model : Oregon Scientific WMR200, WMR88 ; Davis VP2 etc.
-	$station_altitude    = "---"; // Elevation/altitude of the station in meters
+	$station_altitude    = "NA"; // Elevation/altitude of the station in meters
+	$station_position    = "NA"; // Position of the station, example : mountain peak, hill, slope, valley background, plateau/lowland etc.
+	$station_exposure    = "NA"; // Exposure of the station, example : South, South West, etc.
+	$station_precautions = "Pas de précautions particulières"; // Special precautions with regard to data delivered from this station, example : overestimation, under estimation, etc.
 	$date_install_station= "01/01/1970"; // Start of the database MySQL Weewx, at format dd/mm/aaaa
 	$name_manager_footer = "l'association Nice Météo 06"; // Manager name or association maintaining station
 	$name_manager_graph  = "Association Nice Météo 06"; // Name which appears in the charts

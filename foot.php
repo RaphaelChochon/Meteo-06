@@ -5,6 +5,7 @@
 			<a href="mentions-leg.php"> Mentions légales et réserves de responsabilités</a><br>
 			Pour nous contacter : <?php echo $contact_mail_footer; ?><br>
 			Modèle de station : <?php echo $station_model; ?> | Altitude : <?php echo $station_altitude; ?> mètres<br>
+			Position : <?php echo $station_position; ?> | Exposition : <?php echo $station_exposure; ?> | <a href="a-propos.php">+ d'infos</a><br>
 			Version du site : <?php echo $version_site; ?> - <a href="https://github.com/RaphaelChochon/Meteo-06/blob/master/config/changelog.md" target="blank">Changelog</a></p>
 		</div>
 	</div>
