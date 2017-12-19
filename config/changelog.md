@@ -3,6 +3,13 @@
 ### ToDo
 Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 
+### 0.13.1 - 19/12/2017
+* Révision de la page "A propos"
+    * Ajout de la position et de l'exposition sous le conseil de P. CARREGA (``$station_position`` & ``$station_exposure``)
+    * Ajout  d'un champ de "précautions particulières" vis à vis des données (``$station_precautions``) permettant d'indiquer si une possible sur ou sous estimation en fonction des conditions d'installations de la station est possible
+    * Ajout d'un champ "commune de la station" pour indiquer la commune d'installation de la station (``$station_commune``)
+* Modification mineure du fichier ``humans.txt``
+
 ### 0.13.0 - 18/12/2017
 * Adaptation connexion MySQLi pour la compatibilité PHP 7
 
