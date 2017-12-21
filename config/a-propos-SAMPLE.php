@@ -61,14 +61,16 @@
 					<p>
 						<b>Modèle de station :</b> <?php echo $station_model; ?>.<br>
 						<b>Date d'installation :</b> <?php echo $date_install_station; ?>.<br>
-						<b>Altitude de la station :</b> <?php echo $station_altitude; ?> mètres<br>
-						<b>Position de la station :</b> <?php echo $station_position; ?><br>
-						<b>Exposition de la station :</b> <?php echo $station_exposure; ?><br>
-						Elle se situe sur la commune de <?php echo $station_commune; ?> et plus précisément [PRECISION EMPLACEMENT]
+						<b>Altitude de la station :</b> <?php echo $station_altitude; ?> mètres.<br>
+						<b>Position de la station :</b> <?php echo $station_position; ?>.<br>
+						<b>Exposition de la station :</b> <?php echo $station_exposure; ?>.<br>
 					</p>
 					<p>
-						<b>Précautions particulières vis à vis des données :</b> <?php echo $station_precautions; ?><br>
-						[PRECISION sur L'EMPLACEMENT des SONDES]
+						Elle se situe sur la commune de <?php echo $station_commune; ?> et plus précisément [PRECISION EMPLACEMENT].<br>
+						[PRECISION sur L'EMPLACEMENT des SONDES].<br>
+					</p>
+					<p>
+						<b>Précautions particulières vis à vis des données :</b> <?php echo $station_precautions; ?>.
 					</p>
 					<p>
 						Fiche technique et descriptive de la station au format PDF <a href="fiche-station.pdf">disponible ici</a> (si disponible), afin d'avoir une traçabilité des éventuelles maintenances.
