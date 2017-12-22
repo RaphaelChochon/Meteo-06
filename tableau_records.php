@@ -36,7 +36,7 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		<link href="vendors/bootswatch-flatly/bootstrap.min.css" rel="stylesheet">
-		<link href="vendors/custom/custom.css" rel="stylesheet">
+		<link href="vendors/custom/custom.css?v=1.1" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src="vendors/bootstrap/js/tooltip.js"></script>
 		<script src="vendors/bootstrap/js/popover.js"></script>
