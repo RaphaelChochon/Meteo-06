@@ -3,6 +3,15 @@
 ### ToDo
 Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 
+### 0.13.2 - 22/12/2017
+* Révision de la page "A propos"
+    * Ajout d'une carte de localisation de la station
+    * Inclus l'ajout de deux nouveaux paramètres de config : ``$station_coord`` & ``$mapbox_token``
+* Ajout de la licence Creative Commons 4.0 International (CC BY-NC-SA 4.0)
+    * Attribution
+    * Pas d’Utilisation Commerciale
+    * Partage dans les Mêmes Conditions
+
 ### 0.13.1 - 19/12/2017
 * Révision de la page "A propos"
     * Ajout de la position et de l'exposition sous le conseil de P. CARREGA (``$station_position`` & ``$station_exposure``)
