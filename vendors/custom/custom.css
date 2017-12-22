@@ -53,3 +53,8 @@ body{
 	border:1px solid silver;
 	padding:0.5em;
 }
+
+.mapLocalisation {
+	height: 400px;
+	width: 100%;
+}

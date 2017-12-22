@@ -32,6 +32,7 @@
 	$station_name        = "Name of my station";
 	$short_station_name  = "Short name";
 	$station_commune     = "NA"; // Name of the municipality of installation of the station, example : Nice, Paris, Marseille, etc.
+	$station_coord       = "43.710173, 7.261953"; // Geographical coordinates of the station
 	$url_site            = "https://myweathersite.fr"; // URL of the site WITHOUT the slash at the end ('subdomain.domain.tld' for example). This is important for SEO tools (google referencing for example)
 	$SSL                 = true; // If the site is in https (SSL on) then it's true, otherwise write false
 	$station_model       = "Oregon Scientific WMR200"; //Station model : Oregon Scientific WMR200, WMR88 ; Davis VP2 etc.
@@ -97,6 +98,9 @@
 	$radar_url       = "//www.infoclimat.fr/api/UzBUfgU%2FBzJWflZgBTwHZFwuBW4AZ1Z%2BAmlbNVV8ADFWPFVgVmUFNAYwBTNTZwloUz5dPAdjV2FTMg%3D%3D/radar/sud_est?4f360c88e3aabaf99aeb8edfecc08542"; // URL of radar
 	$radar_source    = "InfoClimat"; // source radar
 	$radar_source_url= "http://www.infoclimat.fr/cartes-meteo-temps-reel-images-satellites-infrarouge-visible-haute-resolution.html?i=radar-sud_est"; // URL source radar
+
+	// TOKEN MapBox
+	$mapbox_token = "your.token.mapbox"; // Token for MapBox
 
 	// FACEBOOK
 	$fb_app_id = ""; // Facebook application ID

@@ -127,6 +127,55 @@
 						</a>
 					</div>
 				</div>
+				<div class="col-md-12">
+					<hr>
+					<h4><b>Emplacement de la station</b></h4>
+					<p>Il est possible de zoomer sur cette carte et de changer le fond cartographique en utilisant le bouton en haut à droite de la carte.</p>
+					<div id="mapLocalisation" class="mapLocalisation"></div>
+					<script type="text/javascript">
+						//Init map
+						map = L.map('mapLocalisation', {
+							center         :[<?php echo $station_coord; ?>],
+							zoom           : 11,
+							zoomControl    : true,
+						});
+						// Chargement des différents fonds carto
+						var MapBox = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+							attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+							maxZoom: 18,
+							id: 'mapbox.streets',
+							accessToken: '<?php echo $mapbox_token; ?>'
+						}).addTo(map);
+						var MapBoxOutdoors = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+							attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+							maxZoom: 18,
+							id: 'mapbox.outdoors',
+							accessToken: '<?php echo $mapbox_token; ?>'
+						});
+						var MapBoxSatellite = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+							attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+							maxZoom: 18,
+							id: 'mapbox.satellite',
+							accessToken: '<?php echo $mapbox_token; ?>'
+						});
+						var OSM = L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+							maxZoom    : 18,
+							attribution:'© <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a>',
+						});
+						// Markers de la station
+						var marker = L.marker([<?php echo $station_coord; ?>]).addTo(map);
+						// Options
+						map.options.maxZoom = 18;
+						// Control Layers
+						var baseMaps = {
+							"MapBox"       :MapBox,
+							"Outdoors"     :MapBoxOutdoors,
+							"Satellite"    :MapBoxSatellite,
+							"OpenStreetMap":OSM,
+						}
+						L.control.layers(baseMaps, /*overlayMaps*/).addTo(map);
+					</script>
+				</div>
 			</div>
 			<!-- Onglet webcam -->
 			<div class="tab-pane fade" id="webcam">
