@@ -3,6 +3,9 @@
 ### ToDo
 Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 
+### 0.13.3 - 08/03/2018
+* Fix temperature max sur la page de la journée d'hier
+
 ### 0.13.2 - 22/12/2017
 * Révision de la page "A propos"
     * Ajout d'une carte de localisation de la station
