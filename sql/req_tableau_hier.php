@@ -19,7 +19,7 @@
 	$mintemptimehier = date('d/m/Y à H\hi',$row[0]);
 
 	// Max temp
-	$slq = "SELECT dateTime, outTemp FROM $db_name.$db_table WHERE dateTime >= '$yesterday' AND dateTime <= '$stophier' AND outTemp = (SELECT max(outTemp) FROM $db_name.$db_table WHERE dateTime >= '$yesterday' AND dateTime <= '$stophier');";
+	$sql = "SELECT dateTime, outTemp FROM $db_name.$db_table WHERE dateTime >= '$yesterday' AND dateTime <= '$stophier' AND outTemp = (SELECT max(outTemp) FROM $db_name.$db_table WHERE dateTime >= '$yesterday' AND dateTime <= '$stophier');";
 	$res = $conn->query($sql);
 	$row = mysqli_fetch_row($res);
 	$maxtemphier = round($row[1],1);
