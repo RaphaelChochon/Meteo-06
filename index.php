@@ -131,29 +131,22 @@
 						</tr>
 					</tbody>
 				</table>
+				<?php if ($presence_uv == true || $presence_radiation == true) : ?>
 				<table class="table table-striped table-bordered table-responsive table-hover tabLeft">
 					<thead>
 						<tr>
 							<th>Paramètres</th>
 							<th>Valeur actuelle</th>
-							<th>Moy./10 min</th>
+							<th>Moyennes</th>
 							<th><span class="text-danger">Maxi du jour</span></th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>Vent moyen<br>Rafale</td>
-							<td><?php echo $wind; ?> km/h<br><?php echo $windgust; ?> km/h</td>
-							<td><?php echo $avg_wind_10; ?> km/h dir. <?php echo $cardinalDir; ?> (<?php echo $avg_windDir_10; ?>°)<br><?php echo $avg_windGust_10; ?> km/h dir. <?php echo $cardinalGustDir; ?> (<?php echo $avg_windGustDir_10; ?>°)</td>
-							<td>|<?php echo $maxwind; ?> km/h à <?php echo $maxwindtime; ?><br>|Dir. <?php echo $cardinalMaxWindDir; ?> (<?php echo $maxwinddir; ?>°)</td>
-						</tr>
-					</tbody>
 				<?php if ($presence_uv == true) : ?>
 					<tbody>
 						<tr>
 							<td>Indice UV</td>
 							<td><?php echo $uv; ?></td>
-							<td><?php echo $avg_UV_10; ?></td>
+							<td>10 min. : <?php echo $avg_UV_10; ?></td>
 							<td><?php echo $maxuv; ?> à <?php echo $maxuvtime; ?></td>
 						</tr>
 					</tbody>
@@ -163,7 +156,7 @@
 						<tr>
 							<td>Rayonnement solaire</td>
 							<td><?php echo $radiation; ?> W/m²</td>
-							<td><?php echo $avg_radiation_10; ?> W/m²</td>
+							<td>10 min. : <?php echo $avg_radiation_10; ?> W/m²</td>
 							<td><?php echo $maxradiation; ?> W/m² à <?php echo $maxradiationtime; ?></td>
 						</tr>
 					</tbody>
@@ -177,6 +170,68 @@
 					</tbody>
 				<?php endif; ?>
 				</table>
+				<?php endif; ?>
+				<h4><b>Vent</b></h4>
+				<table class="table table-striped table-bordered table-responsive table-hover tabLeft">
+					<thead>
+						<tr>
+							<th>Paramètres</th>
+							<th>Valeur</th>
+							<th>Direction</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><b>Vent moyen instant.</b></td>
+							<td><b><?php echo $wind; ?> km/h</b></td>
+							<td><b><?php echo $cardinalWindDir; ?> (<?php echo $windDir; ?>°)</b></td>
+						</tr>
+					</tbody>
+					<tbody>
+						<tr>
+							<td>Moyen sur 10 min.</td>
+							<td><?php echo $avg_wind_10; ?> km/h</td>
+							<td><?php echo $cardinalDir10; ?> (<?php echo $avg_windDir_10; ?>°)</td>
+						</tr>
+					</tbody>
+					<tbody>
+						<tr>
+							<td>Moyen sur 1 heure</td>
+							<td><?php echo $avg_wind_1h; ?> km/h</td>
+							<td><?php echo $cardinalDir1h; ?> (<?php echo $avg_windDir_1h; ?>°)</td>
+						</tr>
+					</tbody>
+					<tbody>
+						<tr>
+							<td><b>Rafales instant.</b></td>
+							<td><b><?php echo $windgust; ?> km/h</b></td>
+							<td><b><?php echo $cardinalWindGustDir; ?> (<?php echo $windGustDir; ?>°)</b></td>
+						</tr>
+					</tbody>
+					<tbody>
+						<tr>
+							<td>Rafales sur 10 min.</td>
+							<td><?php echo $avg_windGust_10; ?> km/h</td>
+							<td><?php echo $cardinalGustDir10; ?> (<?php echo $avg_windGustDir_10; ?>°)</td>
+						</tr>
+					</tbody>
+					<tbody>
+						<tr>
+							<td>Rafales sur 1 heure</td>
+							<td><?php echo $avg_windGust_1h; ?> km/h</td>
+							<td><?php echo $cardinalGustDir1h; ?> (<?php echo $avg_windGustDir_1h; ?>°)</td>
+						</tr>
+					</tbody>
+					<tbody>
+						<tr>
+							<td><b>Rafale max du jour</b></td>
+							<td><?php echo $maxwind; ?> km/h à <?php echo $maxwindtime; ?></td>
+							<td><?php echo $cardinalMaxWindDir; ?> (<?php echo $maxwinddir; ?>°)</td>
+						</tr>
+					</tbody>
+				</table>
+
+
 			</div>
 		</div>
 		<div class="row">

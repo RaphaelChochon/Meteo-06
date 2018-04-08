@@ -21,35 +21,6 @@
 	$start48=$stop-(86400*2);
 	$start72=$stop-(86400*3);
 
-	// Fonction pour convertir les directions de vent de degré° à cardinal
-	function wind_cardinals($deg) {
-		$cardinalDirections = array(
-			'N' => array(348.75, 360),
-			'N' => array(0, 11.25),
-			'NNE' => array(11.25, 33.75),
-			'NE' => array(33.75, 56.25),
-			'ENE' => array(56.25, 78.75),
-			'E' => array(78.75, 101.25),
-			'ESE' => array(101.25, 123.75),
-			'SE' => array(123.75, 146.25),
-			'SSE' => array(146.25, 168.75),
-			'S' => array(168.75, 191.25),
-			'SSW' => array(191.25, 213.75),
-			'SW' => array(213.75, 236.25),
-			'WSW' => array(236.25, 258.75),
-			'W' => array(258.75, 281.25),
-			'WNW' => array(281.25, 303.75),
-			'NW' => array(303.75, 326.25),
-			'NNW' => array(326.25, 348.75)
-		);
-		foreach ($cardinalDirections as $dir => $angles) {
-			if ($deg >= $angles[0] && $deg < $angles[1]) {
-				$cardinal = $dir;
-			}
-		}
-		return $cardinal;
-	};
-
 	// On récupère les valeurs actuelles simple
 	// Mais d'abord on vérifie si la valeur actuelle n'est pas null
 	$dewpoint_check = $row[16];
@@ -142,31 +113,276 @@
 	$he = mysqli_fetch_row($rain);
 	$cumul = round($he[0]*10,1);
 
-	// Calcul de la moyenne sur 10 minutes du vent moyen
+	/*
+	 * VITESSE VENT
+	 */
+
+	// Calcul de la vitesse moyenne sur 10 minutes du vent moyen
 	$sql = "SELECT AVG(windSpeed) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';";
 	$res = $conn->query($sql);
 	$row = mysqli_fetch_row($res);
 	$avg_wind_10 = round($row[0],1);
 
-	// Calcul de la moyenne sur 10 minutes de la direction du vent moyen
-	$sql = "SELECT AVG(windDir) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';";
-	$res = $conn->query($sql);
-	$row = mysqli_fetch_row($res);
-	$avg_windDir_10 = round($row[0],1);
-	$cardinalDir = wind_cardinals($avg_windDir_10);
-
-	// Caclul de la moyenne des rafales sur les 10 dernières minutes
+	// Caclul de la vitesse moyenne des rafales sur les 10 dernières minutes
 	$sql = "SELECT AVG(windGust) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';";
 	$res = $conn->query($sql);
 	$row = mysqli_fetch_row($res);
 	$avg_windGust_10 = round($row[0],1);
 
-	// Calcul de la moyenne sur 10 minutes de la direction des rafales de vent
-	$sql = "SELECT AVG(windGustDir) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';";
+	// Calcul de la vitesse moyenne sur 1 heure du vent moyen
+	$sql = "SELECT AVG(windSpeed) FROM $db_name.$db_table WHERE dateTime>='$start1' AND dateTime <= '$stop';";
 	$res = $conn->query($sql);
 	$row = mysqli_fetch_row($res);
-	$avg_windGustDir_10 = round($row[0],1);
-	$cardinalGustDir = wind_cardinals($avg_windGustDir_10);
+	$avg_wind_1h = round($row[0],1);
+
+	// Caclul de la vitesse moyenne des rafales sur la dernière heure
+	$sql = "SELECT AVG(windGust) FROM $db_name.$db_table WHERE dateTime>='$start1' AND dateTime <= '$stop';";
+	$res = $conn->query($sql);
+	$row = mysqli_fetch_row($res);
+	$avg_windGust_1h = round($row[0],1);
+
+	/*
+	 * DIRECTION VENT
+	 */
+
+
+	// Dans un premier temps, on définit une fonction qui permettra de calculer
+	// la moyenne de plusieurs angles en degrées
+	function mean_of_angles( $angles, $degrees = true ) {
+		if ( $degrees ) {
+			$angles = array_map("deg2rad", $angles); // Convert to radians
+		}
+		$s_ = 0;
+		$c_ = 0;
+		$len = count( $angles );
+		for ($i = 0; $i < $len; $i++) {
+			$s_ += sin( $angles[$i] );
+			$c_ += cos( $angles[$i] );
+		}
+		// $s_ /= $len;
+		// $c_ /= $len;
+		$mean = atan2( $s_, $c_ );
+		if ( $degrees ) {
+			$mean = rad2deg( $mean ); // Convert to degrees
+		}
+		if ($mean < 0) {
+			$mean_ok = $mean + 360;
+		} else {
+			$mean_ok = $mean;
+		}
+		return $mean_ok;
+	}
+	// Maintenant, on définit une fonction qui servira à nous donner
+	// la position cardinale du vent (en texte plutôt qu'en degrés)
+	function wind_cardinals($deg) {
+		$cardinalDirections = array(
+			'N' => array(348.75, 361),
+			'N2' => array(0, 11.25),
+			'NNE' => array(11.25, 33.75),
+			'NE' => array(33.75, 56.25),
+			'ENE' => array(56.25, 78.75),
+			'E' => array(78.75, 101.25),
+			'ESE' => array(101.25, 123.75),
+			'SE' => array(123.75, 146.25),
+			'SSE' => array(146.25, 168.75),
+			'S' => array(168.75, 191.25),
+			'SSW' => array(191.25, 213.75),
+			'SW' => array(213.75, 236.25),
+			'WSW' => array(236.25, 258.75),
+			'W' => array(258.75, 281.25),
+			'WNW' => array(281.25, 303.75),
+			'NW' => array(303.75, 326.25),
+			'NNW' => array(326.25, 348.75)
+		);
+		foreach ($cardinalDirections as $dir => $angles) {
+			if ($deg >= $angles[0] && $deg < $angles[1]) {
+				$cardinal = str_replace("2", "", $dir);
+			}
+		}
+		return $cardinal;
+	};
+
+	/*
+	 * VENT MOYEN 10 minutes
+	 */
+
+	// Récupération des valeurs de direction du vent moyen des 10 dernières minutes
+	$sql = "SELECT windDir FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';";
+
+	// Requete + mise en tableau de la réponse
+	$windDir10Array = array();
+	foreach ($conn->query($sql) as $row) {
+		// le `!is_null` permet de vérifier qu'il n'y est pas de valeur NULL dans le calcul
+		// sinon c'était pris en comme une direction à 0 degrés
+		if (!is_null ($row['windDir'])) {
+			$windDir10Array[] = $row['windDir'];
+		}
+	}
+
+	// Calcul de la moyenne avec la fonction `mean_of_angles` et le tableau
+	$avg_windDir_10 = mean_of_angles($windDir10Array);
+
+	// Maintenant on vérifie que la moyenne ne soit pas NULL
+	// si elle est NULL ou si la chaine est vide, on renvoie une chaine vide
+	// sinon on execute la fonction pour la convertir en position cardinale
+	$avg_windDir_10_check = $avg_windDir_10;
+		if ($avg_windDir_10_check == null){
+			$cardinalDir10 = '';
+		}else if($avg_windDir_10_check == ''){
+			$cardinalDir10 = '';
+		}
+		else{
+			$cardinalDir10 = wind_cardinals($avg_windDir_10);
+		}
+
+	// Enfin, on arrondi la moyenne en degrés avec une seule décimale
+	$avg_windDir_10 = round($avg_windDir_10,1);
+
+
+	/*
+	 * VENT MOYEN 1 heure
+	 */
+
+	// Récupération des valeurs de direction du vent moyen des 10 dernières minutes
+	$sql = "SELECT windDir FROM $db_name.$db_table WHERE dateTime>='$start1' AND dateTime <= '$stop';";
+
+	// Requete + mise en tableau de la réponse
+	$windDir1hArray = array();
+	foreach ($conn->query($sql) as $row) {
+		// le `!is_null` permet de vérifier qu'il n'y est pas de valeur NULL dans le calcul
+		// sinon c'était pris en comme une direction à 0 degrés
+		if (!is_null ($row['windDir'])) {
+			$windDir1hArray[] = $row['windDir'];
+		}
+	}
+
+	// Calcul de la moyenne avec la fonction `mean_of_angles` et le tableau
+	$avg_windDir_1h = mean_of_angles($windDir1hArray);
+
+	// Maintenant on vérifie que la moyenne ne soit pas NULL
+	// si elle est NULL ou si la chaine est vide, on renvoie une chaine vide
+	// sinon on execute la fonction pour la convertir en position cardinale
+	$avg_windDir_1h_check = $avg_windDir_1h;
+		if ($avg_windDir_1h_check == null){
+			$cardinalDir1h = '';
+		}else if($avg_windDir_1h_check == ''){
+			$cardinalDir1h = '';
+		}
+		else{
+			$cardinalDir1h = wind_cardinals($avg_windDir_1h);
+		}
+
+	// Enfin, on arrondi la moyenne en degrés avec une seule décimale
+	$avg_windDir_1h = round($avg_windDir_1h,1);
+
+
+
+	/*
+	 * VENT RAFALES 10 minutes
+	 */
+
+	// Récupération des valeurs de direction du vent moyen des 10 dernières minutes
+	$sql = "SELECT windGustDir FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';";
+
+	// Requete + mise en tableau de la réponse
+	$windGustDir10Array = array();
+	foreach ($conn->query($sql) as $row) {
+		// le `!is_null` permet de vérifier qu'il n'y est pas de valeur NULL dans le calcul
+		// sinon c'était pris en comme une direction à 0 degrés
+		if (!is_null ($row['windGustDir'])) {
+			$windGustDir10Array[] = $row['windGustDir'];
+		}
+	}
+
+	// Calcul de la moyenne avec la fonction `mean_of_angles` et le tableau
+	$avg_windGustDir_10 = mean_of_angles($windGustDir10Array);
+
+	// Maintenant on vérifie que la moyenne ne soit pas NULL
+	// si elle est NULL ou si la chaine est vide, on renvoie une chaine vide
+	// sinon on execute la fonction pour la convertir en position cardinale
+	$avg_windGustDir_10_check = $avg_windGustDir_10;
+		if ($avg_windGustDir_10_check == null){
+			$cardinalGustDir10 = '';
+		}else if($avg_windGustDir_10_check == ''){
+			$cardinalGustDir10 = '';
+		}
+		else{
+			$cardinalGustDir10 = wind_cardinals($avg_windGustDir_10);
+		}
+
+	// Enfin, on arrondi la moyenne en degrés avec une seule décimale
+	$avg_windGustDir_10 = round($avg_windGustDir_10,1);
+
+
+	/*
+	 * VENT RAFALES 1 heure
+	 */
+
+	// Récupération des valeurs de direction du vent moyen des 10 dernières minutes
+	$sql = "SELECT windGustDir FROM $db_name.$db_table WHERE dateTime>='$start1' AND dateTime <= '$stop';";
+
+	// Requete + mise en tableau de la réponse
+	$windGustDir1hArray = array();
+	foreach ($conn->query($sql) as $row) {
+		// le `!is_null` permet de vérifier qu'il n'y est pas de valeur NULL dans le calcul
+		// sinon c'était pris en comme une direction à 0 degrés
+		if (!is_null ($row['windGustDir'])) {
+			$windGustDir1hArray[] = $row['windGustDir'];
+		}
+	}
+
+	// Calcul de la moyenne avec la fonction `mean_of_angles` et le tableau
+	$avg_windGustDir_1h = mean_of_angles($windGustDir1hArray);
+
+	// Maintenant on vérifie que la moyenne ne soit pas NULL
+	// si elle est NULL ou si la chaine est vide, on renvoie une chaine vide
+	// sinon on execute la fonction pour la convertir en position cardinale
+	$avg_windGustDir_1h_check = $avg_windGustDir_1h;
+		if ($avg_windGustDir_1h_check == null){
+			$cardinalGustDir1h = '';
+		}else if($avg_windGustDir_1h_check == ''){
+			$cardinalGustDir1h = '';
+		}
+		else{
+			$cardinalGustDir1h = wind_cardinals($avg_windGustDir_1h);
+		}
+
+	// Enfin, on arrondi la moyenne en degrés avec une seule décimale
+	$avg_windGustDir_1h = round($avg_windGustDir_1h,1);
+
+	/*
+	 * DIRECTIONS INSTANTANÉES
+	 */
+
+	// Direction du vent moyen instant
+	$sql = "SELECT windDir FROM $db_name.$db_table ORDER BY dateTime DESC LIMIT 1;";
+	$res = $conn->query($sql);
+	$row = mysqli_fetch_row($res);
+
+	$windDir_check = $row[0];
+	if ($windDir_check == null){
+		$windDir = 'N/A';
+	}else{
+		$cardinalWindDir = wind_cardinals($windDir_check);
+		$windDir = round($windDir_check,1);
+	}
+	//
+	// Direction du vent rafales instant
+	$sql = "SELECT windGustDir FROM $db_name.$db_table ORDER BY dateTime DESC LIMIT 1;";
+	$res = $conn->query($sql);
+	$row = mysqli_fetch_row($res);
+
+	$windGustDir_check = $row[0];
+	if ($windGustDir_check == null){
+		$windGustDir = 'N/A';
+	}else{
+		$cardinalWindGustDir = wind_cardinals($windGustDir_check);
+		$windGustDir = round($windGustDir_check,1);
+	}
+
+	/*
+	 * FIN DE CALCUL DE LA DIRECTION DU VENT
+	 */
 
 	// ET
 	if ($presence_radiation == true){
