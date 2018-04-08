@@ -3,6 +3,12 @@
 ### ToDo
 Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 
+### 0.14.0 - 18/03/2018
+* Fix direction du vent
+    * Calcul des directions moyennes sur 10 min rectifiées
+    * Ajout du calcul de la direction moyenne sur 1 heure
+    * Modification de la page d'accueil pour afficher les vitesses et direction du vent dans un tableau séparé
+
 ### 0.13.3 - 08/03/2018
 * Fix temperature max sur la page de la journée d'hier
 
