@@ -3,6 +3,9 @@
 ### ToDo
 Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 
+### 0.14.1 - 09/04/2018
+* Fix typo page d'accueil
+
 ### 0.14.0 - 18/03/2018
 * Fix direction du vent
     * Calcul des directions moyennes sur 10 min rectifiées
