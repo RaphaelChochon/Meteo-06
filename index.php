@@ -225,8 +225,8 @@
 					<tbody>
 						<tr>
 							<td><b>Rafale max du jour</b></td>
-							<td><?php echo $maxwind; ?> km/h à <?php echo $maxwindtime; ?></td>
-							<td><?php echo $cardinalMaxWindDir; ?> (<?php echo $maxwinddir; ?>°)</td>
+							<td><b><?php echo $maxwind; ?> km/h à <?php echo $maxwindtime; ?></b></td>
+							<td><b><?php echo $cardinalMaxWindDir; ?> (<?php echo $maxwinddir; ?>°)</b></td>
 						</tr>
 					</tbody>
 				</table>
