@@ -135,6 +135,11 @@
 					},
 					exporting: {
 						filename: '<?php echo $short_station_name; ?> RX',
+						sourceHeight: '400',
+						sourceWidth: '1200',
+						csv: {
+							itemDelimiter:';',
+						},
 						//scale: 2,
 					},
 					xAxis: [{
