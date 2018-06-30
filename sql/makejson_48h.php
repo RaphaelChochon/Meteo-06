@@ -202,7 +202,9 @@ if ($presence_radiation == true){
 			$i++;
 	}
 	$json_ET.="]";
+};
 
+if ($presence_iss_radio == true){
 	//rxCheck
 	$json_rxCheckPercent = "[";
 		$sql = "SELECT datetime, IFNULL(rxCheckPercent,'null') AS rxCheckPercent FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;";
@@ -290,7 +292,9 @@ if ($presence_radiation == true){
 	$fp=fopen($file,'w');
 	fwrite($fp,$json_ET);
 	fclose($fp);
+};
 
+if ($presence_iss_radio == true){
 	$file = $path."rx_48h.json";
 	$fp=fopen($file,'w');
 	fwrite($fp,$json_rxCheckPercent);
