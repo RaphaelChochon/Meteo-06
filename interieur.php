@@ -43,7 +43,7 @@
 		eval('var data_intemp_48h = <?php include 'json/indoor/intemp_48h.json' ?>');
 		eval('var data_inhygro_48h = <?php include 'json/indoor/inhygro_48h.json' ?>');
 
-		<?php if ($presence_radiation == true) : ?>
+		<?php if ($presence_iss_radio == true) : ?>
 			eval('var data_rx_48h = <?php include 'json/rx_48h.json' ?>');
 		<?php endif; ?>
 
@@ -110,7 +110,7 @@
 					}
 				});
 
-<?php if ($presence_radiation == true) : ?>
+<?php if ($presence_iss_radio == true) : ?>
 /*
 	START GRAPH RX
  */
@@ -692,7 +692,7 @@
 				</table>
 			</div>
 		</div>
-		<?php if ($presence_radiation == true) : ?>
+		<?php if ($presence_iss_radio == true) : ?>
 		<hr>
 		<div class="row">
 			<div class="col-md-12 divCenter">
