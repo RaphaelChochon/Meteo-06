@@ -96,7 +96,7 @@
 			$(function () {
 				Highcharts.setOptions({
 					global: {
-						useUTC: false
+						useUTC: true
 					},
 					lang: {
 						months: ["Janvier "," Février "," Mars "," Avril "," Mai "," Juin "," Juillet "," Août "," Septembre "," Octobre "," Novembre "," Décembre"],
@@ -127,7 +127,7 @@
 						//alignTicks: false,
 					},
 					title: {
-						text: 'Température et humidité des dernières 48 heures',
+						text: 'Température et humidité des dernières 48 heures UTC',
 						//x: -20 //center
 					},
 					subtitle: {
@@ -239,7 +239,7 @@
 					tooltip: {
 						shared: true,
 						valueDecimals: 1,
-						xDateFormat: '<b>%e %B à %H:%M</b>',
+						xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 					},
 					series: [{
 						name: 'Température',
@@ -284,7 +284,7 @@
 						//alignTicks: false,
 					},
 					title: {
-						text: 'Pression atmo. des dernières 48 heures',
+						text: 'Pression atmo. des dernières 48 heures UTC',
 						//x: -20 //center
 					},
 					subtitle: {
@@ -378,7 +378,7 @@
 						shared: true,
 						valueDecimals: 1,
 						valueSuffix: ' hPa',
-						xDateFormat: '<b>%e %B à %H:%M</b>',
+						xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 					},
 					series: [{
 						name: 'Pression',
@@ -399,7 +399,7 @@
 						//alignTicks: false,
 					},
 					title: {
-						text: 'Vent des dernières 48 heures',
+						text: 'Vent des dernières 48 heures UTC',
 						//x: -20 //center
 					},
 					subtitle: {
@@ -513,7 +513,7 @@
 					tooltip: {
 						shared: true,
 						valueDecimals: 1,
-						xDateFormat: '<b>%e %B à %H:%M</b>',
+						xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 					},
 					plotOptions: {
 						series: {
@@ -578,7 +578,7 @@
 						//alignTicks: false,
 					},
 					title: {
-						text: 'Précipitations des dernières 48 heures',
+						text: 'Précipitations des dernières 48 heures UTC',
 						//x: -20 //center
 					},
 					subtitle: {
@@ -674,7 +674,7 @@
 					tooltip: {
 						shared: true,
 						valueDecimals: 1,
-						xDateFormat: '<b>%e %B à %H:%M</b>',
+						xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 						valueSuffix: ' mm',
 					},
 					series: [{
@@ -697,7 +697,7 @@
 						//alignTicks: false,
 					},
 					title: {
-						text: 'Indice UV des dernières 48 heures',
+						text: 'Indice UV des dernières 48 heures UTC',
 						//x: -20 //center
 					},
 					subtitle: {
@@ -791,7 +791,7 @@
 					tooltip: {
 						shared: true,
 						valueDecimals: 1,
-						xDateFormat: '<b>%e %B à %H:%M</b>',
+						xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 					},
 					series: [{
 						name: 'Indice UV',
@@ -815,7 +815,7 @@
 						//alignTicks: false,
 					},
 					title: {
-						text: 'Rayonnement solaire des dernières 48 heures',
+						text: 'Rayonnement solaire des dernières 48 heures UTC',
 						//x: -20 //center
 					},
 					subtitle: {
@@ -909,7 +909,7 @@
 					tooltip: {
 						shared: true,
 						valueDecimals: 0,
-						xDateFormat: '<b>%e %B à %H:%M</b>',
+						xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 						valueSuffix: ' W/m²',
 					},
 					series: [{
@@ -931,7 +931,7 @@
 						//alignTicks: false,
 					},
 					title: {
-						text: 'Évapotranspiration des dernières 48 heures',
+						text: 'Évapotranspiration des dernières 48 heures UTC',
 						//x: -20 //center
 					},
 					subtitle: {
@@ -1025,7 +1025,7 @@
 					tooltip: {
 						shared: true,
 						valueDecimals: 3,
-						xDateFormat: '<b>%e %B à %H:%M</b>',
+						xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 						valueSuffix: ' mm/heure',
 					},
 					series: [{
@@ -1067,6 +1067,7 @@
 		<div class="row">
 			<div class="col-md-12 divCenter">
 				<p>Vous trouverez sur cette page les relevés de la station sur les 48 dernières heures sous forme de graphiques. Ils sont mis à jour toutes les 5 minutes.<br>Vous pouvez zoomer sur une zone spécifique, faire apparaitre une infobulle au passage de la souris ou au clic sur mobile, et afficher/masquer un paramètre météo en cliquant sur son intitulé dans la légende. Ils sont également exportables en cliquant sur le bouton au-dessus à droite de chaque graphique.</p>
+				<p><b>Attention, les graphiques sont en heure UTC, donc il faut rajouter une heure l'hiver et deux heures l'été !<br>Exemple : il est actuellement <?php echo date('H:i'); ?> UTC, et donc <?php date_default_timezone_set('Europe/Paris'); echo date('H:i'); ?> en France</b></p>
 			</div>
 		</div>
 		<hr>
