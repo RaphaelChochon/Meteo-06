@@ -238,20 +238,8 @@
 					}],
 					tooltip: {
 						shared: true,
-						//valueSuffix: '°C',
 						valueDecimals: 1,
-						formatter: function() {
-							var s = '<b>'+ Highcharts.dateFormat('%e %B à %H:%M', this.x) +'</b>';
-							$.each(this.points, function(i, point) {
-								var unit = {
-									'Température': ' °C',
-									'Humidité': ' %',
-									'Point de rosée': ' °C',
-								}[this.point.series.name];
-								s = s + '<br>' + '<span style="color:'+ point.series.color +'">' + point.series.name + '</span> : <b>'+Highcharts.numberFormat(point.y,1,","," ") + unit + '</b>';
-							});
-						return s;
-						},
+						xDateFormat: '<b>%e %B à %H:%M</b>',
 					},
 					series: [{
 						name: 'Température',
@@ -261,6 +249,9 @@
 						zIndex: 1,
 						color: '#ff0000',
 						negativeColor:'#0d1cc5',
+						tooltip: {
+							valueSuffix: ' °C',
+						}
 					},{
 						name: 'Humidité',
 						type: 'area',
@@ -268,13 +259,19 @@
 						yAxis: 1,
 						connectNulls: true,
 						color: '#3399FF',
+						tooltip: {
+							valueSuffix: ' %',
+						}
 					},{
 						name: 'Point de rosée',
 						type: 'spline',
 						data: comArr(data_rosee),
 						connectNulls: true,
 						color: '#1c23e4',
-						visible: false,
+						visible: true,
+						tooltip: {
+							valueSuffix: ' °C',
+						}
 					}]
 				});
 /*
@@ -378,10 +375,10 @@
 						},
 					},
 					tooltip: {
-						//shared: true,
-						pointFormat: '<span style="color:{series.color}">{series.name} :</span> <b>{point.y}</b><br/>',
+						shared: true,
 						valueDecimals: 1,
 						valueSuffix: ' hPa',
+						xDateFormat: '<b>%e %B à %H:%M</b>',
 					},
 					series: [{
 						name: 'Pression',
@@ -502,7 +499,7 @@
 							tickInterval:45,
 							minorTickInterval:45,
 							title: {
-							text: 'Direction moyenne',
+							text: 'Direction du vent moyen',
 								style: {
 									"color": "#9400d3",
 								},
@@ -516,18 +513,7 @@
 					tooltip: {
 						shared: true,
 						valueDecimals: 1,
-						formatter: function() {
-							var s = '<b>'+ Highcharts.dateFormat('%e %B à %H:%M', this.x) +'</b>';
-							$.each(this.points, function(i, point) {
-								var unit = {
-									'Vent moyen': ' km/h',
-									'Rafales': ' km/h',
-									'Direction moyenne': '',
-								}[this.point.series.name];
-								s = s + '<br>' + '<span style="color:'+ point.series.color +'">' + point.series.name + '</span> : <b>'+Highcharts.numberFormat(point.y,1,","," ") + unit + '</b>';
-							});
-						return s;
-						},
+						xDateFormat: '<b>%e %B à %H:%M</b>',
 					},
 					plotOptions: {
 						series: {
@@ -546,6 +532,9 @@
 						data: comArr(data_vent),
 						connectNulls: true,
 						//zIndex: 1,
+						tooltip: {
+							valueSuffix: ' km/h',
+						}
 					},{
 						name: 'Rafales',
 						type: 'spline',
@@ -554,8 +543,11 @@
 						data: comArr(data_rafales),
 						connectNulls: true,
 						//zIndex: 2,
+						tooltip: {
+							valueSuffix: ' km/h',
+						}
 					},{
-						name: 'Direction moyenne',
+						name: 'Direction du vent moyen',
 						type: 'scatter',
 						data: comArr(data_dir_vent),
 						connectNulls: true,
@@ -571,6 +563,9 @@
 							//fillColor: '#9400d3',
 						},
 						visible:false,
+						tooltip: {
+							valueSuffix: ' °',
+						}
 					}]
 				});
 /*
@@ -578,7 +573,7 @@
  */
 				var precip = Highcharts.chart ('graph_precip', {
 					chart: {
-						type : 'line',
+						type : 'area',
 						zoomType: 'x',
 						//alignTicks: false,
 					},
@@ -662,6 +657,7 @@
 						lineColor: '#4169e1',
 						lineWidth: 1,
 						min:0,
+						softMin:1,
 						title: {
 							text: 'Précipitations (mm)',
 							style: {
@@ -670,19 +666,20 @@
 						},
 						labels:{
 							style: {
+								//"format": '{this.value} mm',
 								"color": "#4169e1",
 							},
 						},
 					},
 					tooltip: {
-						//shared: true,
-						pointFormat: '<span style="color:{series.color}">{series.name} :</span> <b>{point.y}</b><br/>',
+						shared: true,
 						valueDecimals: 1,
+						xDateFormat: '<b>%e %B à %H:%M</b>',
 						valueSuffix: ' mm',
 					},
 					series: [{
 						name: 'Précipitations',
-						type: 'spline',
+						type: 'line',
 						data: comArr(data_precip),
 						connectNulls: true,
 						color: '#4169e1',
@@ -792,10 +789,9 @@
 						},
 					},
 					tooltip: {
-						//shared: true,
-						pointFormat: '<span style="color:{series.color}">{series.name} :</span> <b>{point.y}</b><br/>',
+						shared: true,
 						valueDecimals: 1,
-						//valueSuffix: '',
+						xDateFormat: '<b>%e %B à %H:%M</b>',
 					},
 					series: [{
 						name: 'Indice UV',
@@ -911,9 +907,9 @@
 						},
 					},
 					tooltip: {
-						//shared: true,
-						pointFormat: '<span style="color:{series.color}">{series.name} :</span> <b>{point.y}</b><br/>',
+						shared: true,
 						valueDecimals: 0,
+						xDateFormat: '<b>%e %B à %H:%M</b>',
 						valueSuffix: ' W/m²',
 					},
 					series: [{
@@ -1027,9 +1023,9 @@
 						},
 					},
 					tooltip: {
-						//shared: true,
-						pointFormat: '<span style="color:{series.color}">{series.name} :</span> <b>{point.y}</b><br/>',
+						shared: true,
 						valueDecimals: 3,
+						xDateFormat: '<b>%e %B à %H:%M</b>',
 						valueSuffix: ' mm/heure',
 					},
 					series: [{
