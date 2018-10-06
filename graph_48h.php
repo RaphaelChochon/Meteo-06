@@ -679,7 +679,7 @@
 					},
 					series: [{
 						name: 'Précipitations',
-						type: 'line',
+						type: 'column',
 						data: comArr(data_precip),
 						connectNulls: true,
 						color: '#4169e1',
