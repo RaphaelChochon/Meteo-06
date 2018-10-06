@@ -3,6 +3,11 @@
 ### ToDo
 Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 
+### 0.14.2 - 06/10/2018
+* Diverses corrections de bugs mineurs
+* Modification des tooltip des graphiques 48 heures pour adapter la couleur automatiquement
+* Passage à l'UTC pour les graphiques 48 heures
+
 ### 0.14.1 - 09/04/2018
 * Fix typo page d'accueil
 
