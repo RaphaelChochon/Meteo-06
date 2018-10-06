@@ -268,7 +268,7 @@
 						data: comArr(data_rosee),
 						connectNulls: true,
 						color: '#1c23e4',
-						visible: true,
+						visible: false,
 						tooltip: {
 							valueSuffix: ' °C',
 						}
