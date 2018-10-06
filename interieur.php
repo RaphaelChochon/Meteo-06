@@ -122,7 +122,7 @@
 						//alignTicks: false,
 					},
 					title: {
-						text: 'Pourcentage de réception',
+						text: 'Qualité de réception ISS',
 						//x: -20 //center
 					},
 					subtitle: {
@@ -201,6 +201,7 @@
 						//crosshair:true,
 						lineColor: '#FF0000',
 						lineWidth: 1,
+						max: 100,
 						title: {
 							text: 'RX (%)',
 							style: {
@@ -215,18 +216,8 @@
 					}],
 					tooltip: {
 						shared: true,
-						//valueSuffix: '°C',
 						valueDecimals: 1,
-						formatter: function() {
-							var s = '<b>'+ Highcharts.dateFormat('%e %B à %H:%M', this.x) +'</b>';
-							$.each(this.points, function(i, point) {
-								var unit = {
-									'RX': ' %',
-								}[this.point.series.name];
-								s = s + '<br>' + '<span style="color:'+ point.series.color +'">' + point.series.name + '</span> : <b>'+Highcharts.numberFormat(point.y,1,","," ") + unit + '</b>';
-							});
-						return s;
-						},
+						xDateFormat: '<b>%e %B à %H:%M</b>',
 					},
 					series: [{
 						name: 'RX',
@@ -243,8 +234,9 @@
 						}],
 						connectNulls: true,
 						zIndex: 1,
-						//color: '#ff0000',
-						//negativeColor:'#0d1cc5',
+						tooltip: {
+							valueSuffix: ' %',
+						}
 					}]
 				});
 /*
@@ -369,19 +361,8 @@
 					}],
 					tooltip: {
 						shared: true,
-						//valueSuffix: '°C',
 						valueDecimals: 1,
-						formatter: function() {
-							var s = '<b>'+ Highcharts.dateFormat('%e %B à %H:%M', this.x) +'</b>';
-							$.each(this.points, function(i, point) {
-								var unit = {
-									'Température': ' °C',
-									'Humidité': ' %',
-								}[this.point.series.name];
-								s = s + '<br>' + '<span style="color:'+ point.series.color +'">' + point.series.name + '</span> : <b>'+Highcharts.numberFormat(point.y,1,","," ") + unit + '</b>';
-							});
-						return s;
-						},
+						xDateFormat: '<b>%e %B à %H:%M</b>',
 					},
 					series: [{
 						name: 'Température',
@@ -391,6 +372,9 @@
 						zIndex: 1,
 						color: '#ff0000',
 						negativeColor:'#0d1cc5',
+						tooltip: {
+							valueSuffix: ' °C',
+						}
 					},{
 						name: 'Humidité',
 						type: 'area',
@@ -398,6 +382,9 @@
 						yAxis: 1,
 						connectNulls: true,
 						color: '#3399FF',
+						tooltip: {
+							valueSuffix: ' %',
+						}
 					}]
 				});
 /*
@@ -488,19 +475,8 @@
 					}],
 					tooltip: {
 						shared: true,
-						//valueSuffix: '°C',
 						valueDecimals: 1,
-						formatter: function() {
-							var s = '<b>'+ Highcharts.dateFormat('%e %B à %H:%M', this.x) +'</b>';
-							$.each(this.points, function(i, point) {
-								var unit = {
-									'Température': ' °C',
-									'Humidité': ' %',
-								}[this.point.series.name];
-								s = s + '<br>' + '<span style="color:'+ point.series.color +'">' + point.series.name + '</span> : <b>'+Highcharts.numberFormat(point.y,1,","," ") + unit + '</b>';
-							});
-						return s;
-						},
+						xDateFormat: '<b>%e %B à %H:%M</b>',
 					},
 					series: [{
 						name: 'Température',
@@ -510,6 +486,9 @@
 						zIndex: 1,
 						color: '#ff0000',
 						negativeColor:'#0d1cc5',
+						tooltip: {
+							valueSuffix: ' °C',
+						}
 					},{
 						name: 'Humidité',
 						type: 'area',
@@ -517,6 +496,9 @@
 						yAxis: 1,
 						connectNulls: true,
 						color: '#3399FF',
+						tooltip: {
+							valueSuffix: ' %',
+						}
 					}]
 				});
 /*
@@ -606,19 +588,8 @@
 					}],
 					tooltip: {
 						shared: true,
-						//valueSuffix: '°C',
 						valueDecimals: 1,
-						formatter: function() {
-							var s = '<b>'+ Highcharts.dateFormat('%e %B à %H:%M', this.x) +'</b>';
-							$.each(this.points, function(i, point) {
-								var unit = {
-									'Température': ' °C',
-									'Humidité': ' %',
-								}[this.point.series.name];
-								s = s + '<br>' + '<span style="color:'+ point.series.color +'">' + point.series.name + '</span> : <b>'+Highcharts.numberFormat(point.y,1,","," ") + unit + '</b>';
-							});
-						return s;
-						},
+						xDateFormat: '<b>%e %B à %H:%M</b>',
 					},
 					series: [{
 						name: 'Température',
@@ -628,6 +599,9 @@
 						zIndex: 1,
 						color: '#ff0000',
 						negativeColor:'#0d1cc5',
+						tooltip: {
+							valueSuffix: ' °C',
+						}
 					},{
 						name: 'Humidité',
 						type: 'area',
@@ -635,6 +609,9 @@
 						yAxis: 1,
 						connectNulls: true,
 						color: '#3399FF',
+						tooltip: {
+							valueSuffix: ' %',
+						}
 					}]
 				});
 /*
