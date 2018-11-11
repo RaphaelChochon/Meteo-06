@@ -74,7 +74,7 @@
 	$maxwindgusthier = round($row[1],1);
 	$maxwindgusttimehier = date('d/m/Y à H\hi',$row[0]);
 
-if ($presence_uv == true){
+if ($presence_uv === "true"){
 	// Max UV
 	$sql = "SELECT dateTime, UV FROM $db_name.$db_table WHERE dateTime >= '$yesterday' AND dateTime <= '$stophier' AND UV = (SELECT max(UV) FROM $db_name.$db_table WHERE dateTime >= '$yesterday' AND dateTime <= '$stophier');";
 	$res = $conn->query($sql);
@@ -83,7 +83,7 @@ if ($presence_uv == true){
 	$maxuvtimehier = date('d/m/Y à H\hi',$row[0]);
 };
 
-if ($presence_radiation == true){
+if ($presence_radiation === "true"){
 	// Max rayonnement solaire
 	$sql = "SELECT dateTime, radiation FROM $db_name.$db_table WHERE dateTime >= '$yesterday' AND dateTime <= '$stophier' AND radiation = (SELECT max(radiation) FROM $db_name.$db_table WHERE dateTime >= '$yesterday' AND dateTime <= '$stophier');";
 	$res = $conn->query($sql);

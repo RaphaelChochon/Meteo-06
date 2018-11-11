@@ -70,7 +70,7 @@
 	$maxwindgusttimerec = date('d/m/Y à H\hi',$row[1]);
 
 
-if ($presence_uv == true){
+if ($presence_uv === "true"){
 	// Max UV
 	$sql = "SELECT max, maxtime FROM $db_name.archive_day_UV WHERE max = (SELECT max(max) FROM $db_name.archive_day_UV);";
 	$res = $conn->query($sql);
@@ -80,7 +80,7 @@ if ($presence_uv == true){
 };
 
 
-if ($presence_radiation == true){
+if ($presence_radiation === "true"){
 	// Max rayonnement solaire
 	$sql = "SELECT max, maxtime FROM $db_name.archive_day_radiation WHERE max = (SELECT max(max) FROM $db_name.archive_day_radiation);";
 	$res = $conn->query($sql);

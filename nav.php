@@ -12,7 +12,7 @@
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<?php if ($presence_webcam == true){
+				<?php if ($presence_webcam === "true"){
 					echo '<li><a href="webcam.php">Webcam</a></li>';
 				};?>
 				<li class="dropdown">
@@ -36,7 +36,7 @@
 					</ul>
 				</li>
 				<li class="dropdown">
-					<?php if ($additional_menu == true){
+					<?php if ($additional_menu === "true"){
 						include 'config/additional_menu.php';
 					};?>
 				<li>

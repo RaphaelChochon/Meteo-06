@@ -68,10 +68,10 @@
 		eval('var data_rafales = <?php include 'json/rafales_48h.json' ?>');
 		eval('var data_dir_vent = <?php include 'json/dir_vent_48h.json' ?>');
 		eval('var data_precip = <?php include 'json/precipitations_48h.json' ?>');
-		<?php if ($presence_uv == true) : ?>
+		<?php if ($presence_uv === "true") : ?>
 			eval('var data_uv = <?php include 'json/uv_48h.json' ?>');
 		<?php endif; ?>
-		<?php if ($presence_radiation == true) : ?>
+		<?php if ($presence_radiation === "true") : ?>
 			eval('var data_rad = <?php include 'json/radiation_48h.json' ?>');
 			eval('var data_et = <?php include 'json/et_48h.json' ?>');
 		<?php endif; ?>
@@ -686,7 +686,7 @@
 						//zIndex: 1,
 					}]
 				});
-<?php if ($presence_uv == true) : ?>
+<?php if ($presence_uv === "true") : ?>
 /*
 	START GRAPH UV
  */
@@ -804,7 +804,7 @@
 				});
 <?php endif; ?>
 
-<?php if ($presence_radiation == true) : ?>
+<?php if ($presence_radiation === "true") : ?>
 /*
 	START GRAPH RADIATION
  */
@@ -1094,7 +1094,7 @@
 				<div id="graph_precip" style="width:100%; height:400px;"></div>
 			</div>
 		</div>
-		<?php if ($presence_uv == true) : ?>
+		<?php if ($presence_uv === "true") : ?>
 		<hr>
 		<div class="row">
 			<div class="col-md-12 divCenter">
@@ -1102,7 +1102,7 @@
 			</div>
 		</div>
 		<?php endif; ?>
-		<?php if ($presence_radiation == true) : ?>
+		<?php if ($presence_radiation === "true") : ?>
 		<hr>
 		<div class="row">
 			<div class="col-md-12 divCenter">

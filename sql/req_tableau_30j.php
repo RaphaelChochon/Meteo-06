@@ -80,7 +80,7 @@
 	$maxwindgust30j = round($row[1],1);
 	$maxwindgusttime30j = date('d/m/Y à H\hi',$row[0]);
 
-if ($presence_uv == true){
+if ($presence_uv === "true"){
 	// Max UV
 	$sql = "SELECT dateTime, UV FROM $db_name.$db_table WHERE dateTime >= '$start30j' AND dateTime <= '$stop' AND UV = (SELECT max(UV) FROM $db_name.$db_table WHERE dateTime >= '$start30j' AND dateTime <= '$stop');";
 	$res = $conn->query($sql);
@@ -90,7 +90,7 @@ if ($presence_uv == true){
 };
 
 
-if ($presence_radiation == true){
+if ($presence_radiation === "true"){
 	// Max rayonnement solaire
 	$sql = "SELECT dateTime, radiation FROM $db_name.$db_table WHERE dateTime >= '$start30j' AND dateTime <= '$stop' AND radiation = (SELECT max(radiation) FROM $db_name.$db_table WHERE dateTime >= '$start30j' AND dateTime <= '$stop');";
 	$res = $conn->query($sql);

@@ -67,7 +67,7 @@
 		$windgust = round($row[12],1);
 	}
 	//
-	if ($presence_radiation == true){
+	if ($presence_radiation === "true"){
 		$radiation_check = $row[20];
 		if ($radiation_check == null){
 			$radiation = 'N/A';
@@ -76,7 +76,7 @@
 		}
 	};
 	//
-	if ($presence_uv == true){
+	if ($presence_uv === "true"){
 		$uv_check = $row[21];
 		if($row[21]== null){
 			$uv='N/A';
@@ -385,7 +385,7 @@
 	 */
 
 	// ET
-	if ($presence_radiation == true){
+	if ($presence_radiation === "true"){
 		// Calcul de l'ET sur la dernière heure
 		$sql = "SELECT sum(ET) FROM $db_name.$db_table WHERE dateTime>= '$start1' AND dateTime <= '$stop';";
 		$et_1h = $conn->query($sql);
@@ -490,7 +490,7 @@
 	$cardinalMaxWindDir = wind_cardinals($maxwinddir);
 
 	// UV
-	if ($presence_uv == true){
+	if ($presence_uv === "true"){
 		// Calcul de la moyenne sur 10 minutes de l'indice UV
 		$sql = "SELECT AVG(UV) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';";
 		$res = $conn->query($sql);
@@ -520,7 +520,7 @@
 	$maxheatindextime = date('H\hi',$row[4]);
 
 	// Rayonnement solaire et ET
-	if ($presence_radiation == true){
+	if ($presence_radiation === "true"){
 		// Calcul de la moyenne sur 10 minutes du rayonnement solaire (radiation)
 		$sql = "SELECT AVG(radiation) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';";
 		$res = $conn->query($sql);

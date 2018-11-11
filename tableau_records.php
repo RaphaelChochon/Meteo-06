@@ -122,7 +122,7 @@
 							<td><?php echo $maxwindgustrec; ?> km/h le <?php echo $maxwindgusttimerec; ?></td>
 						</tr>
 					</tbody>
-				<?php if ($presence_uv == true) : ?>
+				<?php if ($presence_uv === "true") : ?>
 					<tbody>
 						<tr>
 							<td>Indice UV</td>
@@ -131,7 +131,7 @@
 						</tr>
 					</tbody>
 				<?php endif; ?>
-				<?php if ($presence_radiation == true) : ?>
+				<?php if ($presence_radiation === "true") : ?>
 					<tbody>
 						<tr>
 							<td>Rayonnement solaire</td>
