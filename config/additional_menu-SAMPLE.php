@@ -11,8 +11,11 @@
 		<li><a href="https://nice-pessicart.meteo06.fr" target="blank">Nice-Pessicart - <span style="color:red;font-weight:bold;">VP2</span></a></li>
 		<li><a href="https://smdv.meteo06.fr" target="blank">Saint Martin du Var</a></li>
 		<li><a href="https://svdt.meteo06.fr/meteo/" target="blank">Saint-Vallier-de-Thiey - <span style="color:red;font-weight:bold;">VP2</span></a></li>
-		<li><a href="https://valbonne.meteo06.fr" target="blank">Valbonne</a></li>
 		<li><a href="https://vence.meteo06.fr" target="blank">Vence - <span style="color:red;font-weight:bold;">VP2</span></a></li>
+		<li class="divider"></li>
+		<li><a href="https://caussols.meteo06.fr" target="blank">Caussols-Geoazur - <span style="color:red;font-weight:bold;">VP2</span></a></li>
+		<li><a href="https://lbsl.meteo06.fr" target="blank">Le Bar-sur-Loup-Geoazur - <span style="color:red;font-weight:bold;">VP2</span></a></li>
+		<li><a href="https://valbonne.meteo06.fr" target="blank">Valbonne-Sophia-Geoazur - <span style="color:red;font-weight:bold;">VP2</span></a></li>
 		<li class="divider"></li>
 		<li><a href="https://meteo06.fr/presentation-de-lassociation/" target="blank">Association Nice Météo 06</a></li>
 		<li class="divider"></li>
