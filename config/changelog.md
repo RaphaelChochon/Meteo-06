@@ -3,6 +3,10 @@
 ### ToDo
 Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 
+### 0.14.3 - 09/12/2018
+* Remplacement des "==" par "==="
+* Modification dans la liste des stations du réseau
+
 ### 0.14.2 - 06/10/2018
 * Diverses corrections de bugs mineurs
 * Modification des tooltip des graphiques 48 heures pour adapter la couleur automatiquement
