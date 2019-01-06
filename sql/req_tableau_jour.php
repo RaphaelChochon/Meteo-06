@@ -223,21 +223,18 @@
 	$avg_windDir_10 = mean_of_angles($windDir10Array);
 
 	// Maintenant on vérifie que la moyenne ne soit pas NULL
-	// si elle est NULL ou si la chaine est vide, on renvoie une chaine vide
+	// si elle est NULL ou si la chaine est vide, on renvoie N/A
 	// sinon on execute la fonction pour la convertir en position cardinale
 	$avg_windDir_10_check = $avg_windDir_10;
-		if ($avg_windDir_10_check == null){
-			$cardinalDir10 = '';
-		}else if($avg_windDir_10_check == ''){
-			$cardinalDir10 = '';
+		if ($avg_windDir_10_check === null || $avg_windDir_10_check == ''){
+			$cardinalDir10 = 'N/A';
+			$avg_windDir_10 = 'N/A';
 		}
 		else{
 			$cardinalDir10 = wind_cardinals($avg_windDir_10);
+			// Enfin, on arrondi la moyenne en degrés avec une seule décimale
+			$avg_windDir_10 = round($avg_windDir_10,1);
 		}
-
-	// Enfin, on arrondi la moyenne en degrés avec une seule décimale
-	$avg_windDir_10 = round($avg_windDir_10,1);
-
 
 	/*
 	 * VENT MOYEN 1 heure
@@ -260,22 +257,18 @@
 	$avg_windDir_1h = mean_of_angles($windDir1hArray);
 
 	// Maintenant on vérifie que la moyenne ne soit pas NULL
-	// si elle est NULL ou si la chaine est vide, on renvoie une chaine vide
+	// si elle est NULL ou si la chaine est vide, on renvoie N/A
 	// sinon on execute la fonction pour la convertir en position cardinale
 	$avg_windDir_1h_check = $avg_windDir_1h;
-		if ($avg_windDir_1h_check == null){
-			$cardinalDir1h = '';
-		}else if($avg_windDir_1h_check == ''){
-			$cardinalDir1h = '';
+		if ($avg_windDir_1h_check === null || $avg_windDir_1h_check == ''){
+			$cardinalDir1h = 'N/A';
+			$avg_windDir_1h = 'N/A';
 		}
 		else{
 			$cardinalDir1h = wind_cardinals($avg_windDir_1h);
+			// Enfin, on arrondi la moyenne en degrés avec une seule décimale
+			$avg_windDir_1h = round($avg_windDir_1h,1);
 		}
-
-	// Enfin, on arrondi la moyenne en degrés avec une seule décimale
-	$avg_windDir_1h = round($avg_windDir_1h,1);
-
-
 
 	/*
 	 * VENT RAFALES 10 minutes
@@ -298,21 +291,18 @@
 	$avg_windGustDir_10 = mean_of_angles($windGustDir10Array);
 
 	// Maintenant on vérifie que la moyenne ne soit pas NULL
-	// si elle est NULL ou si la chaine est vide, on renvoie une chaine vide
+	// si elle est NULL ou si la chaine est vide, on renvoie N/A
 	// sinon on execute la fonction pour la convertir en position cardinale
 	$avg_windGustDir_10_check = $avg_windGustDir_10;
-		if ($avg_windGustDir_10_check == null){
-			$cardinalGustDir10 = '';
-		}else if($avg_windGustDir_10_check == ''){
-			$cardinalGustDir10 = '';
+		if ($avg_windGustDir_10_check === null || $avg_windGustDir_10_check == ''){
+			$cardinalGustDir10 = 'N/A';
+			$avg_windGustDir_10 = 'N/A';
 		}
 		else{
 			$cardinalGustDir10 = wind_cardinals($avg_windGustDir_10);
+			// Enfin, on arrondi la moyenne en degrés avec une seule décimale
+			$avg_windGustDir_10 = round($avg_windGustDir_10,1);
 		}
-
-	// Enfin, on arrondi la moyenne en degrés avec une seule décimale
-	$avg_windGustDir_10 = round($avg_windGustDir_10,1);
-
 
 	/*
 	 * VENT RAFALES 1 heure
@@ -335,20 +325,18 @@
 	$avg_windGustDir_1h = mean_of_angles($windGustDir1hArray);
 
 	// Maintenant on vérifie que la moyenne ne soit pas NULL
-	// si elle est NULL ou si la chaine est vide, on renvoie une chaine vide
+	// si elle est NULL ou si la chaine est vide, on renvoie N/A
 	// sinon on execute la fonction pour la convertir en position cardinale
 	$avg_windGustDir_1h_check = $avg_windGustDir_1h;
-		if ($avg_windGustDir_1h_check == null){
-			$cardinalGustDir1h = '';
-		}else if($avg_windGustDir_1h_check == ''){
-			$cardinalGustDir1h = '';
+		if ($avg_windGustDir_1h_check === null || $avg_windGustDir_1h_check == ''){
+			$cardinalGustDir1h = 'N/A';
+			$avg_windGustDir_1h = 'N/A';
 		}
 		else{
 			$cardinalGustDir1h = wind_cardinals($avg_windGustDir_1h);
+			// Enfin, on arrondi la moyenne en degrés avec une seule décimale
+			$avg_windGustDir_1h = round($avg_windGustDir_1h,1);
 		}
-
-	// Enfin, on arrondi la moyenne en degrés avec une seule décimale
-	$avg_windGustDir_1h = round($avg_windGustDir_1h,1);
 
 	/*
 	 * DIRECTIONS INSTANTANÉES
@@ -360,8 +348,9 @@
 	$row = mysqli_fetch_row($res);
 
 	$windDir_check = $row[0];
-	if ($windDir_check == null){
+	if ($windDir_check === null || $windDir_check == ''){
 		$windDir = 'N/A';
+		$cardinalWindDir = 'N/A';
 	}else{
 		$cardinalWindDir = wind_cardinals($windDir_check);
 		$windDir = round($windDir_check,1);
@@ -373,8 +362,9 @@
 	$row = mysqli_fetch_row($res);
 
 	$windGustDir_check = $row[0];
-	if ($windGustDir_check == null){
+	if ($windGustDir_check === null || $windGustDir_check == ''){
 		$windGustDir = 'N/A';
+		$cardinalWindGustDir = 'N/A';
 	}else{
 		$cardinalWindGustDir = wind_cardinals($windGustDir_check);
 		$windGustDir = round($windGustDir_check,1);
@@ -487,8 +477,13 @@
 	$maxwind = round($row[3],1);
 	$maxwindtime = date('H\hi',$row[4]);
 	$maxwinddir = round($row[9],2);
-	$cardinalMaxWindDir = wind_cardinals($maxwinddir);
-
+	if ($maxwinddir === null || $maxwinddir == '') {
+		$maxwinddir = 'N/A';
+		$cardinalMaxWindDir = 'N/A';
+	} else {
+		$cardinalMaxWindDir = wind_cardinals($maxwinddir);
+	}
+	
 	// UV
 	if ($presence_uv === "true"){
 		// Calcul de la moyenne sur 10 minutes de l'indice UV
