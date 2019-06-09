@@ -3,6 +3,11 @@
 ### ToDo
 Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 
+### 0.14.4. - 09/06/2019
+* Correction dans l'affichage en page d'accueil des moyennes des directions du vent (affichage de N/A si NULL ou chaine vide)
+* Divers correctifs mineurs
+* Ajout d'un lien "partenaire" dans le titre via la balise ``site_manager_link`` paramétrable dans le fichier de config
+
 ### 0.14.3 - 09/12/2018
 * Remplacement des "==" par "==="
 * Modification dans la liste des stations du réseau
