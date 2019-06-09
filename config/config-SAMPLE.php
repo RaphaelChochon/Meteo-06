@@ -14,7 +14,7 @@
 	WITHOUT ANY WARRANTY;
 	--------
 	Raphaël CHOCHON pour l'association Nice Météo 06
-	http://nicemeteo.fr
+	https://meteo06.fr
 	-------------------------------------------------------------*/
 	require_once("version.php");
 	$version_site = $code_version; // DO NOT MODIFY THIS. It is used to know the version of the site installed.
