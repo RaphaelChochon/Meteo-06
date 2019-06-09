@@ -8,6 +8,6 @@
 				else {
 					echo 'Station météo';
 				};?>
-				<?php echo $station_name; ?></h1>
+				<?php echo $station_name; if (!is_null($site_manager_link)) {echo $site_manager_link;}; ?></h1>
 			</div>
 	</div>
