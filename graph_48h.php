@@ -124,15 +124,12 @@
 					chart: {
 						type : 'line',
 						zoomType: 'x',
-						//alignTicks: false,
 					},
 					title: {
 						text: 'Température et humidité des dernières 48 heures UTC',
-						//x: -20 //center
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
-						//x: -20
 					},
 					credits: {
 						text: '<?php echo $name_manager_graph; ?>',
@@ -201,8 +198,6 @@
 					}],
 					yAxis: [{
 						// Axe 0
-						//className: 'highcharts-color-0',
-						//crosshair:true,
 						lineColor: '#FF0000',
 						lineWidth: 1,
 						title: {
@@ -218,7 +213,6 @@
 						},
 					},{
 						// Axe 1
-						//className: 'highcharts-color-1',
 						opposite: true,
 						min:0,
 						max: 100,
@@ -281,15 +275,12 @@
 					chart: {
 						type : 'line',
 						zoomType: 'x',
-						//alignTicks: false,
 					},
 					title: {
 						text: 'Pression atmo. des dernières 48 heures UTC',
-						//x: -20 //center
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
-						//x: -20
 					},
 					credits: {
 						text: '<?php echo $name_manager_graph; ?>',
@@ -344,7 +335,6 @@
 					},{ // Axe esclave
 						type: 'datetime',
 						linkedTo: 0,
-						//opposite: true,
 						tickInterval: 7200 * 1000 * 8,
 						labels: {
 							align:"center",
@@ -358,7 +348,6 @@
 					}],
 					yAxis: {
 						// Axe 0
-						//className: 'highcharts-color-0',
 						crosshair:true,
 						lineColor: '#1be300',
 						lineWidth: 1,
@@ -386,7 +375,6 @@
 						data: comArr(data_pression),
 						connectNulls: true,
 						color: '#1be300',
-						//zIndex: 1,
 					}]
 				});
 /*
@@ -396,15 +384,12 @@
 					chart: {
 						type : 'line',
 						zoomType: 'x',
-						//alignTicks: false,
 					},
 					title: {
 						text: 'Vent des dernières 48 heures UTC',
-						//x: -20 //center
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
-						//x: -20
 					},
 					credits: {
 						text: '<?php echo $name_manager_graph; ?>',
@@ -459,7 +444,6 @@
 					},{ // Axe esclave
 						type: 'datetime',
 						linkedTo: 0,
-						//opposite: true,
 						tickInterval: 7200 * 1000 * 8,
 						labels: {
 							align:"center",
@@ -473,8 +457,6 @@
 					}],
 					yAxis: [{
 						// Axe 0
-						//className: 'highcharts-color-0',
-						//crosshair:true,
 						lineColor: '#3399FF',
 						lineWidth: 1,
 						min:0,
@@ -527,11 +509,8 @@
 						type: 'area',
 						lineColor: 'rgba(51,153,255,0.75)',
 						fillColor: 'rgba(51,153,255,0.5)',
-						//lineWidth: 0.5,
-						//fillOpacity:0.2,
 						data: comArr(data_vent),
 						connectNulls: true,
-						//zIndex: 1,
 						tooltip: {
 							valueSuffix: ' km/h',
 						}
@@ -539,10 +518,8 @@
 						name: 'Rafales',
 						type: 'spline',
 						color: 'rgba(255,0,0,0.65)',
-						//lineWidth: '0.2',
 						data: comArr(data_rafales),
 						connectNulls: true,
-						//zIndex: 2,
 						tooltip: {
 							valueSuffix: ' km/h',
 						}
@@ -560,7 +537,6 @@
 							lineWidth: 0,
 							radius:2,
 							color:'rgba(148,0,211,0.75)',
-							//fillColor: '#9400d3',
 						},
 						visible:false,
 						tooltip: {
@@ -575,15 +551,12 @@
 					chart: {
 						type : 'area',
 						zoomType: 'x',
-						//alignTicks: false,
 					},
 					title: {
 						text: 'Précipitations des dernières 48 heures UTC',
-						//x: -20 //center
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
-						//x: -20
 					},
 					credits: {
 						text: '<?php echo $name_manager_graph; ?>',
@@ -638,7 +611,6 @@
 					},{ // Axe esclave
 						type: 'datetime',
 						linkedTo: 0,
-						//opposite: true,
 						tickInterval: 7200 * 1000 * 8,
 						labels: {
 							align:"center",
@@ -652,7 +624,6 @@
 					}],
 					yAxis: {
 						// Axe 0
-						//className: 'highcharts-color-0',
 						crosshair:true,
 						lineColor: '#4169e1',
 						lineWidth: 1,
@@ -666,7 +637,6 @@
 						},
 						labels:{
 							style: {
-								//"format": '{this.value} mm',
 								"color": "#4169e1",
 							},
 						},
@@ -683,7 +653,6 @@
 						data: comArr(data_precip),
 						connectNulls: true,
 						color: '#4169e1',
-						//zIndex: 1,
 					}]
 				});
 <?php if ($presence_uv === "true") : ?>
@@ -694,15 +663,12 @@
 					chart: {
 						type : 'line',
 						zoomType: 'x',
-						//alignTicks: false,
 					},
 					title: {
 						text: 'Indice UV des dernières 48 heures UTC',
-						//x: -20 //center
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
-						//x: -20
 					},
 					credits: {
 						text: '<?php echo $name_manager_graph; ?>',
@@ -757,7 +723,6 @@
 					},{ // Axe esclave
 						type: 'datetime',
 						linkedTo: 0,
-						//opposite: true,
 						tickInterval: 7200 * 1000 * 8,
 						labels: {
 							align:"center",
@@ -771,7 +736,6 @@
 					}],
 					yAxis: {
 						// Axe 0
-						//className: 'highcharts-color-0',
 						crosshair:true,
 						lineColor: '#ff7200',
 						lineWidth: 1,
@@ -799,7 +763,6 @@
 						data: comArr(data_uv),
 						connectNulls: true,
 						color: '#ff7200',
-						//zIndex: 1,
 					}]
 				});
 <?php endif; ?>
@@ -812,15 +775,12 @@
 					chart: {
 						type : 'line',
 						zoomType: 'x',
-						//alignTicks: false,
 					},
 					title: {
 						text: 'Rayonnement solaire des dernières 48 heures UTC',
-						//x: -20 //center
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
-						//x: -20
 					},
 					credits: {
 						text: '<?php echo $name_manager_graph; ?>',
@@ -875,7 +835,6 @@
 					},{ // Axe esclave
 						type: 'datetime',
 						linkedTo: 0,
-						//opposite: true,
 						tickInterval: 7200 * 1000 * 8,
 						labels: {
 							align:"center",
@@ -889,7 +848,6 @@
 					}],
 					yAxis: {
 						// Axe 0
-						//className: 'highcharts-color-0',
 						crosshair:true,
 						lineColor: '#e5d42b',
 						lineWidth: 1,
@@ -918,7 +876,6 @@
 						data: comArr(data_rad),
 						connectNulls: true,
 						color: '#e5d42b',
-						//zIndex: 1,
 					}]
 				});
 /*
@@ -928,15 +885,12 @@
 					chart: {
 						type : 'line',
 						zoomType: 'x',
-						//alignTicks: false,
 					},
 					title: {
 						text: 'Évapotranspiration des dernières 48 heures UTC',
-						//x: -20 //center
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
-						//x: -20
 					},
 					credits: {
 						text: '<?php echo $name_manager_graph; ?>',
@@ -991,7 +945,6 @@
 					},{ // Axe esclave
 						type: 'datetime',
 						linkedTo: 0,
-						//opposite: true,
 						tickInterval: 7200 * 1000 * 8,
 						labels: {
 							align:"center",
@@ -1005,7 +958,6 @@
 					}],
 					yAxis: {
 						// Axe 0
-						//className: 'highcharts-color-0',
 						crosshair:true,
 						lineColor: '#e5d42b',
 						lineWidth: 1,
@@ -1032,9 +984,7 @@
 						name: 'Évapotranspiration',
 						type: 'column',
 						data: comArr(data_et),
-						//connectNulls: true,
 						color: '#e5d42b',
-						//zIndex: 1,
 						pointPadding: 0,
 						groupPadding: 0,
 						borderWidth: 0,
