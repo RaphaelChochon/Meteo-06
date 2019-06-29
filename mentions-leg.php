@@ -32,7 +32,7 @@
 			<div class="col-md-12 divCenter">
 				<div class="alert alert-dismissible alert-danger">
 				<h1>Réserves de responsabilités</h1>
-				<h3>Toutes les données sont fournises uniquement à titre indicatif</h3>
+				<h3>Toutes les données sont fournies uniquement à titre indicatif</h3>
   					<ul>
   						<li>Elles ne peuvent donc en aucun cas engager la responsabilité de quelque ordre que ce soit à l'égard des informations et données fournies dans ces pages ou de par les liens proposés vis à vis de l'éditeur, ou <?php echo $name_manager_footer; ?>.</li>
   						<li>Vous pouvez utiliser ces informations à vos seuls risques et périls. Leurs emplois dans le cadre d'une planification de voyage, d'une activité sportive, agricole ou professionnelle n'engagent que vous.</li>
