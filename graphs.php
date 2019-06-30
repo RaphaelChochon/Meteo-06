@@ -1076,6 +1076,7 @@
 					series: [{
 						name: 'Précipitations',
 						type: 'column',
+						zIndex: 1,
 						data: <?php echo $dataRR ?>,
 						turboThreshold: 0,
 						connectNulls: true,
@@ -1086,6 +1087,7 @@
 					},{
 						name: 'Cumul sur <?php echo $last; ?>h',
 						type: 'spline',
+						zIndex: 3,
 						data: <?php echo $dataRRCumul ?>,
 						turboThreshold: 0,
 						connectNulls: true,
@@ -1095,7 +1097,9 @@
 						}
 					},{
 						name: 'Intensité',
+						visible: false,
 						type: 'spline',
+						zIndex: 2,
 						color: '#6883d9',
 						data: <?php echo $dataRRate ?>,
 						turboThreshold: 0,

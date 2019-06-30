@@ -380,7 +380,7 @@
 						name : 'Cumul annuel',
 						type: 'spline',
 						data : <?php echo $dataRRYear ?>,
-						zIndex: 1,
+						zIndex: 3,
 						yAxis: 1,
 						color: '#39404d',
 						turboThreshold: 0,
