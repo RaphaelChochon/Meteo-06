@@ -17,11 +17,13 @@
 	$dataTmoy = array();
 	$dataTx = array();
 	$dataRR = array();
+	$dataRRMonth = array();
 	$dataRRYear = array();
 	$dataTmoyReel = array();
 	$dataTmoy1h = array();
 	$dataTmoy3h = array();
 
+	$rowArrayRRMonthTemp = 0;
 	$rowArrayRRYearTemp = 0;
 
 	if ($result = mysqli_query($conn,
@@ -39,6 +41,7 @@
 		$rowArrayTmoy['x'] = $rowArrayTn['x'];
 		$rowArrayTx['x'] = $rowArrayTn['x'];
 		$rowArrayRR['x'] = $rowArrayTn['x'];
+		$rowArrayRRMonth['x'] = $rowArrayTn['x'];
 		$rowArrayRRYear['x'] = $rowArrayTn['x'];
 		$rowArrayTmoyReel['x'] = $rowArrayTn['x'];
 		$rowArrayTmoy1h['x'] = $rowArrayTn['x'];
@@ -80,6 +83,16 @@
 		if ($row['RRMaxIntensite'] != null && $row['RRMaxIntensiteDt'] != null) {$rowArrayRR['RRMaxInt'] = round($row['RRMaxIntensite'],1); $rowArrayRR['RRMaxIntDt'] = strtotime($row['RRMaxIntensiteDt'])*1000;; } else {$rowArrayRR['RRMaxInt'] = null; $rowArrayRR['RRMaxIntDt'] = null;};
 		// RR expected record
 		if ($row['RRRecord'] != null && $row['RRRecord'] != '0' && $row['expectedRecordTx'] != null && $row['expectedRecordTx'] != '0') {$rowArrayRR['RRFiab'] = round(($row['RRRecord']*100)/$row['expectedRecordTx'],1); } else {$rowArrayRR['RRFiab'] = null;};
+		// RR Cumul month
+		$RRDtMonth = date('d', strtotime($row['Datetime']));
+		if ($RRDtMonth != '01') {
+			$RRincrementMonth = $rowArrayRRMonthTemp;
+		} else {
+			$RRincrementMonth = '0';
+		}
+		$rowArrayRRMonthTemp = $RRincrementMonth + $row['RR'];
+		$rowArrayRRMonth['y'] = round($rowArrayRRMonthTemp,1);
+
 		// RR Cumul year
 		$RRDtYear = date('d-m', strtotime($row['Datetime']));
 		if ($RRDtYear != '01-01') {
@@ -95,6 +108,7 @@
 		array_push($dataTmoy,$rowArrayTmoy);
 		array_push($dataTx,$rowArrayTx);
 		array_push($dataRR,$rowArrayRR);
+		array_push($dataRRMonth,$rowArrayRRMonth);
 		array_push($dataRRYear,$rowArrayRRYear);
 		array_push($dataTmoyReel,$rowArrayTmoyReel);
 		array_push($dataTmoy1h,$rowArrayTmoy1h);
@@ -106,20 +120,11 @@
 	$dataTmoy = json_encode($dataTmoy, JSON_NUMERIC_CHECK);
 	$dataTx = json_encode($dataTx, JSON_NUMERIC_CHECK);
 	$dataRR = json_encode($dataRR, JSON_NUMERIC_CHECK);
+	$dataRRMonth = json_encode($dataRRMonth, JSON_NUMERIC_CHECK);
 	$dataRRYear = json_encode($dataRRYear, JSON_NUMERIC_CHECK);
 	$dataTmoyReel = json_encode($dataTmoyReel, JSON_NUMERIC_CHECK);
 	$dataTmoy1h = json_encode($dataTmoy1h, JSON_NUMERIC_CHECK);
 	$dataTmoy3h = json_encode($dataTmoy3h, JSON_NUMERIC_CHECK);
-
-
-
-
-
-
-
-
-
-
 
 	mysqli_close($conn);
 ?>

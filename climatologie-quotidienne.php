@@ -363,12 +363,26 @@
 							}
 						}
 					},{
+						name : 'Cumul mensuel',
+						type: 'spline',
+						data : <?php echo $dataRRMonth ?>,
+						zIndex: 2,
+						yAxis: 1,
+						color: '#486cb0',
+						turboThreshold: 0,
+						tooltip: {
+							useHTML: true,
+							pointFormatter: function () {
+								return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' mm</b><br>';
+							}
+						}
+					},{
 						name : 'Cumul annuel',
 						type: 'spline',
 						data : <?php echo $dataRRYear ?>,
 						zIndex: 1,
 						yAxis: 1,
-						color: '#2c469c',
+						color: '#39404d',
 						turboThreshold: 0,
 						tooltip: {
 							useHTML: true,
