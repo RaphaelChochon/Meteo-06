@@ -1,4 +1,7 @@
 <?php
+	// Date UTC
+	date_default_timezone_set('UTC');
+
 	// appel du script de connexion
 	require_once("connect.php");
 

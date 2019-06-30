@@ -1,4 +1,7 @@
 <?php
+	// Date UTC
+	date_default_timezone_set('UTC');
+
 	$db_name_climato = "climato_station";
 	$a = explode("_",$db_name);
 	$aCount = count($a);
