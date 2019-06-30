@@ -28,6 +28,13 @@
 				</li>
 				<li><a href="graphs.php">Graphiques <span style="color:red;font-weight:bold;font-size:small;"><sup>New</sup></span></a></li>
 				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Climato. <span style="color:red;font-weight:bold;font-size:small;"><sup>New</sup></span><span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="climatologie-quotidienne.php">Climato. quotidienne</a></li>
+						<li><a href="comparatif-moyenne.php">Comparatif de moyennes</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Archives<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="noaa.php">Accès aux tableaux NOAA<br>Rapports mensuels et annuels</a></li>
