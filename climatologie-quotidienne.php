@@ -45,7 +45,7 @@
 		<!-- <script src="https://code.highcharts.com/js/highcharts-more.js"></script> -->
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
 		<script src="https://code.highcharts.com/modules/offline-exporting.js"></script>
-		<script src="http://code.highcharts.com/modules/export-data.js"></script>
+		<script src="https://code.highcharts.com/modules/export-data.js"></script>
 	</head>
 	<body>
 	<div class="container">
