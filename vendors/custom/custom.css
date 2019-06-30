@@ -54,6 +54,11 @@ body{
 	padding:0.5em;
 }
 
+.highcharts-menu hr {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
 .mapLocalisation {
 	height: 400px;
 	width: 100%;
