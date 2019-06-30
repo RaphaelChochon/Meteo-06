@@ -3,6 +3,14 @@
 ### ToDo
 Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 
+### 0.15.0 - 30/06/2019
+* Refonte de la page des graphiques sur 48h qui devient ``graphs.php`` :
+    * Différents pas de temps disponibles de 24h à 120h
+    * Ajout des Tn, Tx et cumul de pluie aux normes OMM sous forme d'annotations sur les graphiques
+    * Refonte de l'appel aux données, qui ne passe plus par des fichiers JSON pré-générés
+* Ajout d'une page de climatologie quotidienne avec graphiques
+* Ajout d'une page de comparatif des différentes moyennes calculées
+
 ### 0.14.4. - 09/06/2019
 * Correction dans l'affichage en page d'accueil des moyennes des directions du vent (affichage de N/A si NULL ou chaine vide)
 * Divers correctifs mineurs
