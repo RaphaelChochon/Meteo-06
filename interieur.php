@@ -55,7 +55,7 @@
 		eval('var data_intemp_30j = <?php include 'json/indoor/intemp_30j.json' ?>');
 		eval('var data_inhygro_30j = <?php include 'json/indoor/inhygro_30j.json' ?>');
 
-		<?php require_once 'sql/req_graph_48h.php' ?>
+		<?php require_once 'sql/req_graphs_interieur.php' ?>
 		eval('var minuit = <?php echo $minuit; ?>');
 		eval('var debut = <?php echo $debut; ?>');
 		eval('var minuit_hier = <?php echo $minuit_hier; ?>');
