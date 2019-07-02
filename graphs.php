@@ -492,7 +492,7 @@
 							// borderWidth: 1,
 							// borderColor: '#AAA',
 							style: {
-								fontSize: '8px'
+								fontSize: '8.5px'
 							},
 						},
 						shapeOptions: {
@@ -1123,7 +1123,7 @@
 							// borderWidth: 1,
 							// borderColor: '#AAA',
 							style: {
-								fontSize: '8px'
+								fontSize: '8.5px'
 							},
 						},
 						shapeOptions: {
