@@ -95,7 +95,6 @@
 
 		<div class="row">
 			<div class="col-md-12 divCenter">
-				<h3>Graphiques des <?php echo $last; ?> dernières heures</h3>
 				<h4 <?php if ($diff>$offline_time){echo'class="offline_station"';}echo'class="online_station"';?>>Derniers relevés de la station le <?php echo $date; ?> à <?php echo $heure; ?></h4>
 				<?php if ($diff>$offline_time) : ?>
 					<h4 class="offline_station">Station actuellement hors ligne depuis
@@ -106,6 +105,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12 divCenter">
+				<h1>Graphiques des <?php echo $last; ?> dernières heures</h1>
 				<p>Vous trouverez sur cette page les relevés de la station sur les <?php echo $last; ?> dernières heures sous forme de graphiques. Ils sont mis à jour instantanément dès qu'un enregistrement est envoyé par la station météo.<br>Vous pouvez zoomer sur une zone spécifique, faire apparaitre une infobulle au passage de la souris ou au clic sur mobile, et afficher/masquer un paramètre météo en cliquant sur son intitulé dans la légende. Ils sont également exportables en cliquant sur le bouton au-dessus à droite de chaque graphique.</p>
 				<p><b>Attention, les graphiques sont en heure UTC, donc il faut rajouter une heure l'hiver et deux heures l'été !<br>Exemple : il est actuellement <?php date_default_timezone_set('UTC'); echo date('H:i'); ?> UTC, et donc <?php date_default_timezone_set('Europe/Paris'); echo date('H:i'); ?> en France</b></p>
 			</div>
