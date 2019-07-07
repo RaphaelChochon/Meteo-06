@@ -60,6 +60,14 @@
 		<?php require_once 'sql/req_climato_quotidienne.php';?>
 
 		<!-- DEBUT DU CORPS DE PAGE -->
+		<?php if ($banniere_info_active === "true") : ?>
+			<div class="alert alert-dismissible alert-<?php echo $banniere_info_type; ?>">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<h4><?php echo $banniere_info_titre; ?></h4>
+				<p><?php echo $banniere_info_message; ?></p>
+			</div>
+		<?php endif; ?>
+
 		<div class="row">
 			<div class="col-md-12 divCenter">
 				<h4 <?php if ($diff>$offline_time){echo'class="offline_station"';}echo'class="online_station"';?>>Derniers relevés de la station le <?php echo $date; ?> à <?php echo $heure; ?></h4>

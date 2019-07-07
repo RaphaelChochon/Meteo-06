@@ -58,6 +58,13 @@
 		</nav>
 
 		<!-- DEBUT DU CORPS DE PAGE -->
+		<?php if ($banniere_info_active === "true") : ?>
+			<div class="alert alert-dismissible alert-<?php echo $banniere_info_type; ?>">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<h4><?php echo $banniere_info_titre; ?></h4>
+				<p><?php echo $banniere_info_message; ?></p>
+			</div>
+		<?php endif; ?>
 
 		<!-- DEBUT DU SCRIPT PHP -->
 		<!-- Va permettre de récupérer les dernières valeurs en BDD -->
