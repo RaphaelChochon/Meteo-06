@@ -1049,7 +1049,7 @@
 							},
 						}
 					}],
-					yAxis: {
+					yAxis: [{
 						// Axe 0
 						crosshair:true,
 						lineColor: '#4169e1',
@@ -1067,7 +1067,41 @@
 								"color": "#4169e1",
 							},
 						},
-					},
+					},{
+						// Axe 1 Cumul pluie
+						opposite: true,
+						crosshair:true,
+						lineColor: '#3d4147',
+						min: 0,
+						title: {
+							text: 'Cumul précips. (mm)',
+							style: {
+								"color": "#3d4147",
+							},
+						},
+						labels:{
+							style: {
+								"color": "#3d4147",
+							},
+						},
+					},{
+						// Axe 2 intensité pluie
+						opposite: true,
+						crosshair:true,
+						lineColor: '#6883d9',
+						min: 0,
+						title: {
+							text: 'Intensité précips. (mm)',
+							style: {
+								"color": "#6883d9",
+							},
+						},
+						labels:{
+							style: {
+								"color": "#6883d9",
+							},
+						},
+					}],
 					tooltip: {
 						shared: true,
 						valueDecimals: 1,
@@ -1086,17 +1120,19 @@
 						}
 					},{
 						name: 'Cumul sur <?php echo $last; ?>h',
+						yAxis:1,
 						type: 'spline',
 						zIndex: 3,
 						data: <?php echo $dataRRCumul ?>,
 						turboThreshold: 0,
 						connectNulls: true,
-						color: '#4169e1',
+						color: '#3d4147',
 						tooltip: {
 							valueSuffix: ' mm',
 						}
 					},{
 						name: 'Intensité',
+						yAxis:2,
 						visible: false,
 						type: 'spline',
 						zIndex: 2,
