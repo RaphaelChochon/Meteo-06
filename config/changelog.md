@@ -3,6 +3,14 @@
 ### ToDo
 Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 
+### 0.15.1 - 07/07/2019
+* Ajout du cumul mensuel sur le graphique de climatologie quotidienne des précipitations
+* Modification de quelques ``zIndex`` dans les graphiques
+* Agrandissement de la taille de police des labels de Tn, Tx et RR dans les graphiques horaires
+* Réparation des pages ``interieur.php``, qu'il faudra également refondre...
+* Ajout de deux axes Y supplémentaires sur le graphique des précipitations de la page ``graphs.php`` pour le cumul, et l’intensité des précipitations.
+* Fix #14 : Ajout de la bannière d'information sur toutes les pages du site
+
 ### 0.15.0 - 30/06/2019
 * Refonte de la page des graphiques sur 48h qui devient ``graphs.php`` :
     * Différents pas de temps disponibles de 24h à 120h
