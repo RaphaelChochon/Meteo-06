@@ -10,6 +10,8 @@
 	$valid_options[] = '72';
 	$valid_options[] = '96';
 	$valid_options[] = '120';
+	$valid_options[] = '144';
+	$valid_options[] = '168';
 
 	// On vérifie que le paramètre existe, et est défini sinon on renvoi 48
 	if (isset($_GET['last']) || !empty($_GET['last'])) {
@@ -114,15 +116,16 @@
 		<div class="row">
 			<div class="col-md-12 divCenter">
 				<form action="graphs.php" method="get">
-				<p><b><span style="color:red;font-weight:bold;font-size:small;">Nouveau</span> Visualiser les graphiques sur les dernières :</b>
+				<p><b><span style="color:red;font-weight:bold;font-size:small;">Nouveau :</span> Visualiser les graphiques sur les dernières :</b>
 					<select name='last' onchange='if(this.value != <?php echo $last; ?>) { this.form.submit(); }'>
 						<option value="24" <?php if ($last == '24') { echo "selected";} ?>>24 heures</option>
-						<option value="48" <?php if ($last == '48') { echo "selected";} ?>>48 heures</option>
-						<option value="72" <?php if ($last == '72') { echo "selected";} ?>>72 heures</option>
-						<option value="96" <?php if ($last == '96') { echo "selected";} ?>>96 heures</option>
-						<option value="120" <?php if ($last == '120') { echo "selected";} ?>>120 heures</option>
+						<option value="48" <?php if ($last == '48') { echo "selected";} ?>>48 heures (2j)</option>
+						<option value="72" <?php if ($last == '72') { echo "selected";} ?>>72 heures (3j)</option>
+						<option value="96" <?php if ($last == '96') { echo "selected";} ?>>96 heures (4j)</option>
+						<option value="120" <?php if ($last == '120') { echo "selected";} ?>>120 heures (5j)</option>
+						<option value="144" <?php if ($last == '144') { echo "selected";} ?>>144 heures (6j)</option>
+						<option value="168" <?php if ($last == '168') { echo "selected";} ?>>168 heures (7j)</option>
 					</select>
-				<span style="color:red;font-weight:bold;font-size:small;">Nouveau</span>
 				</p>
 				</form>
 			</div>
@@ -332,6 +335,10 @@
 							color: '#e0ffff',
 							from: <?php echo $minuit_6;?>,
 							to: <?php echo $minuit_5;?>,
+						},{
+							color: '#e0ffff',
+							from: <?php echo $minuit_8;?>,
+							to: <?php echo $minuit_7;?>,
 						}],
 						plotLines: [{
 							value: <?php echo $minuit;?>,
@@ -390,6 +397,34 @@
 							}
 						},{
 							value: <?php echo $minuit_5;?>,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit UTC',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: <?php echo $minuit_6;?>,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit UTC',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: <?php echo $minuit_7;?>,
 							dashStyle: 'ShortDash',
 							width: 2,
 							color: 'red',
@@ -544,11 +579,6 @@
 							color: '#e0ffff',
 							from: <?php echo $minuit_hier;?>,
 							to: <?php echo $minuit;?>,
-						}],
-						plotBands: [{
-							color: '#e0ffff',
-							from: <?php echo $minuit_hier;?>,
-							to: <?php echo $minuit;?>,
 						},{
 							color: '#e0ffff',
 							from: <?php echo $minuit_4;?>,
@@ -557,6 +587,10 @@
 							color: '#e0ffff',
 							from: <?php echo $minuit_6;?>,
 							to: <?php echo $minuit_5;?>,
+						},{
+							color: '#e0ffff',
+							from: <?php echo $minuit_8;?>,
+							to: <?php echo $minuit_7;?>,
 						}],
 						plotLines: [{
 							value: <?php echo $minuit;?>,
@@ -615,6 +649,34 @@
 							}
 						},{
 							value: <?php echo $minuit_5;?>,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit UTC',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: <?php echo $minuit_6;?>,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit UTC',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: <?php echo $minuit_7;?>,
 							dashStyle: 'ShortDash',
 							width: 2,
 							color: 'red',
@@ -718,6 +780,10 @@
 							color: '#e0ffff',
 							from: <?php echo $minuit_6;?>,
 							to: <?php echo $minuit_5;?>,
+						},{
+							color: '#e0ffff',
+							from: <?php echo $minuit_8;?>,
+							to: <?php echo $minuit_7;?>,
 						}],
 						plotLines: [{
 							value: <?php echo $minuit;?>,
@@ -776,6 +842,34 @@
 							}
 						},{
 							value: <?php echo $minuit_5;?>,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit UTC',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: <?php echo $minuit_6;?>,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit UTC',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: <?php echo $minuit_7;?>,
 							dashStyle: 'ShortDash',
 							width: 2,
 							color: 'red',
@@ -972,6 +1066,10 @@
 							color: '#e0ffff',
 							from: <?php echo $minuit_6;?>,
 							to: <?php echo $minuit_5;?>,
+						},{
+							color: '#e0ffff',
+							from: <?php echo $minuit_8;?>,
+							to: <?php echo $minuit_7;?>,
 						}],
 						plotLines: [{
 							value: <?php echo $minuit;?>,
@@ -1030,6 +1128,34 @@
 							}
 						},{
 							value: <?php echo $minuit_5;?>,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit UTC',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: <?php echo $minuit_6;?>,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit UTC',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: <?php echo $minuit_7;?>,
 							dashStyle: 'ShortDash',
 							width: 2,
 							color: 'red',
@@ -1221,6 +1347,10 @@
 							color: '#e0ffff',
 							from: <?php echo $minuit_6;?>,
 							to: <?php echo $minuit_5;?>,
+						},{
+							color: '#e0ffff',
+							from: <?php echo $minuit_8;?>,
+							to: <?php echo $minuit_7;?>,
 						}],
 						plotLines: [{
 							value: <?php echo $minuit;?>,
@@ -1279,6 +1409,34 @@
 							}
 						},{
 							value: <?php echo $minuit_5;?>,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit UTC',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: <?php echo $minuit_6;?>,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit UTC',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: <?php echo $minuit_7;?>,
 							dashStyle: 'ShortDash',
 							width: 2,
 							color: 'red',
@@ -1385,6 +1543,10 @@
 							color: '#e0ffff',
 							from: <?php echo $minuit_6;?>,
 							to: <?php echo $minuit_5;?>,
+						},{
+							color: '#e0ffff',
+							from: <?php echo $minuit_8;?>,
+							to: <?php echo $minuit_7;?>,
 						}],
 						plotLines: [{
 							value: <?php echo $minuit;?>,
@@ -1443,6 +1605,34 @@
 							}
 						},{
 							value: <?php echo $minuit_5;?>,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit UTC',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: <?php echo $minuit_6;?>,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit UTC',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: <?php echo $minuit_7;?>,
 							dashStyle: 'ShortDash',
 							width: 2,
 							color: 'red',
@@ -1547,6 +1737,10 @@
 							color: '#e0ffff',
 							from: <?php echo $minuit_6;?>,
 							to: <?php echo $minuit_5;?>,
+						},{
+							color: '#e0ffff',
+							from: <?php echo $minuit_8;?>,
+							to: <?php echo $minuit_7;?>,
 						}],
 						plotLines: [{
 							value: <?php echo $minuit;?>,
@@ -1605,6 +1799,34 @@
 							}
 						},{
 							value: <?php echo $minuit_5;?>,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit UTC',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: <?php echo $minuit_6;?>,
+							dashStyle: 'ShortDash',
+							width: 2,
+							color: 'red',
+							zIndex: 1,
+							label: {
+								text: 'minuit UTC',
+								align: 'right',
+								style:{font: 'bold 10px sans-serif', color: 'black'},
+								rotation: -90,
+								y: 10,
+								x: 12,
+							}
+						},{
+							value: <?php echo $minuit_7;?>,
 							dashStyle: 'ShortDash',
 							width: 2,
 							color: 'red',

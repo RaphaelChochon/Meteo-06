@@ -22,6 +22,10 @@
 		$start = $stop-(86400*4);
 	} elseif ($last == '120') {
 		$start = $stop-(86400*5);
+	} elseif ($last == '144') {
+		$start = $stop-(86400*6);
+	} elseif ($last == '168') {
+		$start = $stop-(86400*7);
 	} else {
 		exit;
 	}
@@ -31,6 +35,8 @@
 	$minuit_4 = strtotime('-3 day midnight')*1000;
 	$minuit_5 = strtotime('-4 day midnight')*1000;
 	$minuit_6 = strtotime('-5 day midnight')*1000;
+	$minuit_7 = strtotime('-6 day midnight')*1000;
+	$minuit_8 = strtotime('-7 day midnight')*1000;
 
 	$dataTemp = array();
 	$dataHr = array();
@@ -174,7 +180,7 @@
 	}
 
 	$dateDay1 = date('Y-m-d',$stop);
-	$dateDay5 = date('Y-m-d',$stop-(86400*5));
+	$dateDay5 = date('Y-m-d',$stop-(86400*7));
 
 	$dataTn = array();
 	$dataTx = array();
