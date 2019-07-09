@@ -462,7 +462,7 @@
 						type: 'spline',
 						data: <?php echo $dataTemp ?>,
 						turboThreshold: 0,
-						connectNulls: true,
+						connectNulls: false,
 						zIndex: 1,
 						color: '#ff0000',
 						negativeColor:'#0d1cc5',
@@ -475,7 +475,7 @@
 						data: <?php echo $dataHr ?>,
 						turboThreshold: 0,
 						yAxis: 1,
-						connectNulls: true,
+						connectNulls: false,
 						color: '#3399FF',
 						tooltip: {
 							valueSuffix: ' %',
@@ -485,7 +485,7 @@
 						type: 'spline',
 						data: <?php echo $dataTd ?>,
 						turboThreshold: 0,
-						connectNulls: true,
+						connectNulls: false,
 						color: '#1c23e4',
 						visible: false,
 						tooltip: {
@@ -670,7 +670,7 @@
 						type: 'spline',
 						data: <?php echo $dataBaro ?>,
 						turboThreshold: 0,
-						connectNulls: true,
+						connectNulls: false,
 						color: '#1be300',
 					}]
 				});
@@ -860,7 +860,7 @@
 						fillColor: 'rgba(51,153,255,0.5)',
 						data: <?php echo $dataWs ?>,
 						turboThreshold: 0,
-						connectNulls: true,
+						connectNulls: false,
 						tooltip: {
 							useHTML: true,
 							pointFormatter: function () {
@@ -880,7 +880,7 @@
 						color: 'rgba(255,0,0,0.65)',
 						data: <?php echo $dataWg ?>,
 						turboThreshold: 0,
-						connectNulls: true,
+						connectNulls: false,
 						tooltip: {
 							useHTML: true,
 							pointFormatter: function () {
@@ -1121,7 +1121,7 @@
 						zIndex: 1,
 						data: <?php echo $dataRR ?>,
 						turboThreshold: 0,
-						connectNulls: true,
+						connectNulls: false,
 						color: '#4169e1',
 						tooltip: {
 							valueSuffix: ' mm',
@@ -1133,7 +1133,7 @@
 						zIndex: 3,
 						data: <?php echo $dataRRCumul ?>,
 						turboThreshold: 0,
-						connectNulls: true,
+						connectNulls: false,
 						color: '#3d4147',
 						tooltip: {
 							valueSuffix: ' mm',
@@ -1334,7 +1334,7 @@
 						type: 'area',
 						data: <?php echo $dataUV ?>,
 						turboThreshold: 0,
-						connectNulls: true,
+						connectNulls: false,
 						color: '#ff7200',
 					}]
 				});
@@ -1499,7 +1499,7 @@
 						type: 'area',
 						data: <?php echo $dataRadiation ?>,
 						turboThreshold: 0,
-						connectNulls: true,
+						connectNulls: false,
 						color: '#e5d42b',
 					}]
 				});
