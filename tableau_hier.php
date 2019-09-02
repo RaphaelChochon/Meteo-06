@@ -147,7 +147,7 @@
 					<tbody>
 						<tr>
 							<td><span><a tabindex="0" data-placement="right" data-toggle="popover" data-trigger="focus" data-content="Quantité d'eau évaporée dans l'atmosphère, que ce soit par évaporation d'eau liquide (eau libre ou eau du sol) ou par transpiration de la biomasse. ENCYCL. : L'évaporation et la transpiration permettent à l'atmosphère de s'enrichir en eau, compensant ainsi les pertes dues aux précipitations. C'est pourquoi l'intensité de ces deux processus est fortement liée à la tension de vapeur de l'air. (Source : Larousse, dictionnaire du climat, G. Beltrando, L. Chémery ; 1995)">Évapo-transpiration (ET)</a></span></td>
-							<td>Cumul sur 7 jours : <?php echo $cumulethier; ?> mm</td>
+							<td>Cumul journée d'hier : <?php echo $cumulethier; ?> mm</td>
 							<td><?php echo $maxethier; ?> mm/heure le <?php echo $maxettimehier; ?></td>
 						</tr>
 					</tbody>
