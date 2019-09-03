@@ -3,6 +3,11 @@
 ### ToDo
 Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 
+### 0.15.2 - 03/09/2019
+* Désactivation de la connection entre les valeurs ``null`` sur les graphiques de la page ``graphs.php``
+* Ajout de deux nouvelles options horaires sur la page ``graphs.php``: 144h (6 jours) et 168h (7 jours)
+* Correction d'une erreur sur le cumul d'ETP de la journée d'hier (merci PC2V)
+
 ### 0.15.1 - 07/07/2019
 * Ajout du cumul mensuel sur le graphique de climatologie quotidienne des précipitations
 * Modification de quelques ``zIndex`` dans les graphiques
