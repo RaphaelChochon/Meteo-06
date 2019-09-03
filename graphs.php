@@ -182,7 +182,7 @@
 		-->
 		<script>
 
-			// Tn Labels
+			// Tn & Tx Labels
 			<?php
 				$annotJsTClim = array();
 				foreach($dataTn as $annotation){
