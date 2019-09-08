@@ -80,6 +80,9 @@
 	$presence_radiation       = false; // If true, display values in the tables and charts
 	$timestamp_maj_weewx_3_6_0= "1477605600"; // Before update Weewx 3.6.0 the calcul of ET is wrong. http://www.timestamp.fr/
 
+	// CLIMATO
+	$presence_old_climato = $row_sites['presence_old_climato']; // If true, display message and URL for old climato
+	$url_old_climato      = $row_sites['url_old_climato'];
 
 	// WEB ANALYTIC
 	$enable_web_analytics = false; // REQUIRES the file "config/web_analytics.php" to be created, otherwise it will cause an error! => Insert the tracking code inside (PIWIK or GOOGLE ANALYTICS)

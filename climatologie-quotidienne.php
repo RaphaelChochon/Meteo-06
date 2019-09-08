@@ -95,6 +95,14 @@
 				</p>
 			</div>
 		</div>
+		<?php if ($presence_old_climato === "true") : ?>
+		<hr>
+		<div class="row">
+			<div class="col-md-12">
+				<p>Note : cette station dispose également d'une série de données antérieures. Elle n'a pas été fusionnée avec celles-ci pour ne pas corrompre son homogénéité (matériel différent, ou changement d'emplacement). Cependant elle est toujours <a href="<?php echo "$url_old_climato"; ?>" target="_blank"> disponible à la consultation ici</a>.</p>
+			</div>
+		</div>
+		<?php endif; ?>
 		<hr>
 		<div class="row">
 			<div class="col-md-12 divCenter">
