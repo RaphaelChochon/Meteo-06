@@ -116,7 +116,7 @@
 		<div class="row">
 			<div class="col-md-12 divCenter">
 				<form action="graphs.php" method="get">
-				<p><b><span style="color:red;font-weight:bold;font-size:small;">Nouveau :</span> Visualiser les graphiques sur les dernières :</b>
+				<p><b>Visualiser les graphiques sur les dernières :</b>
 					<select name='last' onchange='if(this.value != <?php echo $last; ?>) { this.form.submit(); }'>
 						<option value="24" <?php if ($last == '24') { echo "selected";} ?>>24 heures</option>
 						<option value="48" <?php if ($last == '48') { echo "selected";} ?>>48 heures (2j)</option>
