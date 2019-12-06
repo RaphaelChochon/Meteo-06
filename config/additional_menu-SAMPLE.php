@@ -5,7 +5,7 @@
 		<li><a href="https://cagnes.meteo06.fr" target="blank">Cagnes/Mer</a></li>
 		<li><a href="https://cipieres.meteo06.fr" target="blank">Cipières - <span style="color:red;font-weight:bold;">VP2</span></a></li>
 		<li><a href="https://clans.meteo06.fr" target="blank">Clans - <span style="color:red;font-weight:bold;">VP2</span></a></li>
-		<li><a href="https://gilette.meteo06.fr" target="blank">Gilette</a></li>
+		<li><a href="https://gilette.meteo06.fr" target="blank">Gilette - <span style="color:red;font-weight:bold;">VP2</span></a></li>
 		<li><a href="https://ilonse.meteo06.fr" target="blank">Ilonse - <span style="color:red;font-weight:bold;">VP2</span></a></li>
 		<li><a href="https://nice-carlone.meteo06.fr" target="blank">Nice-Carlone - <span style="color:red;font-weight:bold;">VP2</span></a></li>
 		<li><a href="https://nice-pessicart.meteo06.fr" target="blank">Nice-Pessicart - <span style="color:red;font-weight:bold;">VP2</span></a></li>
