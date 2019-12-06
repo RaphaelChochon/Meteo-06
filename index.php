@@ -58,7 +58,7 @@
 		</nav>
 
 		<!-- DEBUT DU CORPS DE PAGE -->
-		<?php if ($banniere_info_active === "true") : ?>
+		<?php if ($banniere_info_active) : ?>
 			<div class="alert alert-dismissible alert-<?php echo $banniere_info_type; ?>">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 				<h4><?php echo $banniere_info_titre; ?></h4>
@@ -74,7 +74,7 @@
 
 		<div class="row">
 			<div class="col-md-12 divCenter">
-				<p>Bienvenue sur le site de la station météo de <?php echo $station_name; ?>. Vous y touverez les données météos de la station en direct, mais aussi des tableaux récapitulatifs sur plusieurs périodes et des graphiques. <?php if ($presence_webcam === "true"){echo'Une webcam est également disponible sur cette station <a href="webcam.php">en cliquant ici</a>';};?></p>
+				<p>Bienvenue sur le site de la station météo de <?php echo $station_name; ?>. Vous y touverez les données météos de la station en direct, mais aussi des tableaux récapitulatifs sur plusieurs périodes et des graphiques. <?php if ($presence_webcam){echo'Une webcam est également disponible sur cette station <a href="webcam.php">en cliquant ici</a>';};?></p>
 			</div>
 		</div>
 		<div class="row">
@@ -131,7 +131,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<?php if ($presence_uv === "true" || $presence_radiation === "true") : ?>
+				<?php if ($presence_uv || $presence_radiation) : ?>
 				<table class="table table-striped table-bordered table-responsive table-hover tabLeft">
 					<thead>
 						<tr>
@@ -141,7 +141,7 @@
 							<th><span class="text-danger">Maxi du jour</span></th>
 						</tr>
 					</thead>
-				<?php if ($presence_uv === "true") : ?>
+				<?php if ($presence_uv) : ?>
 					<tbody>
 						<tr>
 							<td>Indice UV</td>
@@ -151,7 +151,7 @@
 						</tr>
 					</tbody>
 				<?php endif; ?>
-				<?php if ($presence_radiation === "true") : ?>
+				<?php if ($presence_radiation) : ?>
 					<tbody>
 						<tr>
 							<td>Rayonnement solaire</td>
