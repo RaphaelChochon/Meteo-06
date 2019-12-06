@@ -7,7 +7,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="canonical" href="<?php if ($SSL==true){echo'https://';}else echo'http://';?><?php echo $_SERVER['HTTP_HOST']; ?><?php echo $_SERVER['PHP_SELF']; ?>" />
+		<link rel="canonical" href="<?php if ($SSL){echo'https://';}else echo'http://';?><?php echo $_SERVER['HTTP_HOST']; ?><?php echo $_SERVER['PHP_SELF']; ?>" />
 		<?php include 'config/favicon.php';?>
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,7 +30,7 @@
 			<?php include 'nav.php';?>
 		</nav>
 		<!-- DEBUT DU CORPS DE PAGE -->
-		<?php if ($banniere_info_active === "true") : ?>
+		<?php if ($banniere_info_active) : ?>
 			<div class="alert alert-dismissible alert-<?php echo $banniere_info_type; ?>">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 				<h4><?php echo $banniere_info_titre; ?></h4>

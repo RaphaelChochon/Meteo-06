@@ -153,7 +153,7 @@ while($row=mysqli_fetch_row($res)) {
 }
 $json_precip.="]";
 
-if ($presence_uv === "true"){
+if ($presence_uv){
 	//UV
 	$json_uv = "[";
 	$sql = "SELECT datetime, IFNULL(UV,'null') AS UV FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;";
@@ -169,7 +169,7 @@ if ($presence_uv === "true"){
 	$json_uv.="]";
 };
 
-if ($presence_radiation === "true"){
+if ($presence_radiation){
 	//RADIATION
 	$json_radiation = "[";
 	$sql = "SELECT datetime, IFNULL(radiation,'null') AS radiation FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;";
@@ -204,7 +204,7 @@ if ($presence_radiation === "true"){
 	$json_ET.="]";
 };
 
-if ($presence_iss_radio === "true"){
+if ($presence_iss_radio){
 	//rxCheck
 	$json_rxCheckPercent = "[";
 		$sql = "SELECT datetime, IFNULL(rxCheckPercent,'null') AS rxCheckPercent FROM $db WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;";
@@ -275,14 +275,14 @@ $fp=fopen($file,'w');
 fwrite($fp,$json_precip);
 fclose($fp);
 
-if ($presence_uv === "true"){
+if ($presence_uv){
 	$file = $path."uv_48h.json";
 	$fp=fopen($file,'w');
 	fwrite($fp,$json_uv);
 	fclose($fp);
 };
 
-if ($presence_radiation === "true"){
+if ($presence_radiation){
 	$file = $path."radiation_48h.json";
 	$fp=fopen($file,'w');
 	fwrite($fp,$json_radiation);
@@ -294,7 +294,7 @@ if ($presence_radiation === "true"){
 	fclose($fp);
 };
 
-if ($presence_iss_radio === "true"){
+if ($presence_iss_radio){
 	$file = $path."rx_48h.json";
 	$fp=fopen($file,'w');
 	fwrite($fp,$json_rxCheckPercent);

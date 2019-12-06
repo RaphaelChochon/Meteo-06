@@ -11,6 +11,6 @@
 		</div>
 	</div>
 </div>
-<?php if ($enable_web_analytics === "true"){
+<?php if ($enable_web_analytics){
 	include 'config/web_analytics.php';
 };?>

@@ -9,12 +9,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- Balises META SEO pour le referencement Google, Facebook Twitter etc. -->
 		<meta name="description" content="Webcam en live de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>"/>
-		<link rel="canonical" href="<?php if ($SSL==true){echo'https://';}else echo'http://';?><?php echo $_SERVER['HTTP_HOST']; ?><?php echo $_SERVER['PHP_SELF']; ?>" />
+		<link rel="canonical" href="<?php if ($SSL){echo'https://';}else echo'http://';?><?php echo $_SERVER['HTTP_HOST']; ?><?php echo $_SERVER['PHP_SELF']; ?>" />
 		<meta property="og:locale" content="fr_FR" />
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content="<?php echo $short_station_name; ?> | Webcam" />
 		<meta property="og:description" content="Webcam en live de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>" />
-		<meta property="og:url" content="<?php if ($SSL==true){echo'https://';}else echo'http://';?><?php echo $_SERVER['HTTP_HOST']; ?><?php echo $_SERVER['PHP_SELF']; ?>" />
+		<meta property="og:url" content="<?php if ($SSL){echo'https://';}else echo'http://';?><?php echo $_SERVER['HTTP_HOST']; ?><?php echo $_SERVER['PHP_SELF']; ?>" />
 		<meta property="og:site_name" content="<?php echo $short_station_name; ?>" />
 		<meta property="fb:app_id" content="<?php echo $fb_app_id; ?>" />
 		<meta property="og:image" content="<?php echo $url_site; ?>/img/capture_site.jpeg" />
@@ -66,7 +66,7 @@
 								<!--
 									IF PRESENCE_SECOND_WEBCAM TRUE
 								-->
-								<?php if ($presence_second_webcam === "true") : ?>
+								<?php if ($presence_second_webcam) : ?>
 								<hr>
 								<h4><?php echo $webcam_view_2; ?></h4>
 								<div class="thumbnail"><img id="webcam_last" src="<?php echo $webcam_url_2; ?>" alt="<?php echo $station_name; ?>"></div>
@@ -92,7 +92,7 @@
 							<p>Ce timelapse est réalisé tous les soirs (vers 22h30 environ), à partir des images de la webcam collectées toute la journée (soit une image toutes les <?php echo $webcam_refresh_1; ?> minutes).</p>
 							</div>
 
-						<?php if ($presence_archive_timelapse === "true") : ?>
+						<?php if ($presence_archive_timelapse) : ?>
 							<div class="col-md-6 col-md-offset-3 divCenter">
 								<a href="<?php echo $timelapse_archive_url_1; ?>" target="blank" class="btn btn-default btn-lg btn-block">Accéder aux archives ici</a>
 								<br>
@@ -102,7 +102,7 @@
 					<!--
 						IF PRESENCE_SECOND_TIMELAPSE TRUE
 					-->
-					<?php if ($presence_second_timelapse === "true") : ?>
+					<?php if ($presence_second_timelapse) : ?>
 					<div class="row">
 							<div class="col-md-12 divCenter">
 							<hr>
@@ -111,7 +111,7 @@
 								</video>
 							<p>Ce timelapse est réalisé tous les soirs (vers 22h30 environ), à partir des images de la webcam collectées toute la journée (soit une image toutes les <?php echo $webcam_refresh_2; ?> minutes).</p>
 							</div>
-							<?php if ($presence_archive_timelapse === "true") : ?>
+							<?php if ($presence_archive_timelapse) : ?>
 								<div class="col-md-6 col-md-offset-3 divCenter">
 									<a href="<?php echo $timelapse_archive_url_2; ?>" target="blank" class="btn btn-default btn-lg btn-block">Accéder aux archives ici</a>
 								</div>

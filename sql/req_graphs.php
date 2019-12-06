@@ -50,10 +50,10 @@
 	$dataRRate = array();
 	$dataRRCumul = array();
 
-	if ($presence_uv == true){
+	if ($presence_uv){
 		$dataUV = array();
 	}
-	if ($presence_radiation == true){
+	if ($presence_radiation){
 		$dataRadiation = array();
 		$dataET = array();
 	}
@@ -81,10 +81,10 @@
 		$rowArrayRRate['x'] = $rowArrayTemp['x'];
 		$rowArrayRRCumul['x'] = $rowArrayTemp['x'];
 
-		if ($presence_uv == true){
+		if ($presence_uv){
 			$rowArrayUV['x'] = $rowArrayTemp['x'];
 		}
-		if ($presence_radiation == true){
+		if ($presence_radiation){
 			$rowArrayRadiation['x'] = $rowArrayTemp['x'];
 			$rowArrayET['x'] = $rowArrayTemp['x'];
 		}
@@ -114,12 +114,12 @@
 		$rowArrayRRCumul['y'] = round($cumulRR,1);
 
 		// UV
-		if ($presence_uv == true){
+		if ($presence_uv){
 			if ($row['UV'] != null) {$rowArrayUV['y'] = round($row['UV'],1); } else {$rowArrayUV['y'] = null;};
 		}
 
 		// Radiation & ET
-		if ($presence_radiation == true){
+		if ($presence_radiation){
 			// Radiation
 			if ($row['radiation'] != null) {$rowArrayRadiation['y'] = round($row['radiation'],0); } else {$rowArrayRadiation['y'] = null;};
 
@@ -139,10 +139,10 @@
 		array_push($dataRRate,$rowArrayRRate);
 		array_push($dataRRCumul,$rowArrayRRCumul);
 
-		if ($presence_uv == true){
+		if ($presence_uv){
 			array_push($dataUV,$rowArrayUV);
 		}
-		if ($presence_radiation == true){
+		if ($presence_radiation){
 			array_push($dataRadiation,$rowArrayRadiation);
 			array_push($dataET,$rowArrayET);
 		}
@@ -161,10 +161,10 @@
 	$dataRRate = json_encode($dataRRate, JSON_NUMERIC_CHECK);
 	$dataRRCumul = json_encode($dataRRCumul, JSON_NUMERIC_CHECK);
 
-	if ($presence_uv == true){
+	if ($presence_uv){
 		$dataUV = json_encode($dataUV, JSON_NUMERIC_CHECK);
 	}
-	if ($presence_radiation == true){
+	if ($presence_radiation){
 		$dataRadiation = json_encode($dataRadiation, JSON_NUMERIC_CHECK);
 		$dataET = json_encode($dataET, JSON_NUMERIC_CHECK);
 	}
