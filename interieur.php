@@ -110,7 +110,7 @@
 					}
 				});
 
-<?php if ($presence_iss_radio === "true") : ?>
+<?php if ($presence_iss_radio) : ?>
 /*
 	START GRAPH RX
  */
