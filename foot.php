@@ -7,7 +7,7 @@
 			Modèle de station : <?php echo $station_model; ?> | Altitude : <?php echo $station_altitude; ?> mètres<br>
 			Position : <?php echo $station_position; ?> | Exposition : <?php echo $station_exposure; ?> | <a href="a-propos.php">+ d'infos</a><br>
 			Version du site : <?php echo $version_site; ?> - <a href="https://github.com/RaphaelChochon/Meteo-06/blob/master/config/changelog.md" target="blank">Changelog</a></p>
-			<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr" target="_blank"><img alt="Licence Creative Commons" style="border-width:0" src="/img/logo_creative-commons_by-nc-sa_88x31.png" /></a>
+			<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr" target="_blank"><img alt="Licence Creative Commons" style="border-width:0" src="img/logo_creative-commons_by-nc-sa_88x31.png" /></a>
 		</div>
 	</div>
 </div>
