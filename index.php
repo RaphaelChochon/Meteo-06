@@ -171,6 +171,14 @@
 				<?php endif; ?>
 				</table>
 				<?php endif; ?>
+			</div>
+		</div>
+		<div class="row">
+			<?php if ($presence_gif) : ?>
+			<div class="col-md-9 divCenter">
+			<?php else : ?>
+			<div class="col-md-12 divCenter">
+			<?php endif; ?>
 				<h4><b>Vent</b></h4>
 				<table class="table table-striped table-bordered table-responsive table-hover tabLeft">
 					<thead>
@@ -230,9 +238,14 @@
 						</tr>
 					</tbody>
 				</table>
-
-
 			</div>
+			<?php if ($presence_gif) : ?>
+				<div class="col-md-3 divCenter">
+					<h4><b>Webcam</b></h4>
+					<p class="divCenter">Animation <?php echo $gif_time; ?> heures</p>
+					<a href="webcam.php"><div class="thumbnail"><img id="webcam_last" src="<?php echo $gif_url; ?>" alt="<?php echo $station_name; ?>"></div></a>
+				</div>
+			<?php endif; ?>
 		</div>
 		<div class="row">
 			<div class="col-md-9 divCenter">

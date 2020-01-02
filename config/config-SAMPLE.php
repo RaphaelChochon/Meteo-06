@@ -74,6 +74,11 @@
 	$timelapse_archive_url_1   = "archives/nice/"; // URL or path to archive 1
 	$timelapse_archive_url_2   = ""; // URL or path to archive 2
 
+	// GIF
+	$presence_gif = false;                   // if true, diplay GIF at index.php
+	$gif_url      = "webcam/animation.gif";  // URL or path of GIF
+	$gif_time     = 4;                       // Time display in GIF, in hours
+
 	// SONDES
 	$presence_iss_radio       = true; // If true, display values Rx percent in charts of interieur.php
 	$presence_uv              = true; // If true, display values in the tables and charts
