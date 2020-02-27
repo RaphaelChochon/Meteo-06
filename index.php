@@ -242,7 +242,7 @@
 			<?php if ($presence_gif) : ?>
 				<div class="col-md-3 divCenter">
 					<h4><b>Webcam</b></h4>
-					<p class="divCenter">Animation <?php echo $gif_time; ?> heures</p>
+					<p class="divCenter">Animation <?php echo $gif_time; ?> heures<br><span style="font-size: 0.6em">Cliquez dessus pour accéder à la dernière image</span></p>
 					<a href="webcam.php"><div class="thumbnail"><img id="webcam_last" src="<?php echo $gif_url; ?>" alt="<?php echo $station_name; ?>"></div></a>
 				</div>
 			<?php endif; ?>
