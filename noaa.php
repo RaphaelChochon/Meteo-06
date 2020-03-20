@@ -37,20 +37,25 @@
 		<![endif]-->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<link href="vendors/bootswatch-flatly/bootstrap.min.css" rel="stylesheet">
-		<link href="vendors/custom/custom.css?v=1.1" rel="stylesheet">
+		<link href="vendors/custom/custom.css?v=1.2" rel="stylesheet">
 		<script src="vendors/bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript">
-			function openNoaaFileMonth(file_name)
-			{
-				var url = "NOAA/raw/month/";
-				url = url + file_name;
-				window.open(url,'_blank');
+			function openNoaaFileMonth(file_month){
+				var yearNoaaForm = file_month.substring(0,4);
+				var monthNoaaForm = file_month.substring(5,7);
+				var url = "noaa.php?yr="+yearNoaaForm+"&mo="+monthNoaaForm;
+				window.location.href = url;
 			}
-			function openNoaaFileYear(file_name)
-			{
-				var url = "NOAA/raw/year/";
-				url = url + file_name;
-				window.open(url,'_blank');
+			function openNoaaFileYear(file_year){
+				var url = "noaa.php?yr=";
+				url = url + file_year;
+				window.location.href = url;
+			}
+			// Get the URL variables. Source: https://stackoverflow.com/a/26744533/1177153
+			function getURLvar(k) {
+				var p={};
+				location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v});
+				return k?p[k]:p;
 			}
 		</script>
 	</head>
@@ -84,9 +89,51 @@
 				<?php endif; ?>
 			</div>
 		</div>
+
+		<script>
+			jQuery(document).ready(function() {
+				var monthUrl = getURLvar("mo");
+				var yearUrl = getURLvar("yr");
+				function month2digits(month){ 
+					return (month < 10 ? '0' : '') + month;
+				}
+				var date = new Date(); // date object
+				var yearNow = date.getUTCFullYear();
+				var month2digits = month2digits(date.getMonth()+1); // get month in two digits 
+
+				if ( ( yearUrl !== undefined ) && ( monthUrl !== undefined ) ) {
+					url = 'NOAA/raw/month/NOAA-'+yearUrl+'-'+monthUrl+'.txt';
+				} else if ( yearUrl !== undefined ) {
+					url = 'NOAA/raw/year/NOAA-'+yearUrl+'.txt';
+				} else {
+					url = 'NOAA/raw/month/NOAA-'+yearNow+'-'+month2digits+'.txt';
+				}
+				
+				// Load the file into the pre
+				populatePre( url );
+				
+				// Change the direct href link
+				jQuery(".noaa_direct_link").attr( "href", url );
+			});
+			
+			// Change the div to the right NOAA file
+			// I normally use PHP for this, but JavaScript seems to work well for the skin
+			// Source: https://stackoverflow.com/a/18933218/1177153
+			function populatePre(url) {
+				var xhr = new XMLHttpRequest();
+				xhr.onload = function () {
+					raw_content = this.responseText;
+					updated_content = raw_content.replace('<sup>','').replace('</sup>','').replace('&deg;','');
+					document.getElementById('noaa_contents').textContent = updated_content;
+				};
+				xhr.open('GET', url);
+				xhr.send();
+			}
+		</script>
+
 		<div class="row">
 			<div class="col-md-12 divCenter">
-			<p>Vous pouvez via les listes déroulantes ci-dessous, accéder aux rapports climatologiques mensuels et annuels bruts de la station au format "NOAA". Ce sont des fichiers texte très simple qui sont mis à jours tous les quarts d'heures.</p>
+			<p>Vous pouvez via les listes déroulantes ci-dessous, accéder aux rapports climatologiques mensuels et annuels bruts de la station au format "NOAA". Ce sont des fichiers texte très simple qui sont mis à jours tous les quarts d'heures pour le rapport mensuel en cours</p>
 			<h4>Rapports mensuels :</h4>
 			<select name="Month" onchange="openNoaaFileMonth(value)">
 				<?php
@@ -98,7 +145,7 @@
 					foreach ($files as $file) {
 						if (!in_array($file, $blacklist)) {
 							$properName = substr("$file", 5, 7);
-							echo '<option value="',$file,'">',$properName,'</option>';
+							echo '<option value="',$properName,'">',$properName,'</option>';
 						}
 					}
 				?>
@@ -116,7 +163,7 @@
 					foreach ($files as $file) {
 						if (!in_array($file, $blacklist)) {
 							$properName = substr("$file", 5, 4);
-							echo '<option value="',$file,'">',$properName,'</option>';
+							echo '<option value="',$properName,'">',$properName,'</option>';
 						}
 					}
 				?>
@@ -125,6 +172,18 @@
 				<br><br>
 			</div>
 		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-12">
+				<h4 class="divCenter">Affichage du rapport :</h4>
+				<p class="divCenter">Ouvrir ce rapport dans une nouvelle fenêtre <a href="#" class="noaa_direct_link" target="_blank">en cliquant ici</a></p>
+				<div>
+					<pre id="noaa_contents"></pre>
+				</div>
+			</div>
+		</div>
+		<hr>
+
 	<footer>
 		<?php include 'foot.php';?>
 	</footer>
