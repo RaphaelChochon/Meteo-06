@@ -38,25 +38,10 @@
 	$minuit_7 = strtotime('-6 day midnight')*1000;
 	$minuit_8 = strtotime('-7 day midnight')*1000;
 
-	$dataTemp = array();
-	$dataHr = array();
-	$dataTd = array();
-	$dataBaro = array();
 	$dataWs = array();
 	$dataWg = array();
 	$dataWsD = array();
 	$dataWgD = array();
-	$dataRR = array();
-	$dataRRate = array();
-	$dataRRCumul = array();
-
-	if ($presence_uv){
-		$dataUV = array();
-	}
-	if ($presence_radiation){
-		$dataRadiation = array();
-		$dataET = array();
-	}
 
 	$cumulRR = 0;
 
@@ -69,34 +54,40 @@
 						ORDER BY dateTime ASC")){
 		while ($row = mysqli_fetch_assoc($result)) {
 		// Time
+		$dt = $row['dateTime']*1000;
 		$rowArrayTemp['x'] = $row['dateTime']*1000;
-		$rowArrayHr['x'] = $rowArrayTemp['x'];
-		$rowArrayTd['x'] = $rowArrayTemp['x'];
-		$rowArrayBaro['x'] = $rowArrayTemp['x'];
 		$rowArrayWs['x'] = $rowArrayTemp['x'];
 		$rowArrayWg['x'] = $rowArrayTemp['x'];
 		$rowArrayWsD['x'] = $rowArrayTemp['x'];
 		$rowArrayWgD['x'] = $rowArrayTemp['x'];
-		$rowArrayRR['x'] = $rowArrayTemp['x'];
-		$rowArrayRRate['x'] = $rowArrayTemp['x'];
-		$rowArrayRRCumul['x'] = $rowArrayTemp['x'];
 
-		if ($presence_uv){
-			$rowArrayUV['x'] = $rowArrayTemp['x'];
+		// Temp
+		$Temp = null;
+		if ($row['outTemp'] != null) {
+			$Temp = round($row['outTemp'],1);
 		}
-		if ($presence_radiation){
-			$rowArrayRadiation['x'] = $rowArrayTemp['x'];
-			$rowArrayET['x'] = $rowArrayTemp['x'];
-		}
-		
+		$dataTemp[] = "[$dt, $Temp]";
 
-		// TempOut
-		if ($row['outTemp'] != null) {$rowArrayTemp['y'] = round($row['outTemp'],1); } else {$rowArrayTemp['y'] = null;};
-		if ($row['outHumidity'] != null) {$rowArrayHr['y'] = round($row['outHumidity'],1); } else {$rowArrayHr['y'] = null;};
-		if ($row['dewpoint'] != null) {$rowArrayTd['y'] = round($row['dewpoint'],1); } else {$rowArrayTd['y'] = null;};
+		// Humidité
+		$hr = null;
+		if ($row['outHumidity'] != null) {
+			$hr = round($row['outHumidity'],1);
+		}
+		$dataHr[] = "[$dt, $hr]";
+
+		// Point de rosée
+		$dewPoint = null;
+		if ($row['dewpoint'] != null) {
+			$dewPoint = round($row['dewpoint'],1);
+		}
+		$dataTd[] = "[$dt, $dewPoint]";
 
 		// Barometer
-		if ($row['barometer'] != null) {$rowArrayBaro['y'] = round($row['barometer'],1); } else {$rowArrayBaro['y'] = null;};
+		$barometer = null;
+		if ($row['barometer'] != null) {
+			$barometer = round($row['barometer'],1);
+		}
+		$dataBaro[] = "[$dt, $barometer]";
 
 		// Wind speed
 		if ($row['windSpeed'] != null) {$rowArrayWs['y'] = round($row['windSpeed'],1); } else {$rowArrayWs['y'] = null;};
@@ -107,67 +98,60 @@
 		if ($row['windGustDir'] != null) {$rowArrayWgD['y'] = round($row['windGustDir'],1); $rowArrayWg['dir'] = round($row['windGustDir'],1); } else {$rowArrayWgD['y'] = null; $rowArrayWg['dir'] = null;};
 
 		// Rain
-		if ($row['rain'] != null) {$rowArrayRR['y'] = round($row['rain']*10,1); } else {$rowArrayRR['y'] = null;};
-		if ($row['rainRate'] != null) {$rowArrayRRate['y'] = round($row['rainRate']*10,1); } else {$rowArrayRRate['y'] = null;};
+		$RR = null;
+		if ($row['rain'] != null) {
+			$RR = round($row['rain']*10,1);
+		}
+		$dataRR[] = "[$dt, $RR]";
+
+		// RainRate
+		$RRate = null;
+		if ($row['rainRate'] != null) {
+			$RRate = round($row['rainRate']*10,1);
+		}
+		$dataRRate[] = "[$dt, $RRate]";
+
 		$RRincrement = $cumulRR;
-		$cumulRR = $RRincrement + ($row['rain']*10);
-		$rowArrayRRCumul['y'] = round($cumulRR,1);
+		$cumulRR = round($RRincrement + ($row['rain']*10),1);
+		$dataRRCumul[] = "[$dt, $cumulRR]";
 
 		// UV
 		if ($presence_uv){
-			if ($row['UV'] != null) {$rowArrayUV['y'] = round($row['UV'],1); } else {$rowArrayUV['y'] = null;};
+			$UV = null;
+			if ($row['UV'] != null) {
+				$UV = round($row['UV'],1);
+			}
+			$dataUV[] = "[$dt, $UV]";
 		}
 
 		// Radiation & ET
 		if ($presence_radiation){
 			// Radiation
-			if ($row['radiation'] != null) {$rowArrayRadiation['y'] = round($row['radiation'],0); } else {$rowArrayRadiation['y'] = null;};
+			$Rad = null;
+			if ($row['radiation'] != null) {
+				$Rad = round($row['radiation'],0);
+			}
+			$dataRadiation[] = "[$dt, $Rad]";
 
 			// ET
-			if ($row['ET'] != null) {$rowArrayET['y'] = round($row['ET']*10,1); } else {$rowArrayET['y'] = null;};
+			$ET = null;
+			if ($row['ET'] != null) {
+				$ET = round($row['ET']*10,1);
+			}
+			$dataET[] = "[$dt, $ET]";
 		}
 
-		array_push($dataTemp,$rowArrayTemp);
-		array_push($dataHr,$rowArrayHr);
-		array_push($dataTd,$rowArrayTd);
-		array_push($dataBaro,$rowArrayBaro);
 		array_push($dataWs,$rowArrayWs);
 		array_push($dataWg,$rowArrayWg);
 		array_push($dataWsD,$rowArrayWsD);
 		array_push($dataWgD,$rowArrayWgD);
-		array_push($dataRR,$rowArrayRR);
-		array_push($dataRRate,$rowArrayRRate);
-		array_push($dataRRCumul,$rowArrayRRCumul);
-
-		if ($presence_uv){
-			array_push($dataUV,$rowArrayUV);
-		}
-		if ($presence_radiation){
-			array_push($dataRadiation,$rowArrayRadiation);
-			array_push($dataET,$rowArrayET);
-		}
 		}
 	}
 
-	$dataTemp = json_encode($dataTemp, JSON_NUMERIC_CHECK);
-	$dataHr = json_encode($dataHr, JSON_NUMERIC_CHECK);
-	$dataTd = json_encode($dataTd, JSON_NUMERIC_CHECK);
-	$dataBaro = json_encode($dataBaro, JSON_NUMERIC_CHECK);
 	$dataWs = json_encode($dataWs, JSON_NUMERIC_CHECK);
 	$dataWg = json_encode($dataWg, JSON_NUMERIC_CHECK);
 	$dataWsD = json_encode($dataWsD, JSON_NUMERIC_CHECK);
 	$dataWgD = json_encode($dataWgD, JSON_NUMERIC_CHECK);
-	$dataRR = json_encode($dataRR, JSON_NUMERIC_CHECK);
-	$dataRRate = json_encode($dataRRate, JSON_NUMERIC_CHECK);
-	$dataRRCumul = json_encode($dataRRCumul, JSON_NUMERIC_CHECK);
-
-	if ($presence_uv){
-		$dataUV = json_encode($dataUV, JSON_NUMERIC_CHECK);
-	}
-	if ($presence_radiation){
-		$dataRadiation = json_encode($dataRadiation, JSON_NUMERIC_CHECK);
-		$dataET = json_encode($dataET, JSON_NUMERIC_CHECK);
-	}
 
 	// Récupération des valeurs climatos
 	$db_name_climato = "climato_station";

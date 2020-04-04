@@ -75,6 +75,7 @@
 		<script src="https://code.highcharts.com/modules/export-data.js"></script>
 		<!-- <script src="vendors/custom/highcharts_export-csv.js"></script> -->
 		<script src="https://code.highcharts.com/modules/annotations.js"></script>
+		<script src="https://code.highcharts.com/modules/boost.js"></script>
 	</head>
 	<body>
 	<div class="container">
@@ -285,10 +286,12 @@
 					},
 					navigation: {
 							menuItemStyle: {
-								// {"padding": "0.5em 1em", "color": "#333333", "background": "none", "fontSize": "11px/14px", "transition": "background 250ms, color 250ms"}
 								fontSize: "9px",
 								padding: "0.5em 0.5em"
 							}
+					},
+					credits: {
+						enabled: false
 					}
 				});
 				/*
@@ -304,10 +307,6 @@
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres | Tn et Tx aux normes OMM',
-					},
-					credits: {
-						text: '<?php echo $name_manager_graph; ?>',
-						href: '<?php echo $site_manager_graph; ?>'
 					},
 					exporting: {
 						filename: '<?php echo $short_station_name; ?> Temperature',
@@ -492,12 +491,20 @@
 						valueDecimals: 1,
 						xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 					},
+					boost: {
+							useGPUTranslations: false,
+							seriesThreshold:1,
+							// debug: {
+							// 	showSkipSummary: true,
+							// 	timeSeriesProcessing: true,
+							// 	timeBufferCopy: true,
+							// }
+					},
 					series: [{
 						name: 'Température',
-						type: 'spline',
-						data: <?php echo $dataTemp ?>,
-						turboThreshold: 0,
-						connectNulls: false,
+						type: 'line',
+						data: [<?php echo join($dataTemp, ',') ?>],
+						boostThreshold: 20,
 						zIndex: 1,
 						color: '#ff0000',
 						negativeColor:'#0d1cc5',
@@ -506,21 +513,19 @@
 						}
 					},{
 						name: 'Humidité',
-						type: 'area',
-						data: <?php echo $dataHr ?>,
-						turboThreshold: 0,
+						type: 'line',
+						data: [<?php echo join($dataHr, ',') ?>],
+						boostThreshold: 20,
 						yAxis: 1,
-						connectNulls: false,
 						color: '#3399FF',
 						tooltip: {
 							valueSuffix: ' %',
 						}
 					},{
 						name: 'Point de rosée',
-						type: 'spline',
-						data: <?php echo $dataTd ?>,
-						turboThreshold: 0,
-						connectNulls: false,
+						type: 'line',
+						data: [<?php echo join($dataTd, ',') ?>],
+						boostThreshold: 20,
 						color: '#1c23e4',
 						visible: false,
 						tooltip: {
@@ -531,9 +536,6 @@
 						labels: LabelsPersoT,
 						labelOptions: {
 							borderRadius: 5,
-							// backgroundColor: 'rgba(237, 237, 237, 0.7)',
-							// borderWidth: 1,
-							// borderColor: '#AAA',
 							style: {
 								fontSize: '8.5px'
 							},
@@ -556,10 +558,6 @@
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
-					},
-					credits: {
-						text: '<?php echo $name_manager_graph; ?>',
-						href: '<?php echo $site_manager_graph; ?>'
 					},
 					exporting: {
 						filename: '<?php echo $short_station_name; ?> Pression',
@@ -727,11 +725,20 @@
 						valueSuffix: ' hPa',
 						xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 					},
+					boost: {
+							useGPUTranslations: false,
+							seriesThreshold:1,
+							// debug: {
+							// 	showSkipSummary: true,
+							// 	timeSeriesProcessing: true,
+							// 	timeBufferCopy: true,
+							// }
+					},
 					series: [{
 						name: 'Pression',
-						type: 'spline',
-						data: <?php echo $dataBaro ?>,
-						turboThreshold: 0,
+						type: 'line',
+						data: [<?php echo join($dataBaro, ',') ?>],
+						boostThreshold: 20,
 						connectNulls: false,
 						color: '#1be300',
 					}]
@@ -749,10 +756,6 @@
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
-					},
-					credits: {
-						text: '<?php echo $name_manager_graph; ?>',
-						href: '<?php echo $site_manager_graph; ?>'
 					},
 					exporting: {
 						filename: '<?php echo $short_station_name; ?> Vent',
@@ -947,6 +950,9 @@
 							}
 						}
 					},
+					boost: {
+						enabled: false,
+					},
 					series: [{
 						name: 'Vent moyen',
 						type: 'area',
@@ -970,7 +976,7 @@
 						}
 					},{
 						name: 'Rafales',
-						type: 'spline',
+						type: 'line',
 						color: 'rgba(255,0,0,0.65)',
 						data: <?php echo $dataWg ?>,
 						turboThreshold: 0,
@@ -1035,10 +1041,6 @@
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres | Cumul à 6h UTC aux normes OMM',
-					},
-					credits: {
-						text: '<?php echo $name_manager_graph; ?>',
-						href: '<?php echo $site_manager_graph; ?>'
 					},
 					exporting: {
 						filename: '<?php echo $short_station_name; ?> Precipitations',
@@ -1241,12 +1243,16 @@
 						valueDecimals: 1,
 						xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 					},
+					boost: {
+							useGPUTranslations: false,
+							seriesThreshold:1,
+					},
 					series: [{
 						name: 'Précipitations',
 						type: 'column',
 						zIndex: 1,
-						data: <?php echo $dataRR ?>,
-						turboThreshold: 0,
+						data: [<?php echo join($dataRR, ',') ?>],
+						boostThreshold: 20,
 						connectNulls: false,
 						color: '#4169e1',
 						tooltip: {
@@ -1255,10 +1261,10 @@
 					},{
 						name: 'Cumul sur <?php echo $last; ?>h',
 						yAxis:1,
-						type: 'spline',
+						type: 'line',
 						zIndex: 3,
-						data: <?php echo $dataRRCumul ?>,
-						turboThreshold: 0,
+						data: [<?php echo join($dataRRCumul, ',') ?>],
+						boostThreshold: 20,
 						connectNulls: false,
 						color: '#3d4147',
 						tooltip: {
@@ -1268,11 +1274,11 @@
 						name: 'Intensité',
 						yAxis:2,
 						visible: false,
-						type: 'spline',
+						type: 'line',
 						zIndex: 2,
 						color: '#6883d9',
-						data: <?php echo $dataRRate ?>,
-						turboThreshold: 0,
+						data: [<?php echo join($dataRRate, ',') ?>],
+						boostThreshold: 20,
 						connectNulls: true,
 						tooltip: {
 							useHTML: true,
@@ -1289,9 +1295,6 @@
 						labels: LabelsPersoRRClim,
 						labelOptions: {
 							borderRadius: 5,
-							// backgroundColor: 'rgba(237, 237, 237, 0.7)',
-							// borderWidth: 1,
-							// borderColor: '#AAA',
 							style: {
 								fontSize: '8.5px'
 							},
@@ -1308,18 +1311,16 @@
 				*/
 				var uv = Highcharts.chart ('graph_uv', {
 					chart: {
-						type : 'line',
+						type : 'area',
 						zoomType: 'x',
+						panning: true,
+						panKey: 'shift'
 					},
 					title: {
 						text: 'Indice UV des dernières <?php echo $last; ?> heures UTC',
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
-					},
-					credits: {
-						text: '<?php echo $name_manager_graph; ?>',
-						href: '<?php echo $site_manager_graph; ?>'
 					},
 					exporting: {
 						filename: '<?php echo $short_station_name; ?> UV',
@@ -1487,11 +1488,16 @@
 						valueDecimals: 1,
 						xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 					},
+					boost: {
+						enabled:false,
+						useGPUTranslations: false,
+						seriesThreshold:1,
+					},
 					series: [{
 						name: 'Indice UV',
 						type: 'area',
-						data: <?php echo $dataUV ?>,
-						turboThreshold: 0,
+						data: [<?php echo join($dataUV, ',') ?>],
+						boostThreshold: 20,
 						connectNulls: false,
 						color: '#ff7200',
 					}]
@@ -1504,7 +1510,7 @@
 				*/
 				var rad = Highcharts.chart ('graph_rad', {
 					chart: {
-						type : 'line',
+						type : 'area',
 						zoomType: 'x',
 					},
 					title: {
@@ -1512,10 +1518,6 @@
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
-					},
-					credits: {
-						text: '<?php echo $name_manager_graph; ?>',
-						href: '<?php echo $site_manager_graph; ?>'
 					},
 					exporting: {
 						filename: '<?php echo $short_station_name; ?> Rayonnement solaire',
@@ -1684,11 +1686,15 @@
 						xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 						valueSuffix: ' W/m²',
 					},
+					boost: {
+						enabled:false,
+						useGPUTranslations: false,
+						seriesThreshold:1,
+					},
 					series: [{
 						name: 'Rayonnement solaire',
 						type: 'area',
-						data: <?php echo $dataRadiation ?>,
-						turboThreshold: 0,
+						data: [<?php echo join($dataRadiation, ',') ?>],
 						connectNulls: false,
 						color: '#e5d42b',
 					}]
@@ -1706,10 +1712,6 @@
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
-					},
-					credits: {
-						text: '<?php echo $name_manager_graph; ?>',
-						href: '<?php echo $site_manager_graph; ?>'
 					},
 					exporting: {
 						filename: '<?php echo $short_station_name; ?> Évapotranspiration',
@@ -1877,11 +1879,15 @@
 						valueDecimals: 3,
 						xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 					},
+					boost: {
+						enabled:false,
+						useGPUTranslations: false,
+						seriesThreshold:1,
+					},
 					series: [{
 						name: 'Évapotranspiration',
 						type: 'column',
-						data: <?php echo $dataET ?>,
-						turboThreshold: 0,
+						data: [<?php echo join($dataET, ',') ?>],
 						color: '#e5d42b',
 						pointPadding: 0,
 						groupPadding: 0,
