@@ -186,7 +186,7 @@
 			<?php
 				$annotJsTClim = array();
 				foreach($dataTn as $annotation){
-					$dateTn = date('d/m', $annotation['TnDt']/1000);
+					$dateTn = date('d/m', $annotation['dateDay']/1000);
 					$annotJsTClim[] = array(
 						'point' => array(
 							'xAxis' => 0,
@@ -199,7 +199,7 @@
 					);
 				}
 				foreach($dataTx as $annotation){
-					$dateTx = date('d/m', $annotation['TxDt']/1000);
+					$dateTx = date('d/m', $annotation['dateDay']/1000);
 					$annotJsTClim[] = array(
 						'point' => array(
 							'xAxis' => 0,
