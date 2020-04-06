@@ -189,28 +189,52 @@
 				foreach($dataTn as $annotation){
 					$dateTn = date('d/m', $annotation['dateDay']/1000);
 					$annotJsTClim[] = array(
-						'point' => array(
-							'xAxis' => 0,
-							'yAxis' => 0,
-							'x' => $annotation['TnDt'],
-							'y' => $annotation['Tn'],
+						'labels' => array(array(
+							'point' => array(
+								'xAxis' => 0,
+								'yAxis' => 0,
+								'x' => $annotation['TnDt'],
+								'y' => $annotation['Tn'],
+							),
+							'y' => 40,
+							'text' => 'Tn du '.$dateTn.' : '.$annotation['Tn'].' °C',
+						)),
+						'labelOptions' => array(
+							'borderRadius' => 5,
+							'style' => array(
+								'fontSize' => '8.5px'
+							)
 						),
-						'y' => 40,
-						'text' => 'Tn du '.$dateTn.' : '.$annotation['Tn'].' °C',
+						'shapeOptions' => array(
+							'fill' => 'rgba(237, 237, 237, 0.7)'
+						)
 					);
 				}
 				foreach($dataTx as $annotation){
 					$dateTx = date('d/m', $annotation['dateDay']/1000);
 					$annotJsTClim[] = array(
-						'point' => array(
-							'xAxis' => 0,
-							'yAxis' => 0,
-							'x' => $annotation['TxDt'],
-							'y' => $annotation['Tx'],
+						'labels' => array(array(
+							'point' => array(
+								'xAxis' => 0,
+								'yAxis' => 0,
+								'x' => $annotation['TxDt'],
+								'y' => $annotation['Tx'],
+							),
+							'text' => 'Tx du '.$dateTx.' : '.$annotation['Tx'].' °C',
+						)),
+						'labelOptions' => array(
+							'borderRadius' => 5,
+							'style' => array(
+								'fontSize' => '8.5px'
+							)
 						),
-						'text' => 'Tx du '.$dateTx.' : '.$annotation['Tx'].' °C',
+						'shapeOptions' => array(
+							'fill' => 'rgba(237, 237, 237, 0.7)'
+						)
 					);
 				}
+				
+				// echo "var LabelsPersoT = ".json_encode($annotJsTClim, JSON_PRETTY_PRINT).";";
 				echo "var LabelsPersoT = ".json_encode($annotJsTClim).";";
 			?>
 
@@ -222,25 +246,47 @@
 					if ($annotation['RRmaxInt'] != null) {
 						$dateRRMaxInt = date('H:i', $annotation['RRmaxIntDt']/1000);
 						$annotJsRRClim[] = array(
-							'point' => array(
-								'xAxis' => 0,
-								'yAxis' => 0,
-								'x' => $annotation['dateDay6h'],
-								'y' => 0,
+							'labels' => array(array(
+								'point' => array(
+									'xAxis' => 0,
+									'yAxis' => 0,
+									'x' => $annotation['dateDay6h'],
+									'y' => 0,
+								),
+								'useHTML' => true,
+								'text' => $dateRRClim.' : '.$annotation['RR'].' mm<br>Int.max '.$annotation['RRmaxInt'].' mm/h à '.$dateRRMaxInt,
+							)),
+							'labelOptions' => array(
+								'borderRadius' => 5,
+								'style' => array(
+									'fontSize' => '8.5px'
+								)
 							),
-							'useHTML' => true,
-							'text' => $dateRRClim.' : '.$annotation['RR'].' mm<br>Int.max '.$annotation['RRmaxInt'].' mm/h à '.$dateRRMaxInt,
+							'shapeOptions' => array(
+								'fill' => 'rgba(237, 237, 237, 0.7)'
+							)
 						);
 					} else {
 						$annotJsRRClim[] = array(
-							'point' => array(
-								'xAxis' => 0,
-								'yAxis' => 0,
-								'x' => $annotation['dateDay6h'],
-								'y' => 0,
+							'labels' => array(array(
+								'point' => array(
+									'xAxis' => 0,
+									'yAxis' => 0,
+									'x' => $annotation['dateDay6h'],
+									'y' => 0,
+								),
+								'useHTML' => true,
+								'text' => $dateRRClim.' : '.$annotation['RR'].' mm',
+							)),
+							'labelOptions' => array(
+								'borderRadius' => 5,
+								'style' => array(
+									'fontSize' => '8.5px'
+								)
 							),
-							'useHTML' => true,
-							'text' => $dateRRClim.' : '.$annotation['RR'].' mm',
+							'shapeOptions' => array(
+								'fill' => 'rgba(237, 237, 237, 0.7)'
+							)
 						);
 					}
 				}
@@ -532,18 +578,7 @@
 							valueSuffix: ' °C',
 						}
 					}],
-					annotations: [{
-						labels: LabelsPersoT,
-						labelOptions: {
-							borderRadius: 5,
-							style: {
-								fontSize: '8.5px'
-							},
-						},
-						shapeOptions: {
-							fill: 'rgba(237, 237, 237, 0.7)',
-						},
-					}]
+					annotations: LabelsPersoT
 				});
 				/*
 					START GRAPH pression
@@ -1291,18 +1326,7 @@
 							}
 						}
 					}],
-					annotations: [{
-						labels: LabelsPersoRRClim,
-						labelOptions: {
-							borderRadius: 5,
-							style: {
-								fontSize: '8.5px'
-							},
-						},
-						shapeOptions: {
-							fill: 'rgba(237, 237, 237, 0.7)',
-						},
-					}]
+					annotations: LabelsPersoRRClim
 				});
 
 				<?php if ($presence_uv) : ?>
