@@ -62,28 +62,28 @@
 		$rowArrayWgD['x'] = $rowArrayTemp['x'];
 
 		// Temp
-		$Temp = null;
+		$Temp = "null";
 		if ($row['outTemp'] != null) {
 			$Temp = round($row['outTemp'],1);
 		}
 		$dataTemp[] = "[$dt, $Temp]";
 
 		// Humidité
-		$hr = null;
+		$hr = "null";
 		if ($row['outHumidity'] != null) {
 			$hr = round($row['outHumidity'],1);
 		}
 		$dataHr[] = "[$dt, $hr]";
 
 		// Point de rosée
-		$dewPoint = null;
+		$dewPoint = "null";
 		if ($row['dewpoint'] != null) {
 			$dewPoint = round($row['dewpoint'],1);
 		}
 		$dataTd[] = "[$dt, $dewPoint]";
 
 		// Barometer
-		$barometer = null;
+		$barometer = "null";
 		if ($row['barometer'] != null) {
 			$barometer = round($row['barometer'],1);
 		}
@@ -98,14 +98,14 @@
 		if ($row['windGustDir'] != null) {$rowArrayWgD['y'] = round($row['windGustDir'],1); $rowArrayWg['dir'] = round($row['windGustDir'],1); } else {$rowArrayWgD['y'] = null; $rowArrayWg['dir'] = null;};
 
 		// Rain
-		$RR = null;
+		$RR = "null";
 		if ($row['rain'] != null) {
 			$RR = round($row['rain']*10,1);
 		}
 		$dataRR[] = "[$dt, $RR]";
 
 		// RainRate
-		$RRate = null;
+		$RRate = "null";
 		if ($row['rainRate'] != null) {
 			$RRate = round($row['rainRate']*10,1);
 		}
@@ -117,7 +117,7 @@
 
 		// UV
 		if ($presence_uv){
-			$UV = null;
+			$UV = "null";
 			if ($row['UV'] != null) {
 				$UV = round($row['UV'],1);
 			}
@@ -127,14 +127,14 @@
 		// Radiation & ET
 		if ($presence_radiation){
 			// Radiation
-			$Rad = null;
+			$Rad = "null";
 			if ($row['radiation'] != null) {
 				$Rad = round($row['radiation'],0);
 			}
 			$dataRadiation[] = "[$dt, $Rad]";
 
 			// ET
-			$ET = null;
+			$ET = "null";
 			if ($row['ET'] != null) {
 				$ET = round($row['ET']*10,1);
 			}
