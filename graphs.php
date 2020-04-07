@@ -369,19 +369,19 @@
 						tickInterval: 7200*1000,
 						crosshair: true,
 						plotBands: [{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_hier;?>,
 							to: <?php echo $minuit;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_4;?>,
 							to: <?php echo $minuit_3;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_6;?>,
 							to: <?php echo $minuit_5;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_8;?>,
 							to: <?php echo $minuit_7;?>,
 						}],
@@ -609,19 +609,19 @@
 						tickInterval: 7200*1000,
 						crosshair: true,
 						plotBands: [{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_hier;?>,
 							to: <?php echo $minuit;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_4;?>,
 							to: <?php echo $minuit_3;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_6;?>,
 							to: <?php echo $minuit_5;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_8;?>,
 							to: <?php echo $minuit_7;?>,
 						}],
@@ -807,19 +807,19 @@
 						tickInterval: 7200*1000,
 						crosshair: true,
 						plotBands: [{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_hier;?>,
 							to: <?php echo $minuit;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_4;?>,
 							to: <?php echo $minuit_3;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_6;?>,
 							to: <?php echo $minuit_5;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_8;?>,
 							to: <?php echo $minuit_7;?>,
 						}],
@@ -1092,19 +1092,19 @@
 						tickInterval: 7200*1000,
 						crosshair: true,
 						plotBands: [{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_hier;?>,
 							to: <?php echo $minuit;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_4;?>,
 							to: <?php echo $minuit_3;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_6;?>,
 							to: <?php echo $minuit_5;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_8;?>,
 							to: <?php echo $minuit_7;?>,
 						}],
@@ -1361,19 +1361,19 @@
 						tickInterval: 7200*1000,
 						crosshair: true,
 						plotBands: [{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_hier;?>,
 							to: <?php echo $minuit;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_4;?>,
 							to: <?php echo $minuit_3;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_6;?>,
 							to: <?php echo $minuit_5;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_8;?>,
 							to: <?php echo $minuit_7;?>,
 						}],
@@ -1558,19 +1558,19 @@
 						tickInterval: 7200*1000,
 						crosshair: true,
 						plotBands: [{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_hier;?>,
 							to: <?php echo $minuit;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_4;?>,
 							to: <?php echo $minuit_3;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_6;?>,
 							to: <?php echo $minuit_5;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_8;?>,
 							to: <?php echo $minuit_7;?>,
 						}],
@@ -1751,20 +1751,20 @@
 						dateTimeLabelFormats: {day: '%H:%M', hour: '%H:%M'},
 						tickInterval: 7200*1000,
 						crosshair: true,
-						plotBands: [{
-							color: '#e0ffff',
+						f2f5f5: [{
+							color: '#f2f5f5',
 							from: <?php echo $minuit_hier;?>,
 							to: <?php echo $minuit;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_4;?>,
 							to: <?php echo $minuit_3;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_6;?>,
 							to: <?php echo $minuit_5;?>,
 						},{
-							color: '#e0ffff',
+							color: '#f2f5f5',
 							from: <?php echo $minuit_8;?>,
 							to: <?php echo $minuit_7;?>,
 						}],
