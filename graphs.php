@@ -5,43 +5,48 @@
 	// Récup du nombre d'heures en paramètres
 	// On construit une liste blanche
 	$valid_options = array();
-	$valid_options[] = '24';
-	$valid_options[] = '48';
-	$valid_options[] = '72';
-	$valid_options[] = '96';
-	$valid_options[] = '120';
-	$valid_options[] = '144';
-	$valid_options[] = '168';
+	$valid_options[] = '24h';
+	$valid_options[] = '48h';
+	$valid_options[] = '7j';
+	$valid_options[] = '1mois';
+	$valid_options[] = '1an';
+	$valid_options[] = 'all';
 
-	// On vérifie que le paramètre existe, et est défini sinon on renvoi 48
-	if (isset($_GET['last']) || !empty($_GET['last'])) {
-		// On vérifie que le parmètre est dans la liste blanche sinon on renvoi 48
-		if (in_array($_GET['last'], $valid_options)) {
-			$last = $_GET['last'];
+	// On vérifie que le paramètre existe, et est défini sinon on renvoi 24h
+	if (isset($_GET['period']) || !empty($_GET['period'])) {
+		// On vérifie que le parmètre est dans la liste blanche sinon on renvoi 24h
+		if (in_array($_GET['period'], $valid_options)) {
+			$period = $_GET['period'];
 		} else {
-			$last = '24';
+			$period = '24h';
 		}
 	} else {
-		$last = '24';
+		$period = '24h';
 	}
 
-	require_once 'sql/req_graphs.php'
+	// appel des fonctions
+	require_once 'include/functions.php';
+	// appel du script de requete
+	require_once 'sql/req_graphs.php';
 
+?>
+<?php
+	//echo $dataWg;
 ?>
 <!DOCTYPE html>
 <html lang="fr-FR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 	<head>
-		<title><?php echo $short_station_name; ?> | Graph <?php echo $last; ?> heures</title>
+		<title><?php echo $short_station_name; ?> | Graphiques</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- Balises META SEO pour le referencement Google, Facebook Twitter etc. -->
-		<meta name="description" content="Graphiques des <?php echo $last; ?> dernières heures de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>"/>
+		<meta name="description" content="Graphiques de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>"/>
 		<link rel="canonical" href="<?php if ($SSL){echo'https://';}else echo'http://';?><?php echo $_SERVER['HTTP_HOST']; ?><?php echo $_SERVER['PHP_SELF']; ?>" />
 		<meta property="og:locale" content="fr_FR" />
 		<meta property="og:type" content="website" />
-		<meta property="og:title" content="<?php echo $short_station_name; ?> | Graph <?php echo $last; ?> heures" />
-		<meta property="og:description" content="Graphiques des <?php echo $last; ?> dernières heures de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>" />
+		<meta property="og:title" content="<?php echo $short_station_name; ?> | Graphiques" />
+		<meta property="og:description" content="Graphiques de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>" />
 		<meta property="og:url" content="<?php if ($SSL){echo'https://';}else echo'http://';?><?php echo $_SERVER['HTTP_HOST']; ?><?php echo $_SERVER['PHP_SELF']; ?>" />
 		<meta property="og:site_name" content="<?php echo $short_station_name; ?>" />
 		<meta property="fb:app_id" content="<?php echo $fb_app_id; ?>" />
@@ -50,8 +55,8 @@
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:description" content="Graphiques des <?php echo $last; ?> dernières heures de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>" />
-		<meta name="twitter:title" content="<?php echo $short_station_name; ?> | Graph <?php echo $last; ?> heures" />
+		<meta name="twitter:description" content="Graphiques de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>" />
+		<meta name="twitter:title" content="<?php echo $short_station_name; ?> | Graphiques" />
 		<meta name="twitter:site" content="<?php echo $tw_account_name; ?>" />
 		<meta name="twitter:image" content="<?php echo $url_site; ?>/img/capture_site.jpg" />
 		<meta name="twitter:creator" content="<?php echo $tw_account_name; ?>" />
@@ -69,7 +74,7 @@
 		<link href="vendors/custom/custom.css?v=1.1" rel="stylesheet">
 		<script src="vendors/bootstrap/js/bootstrap.min.js"></script>
 		<script src="https://code.highcharts.com/highcharts.js"></script>
-		<!-- <script src="https://code.highcharts.com/js/highcharts-more.js"></script> -->
+		<script src="https://code.highcharts.com/js/highcharts-more.js"></script>
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
 		<script src="https://code.highcharts.com/modules/offline-exporting.js"></script>
 		<script src="https://code.highcharts.com/modules/export-data.js"></script>
@@ -106,60 +111,65 @@
 				<?php endif; ?>
 			</div>
 		</div>
+		<!-- Boutons -->
+		<hr>
+		<div class="row" id="anchorButtons">
+			<div class="col-sm-12 divCenter">
+				<a href="./graphs.php?period=24h#anchorButtons"><button type="button" class="btn btn-info">24 heures</button></a>
+				<a href="./graphs.php?period=48h#anchorButtons"><button type="button" class="btn btn-info">48 heures</button></a>
+				<a href="./graphs.php?period=7j#anchorButtons"><button type="button" class="btn btn-info">7 jours</button></a>
+				<!-- <a href="./graphs.php?period=1mois#anchorButtons"><button type="button" class="btn btn-info">1 mois</button></a>
+				<a href="./graphs.php?period=1an#anchorButtons"><button type="button" class="btn btn-info">1 an</button></a>
+				<a href="./graphs.php?period=all#anchorButtons"><button type="button" class="btn btn-info">Tout</button></a> -->
+			</div>
+			<!-- <div class="col-sm-12 wx-buttons-description">
+				<span class='wx-graph-text'></span>
+			</div> -->
+		</div>
+		<hr>
+		<!-- Texte -->
 		<div class="row">
 			<div class="col-md-12 divCenter">
-				<h1>Graphiques des <?php echo $last; ?> dernières heures</h1>
-				<p>Vous trouverez sur cette page les relevés de la station sur les <?php echo $last; ?> dernières heures sous forme de graphiques. Ils sont mis à jour instantanément dès qu'un enregistrement est envoyé par la station météo.<br>Vous pouvez zoomer sur une zone spécifique, faire apparaitre une infobulle au passage de la souris ou au clic sur mobile, et afficher/masquer un paramètre météo en cliquant sur son intitulé dans la légende. Ils sont également exportables en cliquant sur le bouton au-dessus à droite de chaque graphique.</p>
+				<h1>Graphiques <?php echo $textPeriod;?></h1>
+				<p>Vous trouverez sur cette page les relevés de la station sous forme de graphiques.<br>Vous pouvez zoomer sur une zone spécifique, faire apparaitre une infobulle au passage de la souris ou au clic sur mobile, et afficher/masquer un paramètre météo en cliquant sur son intitulé dans la légende. Ils sont également exportables en cliquant sur le bouton au-dessus à droite de chaque graphique.</p>
 				<p><b>Attention, les graphiques sont en heure UTC, donc il faut rajouter une heure l'hiver et deux heures l'été !<br>Exemple : il est actuellement <?php date_default_timezone_set('UTC'); echo date('H:i'); ?> UTC, et donc <?php date_default_timezone_set('Europe/Paris'); echo date('H:i'); ?> en France</b></p>
 			</div>
 		</div>
 		<hr>
 		<div class="row">
 			<div class="col-md-12 divCenter">
-				<form action="graphs.php" method="get">
-				<p><b>Visualiser les graphiques sur les dernières :</b>
-					<select name='last' onchange='if(this.value != <?php echo $last; ?>) { this.form.submit(); }'>
-						<option value="24" <?php if ($last == '24') { echo "selected";} ?>>24 heures</option>
-						<option value="48" <?php if ($last == '48') { echo "selected";} ?>>48 heures (2j)</option>
-						<option value="72" <?php if ($last == '72') { echo "selected";} ?>>72 heures (3j)</option>
-						<option value="96" <?php if ($last == '96') { echo "selected";} ?>>96 heures (4j)</option>
-						<option value="120" <?php if ($last == '120') { echo "selected";} ?>>120 heures (5j)</option>
-						<option value="144" <?php if ($last == '144') { echo "selected";} ?>>144 heures (6j)</option>
-						<option value="168" <?php if ($last == '168') { echo "selected";} ?>>168 heures (7j)</option>
-					</select>
-				</p>
-				</form>
+				<div id="graph_temp_hygro" style="width:100%; height: 500px;"></div>
+				<div>
+					<button id="removeAnnoTnTx">Masquer les étiquettes</button>
+				</div>
 			</div>
 		</div>
 		<hr>
 		<div class="row">
 			<div class="col-md-12 divCenter">
-				<div id="graph_temp_hygro" style="width:100%; height: 400px;"></div>
+				<div id="graph_pression" style="width:100%; height:500px;"></div>
 			</div>
 		</div>
 		<hr>
 		<div class="row">
 			<div class="col-md-12 divCenter">
-				<div id="graph_pression" style="width:100%; height:400px;"></div>
+				<div id="graph_vent" style="width:100%; height:500px;"></div>
 			</div>
 		</div>
 		<hr>
 		<div class="row">
 			<div class="col-md-12 divCenter">
-				<div id="graph_vent" style="width:100%; height:400px;"></div>
-			</div>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="col-md-12 divCenter">
-				<div id="graph_precip" style="width:100%; height:400px;"></div>
+				<div id="graph_precip" style="width:100%; height:500px;"></div>
+				<div>
+					<button id="removeAnnoRR">Masquer les étiquettes</button>
+				</div>
 			</div>
 		</div>
 		<?php if ($presence_uv) : ?>
 		<hr>
 		<div class="row">
 			<div class="col-md-12 divCenter">
-				<div id="graph_uv" style="width:100%; height:400px;"></div>
+				<div id="graph_uv" style="width:100%; height:500px;"></div>
 			</div>
 		</div>
 		<?php endif; ?>
@@ -167,13 +177,13 @@
 		<hr>
 		<div class="row">
 			<div class="col-md-12 divCenter">
-				<div id="graph_rad" style="width:100%; height:400px;"></div>
+				<div id="graph_rad" style="width:100%; height:500px;"></div>
 			</div>
 		</div>
 		<hr>
 		<div class="row">
 			<div class="col-md-12 divCenter">
-				<div id="graph_et" style="width:100%; height:400px;"></div>
+				<div id="graph_et" style="width:100%; height:500px;"></div>
 			</div>
 		</div>
 		<?php endif; ?>
@@ -189,6 +199,7 @@
 				foreach($dataTn as $annotation){
 					$dateTn = date('d/m', $annotation['dateDay']/1000);
 					$annotJsTClim[] = array(
+						'id' => 'anno-TnTx',
 						'labels' => array(array(
 							'point' => array(
 								'xAxis' => 0,
@@ -213,6 +224,7 @@
 				foreach($dataTx as $annotation){
 					$dateTx = date('d/m', $annotation['dateDay']/1000);
 					$annotJsTClim[] = array(
+						'id' => 'anno-TnTx',
 						'labels' => array(array(
 							'point' => array(
 								'xAxis' => 0,
@@ -246,6 +258,7 @@
 					if ($annotation['RRmaxInt'] != null) {
 						$dateRRMaxInt = date('H:i', $annotation['RRmaxIntDt']/1000);
 						$annotJsRRClim[] = array(
+							'id' => 'anno-RR',
 							'labels' => array(array(
 								'point' => array(
 									'xAxis' => 0,
@@ -268,6 +281,7 @@
 						);
 					} else {
 						$annotJsRRClim[] = array(
+							'id' => 'anno-RR',
 							'labels' => array(array(
 								'point' => array(
 									'xAxis' => 0,
@@ -296,7 +310,8 @@
 			/*
 				DEBUT GRAPHS
 			*/
-			$(function () {
+			// $(function () {
+			document.addEventListener('DOMContentLoaded', function () {
 				Highcharts.setOptions({
 					global: {
 						useUTC: true
@@ -484,7 +499,7 @@
 						zoomType: 'x',
 					},
 					title: {
-						text: 'Température et humidité des dernières <?php echo $last; ?> heures UTC',
+						text: 'Température et humidité <?php echo $textPeriod; ?> UTC',
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres | Tn et Tx aux normes OMM',
@@ -539,13 +554,14 @@
 						xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 					},
 					boost: {
-							useGPUTranslations: false,
-							seriesThreshold:1,
-							// debug: {
-							// 	showSkipSummary: true,
-							// 	timeSeriesProcessing: true,
-							// 	timeBufferCopy: true,
-							// }
+						// enabled:false,
+						useGPUTranslations: false,
+						seriesThreshold:1,
+						// debug: {
+						// 	showSkipSummary: true,
+						// 	timeSeriesProcessing: true,
+						// 	timeBufferCopy: true,
+						// }
 					},
 					series: [{
 						name: 'Température',
@@ -558,6 +574,21 @@
 						tooltip: {
 							valueSuffix: ' °C',
 						}
+					},{
+						name: 'Température min/max',
+						type: 'errorbar',
+						// yAxis: 0,
+						color: '#ff4747',
+						// fillColor: '#ff4747',
+						// boostBlending: '#ff4747',
+						data: [<?php echo join($dataTnTx, ',') ?>],
+						boostThreshold: 20,
+						tooltip: {
+							pointFormat: 'Temp. min/max sur l\'intvl: {point.low}-{point.high}°C)<br/>'
+						},
+						zIndex: 10,
+						showInLegend: true,
+						visible: false
 					},{
 						name: 'Humidité',
 						type: 'line',
@@ -590,7 +621,7 @@
 						zoomType: 'x',
 					},
 					title: {
-						text: 'Pression atmo. des dernières <?php echo $last; ?> heures UTC',
+						text: 'Pression atmo. <?php echo $textPeriod; ?> UTC',
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
@@ -648,13 +679,14 @@
 				/*
 					START GRAPH VENT
 				*/
+				var data_wg = [<?php echo join($dataWg, ',') ?>];
 				var vent = Highcharts.chart ('graph_vent', {
 					chart: {
 						type : 'line',
 						zoomType: 'x',
 					},
 					title: {
-						text: 'Vent des dernières <?php echo $last; ?> heures UTC',
+						text: 'Vent <?php echo $textPeriod; ?> UTC',
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
@@ -719,70 +751,64 @@
 						}
 					},
 					boost: {
-						enabled: false,
+						useGPUTranslations: false,
+						seriesThreshold:1,
 					},
 					series: [{
-						name: 'Vent moyen',
-						type: 'area',
-						lineColor: 'rgba(51,153,255,0.75)',
-						fillColor: 'rgba(51,153,255,0.5)',
-						data: <?php echo $dataWs ?>,
-						turboThreshold: 0,
-						connectNulls: false,
-						tooltip: {
-							useHTML: true,
-							pointFormatter: function () {
-								if (this.dir != null) {
-									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' km/h</b><br>'+
-									'<span style="color:'+this.series.color+'">\u25CF</span> Direction: <b>'+this.dir+' °</b><br>'+
-									'----<br>';
-								} else {
-									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' km/h</b><br>'+
-									'----<br>';
-								}
-							}
-						}
-					},{
-						name: 'Rafales',
+						name: 'Rafales max.',
 						type: 'line',
 						color: 'rgba(255,0,0,0.65)',
-						data: <?php echo $dataWg ?>,
-						turboThreshold: 0,
-						connectNulls: false,
+						data: data_wg,
+						boostThreshold: 20,
+						zIndex: 20,
 						tooltip: {
 							useHTML: true,
-							pointFormatter: function () {
-								if (this.dir != null) {
-									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' km/h</b><br>'+
-									'<span style="color:'+this.series.color+'">\u25CF</span> Direction: <b>'+this.dir+' °</b><br>';
-								} else {
-									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' km/h</b><br>';
-								}
-							}
+							pointFormatter: function(){
+								return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' km/h</b><br>'+
+								'<span style="color:'+this.series.color+'">\u25CF</span> Direction: <b>'+data_wg[this.index][2]+' °</b><br>'+
+								'<span style="color:'+this.series.color+'">\u25CF</span> à <b>'+data_wg[this.index][3]+'</b><br>'+
+								'----<br>';
+							},
 						}
 					},{
-						name: 'Direction moyenne',
+						name: 'Direction des rafales',
 						type: 'scatter',
-						data: <?php echo $dataWsD ?>,
-						turboThreshold: 0,
-						zIndex: 1,
+						data: [<?php echo join($dataWgD, ',') ?>],
+						boostThreshold: 20,
+						zIndex: 40,
 						yAxis: 1,
-						color:'rgba(0, 25, 211,0.75)',
+						color:'rgba(148,0,28,0.75)',
 						marker: {
 							symbol: 'circle',
 							enabled: true,
 							lineWidth: 0,
 							radius:2,
-							color:'rgba(0, 25, 211,0.75)',
+							color:'rgba(148,0,28,0.75)',
 						},
 						visible:false,
 						enableMouseTracking: false,
 					},{
-						name: 'Direction des rafales',
+						name: 'Vent moyen',
+						type: 'line',
+						color: 'rgba(51,153,255,0.75)',
+						data: [<?php echo join($dataWs, ',') ?>],
+						boostThreshold: 20,
+						zIndex: 10,
+						tooltip: {
+							useHTML: true,
+							pointFormatter: function(){
+								return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' km/h</b><br>';//+
+								// '<span style="color:'+this.series.color+'">\u25CF</span> Direction: <b>'+data_wg[this.index][2]+' °</b><br>'+
+								// '<span style="color:'+this.series.color+'">\u25CF</span> à <b>'+data_wg[this.index][3]+'</b><br>'+
+								// '----<br>';
+							},
+						}
+					},{
+						name: 'Direction moy. du vent moy.',
 						type: 'scatter',
-						data: <?php echo $dataWgD ?>,
-						turboThreshold: 0,
-						zIndex: 1,
+						data: [<?php echo join($dataWsD, ',') ?>],
+						boostThreshold: 20,
+						zIndex: 30,
 						yAxis: 1,
 						color:'rgba(148,0,211,0.75)',
 						marker: {
@@ -805,7 +831,7 @@
 						zoomType: 'x',
 					},
 					title: {
-						text: 'Précipitations des dernières <?php echo $last; ?> heures UTC',
+						text: 'Précipitations <?php echo $textPeriod; ?> UTC',
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres | Cumul à 6h UTC aux normes OMM',
@@ -887,19 +913,17 @@
 						zIndex: 1,
 						data: [<?php echo join($dataRR, ',') ?>],
 						boostThreshold: 20,
-						connectNulls: false,
 						color: '#4169e1',
 						tooltip: {
 							valueSuffix: ' mm',
 						}
 					},{
-						name: 'Cumul sur <?php echo $last; ?>h',
+						name: 'Cumul <?php echo $textPeriod; ?>',
 						yAxis:1,
 						type: 'line',
 						zIndex: 3,
 						data: [<?php echo join($dataRRCumul, ',') ?>],
 						boostThreshold: 20,
-						connectNulls: false,
 						color: '#3d4147',
 						tooltip: {
 							valueSuffix: ' mm',
@@ -913,7 +937,6 @@
 						color: '#6883d9',
 						data: [<?php echo join($dataRRate, ',') ?>],
 						boostThreshold: 20,
-						connectNulls: true,
 						tooltip: {
 							useHTML: true,
 							pointFormatter: function () {
@@ -940,7 +963,7 @@
 						panKey: 'shift'
 					},
 					title: {
-						text: 'Indice UV des dernières <?php echo $last; ?> heures UTC',
+						text: 'Indice UV <?php echo $textPeriod; ?> UTC',
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
@@ -989,6 +1012,21 @@
 						boostThreshold: 20,
 						connectNulls: false,
 						color: '#ff7200',
+					},{
+						name: 'Indice UV min/max',
+						type: 'errorbar',
+						// yAxis: 0,
+						color: '#ff7200',
+						// fillColor: '#ff4747',
+						// boostBlending: '#ff4747',
+						data: [<?php echo join($dataUvMinMax, ',') ?>],
+						// boostThreshold: 20,
+						tooltip: {
+							pointFormat: 'Indice UV min/max sur l\'intvl: {point.low} - {point.high})<br/>'
+						},
+						zIndex: 10,
+						showInLegend: true,
+						visible: false
 					}]
 				});
 				<?php endif; ?>
@@ -1003,7 +1041,7 @@
 						zoomType: 'x',
 					},
 					title: {
-						text: 'Rayonnement solaire des dernières <?php echo $last; ?> heures UTC',
+						text: 'Rayonnement solaire <?php echo $textPeriod; ?> UTC',
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
@@ -1050,8 +1088,23 @@
 						name: 'Rayonnement solaire',
 						type: 'area',
 						data: [<?php echo join($dataRadiation, ',') ?>],
-						connectNulls: false,
+						// boostThreshold: 20,
 						color: '#e5d42b',
+					},{
+						name: 'Rayonnement sol. min/max',
+						type: 'errorbar',
+						// yAxis: 0,
+						color: '#e5d42b',
+						// fillColor: '#ff4747',
+						// boostBlending: '#ff4747',
+						data: [<?php echo join($dataRadiationMinMax, ',') ?>],
+						// boostThreshold: 20,
+						tooltip: {
+							pointFormat: 'Rad. min/max sur l\'intvl: {point.low} - {point.high})<br/>'
+						},
+						zIndex: 10,
+						showInLegend: true,
+						visible: false
 					}]
 				});
 				/*
@@ -1063,7 +1116,7 @@
 						zoomType: 'x',
 					},
 					title: {
-						text: 'Évapotranspiration des dernières <?php echo $last; ?> heures UTC',
+						text: 'Évapotranspiration <?php echo $textPeriod; ?> UTC',
 					},
 					subtitle: {
 						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
@@ -1131,7 +1184,20 @@
 				/*
 					FIN DES GRAPHS
 				*/
+				$("#removeAnnoTnTx").click(function() {
+					var l = temperature.annotations.length;
+					for(var i = l-1; i >= 0; i-=1) {
+						temperature.removeAnnotation(temperature.annotations[i]);
+					}
+				});
+				$("#removeAnnoRR").click(function() {
+					var l = precip.annotations.length;
+					for(var i = l-1; i >= 0; i-=1) {
+						precip.removeAnnotation(precip.annotations[i]);
+					}
+				});
 			});
+			
 		</script>
 		<!--
 			FIN SCRIPT HIGHCHARTS

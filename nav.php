@@ -26,7 +26,7 @@
 						<li><a href="tableau_records.php">Records</a></li>
 					</ul>
 				</li>
-				<li><a href="graphs.php">Graphiques</a></li>
+				<li><a href="graphs.php">Graphiques <span style="color:red;font-weight:bold;font-size:small;"><sup>New</sup></span></a></li>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Climato.<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
