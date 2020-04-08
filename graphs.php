@@ -556,7 +556,7 @@
 						xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 					},
 					boost: {
-						// enabled:false,
+						enabled:false,
 						useGPUTranslations: false,
 						seriesThreshold:1,
 						// debug: {
@@ -569,7 +569,7 @@
 						name: 'Température',
 						type: 'line',
 						data: [<?php echo join($dataTemp, ',') ?>],
-						boostThreshold: 20,
+						// boostThreshold: 20,
 						zIndex: 1,
 						color: '#ff0000',
 						negativeColor:'#0d1cc5',
@@ -581,10 +581,8 @@
 						type: 'errorbar',
 						// yAxis: 0,
 						color: '#ff4747',
-						// fillColor: '#ff4747',
-						// boostBlending: '#ff4747',
 						data: [<?php echo join($dataTnTx, ',') ?>],
-						boostThreshold: 20,
+						// boostThreshold: 20,
 						tooltip: {
 							pointFormat: 'Temp. min/max sur l\'intvl: {point.low}-{point.high}°C)<br/>'
 						},
@@ -595,7 +593,7 @@
 						name: 'Humidité',
 						type: 'line',
 						data: [<?php echo join($dataHr, ',') ?>],
-						boostThreshold: 20,
+						// boostThreshold: 20,
 						yAxis: 1,
 						color: '#3399FF',
 						tooltip: {
@@ -605,7 +603,7 @@
 						name: 'Point de rosée',
 						type: 'line',
 						data: [<?php echo join($dataTd, ',') ?>],
-						boostThreshold: 20,
+						// boostThreshold: 20,
 						color: '#1c23e4',
 						visible: false,
 						tooltip: {
@@ -661,19 +659,20 @@
 						xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 					},
 					boost: {
-							useGPUTranslations: false,
-							seriesThreshold:1,
-							// debug: {
-							// 	showSkipSummary: true,
-							// 	timeSeriesProcessing: true,
-							// 	timeBufferCopy: true,
-							// }
+						enabled:false,
+						useGPUTranslations: false,
+						seriesThreshold:1,
+						// debug: {
+						// 	showSkipSummary: true,
+						// 	timeSeriesProcessing: true,
+						// 	timeBufferCopy: true,
+						// }
 					},
 					series: [{
 						name: 'Pression',
 						type: 'line',
 						data: [<?php echo join($dataBaro, ',') ?>],
-						boostThreshold: 20,
+						// boostThreshold: 20,
 						connectNulls: false,
 						color: '#1be300',
 					}]
@@ -753,6 +752,7 @@
 						}
 					},
 					boost: {
+						enabled:false,
 						useGPUTranslations: false,
 						seriesThreshold:1,
 					},
@@ -761,7 +761,7 @@
 						type: 'line',
 						color: 'rgba(255,0,0,0.65)',
 						data: data_wg,
-						boostThreshold: 20,
+						// boostThreshold: 20,
 						zIndex: 20,
 						tooltip: {
 							useHTML: true,
@@ -776,7 +776,7 @@
 						name: 'Direction des rafales',
 						type: 'scatter',
 						data: [<?php echo join($dataWgD, ',') ?>],
-						boostThreshold: 20,
+						// boostThreshold: 20,
 						zIndex: 40,
 						yAxis: 1,
 						color:'rgba(148,0,28,0.75)',
@@ -794,7 +794,7 @@
 						type: 'line',
 						color: 'rgba(51,153,255,0.75)',
 						data: [<?php echo join($dataWs, ',') ?>],
-						boostThreshold: 20,
+						// boostThreshold: 20,
 						zIndex: 10,
 						tooltip: {
 							useHTML: true,
@@ -809,7 +809,7 @@
 						name: 'Direction moy. du vent moy.',
 						type: 'scatter',
 						data: [<?php echo join($dataWsD, ',') ?>],
-						boostThreshold: 20,
+						// boostThreshold: 20,
 						zIndex: 30,
 						yAxis: 1,
 						color:'rgba(148,0,211,0.75)',
@@ -906,15 +906,16 @@
 						xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 					},
 					boost: {
-							useGPUTranslations: false,
-							seriesThreshold:1,
+						enabled:false,
+						useGPUTranslations: false,
+						seriesThreshold:1,
 					},
 					series: [{
 						name: 'Précipitations',
 						type: 'column',
 						zIndex: 1,
 						data: [<?php echo join($dataRR, ',') ?>],
-						boostThreshold: 20,
+						// boostThreshold: 20,
 						color: '#4169e1',
 						tooltip: {
 							valueSuffix: ' mm',
@@ -925,7 +926,7 @@
 						type: 'line',
 						zIndex: 3,
 						data: [<?php echo join($dataRRCumul, ',') ?>],
-						boostThreshold: 20,
+						// boostThreshold: 20,
 						color: '#3d4147',
 						tooltip: {
 							valueSuffix: ' mm',
@@ -938,7 +939,7 @@
 						zIndex: 2,
 						color: '#6883d9',
 						data: [<?php echo join($dataRRate, ',') ?>],
-						boostThreshold: 20,
+						// boostThreshold: 20,
 						tooltip: {
 							useHTML: true,
 							pointFormatter: function () {
@@ -1011,7 +1012,7 @@
 						name: 'Indice UV',
 						type: 'area',
 						data: [<?php echo join($dataUV, ',') ?>],
-						boostThreshold: 20,
+						// boostThreshold: 20,
 						connectNulls: false,
 						color: '#ff7200',
 					},{
@@ -1019,8 +1020,6 @@
 						type: 'errorbar',
 						// yAxis: 0,
 						color: '#ff7200',
-						// fillColor: '#ff4747',
-						// boostBlending: '#ff4747',
 						data: [<?php echo join($dataUvMinMax, ',') ?>],
 						// boostThreshold: 20,
 						tooltip: {
@@ -1097,8 +1096,6 @@
 						type: 'errorbar',
 						// yAxis: 0,
 						color: '#e5d42b',
-						// fillColor: '#ff4747',
-						// boostBlending: '#ff4747',
 						data: [<?php echo join($dataRadiationMinMax, ',') ?>],
 						// boostThreshold: 20,
 						tooltip: {
@@ -1191,6 +1188,10 @@
 					for(var i = l-1; i >= 0; i-=1) {
 						temperature.removeAnnotation(temperature.annotations[i]);
 					}
+					// temperature.addAnnotation(LabelsPersoT);
+					// temperature.update({
+					// 	series: temperature.series,
+					// });
 				});
 				$("#removeAnnoRR").click(function() {
 					var l = precip.annotations.length;
