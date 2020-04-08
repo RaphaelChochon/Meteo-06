@@ -1,6 +1,8 @@
 <?php
-	require("sql/req_last_records.php");
-	require("sql/import.php");
+	require_once 'config/config.php';
+	require_once 'sql/connect_pdo.php';
+	require_once 'sql/import.php';
+	require_once 'sql/req_last_records.php';
 
 	header ("Content-type: image/png");
 	//$image = imagecreate(200,200);
