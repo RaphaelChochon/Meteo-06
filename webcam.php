@@ -1,5 +1,4 @@
 <?php require_once 'config/config.php';?>
-<?php require_once 'sql/import.php';?>
 <!DOCTYPE html>
 <html lang="fr-FR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 	<head>

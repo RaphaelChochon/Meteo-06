@@ -1,5 +1,7 @@
 <?php require_once 'config/config.php';?>
+<?php require_once 'sql/connect_pdo.php';?>
 <?php require_once 'sql/import.php';?>
+<?php require_once 'include/functions.php';?>
 <!DOCTYPE html>
 <html lang="fr">
 	<head>

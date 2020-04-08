@@ -1,111 +1,100 @@
 <?php
-	// appel du script de connexion
-	require_once("connect.php");
+// On récupère le dernier enregistrement enBDD
+	$query_string = "SELECT * FROM $db_table ORDER BY `dateTime` DESC LIMIT 1;";
+	$result       = $db_handle_pdo->query($query_string);
+	if (!$result) {
+		// Erreur
+		echo "Erreur dans la requete ".$query_string."\n";
+		echo "\nPDO::errorInfo():\n";
+		print_r($db_handle_pdo->errorInfo());
+		exit("\n");
+	}
+	if ($result) {
+		$row = $result->fetch(PDO::FETCH_ASSOC);
 
-	//mysql_select_db($db_name);
+		// On détermine le stop et le start de façon à récupérer dans la prochaine requête que les données des dernières xx heures
+		$stop=$row['dateTime'];
+		$minutes10=$stop-(600);
+		$start1=$stop-(3599);
+		$start3=$stop-(10800);
+		$start6=$stop-(21600);
+		$start12=$stop-(43200);
+		$start24=$stop-(86400);
+		$start48=$stop-(86400*2);
+		$start72=$stop-(86400*3);
 
-	// Calcul des précipitations 24/48/72 heures glissantes et cumul ET, etc.
-	// On récupère le timestamp du dernier enregistrement
-	$sql="SELECT max(dateTime) FROM $db_name.$db_table";
-	$query = $conn->query($sql);
-	$list=mysqli_fetch_array($query);
-
-	// On détermine le stop et le start de façon à récupérer dans la prochaine requête que les données des dernières xx heures
-	$stop=$list[0];
-	$minutes10=$stop-(600);
-	$start1=$stop-(3599);
-	$start3=$stop-(10800);
-	$start6=$stop-(21600);
-	$start12=$stop-(43200);
-	$start24=$stop-(86400);
-	$start48=$stop-(86400*2);
-	$start72=$stop-(86400*3);
-
-	// On récupère les valeurs actuelles simple
-	// Mais d'abord on vérifie si la valeur actuelle n'est pas null
-	$dewpoint_check = $row[16];
-	if($dewpoint_check == null){
-		// si elle est null, alors on lui donne la valeur N/A
-		$dewpoint = 'N/A';
-	}else{
-		// sinon on l'arrondie (eventuellement) et on l'affiche
-		$dewpoint = round($row[16],1);
-	}
-	//
-	$temp_check = $row[7];
-	if ($temp_check == null){
-		$temp = 'N/A';
-	}else{
-		$temp = round($row[7],1);
-	}
-	//
-	$hygro_check = $row[9];
-	if ($hygro_check == null){
-		$hygro = 'N/A';
-	}else{
-		$hygro = round($row[9],1);
-	}
-	//
-	$barometer_check = $row[3];
-	if ($barometer_check == null){
-		$barometer = 'N/A';
-	}else{
-		$barometer = round($row[3],1);
-	}
-	//
-	$wind_check = $row[10];
-	if ($wind_check == null){
-		$wind = 'N/A';
-	}else{
-		$wind = round($row[10],1);
-	}
-	//
-	$windgust_check = $row[12];
-	if ($windgust_check == null){
-		$windgust = 'N/A';
-	}else{
-		$windgust = round($row[12],1);
-	}
-	//
-	if ($presence_radiation){
-		$radiation_check = $row[20];
-		if ($radiation_check == null){
-			$radiation = 'N/A';
-		}else{
-			$radiation = round($row[20],1);
+		// On récup les dernières valeurs
+		if (!is_null($row['dewpoint'])) {
+			$dewpoint = round($row['dewpoint'],1);
+		} else {
+			$dewpoint = 'N/A';
 		}
-	};
-	//
-	if ($presence_uv){
-		$uv_check = $row[21];
-		if($row[21]== null){
-			$uv='N/A';
-		}else{
-			$uv=$row[21];
+
+		if (!is_null($row['outTemp'])) {
+			$temp = round($row['outTemp'],1);
+		} else {
+			$temp = 'N/A';
 		}
-	};
-	//
-	$heatindex_check = $row[18];
-	if ($heatindex_check == null){
-		$heatindex = 'N/A';
-	}else{
-		$heatindex = round($row[18],1);
+
+		if (!is_null($row['outHumidity'])) {
+			$hygro = round($row['outHumidity'],0);
+		} else {
+			$hygro = 'N/A';
+		}
+
+		if (!is_null($row['barometer'])) {
+			$barometer = round($row['barometer'],1);
+		} else {
+			$barometer = 'N/A';
+		}
+
+		if (!is_null($row['windSpeed'])) {
+			$wind = round($row['windSpeed'],1);
+		} else {
+			$wind = 'N/A';
+		}
+
+		if (!is_null($row['windGust'])) {
+			$windgust = round($row['windGust'],1);
+		} else {
+			$windgust = 'N/A';
+		}
+
+		if ($presence_radiation){
+			if (!is_null($row['radiation'])) {
+				$radiation = round($row['radiation'],0);
+			} else {
+				$radiation = 'N/A';
+			}
+		};
+
+		if ($presence_uv){
+			if (!is_null($row['UV'])) {
+				$uv = round($row['UV'],1);
+			} else {
+				$uv = 'N/A';
+			}
+		};
+
+		if (!is_null($row['heatindex'])) {
+			$heatindex = round($row['heatindex'],1);
+		} else {
+			$heatindex = 'N/A';
+		}
+
+		if (!is_null($row['windchill'])) {
+			$windchill = round($row['windchill'],1);
+		} else {
+			$windchill = 'N/A';
+		}
+
+		if (!is_null($row['rainRate'])) {
+			$rainrate = round($row['rainRate']*10,1);
+		} else {
+			$rainrate = 'N/A';
+		}
 	}
-	//
-	$windchill_check = $row[17];
-	if ($windchill_check == null){
-		$windchill = 'N/A';
-	}else{
-		$windchill = round($row[17],1);
-	}
-	//
-	$rainrate_check = $row[14];
-	if ($rainrate_check == null){
-		$rainrate = 'N/A';
-	}else{
-		$rainrate = round($row[14]*10,1);
-	}
-	//
+
 	// Calcul du cumul de précipitations de la journée
 	$today = strtotime('today midnight');
 	$rain_sql = "SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime>'$today';";

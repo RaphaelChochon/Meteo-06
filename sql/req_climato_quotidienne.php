@@ -11,6 +11,7 @@
 		$db_table_climato = $a[1]."_".$a[2]."_day";
 	}
 
+	// @@todo à remplacer par PDO
 	$conn = mysqli_connect($server,$user,$pass,$db_name_climato);
 
 	$dataTn = array();

@@ -1,5 +1,6 @@
 <?php
 	// appel du script de connexion
+	// @@todo à remplacer par PDO
 	require_once("connect.php");
 
 	// On récupère le timestamp du dernier enregistrement

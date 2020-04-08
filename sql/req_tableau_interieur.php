@@ -1,16 +1,7 @@
 <?php
 	// appel du script de connexion
+	//@@todo à remplacer par PDO
 	require_once("connect.php");
-
-
-	// On récupère le timestamp du dernier enregistrement
-	$sql = "SELECT max(dateTime) FROM $db_name.$db_table";
-	$query = $conn->query($sql);
-	$list = mysqli_fetch_array($query);
-
-	// On récupère les valeurs actuelles
-	$inTemp = round($row[6],1);
-	$inHumidity = round($row[8],1);
 
 	// On récupère les valeurs max et min de la température
 	$sql = "SELECT * FROM $db_name.archive_day_inTemp ORDER BY dateTime DESC LIMIT 1;";
@@ -29,5 +20,22 @@
 	$minhygro = round($row[1],1);
 	$maxhygro = round($row[3],1);
 	$maxhygrotime = date('H\hi',$row[4]);
+
+
+	$query_string = "SELECT * FROM $db_table ORDER BY `dateTime` DESC LIMIT 1;";
+	$result       = $db_handle_pdo->query($query_string);
+	if (!$result) {
+		// Erreur
+		echo "Erreur dans la requete ".$query_string."\n";
+		echo "\nPDO::errorInfo():\n";
+		print_r($db_handle_pdo->errorInfo());
+		exit("\n");
+	}
+	if ($result) {
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+		// On récupère les valeurs actuelles
+		$inTemp = round($row['inTemp'],1);
+		$inHumidity = round($row['inHumidity'],1);
+	}
 
 ?>

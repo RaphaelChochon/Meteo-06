@@ -3,7 +3,7 @@
 	date_default_timezone_set('UTC');
 
 // appel du script de connexion
-	require_once("connect_pdo.php");
+	// require_once("connect_pdo.php");
 
 // On détermine tsStop et tsStart
 	$query_string = "SELECT `dateTime` FROM $db_table ORDER BY `dateTime` DESC LIMIT 1;";

@@ -1,5 +1,6 @@
 <?php
 	// appel du script de connexion
+	// @@todo passer à PDO
 	require_once("connect.php");
 
 	// On récupère les timestamp correspondant à la journée d'hier
