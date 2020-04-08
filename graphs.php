@@ -3,37 +3,58 @@
 <?php require_once 'sql/import.php';?>
 <?php require_once 'include/functions.php';?>
 <?php
-	// CONF STATION
-	// Récup du nombre d'heures en paramètres
-	// On construit une liste blanche
-	$valid_options = array();
-	$valid_options[] = '24h';
-	$valid_options[] = '48h';
-	$valid_options[] = '7j';
-	$valid_options[] = '1mois';
-	$valid_options[] = '1an';
-	$valid_options[] = 'all';
+// Récup des params
+	$optType = array('graphs','heatmap');
+	$optPeriod = array('24h','48h','7j','1mois','1an','all');
 
-	// On vérifie que le paramètre existe, et est défini sinon on renvoi 24h
-	if (isset($_GET['period']) || !empty($_GET['period'])) {
-		// On vérifie que le parmètre est dans la liste blanche sinon on renvoi 24h
-		if (in_array($_GET['period'], $valid_options)) {
-			$period = $_GET['period'];
+	if (isset($_GET['type']) || !empty($_GET['type'])) {
+		if (in_array($_GET['type'], $optType)) {
+			$graphType = $_GET['type'];
+			if ($graphType == 'graphs') {
+				if (isset($_GET['period']) || !empty($_GET['period'])) {
+					if (in_array($_GET['period'], $optPeriod)) {
+						$period = $_GET['period'];
+					} else {
+						$period = '24h';
+					}
+				} else {
+					$period = '24h';
+				}
+			}
+			elseif ($graphType == 'heatmap') {
+				// insert dans optPeriod les années possibles
+				$optPeriod[] = array();
+				foreach($yearRange as $year){
+					$optPeriod[] = $year->format("Y");
+				}
+
+				if (isset($_GET['period']) || !empty($_GET['period'])) {
+					if (in_array($_GET['period'], $optPeriod)) {
+						$period = $_GET['period'];
+					} else {
+						$period = $lastYear;
+					}
+				} else {
+					$period = $lastYear;
+				}
+			}
+			
 		} else {
+			$graphType = 'graphs';
 			$period = '24h';
 		}
 	} else {
+		$graphType = 'graphs';
 		$period = '24h';
 	}
 
-	// appel des fonctions
-	require_once 'include/functions.php';
+	
+	// print_r($optPeriod);
+	
+
 	// appel du script de requete
 	require_once 'sql/req_graphs.php';
 
-?>
-<?php
-	//echo $dataWg;
 ?>
 <!DOCTYPE html>
 <html lang="fr-FR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
@@ -76,6 +97,9 @@
 		<link href="vendors/custom/custom.css?v=1.1" rel="stylesheet">
 		<script src="vendors/bootstrap/js/bootstrap.min.js"></script>
 		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<?php if ($graphType == 'heatmap') : ?>
+			<script src="https://code.highcharts.com/modules/heatmap.js"></script>
+		<?php endif; ?>
 		<script src="https://code.highcharts.com/js/highcharts-more.js"></script>
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
 		<script src="https://code.highcharts.com/modules/offline-exporting.js"></script>
@@ -117,18 +141,33 @@
 		<hr>
 		<div class="row" id="anchorButtons">
 			<div class="col-sm-12 divCenter">
-				<a href="./graphs.php?period=24h#anchorButtons"><button type="button" class="btn btn-info">24 heures</button></a>
-				<a href="./graphs.php?period=48h#anchorButtons"><button type="button" class="btn btn-info">48 heures</button></a>
-				<a href="./graphs.php?period=7j#anchorButtons"><button type="button" class="btn btn-info">7 jours</button></a>
-				<!-- <a href="./graphs.php?period=1mois#anchorButtons"><button type="button" class="btn btn-info">1 mois</button></a>
-				<a href="./graphs.php?period=1an#anchorButtons"><button type="button" class="btn btn-info">1 an</button></a>
-				<a href="./graphs.php?period=all#anchorButtons"><button type="button" class="btn btn-info">Tout</button></a> -->
+				<a href="./graphs.php?type=graphs&period=24h#anchorButtons"><button type="button" class="btn btn-info">24 heures</button></a>
+				<a href="./graphs.php?type=graphs&period=48h#anchorButtons"><button type="button" class="btn btn-info">48 heures</button></a>
+				<a href="./graphs.php?type=graphs&period=7j#anchorButtons"><button type="button" class="btn btn-info">7 jours</button></a>
+				<a href="#"><button type="button" class="btn btn-info disabled">1 mois</button></a>
+				<!-- <a href="./graphs.php?type=graphs&period=1an#anchorButtons"><button type="button" class="btn btn-info">1 an</button></a> -->
+				<!-- <a href="./graphs.php?type=graphs&period=all#anchorButtons"><button type="button" class="btn btn-info">Tout</button></a> -->
+				<!-- <br><br>
+				<a href="./graphs.php?type=heatmap&period=<?php echo $lastYear;?>#anchorButtons"><button type="button" class="btn btn-danger">Heat Map</button></a> -->
+				<br><br>
+				<div class="btn-group">
+					<a href="./graphs.php?type=heatmap&period=<?php echo $lastYear;?>#anchorButtons" class="btn btn-info">Cartes annuelles</a>
+					<a href="" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<?php
+							foreach($yearRange as $year){
+								echo '<li><a href="./graphs.php?type=heatmap&period='.$year->format("Y").'#anchorButtons">'.$year->format("Y").'</a></li>';
+							}
+							echo '<li><a href="./graphs.php?type=heatmap&period='.$lastYear.'#anchorButtons">'.$lastYear.'</a></li>';
+						?>
+					</ul>
+				</div>
+				
 			</div>
-			<!-- <div class="col-sm-12 wx-buttons-description">
-				<span class='wx-graph-text'></span>
-			</div> -->
 		</div>
 		<hr>
+	<!-- DEBUT type=graphs -->
+	<?php if ($graphType == 'graphs') : ?>
 		<!-- Texte -->
 		<div class="row">
 			<div class="col-md-12 divCenter">
@@ -1205,8 +1244,244 @@
 		<!--
 			FIN SCRIPT HIGHCHARTS
 		-->
+	<?php endif; ?>
 
-		
+	<?php if ($graphType == 'heatmap') : ?>
+		<!-- Texte -->
+		<div class="row">
+			<div class="col-md-12 divCenter">
+				<h1>Cartes pour l'année <?php echo $period;?></h1>
+				<p>Cette représentation est une synthèse horaire de l'année, permettant en un coup d'œil de se rendre compte des grandes périodes de froid, de chaud, ou de pluie intense.</p>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-12 divCenter">
+				<div id="heatMapTempHourly" style="width:100%; height: 500px;"></div>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-12 divCenter">
+				<div id="heatMapRainHourly" style="width:100%; height: 500px;"></div>
+			</div>
+		</div>
+		<hr>
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+				Highcharts.setOptions({
+					global: {
+						useUTC: true
+					},
+					lang: {
+						months: ["Janvier "," Février "," Mars "," Avril "," Mai "," Juin "," Juillet "," Août "," Septembre "," Octobre "," Novembre "," Décembre"],
+						weekdays: ["Dim "," Lun "," Mar "," Mer "," Jeu "," Ven "," Sam"],
+						shortMonths: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil','Août', 'Sept', 'Oct', 'Nov', 'Déc'],
+						contextButtonTitle: "Menu",
+						decimalPoint: '.',
+						resetZoom: 'Reset zoom',
+						resetZoomTitle: 'Reset zoom à 1:1',
+						downloadPNG: "Télécharger au format PNG",
+						downloadJPEG: "Télécharger au format JPEG",
+						downloadPDF: "Télécharger au format PDF",
+						downloadSVG: "Télécharger au format SVG",
+						downloadCSV: "Télécharger les données<br>dans un fichier CSV",
+						downloadXLS: "Télécharger les données<br>dans un fichier XLS (Excel)",
+						printChart: "Imprimer le graphique",
+						viewFullscreen: "Afficher en plein écran",
+						viewData: "Afficher les données brut sous forme<br>d'un tableau ci-dessous (BETA)",
+						loading: "Chargement des données en cours..."
+					},
+					chart: {
+						resetZoomButton: {
+							position: {
+								align: 'left', // by default
+								// verticalAlign: 'top', // by default
+								x: 30,
+								// y: -30
+							}
+						}
+					},
+					navigation: {
+							menuItemStyle: {
+								fontSize: "9px",
+								padding: "0.5em 0.5em"
+							}
+					},
+					credits: {
+						enabled: false
+					}
+				});
+				var heatMapTempHourly = Highcharts.chart('heatMapTempHourly', {
+					chart: {
+						type : 'heatmap',
+						zoomType: 'xy',
+					},
+					title: {
+						text: 'Températures horaires <?php echo $period; ?>',
+					},
+					subtitle: {
+						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres | Heures UTC',
+					},
+					exporting: {
+						filename: '<?php echo $short_station_name; ?>_TemperatureHoraire_<?php echo $period; ?>',
+						sourceHeight: '500',
+						sourceWidth: '1200',
+						csv: {
+							itemDelimiter:';',
+							decimalPoint:'.'
+						},
+					},
+					boost: {
+						useGPUTranslations: true
+					},
+					xAxis: {
+						type: 'datetime',
+						min: Date.UTC(<?php echo $period; ?>, 0, 1),
+						max: Date.UTC(<?php echo $period; ?>, 11, 31, 23, 59, 59),
+						labels: {
+							align: 'left',
+							x: 5,
+							y: 14,
+							format: '{value:%B}' // long month
+						},
+						showLastLabel: false,
+						tickLength: 16
+					},
+					yAxis: {
+						title: {
+							text: null
+						},
+						labels: {
+							format: '{value}h'
+						},
+						minPadding: 0,
+						maxPadding: 0,
+						startOnTick: false,
+						endOnTick: false,
+						tickPositions: [0, 6, 12, 18, 24],
+						tickWidth: 1,
+						min: 0,
+						max: 23,
+						reversed: true
+					},
+					colorAxis: {
+						stops: [
+							[0, '#6d30cf'], //-10
+							[0.1, '#3060cf'], //-5
+							[0.2, '#c7e9ad'],//-0
+							[0.3, '#ffffbf'],//+0
+							[0.7, '#fdae61'],
+							[0.8, '#f70707'],
+							[0.9, '#ff2491'],//+40
+							[1, '#ed1fa8']//+40
+						],
+						min: -10,
+						max: 40,
+						startOnTick: false,
+						endOnTick: false,
+						labels: {
+							format: '{value}℃'
+						}
+					},
+					series: [{
+						data: [<?php echo join($dataTempHourly, ',') ?>],
+						boostThreshold: 100,
+						borderWidth: 0,
+						nullColor: '#ffffff',
+						colsize: 24 * 36e5, // one day
+						tooltip: {
+							headerFormat: 'Température<br/>',
+							pointFormat: '{point.x:%e %b %Y} {point.y}:00: <b>{point.value}°C</b>'
+						},
+					}]
+				});
+
+				var heatMapRainHourly = Highcharts.chart('heatMapRainHourly', {
+					chart: {
+						type : 'heatmap',
+						zoomType: 'xy',
+					},
+					title: {
+						text: 'Précipitations horaires <?php echo $period; ?>',
+					},
+					subtitle: {
+						text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres | Heures UTC',
+					},
+					exporting: {
+						filename: '<?php echo $short_station_name; ?>_PrecipsCumulHoraires_<?php echo $period; ?>',
+						sourceHeight: '500',
+						sourceWidth: '1200',
+						csv: {
+							itemDelimiter:';',
+							decimalPoint:'.'
+						},
+					},
+					boost: {
+						useGPUTranslations: true
+					},
+					xAxis: {
+						type: 'datetime',
+						min: Date.UTC(<?php echo $period; ?>, 0, 1),
+						max: Date.UTC(<?php echo $period; ?>, 11, 31, 23, 59, 59),
+						labels: {
+							align: 'left',
+							x: 5,
+							y: 14,
+							format: '{value:%B}' // long month
+						},
+						showLastLabel: false,
+						tickLength: 16
+					},
+					yAxis: {
+						title: {
+							text: null
+						},
+						labels: {
+							format: '{value}h'
+						},
+						minPadding: 0,
+						maxPadding: 0,
+						startOnTick: false,
+						endOnTick: false,
+						tickPositions: [0, 6, 12, 18, 24],
+						tickWidth: 1,
+						min: 0,
+						max: 23,
+						reversed: true
+					},
+					colorAxis: {
+						stops: [
+							[0, '#d9d9d9'],
+							[0.01, '#bbdcfc'],
+							[0.25, '#73baff'],
+							[0.5, '#3346ff'],
+							[0.75, '#8f33ff'],
+							[1, '#af28c9']
+						],
+						min: 0,
+						max: 30,
+						startOnTick: false,
+						endOnTick: false,
+						labels: {
+							format: '{value}mm'
+						}
+					},
+					series: [{
+						data: [<?php echo join($dataRrHourly, ',') ?>],
+						boostThreshold: 100,
+						borderWidth: 0,
+						nullColor: '#ffffff',
+						colsize: 24 * 36e5, // one day
+						tooltip: {
+							headerFormat: 'Précipitations<br/>',
+							pointFormat: '{point.x:%e %b %Y} {point.y}:00: <b>{point.value}mm</b>'
+						},
+					}]
+				});
+			});
+		</script>
+	<?php endif; ?>
 
 	<footer>
 		<?php include 'foot.php';?>
