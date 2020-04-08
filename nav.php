@@ -32,6 +32,7 @@
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="climatologie-quotidienne.php">Climato. quotidienne</a></li>
 						<li><a href="comparatif-moyenne.php">Comparatif de moyennes</a></li>
+						<li><a href="climato-quoti-fiab.php">Indice de fiabilité de la climato.</a></li>
 					</ul>
 				</li>
 				<li class="dropdown">
