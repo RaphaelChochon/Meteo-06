@@ -24,6 +24,7 @@
 			elseif ($graphType == 'heatmap') {
 				// insert dans optPeriod les années possibles
 				$optPeriod[] = array();
+				// $yearRange est calculé dans sql/import.php
 				foreach($yearRange as $year){
 					$optPeriod[] = $year->format("Y");
 				}

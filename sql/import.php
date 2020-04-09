@@ -43,14 +43,12 @@
 		$row = $result->fetch(PDO::FETCH_ASSOC);
 		$firstYear = date('Y',$row['tsYearStart']);
 		$lastYear = date('Y',$row['tsYearStop']);
-		if ($firstYear != $lastYear) {
-			$begin = DateTime::createFromFormat('Y', $firstYear); // Objet dt de la première année
-			$end = DateTime::createFromFormat('Y', $lastYear); // Objet dt de la dernière année
-			// $end = $end->modify( '+1 day' );
-			$interval = new DateInterval('P1Y');
-			$yearRange = new DatePeriod($begin, $interval ,$end);
-			// -> On se sert de yearRange dans graphs.php pour la heatmap
-		}
+
+		$begin = DateTime::createFromFormat('Y', $firstYear); // Objet dt de la première année
+		$end = DateTime::createFromFormat('Y', $lastYear); // Objet dt de la dernière année
+		// $end = $end->modify( '+1 day' );
+		$interval = new DateInterval('P1Y');
+		$yearRange = new DatePeriod($begin, $interval ,$end); // -> On se sert de yearRange dans graphs.php pour la heatmap
 	}
 
 ?>
