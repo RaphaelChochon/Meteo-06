@@ -30,7 +30,7 @@
 	}
 
 // On va récup les années présentes en BDD pour la heatmap
-	$query_string = "SELECT MIN(`dateTime`) AS `tsYearStart`, MAX(`dateTime`) AS `tsYearStop` FROM $db_table ORDER BY `dateTime` DESC LIMIT 1;";
+	$query_string = "SELECT MIN(`dateTime`) AS `tsStartMaxWeewx`, MAX(`dateTime`) AS `tsStopMaxWeewx` FROM $db_table ORDER BY `dateTime` DESC LIMIT 1;";
 	$result       = $db_handle_pdo->query($query_string);
 	if (!$result) {
 		// Erreur
@@ -41,14 +41,22 @@
 	}
 	if ($result) {
 		$row = $result->fetch(PDO::FETCH_ASSOC);
-		$firstYear = date('Y',$row['tsYearStart']);
-		$lastYear = date('Y',$row['tsYearStop']);
+		$firstYear = date('Y',$row['tsStartMaxWeewx']);
+		$firstYearMonth = date('Y-m',$row['tsStartMaxWeewx']);
+		$lastYear = date('Y',$row['tsStopMaxWeewx']);
+		$lastYearMonth = date('Y-m',$row['tsStopMaxWeewx']);
 
-		$begin = DateTime::createFromFormat('Y', $firstYear); // Objet dt de la première année
-		$end = DateTime::createFromFormat('Y', $lastYear); // Objet dt de la dernière année
-		// $end = $end->modify( '+1 day' );
-		$interval = new DateInterval('P1Y');
-		$yearRange = new DatePeriod($begin, $interval ,$end); // -> On se sert de yearRange dans graphs.php pour la heatmap
+		$beginY = DateTime::createFromFormat('Y', $firstYear); // Objet dt de la première année
+		$endY = DateTime::createFromFormat('Y', $lastYear); // Objet dt de la dernière année
+		$intervalYear = new DateInterval('P1Y');
+		$eY = $endY->modify( '+1 year' );
+		$yearRange = new DatePeriod($beginY, $intervalYear ,$eY); // -> On se sert de yearRange dans graphs.php pour la heatmap
+
+		$beginM = DateTime::createFromFormat('Y-m', $firstYearMonth); // Objet dt de la première année
+		$endM = DateTime::createFromFormat('Y-m', $lastYearMonth); // Objet dt de la dernière année
+		$intervalMonth = new DateInterval('P1M');
+		$eM = $endM->modify( '+1 month' );
+		$monthRange = new DatePeriod($beginM, $intervalMonth ,$eM); // -> On se sert de yearRange dans graphs.php pour la heatmap
 	}
 
 ?>

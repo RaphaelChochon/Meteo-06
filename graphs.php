@@ -4,8 +4,8 @@
 <?php require_once 'include/functions.php';?>
 <?php
 // Récup des params
-	$optType = array('graphs','heatmap');
-	$optPeriod = array('24h','48h','7j','1mois','1an','all');
+	$optType = array('graphs','month','heatmap');
+	$optPeriod = array('24h','48h','7j');
 
 	if (isset($_GET['type']) || !empty($_GET['type'])) {
 		if (in_array($_GET['type'], $optType)) {
@@ -23,7 +23,7 @@
 			}
 			elseif ($graphType == 'heatmap') {
 				// insert dans optPeriod les années possibles
-				$optPeriod[] = array();
+				$optPeriod = array();
 				// $yearRange est calculé dans sql/import.php
 				foreach($yearRange as $year){
 					$optPeriod[] = $year->format("Y");
@@ -39,7 +39,24 @@
 					$period = $lastYear;
 				}
 			}
-			
+			elseif ($graphType == 'month') {
+				// insert dans optPeriod les années possibles
+				$optPeriod = array();
+				// $yearRange est calculé dans sql/import.php
+				foreach($monthRange as $month){
+					$optPeriod[] = $month->format('Y-m');
+				}
+
+				if (isset($_GET['period']) || !empty($_GET['period'])) {
+					if (in_array($_GET['period'], $optPeriod)) {
+						$period = $_GET['period'];
+					} else {
+						$period = $lastYearMonth;
+					}
+				} else {
+					$period = $lastYearMonth;
+				}
+			}
 		} else {
 			$graphType = 'graphs';
 			$period = '24h';
@@ -145,11 +162,7 @@
 				<a href="./graphs.php?type=graphs&period=24h#anchorButtons"><button type="button" class="btn btn-info">24 heures</button></a>
 				<a href="./graphs.php?type=graphs&period=48h#anchorButtons"><button type="button" class="btn btn-info">48 heures</button></a>
 				<a href="./graphs.php?type=graphs&period=7j#anchorButtons"><button type="button" class="btn btn-info">7 jours</button></a>
-				<a href="#"><button type="button" class="btn btn-info disabled">1 mois</button></a>
-				<!-- <a href="./graphs.php?type=graphs&period=1an#anchorButtons"><button type="button" class="btn btn-info">1 an</button></a> -->
-				<!-- <a href="./graphs.php?type=graphs&period=all#anchorButtons"><button type="button" class="btn btn-info">Tout</button></a> -->
-				<!-- <br><br>
-				<a href="./graphs.php?type=heatmap&period=<?php echo $lastYear;?>#anchorButtons"><button type="button" class="btn btn-danger">Heat Map</button></a> -->
+				<a href="./graphs.php?type=month&period=<?php echo $lastYearMonth;?>#anchorButtons"><button type="button" class="btn btn-info">Mensuel</button></a>
 				<br><br>
 				<div class="btn-group">
 					<a href="./graphs.php?type=heatmap&period=<?php echo $lastYear;?>#anchorButtons" class="btn btn-info">Cartes annuelles</a>
@@ -159,7 +172,6 @@
 							foreach($yearRange as $year){
 								echo '<li><a href="./graphs.php?type=heatmap&period='.$year->format("Y").'#anchorButtons">'.$year->format("Y").'</a></li>';
 							}
-							echo '<li><a href="./graphs.php?type=heatmap&period='.$lastYear.'#anchorButtons">'.$lastYear.'</a></li>';
 						?>
 					</ul>
 				</div>
@@ -1482,6 +1494,16 @@
 				});
 			});
 		</script>
+	<?php endif; ?>
+
+	<!-- DEBUT type=graphs -->
+	<?php if ($graphType == 'month') : ?>
+		<?php
+			// foreach ($monthRange as $month) {
+			// 	echo $month->format('Y-m')."<br>";
+			// }
+		?>
+
 	<?php endif; ?>
 
 	<footer>
