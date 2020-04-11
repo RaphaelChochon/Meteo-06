@@ -194,7 +194,7 @@
 			<div class="col-md-12 divCenter">
 				<div id="graph_temp_hygro" style="width:100%; height: 500px;"></div>
 				<div>
-					<button id="removeAnnoTnTx">Masquer les étiquettes</button>
+					<button type="button" class="btn btn-info" id="removeAnnoTnTx">⇧ Masquer les étiquettes ⇧</button>
 				</div>
 			</div>
 		</div>
@@ -215,7 +215,7 @@
 			<div class="col-md-12 divCenter">
 				<div id="graph_precip" style="width:100%; height:500px;"></div>
 				<div>
-					<button id="removeAnnoRR">Masquer les étiquettes</button>
+					<button type="button" class="btn btn-info" id="removeAnnoRR">⇧ Masquer les étiquettes ⇧</button>
 				</div>
 			</div>
 		</div>
