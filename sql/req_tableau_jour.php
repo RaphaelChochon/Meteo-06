@@ -1,5 +1,5 @@
 <?php
-// On récupère le dernier enregistrement enBDD
+// On récupère le dernier enregistrement en BDD
 	$query_string = "SELECT * FROM $db_table ORDER BY `dateTime` DESC LIMIT 1;";
 	$result       = $db_handle_pdo->query($query_string);
 	if (!$result) {
@@ -92,6 +92,95 @@
 			$rainrate = round($row['rainRate']*10,1);
 		} else {
 			$rainrate = 'N/A';
+		}
+	}
+
+// Récup des xx derniers enregistrement avec modulo 30 minutes
+	// On récupère le dernier enregistrement en BDD
+	$query_string = "SELECT `dateTime` AS `ts`,
+						`outTemp` AS `TempMod`,
+						`outHumidity` AS `HrMod`,
+						`dewpoint` AS `TdMod`,
+						`barometer` AS `barometerMod`,
+						`radiation` AS `radiationMod`,
+						`UV` AS `UvMod`,
+						`ET` AS `EtMod`
+					FROM $db_table
+					WHERE `dateTime` % 1800 = 0
+					AND `dateTime` >= '$start24'
+					AND `dateTime` < '$stop'
+					ORDER BY `dateTime` DESC;";
+	$result       = $db_handle_pdo->query($query_string);
+	if (!$result) {
+		// Erreur
+		echo "Erreur dans la requete ".$query_string."\n";
+		echo "\nPDO::errorInfo():\n";
+		print_r($db_handle_pdo->errorInfo());
+		exit("\n");
+	}
+	if ($result) {
+		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+			$TempMod      = 'N/A';
+			$HrMod        = 'N/A';
+			$TdMod        = 'N/A';
+			$barometerMod = 'N/A';
+			$rainRateMod  = 'N/A';
+			$radiationMod = 'N/A';
+			$UvMod        = 'N/A';
+			$row['ts'] = (string)round($row['ts']);
+
+			// Insert dans le tableau
+			$tabAccueil [$row['ts']] = array();
+
+		// Traitement des données
+			// Temp
+			if ($row['TempMod'] != null) {
+				$TempMod = round($row['TempMod'],1);
+			}
+
+			// Humidité
+			if ($row['HrMod'] != null) {
+				$HrMod = round($row['HrMod'],1);
+			}
+
+			// Point de rosée
+			if ($row['TdMod'] != null) {
+				$TdMod = round($row['TdMod'],1);
+			}
+
+			// Barometer
+			if ($row['barometerMod'] != null) {
+				$barometerMod = round($row['barometerMod'],1);
+			}
+
+			// UV
+			if ($presence_uv){
+				if ($row['UvMod'] != null) {
+					$UvMod = round($row['UvMod'],1);
+				}
+			}
+
+			// Radiation & ET
+			if ($presence_radiation){
+				// Radiation
+				if ($row['radiationMod'] != null) {
+					$radiationMod = round($row['radiationMod'],0);
+				}
+
+				// ET
+				if ($row['EtMod'] != null) {
+					$EtMod = round($row['EtMod']*10,1);
+				}
+			}
+
+			// Insert dans le tableau
+			$tabAccueil [$row['ts']] ['TempMod'] = $TempMod;
+			$tabAccueil [$row['ts']] ['HrMod'] = $HrMod;
+			$tabAccueil [$row['ts']] ['TdMod'] = $TdMod;
+			$tabAccueil [$row['ts']] ['barometerMod'] = $barometerMod;
+			$tabAccueil [$row['ts']] ['radiationMod'] = $radiationMod;
+			$tabAccueil [$row['ts']] ['UvMod'] = $UvMod;
+			$tabAccueil [$row['ts']] ['EtMod'] = $EtMod;
 		}
 	}
 
@@ -312,7 +401,7 @@
 		$sql = "SELECT sum(ET) FROM $db_name.$db_table WHERE dateTime>= '$start1' AND dateTime <= '$stop';";
 		$et_1h = $conn->query($sql);
 		$et_1h_requ = mysqli_fetch_row($et_1h);
-		$et = round($et_1h_requ[0]*10,3);
+		$et = round($et_1h_requ[0]*10,1);
 
 		// Calcul du cumul d'ET de la journée
 		$sql = "SELECT sum(ET) FROM $db_name.$db_table WHERE dateTime>'$today';";
