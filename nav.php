@@ -69,7 +69,7 @@
 	// $(document).ready(function() {
 		$('li.active').removeClass('active');
 		var pathArray = window.location.pathname.split('/');
-		console.log(pathArray);
+		// console.log(pathArray);
 		$('a[href="' + pathArray[1] + '"]').closest('li').addClass('active');
 	// });
 </script>
