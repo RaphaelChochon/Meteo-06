@@ -50,12 +50,12 @@
 			function openNoaaFileMonth(file_month){
 				var yearNoaaForm = file_month.substring(0,4);
 				var monthNoaaForm = file_month.substring(5,7);
-				var url = "noaa.php?yr="+yearNoaaForm+"&mo="+monthNoaaForm;
+				var url = "noaa.php?yr="+yearNoaaForm+"&mo="+monthNoaaForm+"#anchorReport";
 				window.location.href = url;
 			}
 			function openNoaaFileYear(file_year){
 				var url = "noaa.php?yr=";
-				url = url + file_year;
+				url = url + file_year + "#anchorReport";
 				window.location.href = url;
 			}
 			// Get the URL variables. Source: https://stackoverflow.com/a/26744533/1177153
@@ -194,7 +194,7 @@
 			</div>
 			<hr>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-12" id="anchorReport">
 					<h5 class="text-center">Affichage du rapport :</h5>
 					<p class="text-center">Ouvrir ce rapport dans une nouvelle fenêtre <a href="#" class="noaa_direct_link" target="_blank">en cliquant ici</a></p>
 					<div class="bg-light p-3">
