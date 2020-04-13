@@ -1,29 +1,3 @@
-body{
-	margin-top: 10px;
-}
-
-#webcam_header {
-	height: 130px;
-}
-
-.offline_station {
-	color:#FF0000;
-	font-weight: bold;
-}
-
-.online_station {
-	color:#48ba4e;
-}
-
-#vigi_mf {
-	width:250px;
-	height:390px;
-	border:none;
-}
-
-.image {
-	max-width: 100%;
-}
 
 .imgRadar {
 	border-width:2px;
@@ -64,6 +38,92 @@ body{
 	width: 100%;
 }
 
+
+/* # Defaults
+---------------------------------------------------------------------------------------------------- */
+body{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+/* ## Typographical Elements Online/Offline
+--------------------------------------------- */
+.textOnlineStation {
+	color: #48ba4e;
+}
+.textOfflineStation {
+	color:#FF0000;
+	font-weight: bold;
+}
+
+/* ## Typographical Elements Tab
+--------------------------------------------- */
+.textTabsHourly {
+	font-size:0.7em;
+}
+.textTabsCaption {
+	font-size:0.8em;
+}
+.textTabPrimary{
+	color: #48ba4e;
+}
+
+/* ## Table Sticky
+--------------------------------------------- */
+/* Scroll vertical */
+.table-scroll {
+	overflow: auto;
+	height: 280px;
+}
+/* Scroll vertical - fix header tab */
+.table-sticky thead th {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	background: rgb(241, 240, 240);
+}
+/* Scroll horizontal - fix first column */
+.table-sticky thead th:first-child,
+.table-sticky tbody th {
+	position: -webkit-sticky;
+	position: sticky;
+	left: 0;
+	z-index: 2;
+	background: rgb(241, 240, 240);
+}
+/* Scroll horizontal + vertical - fix header first column */
+.table-sticky thead th:first-child {
+	z-index: 5;
+}
+.table-sticky thead th {
+	font-size: 0.8em;
+}
+
+/* ## Vigi MF
+--------------------------------------------- */
+#vigi_mf {
+	width:250px;
+	height:420px;
+	border:none;
+}
+
+/* ## Footer
+--------------------------------------------- */
+.footer {
+	padding: 15px;
+}
+
+/* ## Source
+--------------------------------------------- */
+.source {
+	text-align: left;
+	padding-left: 10px;
+	font-size: 0.9em;
+	color: rgb(114, 109, 103);
+}
+
+/* ## Rapports NOAA
+--------------------------------------------- */
 #noaa_contents {
 	width: 100%;
 	margin: 0 auto;
