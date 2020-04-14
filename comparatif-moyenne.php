@@ -38,22 +38,22 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		<!-- JQUERY JS -->
-		<script src="vendors/jquery/jquery-slim-3.4.1.min.js"></script>
+		<script defer src="vendors/jquery/jquery-slim-3.4.1.min.js"></script>
 
 		<!-- Bootstrap 4.4.1 -->
 		<link href="vendors/bootstrap/css/bootswatch-united-4.4.1.min.css" rel="stylesheet">
 		<link href="vendors/custom/custom.css?v=1.2" rel="stylesheet">
-		<script src="vendors/bootstrap/js/popper-1.16.0.min.js"></script>
-		<script src="vendors/bootstrap/js/bootstrap-4.4.1.min.js"></script>
+		<script defer src="vendors/bootstrap/js/popper-1.16.0.min.js"></script>
+		<script defer src="vendors/bootstrap/js/bootstrap-4.4.1.min.js"></script>
 
 		<!-- Highcharts -->
 		<link href="vendors/highcharts/css/highcharts-8.0.4.css" rel="stylesheet">
-		<script src="vendors/highcharts/js/highcharts-8.0.4.js"></script>
-		<script src="vendors/highcharts/modules/exporting-8.0.4.js"></script>
-		<script src="vendors/highcharts/modules/offline-exporting-8.0.4.js"></script>
-		<script src="vendors/highcharts/modules/export-data-8.0.4.js"></script>
+		<script defer src="vendors/highcharts/js/highcharts-8.0.4.js"></script>
+		<script defer src="vendors/highcharts/modules/exporting-8.0.4.js"></script>
+		<script defer src="vendors/highcharts/modules/offline-exporting-8.0.4.js"></script>
+		<script defer src="vendors/highcharts/modules/export-data-8.0.4.js"></script>
 		<!-- @ToDo Mettre en place boost sur ces graphs -->
-		<!-- <script src="vendors/highcharts/modules/boost-8.0.4.js"></script> -->
+		<!-- <script defer src="vendors/highcharts/modules/boost-8.0.4.js"></script> -->
 	</head>
 	<body>
 		<div class="container">

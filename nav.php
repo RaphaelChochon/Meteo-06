@@ -66,10 +66,10 @@
 
 <!-- JS NAV ACTIVE -->
 <script>
-	// $(document).ready(function() {
+	document.addEventListener('DOMContentLoaded', function () {
 		$('li.active').removeClass('active');
 		var pathArray = window.location.pathname.split('/');
 		// console.log(pathArray);
 		$('a[href="' + pathArray[1] + '"]').closest('li').addClass('active');
-	// });
+	});
 </script>
