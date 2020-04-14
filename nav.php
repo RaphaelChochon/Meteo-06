@@ -21,9 +21,6 @@
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownTabRecap">
 					<a class="dropdown-item" href="resume-quotidien.php">Résumé quotidien -> a venir</a>
 					<a class="dropdown-item" href="resume-mensuel.php">Résumé mensuel -> a venir</a>
-					<a class="dropdown-item" href="tableau_hier.php">Hier -> a suppr</a>
-					<a class="dropdown-item" href="tableau_7j.php">7 jours glissants -> a suppr</a>
-					<a class="dropdown-item" href="tableau_30j.php">30 jours glissants -> a suppr</a>
 					<a class="dropdown-item" href="tableau_records.php">Records de la station -> a revoir</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="noaa.php">Accès aux tableaux NOAA<br>Rapports mensuels et annuels</a>
