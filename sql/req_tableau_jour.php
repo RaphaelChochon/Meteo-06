@@ -1,4 +1,5 @@
 <?php
+$today = strtotime('today midnight');
 // On récupère le dernier enregistrement en BDD
 	$query_string = "SELECT * FROM $db_table ORDER BY `dateTime` DESC LIMIT 1;";
 	$result       = $db_handle_pdo->query($query_string);
@@ -16,12 +17,13 @@
 		$stop=$row['dateTime'];
 		$minutes10=$stop-(600);
 		$start1=$stop-(3599);
-		$start3=$stop-(10800);
-		$start6=$stop-(21600);
-		$start12=$stop-(43200);
-		$start24=$stop-(86400);
-		$start48=$stop-(86400*2);
-		$start72=$stop-(86400*3);
+		$start3h=$stop-(3*3600);
+		$start12h=$stop-(12*3600);
+		$start24h=$stop-(24*3600);
+		$start7j=$stop-(7*24*3600);
+
+		$today6h     = mktime(6,0,0,date("m"),date("d"), date("Y"));
+		$yesterday6h = mktime(6,0,0,date("m"),date("d")-1, date("Y"));
 
 		// On récup les dernières valeurs
 		if (!is_null($row['dewpoint'])) {
@@ -107,7 +109,7 @@
 						`ET` AS `EtMod`
 					FROM $db_table
 					WHERE `dateTime` % 1800 = 0
-					AND `dateTime` >= '$start24'
+					AND `dateTime` >= '$start24h'
 					AND `dateTime` < '$stop'
 					ORDER BY `dateTime` DESC;";
 	$result       = $db_handle_pdo->query($query_string);
@@ -183,13 +185,6 @@
 			$tabAccueil [$row['ts']] ['EtMod'] = $EtMod;
 		}
 	}
-
-	// Calcul du cumul de précipitations de la journée
-	$today = strtotime('today midnight');
-	$rain_sql = "SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime>'$today';";
-	$rain = $conn->query($rain_sql);
-	$he = mysqli_fetch_row($rain);
-	$cumul = round($he[0]*10,1);
 
 	/*
 	 * VITESSE VENT
@@ -411,41 +406,239 @@
 	};
 
 
-	// Calcul des précipitations cumulées sur différents pas de temps
-	$sql = "SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start1' AND dateTime <= '$stop' ORDER BY 1;";
-	$rain1 = $conn->query($sql);
-	$he1 = mysqli_fetch_row($rain1);
-	$cumul1 = round($he1[0]*10,1);
+// Calcul du cumul de précips sur 3h
+	$query_string = "SELECT SUM(`rain`) AS `Rr3h`
+					FROM $db_table
+					WHERE `dateTime` >= '$start3h' AND `dateTime` <= '$stop';";
+	$result       = $db_handle_pdo->query($query_string);
+	if (!$result) {
+		// Erreur
+		echo "Erreur dans la requete ".$query_string."\n";
+		echo "\nPDO::errorInfo():\n";
+		print_r($db_handle_pdo->errorInfo());
+		exit("\n");
+	}
+	if ($result) {
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+		$Rr3h = 'N/A';
 
-	$sql = "SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start3' AND dateTime <= '$stop' ORDER BY 1;";
-	$rain3 = $conn->query($sql);
-	$he3 = mysqli_fetch_row($rain3);
-	$cumul3 = round($he3[0]*10,1);
+		if (!is_null($row['Rr3h'])) {
+			$Rr3h = round($row['Rr3h']*10,1);
+		}
+	}
 
-	$sql = "SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start6' AND dateTime <= '$stop' ORDER BY 1;";
-	$rain6 = $conn->query($sql);
-	$he6 = mysqli_fetch_row($rain6);
-	$cumul6 = round($he6[0]*10,1);
+// Calcul du cumul de précips 6h-6h UTC (aujourd'hui)
+	$query_string = "SELECT SUM(`rain`) AS `RrTodayOMM`
+					FROM $db_table
+					WHERE `dateTime` >= '$today6h' AND `dateTime` <= '$stop';";
+	$result       = $db_handle_pdo->query($query_string);
+	if (!$result) {
+		// Erreur
+		echo "Erreur dans la requete ".$query_string."\n";
+		echo "\nPDO::errorInfo():\n";
+		print_r($db_handle_pdo->errorInfo());
+		exit("\n");
+	}
+	if ($result) {
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+		$RrTodayOMM = 'N/A';
 
-	$sql = "SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start12' AND dateTime <= '$stop' ORDER BY 1;";
-	$rain12 = $conn->query($sql);
-	$he12 = mysqli_fetch_row($rain12);
-	$cumul12 = round($he12[0]*10,1);
+		if (!is_null($row['RrTodayOMM'])) {
+			$RrTodayOMM = round($row['RrTodayOMM']*10,1);
+		}
+	}
 
-	$sql = "SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start24' AND dateTime <= '$stop' ORDER BY 1;";
-	$rain24 = $conn->query($sql);
-	$he24 = mysqli_fetch_row($rain24);
-	$cumul24 = round($he24[0]*10,1);
+// Calcul du cumul de précips de la veille 6h-6h UTC
+	$query_string = "SELECT SUM(`rain`) AS `RrYesterdayOMM`
+					FROM $db_table
+					WHERE `dateTime` >= '$yesterday6h' AND `dateTime` < '$today6h';";
+	$result       = $db_handle_pdo->query($query_string);
+	if (!$result) {
+		// Erreur
+		echo "Erreur dans la requete ".$query_string."\n";
+		echo "\nPDO::errorInfo():\n";
+		print_r($db_handle_pdo->errorInfo());
+		exit("\n");
+	}
+	if ($result) {
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+		$RrYesterdayOMM = 'N/A';
 
-	$sql = "SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start48' AND dateTime <= '$stop' ORDER BY 1;";
-	$rain48 = $conn->query($sql);
-	$he48 = mysqli_fetch_row($rain48);
-	$cumul48 = round($he48[0]*10,1);
+		if (!is_null($row['RrYesterdayOMM'])) {
+			$RrYesterdayOMM = round($row['RrYesterdayOMM']*10,1);
+		}
+	}
 
-	$sql = "SELECT sum(rain) FROM $db_name.$db_table WHERE dateTime >= '$start72' AND dateTime <= '$stop' ORDER BY 1;";
-	$rain72 = $conn->query($sql);
-	$he72 = mysqli_fetch_row($rain72);
-	$cumul72 = round($he72[0]*10,1);
+// Calcul du cumul de précipitations depuis 0h locale
+	$todayMidnight = strtotime('today midnight');
+	$query_string = "SELECT SUM(`rain`) AS `RrTodayMidnight`
+					FROM $db_table
+					WHERE `dateTime` >= '$todayMidnight' AND `dateTime` <= '$stop';";
+	$result       = $db_handle_pdo->query($query_string);
+	if (!$result) {
+		// Erreur
+		echo "Erreur dans la requete ".$query_string."\n";
+		echo "\nPDO::errorInfo():\n";
+		print_r($db_handle_pdo->errorInfo());
+		exit("\n");
+	}
+	if ($result) {
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+		$RrTodayMidnight = 'N/A';
+
+		if (!is_null($row['RrTodayMidnight'])) {
+			$RrTodayMidnight = round($row['RrTodayMidnight']*10,1);
+		}
+	}
+
+// Calcul du cumul de précipitations sur 12 heures glissantes
+	$query_string = "SELECT SUM(`rain`) AS `Rr12h`
+					FROM $db_table
+					WHERE `dateTime` >= '$start12h' AND `dateTime` <= '$stop';";
+	$result       = $db_handle_pdo->query($query_string);
+	if (!$result) {
+		// Erreur
+		echo "Erreur dans la requete ".$query_string."\n";
+		echo "\nPDO::errorInfo():\n";
+		print_r($db_handle_pdo->errorInfo());
+		exit("\n");
+	}
+	if ($result) {
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+		$Rr12h = 'N/A';
+
+		if (!is_null($row['Rr12h'])) {
+			$Rr12h = round($row['Rr12h']*10,1);
+		}
+	}
+
+// Calcul du cumul de précipitations sur 24 heures glissantes
+	$query_string = "SELECT SUM(`rain`) AS `Rr24h`
+					FROM $db_table
+					WHERE `dateTime` >= '$start24h' AND `dateTime` <= '$stop';";
+	$result       = $db_handle_pdo->query($query_string);
+	if (!$result) {
+		// Erreur
+		echo "Erreur dans la requete ".$query_string."\n";
+		echo "\nPDO::errorInfo():\n";
+		print_r($db_handle_pdo->errorInfo());
+		exit("\n");
+	}
+	if ($result) {
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+		$Rr24h = 'N/A';
+
+		if (!is_null($row['Rr24h'])) {
+			$Rr24h = round($row['Rr24h']*10,1);
+		}
+	}
+
+// Calcul du cumul de précipitations sur 7 jours glissants
+	$query_string = "SELECT SUM(`rain`) AS `Rr7j`
+					FROM $db_table
+					WHERE `dateTime` >= '$start7j' AND `dateTime` <= '$stop';";
+	$result       = $db_handle_pdo->query($query_string);
+	if (!$result) {
+		// Erreur
+		echo "Erreur dans la requete ".$query_string."\n";
+		echo "\nPDO::errorInfo():\n";
+		print_r($db_handle_pdo->errorInfo());
+		exit("\n");
+	}
+	if ($result) {
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+		$Rr7j = 'N/A';
+
+		if (!is_null($row['Rr7j'])) {
+			$Rr7j = round($row['Rr7j']*10,1);
+		}
+	}
+
+// Calcul de l'intensité max de précips sur 3h
+	$query_string = "SELECT `dateTime` AS `tsRRateMax3h`, `rainRate` AS `RRateMax3h`
+					FROM $db_table
+					WHERE dateTime >= '$start3h' AND dateTime <= '$stop'
+					AND `rainRate` = (
+						SELECT MAX(`rainRate`)
+						FROM $db_table
+						WHERE `dateTime` >= '$start3h' AND `dateTime` <= '$stop'
+					);";
+	$result       = $db_handle_pdo->query($query_string);
+	if (!$result) {
+		// Erreur
+		echo "Erreur dans la requete ".$query_string."\n";
+		echo "\nPDO::errorInfo():\n";
+		print_r($db_handle_pdo->errorInfo());
+		exit("\n");
+	}
+	if ($result) {
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+		$RRateMax3h = 'N/A';
+		$dtRRateMax3h = 'N/A';
+
+		if (!is_null($row['RRateMax3h'])) {
+			$RRateMax3h = round($row['RRateMax3h']*10,1);
+			$dtRRateMax3h = date('H\hi',$row['tsRRateMax3h']);
+		}
+	}
+
+// Calcul de l'intensité max 6h-6h (aujourd'hui)
+	$query_string = "SELECT `dateTime` AS `tsRRateMaxToday`, `rainRate` AS `RRateMaxToday`
+					FROM $db_table
+					WHERE dateTime >= '$today6h' AND dateTime <= '$stop'
+					AND `rainRate` = (
+						SELECT MAX(`rainRate`)
+						FROM $db_table
+						WHERE `dateTime` >= '$today6h' AND `dateTime` <= '$stop'
+					);";
+	$result       = $db_handle_pdo->query($query_string);
+	if (!$result) {
+		// Erreur
+		echo "Erreur dans la requete ".$query_string."\n";
+		echo "\nPDO::errorInfo():\n";
+		print_r($db_handle_pdo->errorInfo());
+		exit("\n");
+	}
+	if ($result) {
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+		$RRateMaxToday = 'N/A';
+		$dtRRateMaxToday = 'N/A';
+
+		if (!is_null($row['RRateMaxToday'])) {
+			$RRateMaxToday = round($row['RRateMaxToday']*10,1);
+			$dtRRateMaxToday = date('H\hi',$row['tsRRateMaxToday']);
+		}
+	}
+
+// Calcul de l'intensité max de la veille 6h-6h
+	$query_string = "SELECT `dateTime` AS `tsRRateMaxYesterday`, `rainRate` AS `RRateMaxYesterday`
+					FROM $db_table
+					WHERE dateTime >= '$yesterday6h' AND dateTime < '$today6h'
+					AND `rainRate` = (
+						SELECT MAX(`rainRate`)
+						FROM $db_table
+						WHERE `dateTime` >= '$yesterday6h' AND `dateTime` < '$today6h'
+					);";
+	$result       = $db_handle_pdo->query($query_string);
+	if (!$result) {
+		// Erreur
+		echo "Erreur dans la requete ".$query_string."\n";
+		echo "\nPDO::errorInfo():\n";
+		print_r($db_handle_pdo->errorInfo());
+		exit("\n");
+	}
+	if ($result) {
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+		$RRateMaxYesterday = 'N/A';
+		$dtRRateMaxYesterday = 'N/A';
+
+		if (!is_null($row['RRateMaxYesterday'])) {
+			$RRateMaxYesterday = round($row['RRateMaxYesterday']*10,1);
+			$dtRRateMaxYesterday = date('H\hi',$row['tsRRateMaxYesterday']);
+		}
+	}
+
+
 
 
 	// On récupère les valeurs max et min de la température

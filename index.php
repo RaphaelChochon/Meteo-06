@@ -220,19 +220,31 @@
 								<tbody>
 									<tr>
 										<th>Intensité instantanée</th>
-										<td><?php //echo $temp; ?>&#8239;mm/h</td>
+										<td><?php echo $rainrate; ?>&#8239;mm/h</td>
 									</tr>
 									<tr>
 										<th>Cumul sur 3 heures gliss.</th>
-										<td><?php //echo $temp; ?>&#8239;mm<br><?php //echo $temp; ?>&#8239;mm/h</td>
+										<td><?php echo $Rr3h; ?>&#8239;mm
+											<?php if ($RRateMax3h != 0) {
+												echo '<br>'.$RRateMax3h.'&#8239;mm/h <span class="textTabsHourly">à '.$dtRRateMax3h.'</span>';
+											}?>
+										</td>
 									</tr>
 									<tr>
 										<th>Cumul 6h-6h UTC</th>
-										<td><?php //echo $temp; ?>&#8239;mm<br><?php //echo $temp; ?>&#8239;mm/h</td>
+										<td><?php echo $RrTodayOMM; ?>&#8239;mm
+											<?php if ($RRateMaxToday != 0) {
+												echo '<br>'.$RRateMaxToday.'&#8239;mm/h <span class="textTabsHourly">à '.$dtRRateMaxToday.'</span>';
+											}?>
+										</td>
 									</tr>
 									<tr>
-										<th>Cumul de la veille<br>(6h-6h&nbsp;UTC)</th>
-										<td><?php //echo $temp; ?>&#8239;mm<br><?php //echo $temp; ?>&#8239;mm/h</td>
+										<th>Cumul de la veille 6h-6h&nbsp;UTC</th>
+										<td><?php echo $RrYesterdayOMM; ?>&#8239;mm
+											<?php if ($RRateMaxYesterday != 0) {
+												echo '<br>'.$RRateMaxYesterday.'&#8239;mm/h <span class="textTabsHourly">à '.$dtRRateMaxYesterday.'</span>';
+											}?>
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -248,19 +260,19 @@
 								<tbody>
 									<tr>
 										<th>Cumul depuis minuit loc.</th>
-										<td><?php //echo $temp; ?>&#8239;mm</td>
+										<td><?php echo $RrTodayMidnight; ?>&#8239;mm</td>
 									</tr>
 									<tr>
 										<th>Cumul sur 12h gliss.</th>
-										<td><?php //echo $temp; ?>&#8239;mm</td>
+										<td><?php echo $Rr12h; ?>&#8239;mm</td>
 									</tr>
 									<tr>
 										<th>Cumul sur 24h gliss.</th>
-										<td><?php //echo $temp; ?>&#8239;mm</td>
+										<td><?php echo $Rr24h; ?>&#8239;mm</td>
 									</tr>
 									<tr>
 										<th>Cumul sur 7j gliss.</th>
-										<td><?php //echo $temp; ?>&#8239;mm</td>
+										<td><?php echo $Rr7j; ?>&#8239;mm</td>
 									</tr>
 								</tbody>
 							</table>
