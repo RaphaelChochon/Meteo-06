@@ -11,7 +11,7 @@ Thomas ROUILLARD for his help and bug comments.
 /* ASSOCIATION */
 Association Nice Meteo 06
 Location: Nice, France
-Members : Antony BRUNAIN, Matthieu DANIEL, Tristan BERGEN, Raphael CHOCHON
+Members : Antony BRUNAIN, Matthieu DANIEL, Tristan BERGEN, Thomas ROUILLARD, Raphael CHOCHON
 
 /* SITE */
 Last update     : constantly updated... for the time being (https://github.com/RaphaelChochon/Meteo-06/releases)
@@ -19,5 +19,4 @@ Languages       : French fr-FR
 Doctype         : HTML5
 Standards       : HTML5, CSS3
 Components      : Bootstrap, jQuery, Hightcharts
-Software        : Sublime Text, Notepad++, FileZilla
 Weather Software: Weewx (https://github.com/weewx/weewx), the best ! with MariaDB
