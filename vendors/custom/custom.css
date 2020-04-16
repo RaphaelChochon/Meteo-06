@@ -75,6 +75,11 @@ body{
 	overflow: auto;
 	height: 280px;
 }
+/* Scroll vertical récap quotidien */
+.table-scroll-quotidien {
+	overflow: auto;
+	height: 400px;
+}
 /* Scroll vertical - fix header tab */
 .table-sticky thead th {
 	position: -webkit-sticky;
