@@ -174,8 +174,11 @@
 						</tbody>
 					</table>
 				</div>
-				<p class="source bg-light">
+				<p class="d-none d-lg-block source bg-light text-center">
 					⇧ Principaux params. sur 24h ⇧
+				</p>
+				<p class="d-lg-none source bg-light text-right">
+					⇧ Principaux params. sur 24h ⇨
 				</p>
 				</div><!-- FIN tableau 3 dernières heures -->
 				<!-- START Webcam -->
