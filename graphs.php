@@ -227,7 +227,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div id="graph_temp_hygro" style="width:100%; height: 500px;"></div>
-					<div class="text-center">
+					<div class="text-center mt-1">
 						<button type="button" class="btn btn-info" id="removeAnnoTnTx">⇧ Masquer les étiquettes ⇧</button>
 					</div>
 				</div>
@@ -248,7 +248,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div id="graph_precip" style="width:100%; height:500px;"></div>
-					<div class="text-center">
+					<div class="text-center mt-1">
 						<button type="button" class="btn btn-info" id="removeAnnoRR">⇧ Masquer les étiquettes ⇧</button>
 					</div>
 				</div>
