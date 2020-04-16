@@ -88,17 +88,22 @@
 					</div>
 					<div class="col-md-6">
 						<style>
-							#carouselStation {
-								height: 700px;
+							.carouselStation {
+								height: 600px;
 							}
-							.carousel-img {
+							/* .carousel-img {
 								width: auto;
-								max-height: 700px;
+								max-height: 100%;
 								background-color: #ffffff;
+								margin: 0 auto;
+							} */
+							.img-carousel {
+								width: auto;
+								max-height: 600px;
 								margin: 0 auto;
 							}
 						</style>
-						<div id="carouselStation" class="carousel slide bg-secondary" data-ride="carousel">
+						<div id="carouselStation" class="carouselStation carousel slide bg-secondary" data-ride="carousel">
 							<!-- Indicators -->
 							<ol class="carousel-indicators">
 								<li data-target="#carouselStation" data-slide-to="0" class="active"></li>
@@ -110,42 +115,42 @@
 							</ol>
 							<div class="carousel-inner">
 								<div class="carousel-item active">
-									<img src="img/a-propos/station/station0.jpg" class="img-thumbnail carousel-img mx-auto d-block" alt="...">
+									<img src="img/a-propos/station/station0.jpg" class="img-fluid img-carousel img-thumbnail mx-auto d-block" alt="...">
 									<div class="carousel-caption d-none d-md-block">
 										<h5>Zéro photo</h5>
 										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 									</div>
 								</div>
 								<div class="carousel-item">
-									<img src="img/a-propos/station/station1.jpg" class="img-thumbnail carousel-img mx-auto d-block" alt="...">
+									<img src="img/a-propos/station/station1.jpg" class="img-fluid img-carousel img-thumbnail mx-auto d-block" alt="...">
 									<div class="carousel-caption d-none d-md-block">
 										<h5>Première photo</h5>
 										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 									</div>
 								</div>
 								<div class="carousel-item">
-									<img src="img/a-propos/station/station2.jpg" class="img-thumbnail carousel-img mx-auto d-block" alt="...">
+									<img src="img/a-propos/station/station2.jpg" class="img-fluid img-carousel img-thumbnail mx-auto d-block" alt="...">
 									<div class="carousel-caption d-none d-md-block">
 										<h5>Deuxième photo</h5>
 										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 									</div>
 								</div>
 								<div class="carousel-item">
-									<img src="img/a-propos/station/station3.jpg" class="img-thumbnail carousel-img mx-auto d-block" alt="...">
+									<img src="img/a-propos/station/station3.jpg" class="img-fluid img-carousel img-thumbnail mx-auto d-block" alt="...">
 									<div class="carousel-caption d-none d-md-block">
 										<h5>Troisième photo</h5>
 										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 									</div>
 								</div>
 								<div class="carousel-item">
-									<img src="img/a-propos/station/station4.jpg" class="img-thumbnail carousel-img mx-auto d-block" alt="...">
+									<img src="img/a-propos/station/station4.jpg" class="img-fluid img-carousel img-thumbnail mx-auto d-block" alt="...">
 									<div class="carousel-caption d-none d-md-block">
 										<h5>Quatrième photo</h5>
 										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 									</div>
 								</div>
 								<div class="carousel-item">
-									<img src="img/a-propos/station/station5.jpg" class="img-thumbnail carousel-img mx-auto d-block" alt="...">
+									<img src="img/a-propos/station/station5.jpg" class="img-fluid img-carousel img-thumbnail mx-auto d-block" alt="...">
 									<div class="carousel-caption d-none d-md-block">
 										<h5>Cinquième photo</h5>
 										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
@@ -252,17 +257,16 @@
 					</div>
 					<div class="col-md-6">
 						<style>
-							#carouselWebcam {
+							.carouselWebcam {
 								height: 500px;
 							}
-							.carousel-img {
+							.img-carousel {
 								width: auto;
 								max-height: 500px;
-								background-color: #ffffff;
 								margin: 0 auto;
 							}
 						</style>
-						<div id="carouselWebcam" class="carousel slide bg-secondary" data-ride="carousel">
+						<div id="carouselWebcam" class="carouselWebcam carousel slide bg-secondary" data-ride="carousel">
 							<!-- Indicators -->
 							<ol class="carousel-indicators">
 								<li data-target="#carouselWebcam" data-slide-to="0" class="active"></li>
@@ -273,35 +277,35 @@
 							</ol>
 							<div class="carousel-inner">
 								<div class="carousel-item active">
-									<img src="img/a-propos/webcam/webcam1.jpg" class="img-thumbnail carousel-img mx-auto d-block" alt="...">
+									<img src="img/a-propos/webcam/webcam1.jpg" class="img-fluid img-carousel img-thumbnail mx-auto d-block" alt="...">
 									<div class="carousel-caption d-none d-md-block">
 										<h5>Première photo</h5>
 										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 									</div>
 								</div>
 								<div class="carousel-item">
-									<img src="img/a-propos/webcam/webcam2.jpg" class="img-thumbnail carousel-img mx-auto d-block" alt="...">
+									<img src="img/a-propos/webcam/webcam2.jpg" class="img-fluid img-carousel img-thumbnail mx-auto d-block" alt="...">
 									<div class="carousel-caption d-none d-md-block">
 										<h5>Deuxième photo</h5>
 										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 									</div>
 								</div>
 								<div class="carousel-item">
-									<img src="img/a-propos/webcam/webcam3.jpg" class="img-thumbnail carousel-img mx-auto d-block" alt="...">
+									<img src="img/a-propos/webcam/webcam3.jpg" class="img-fluid img-carousel img-thumbnail mx-auto d-block" alt="...">
 									<div class="carousel-caption d-none d-md-block">
 										<h5>Troisième photo</h5>
 										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 									</div>
 								</div>
 								<div class="carousel-item">
-									<img src="img/a-propos/webcam/webcam4.jpg" class="img-thumbnail carousel-img mx-auto d-block" alt="...">
+									<img src="img/a-propos/webcam/webcam4.jpg" class="img-fluid img-carousel img-thumbnail mx-auto d-block" alt="...">
 									<div class="carousel-caption d-none d-md-block">
 										<h5>Quatrième photo</h5>
 										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 									</div>
 								</div>
 								<div class="carousel-item">
-									<img src="img/a-propos/webcam/webcam5.jpg" class="img-thumbnail carousel-img mx-auto d-block" alt="...">
+									<img src="img/a-propos/webcam/webcam5.jpg" class="img-fluid img-carousel img-thumbnail mx-auto d-block" alt="...">
 									<div class="carousel-caption d-none d-md-block">
 										<h5>Cinquième photo</h5>
 										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
@@ -355,17 +359,16 @@
 				<div class="row">
 					<div class="col-md-6">
 						<style>
-							#carouselFoudreBlitz {
+							.carouselFoudreBlitz {
 								height: 700px;
 							}
-							.carousel-img {
+							.img-carousel {
 								width: auto;
 								max-height: 700px;
-								background-color: #ffffff;
 								margin: 0 auto;
 							}
 						</style>
-						<div id="carouselFoudreBlitz" class="carousel slide bg-secondary" data-ride="carousel">
+						<div id="carouselFoudreBlitz" class="carouselFoudreBlitz carousel slide bg-secondary" data-ride="carousel">
 							<!-- Indicators -->
 							<ol class="carousel-indicators">
 								<li data-target="#carouselFoudreBlitz" data-slide-to="0" class="active"></li>
@@ -378,49 +381,49 @@
 							</ol>
 							<div class="carousel-inner">
 								<div class="carousel-item active">
-									<img src="img/a-propos/blitz/detecteur1.jpg" class="img-thumbnail carousel-img mx-auto d-block" alt="...">
+									<img src="img/a-propos/blitz/detecteur1.jpg" class="img-fluid img-carousel img-thumbnail mx-auto d-block" alt="...">
 									<div class="carousel-caption d-none d-md-block">
 										<h5>Première photo</h5>
 										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 									</div>
 								</div>
 								<div class="carousel-item">
-									<img src="img/a-propos/blitz/detecteur2.jpg" class="img-thumbnail carousel-img mx-auto d-block" alt="...">
+									<img src="img/a-propos/blitz/detecteur2.jpg" class="img-fluid img-carousel img-thumbnail mx-auto d-block" alt="...">
 									<div class="carousel-caption d-none d-md-block">
 										<h5>Deuxième photo</h5>
 										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 									</div>
 								</div>
 								<div class="carousel-item">
-									<img src="img/a-propos/blitz/detecteur3.jpg" class="img-thumbnail carousel-img mx-auto d-block" alt="...">
+									<img src="img/a-propos/blitz/detecteur3.jpg" class="img-fluid img-carousel img-thumbnail mx-auto d-block" alt="...">
 									<div class="carousel-caption d-none d-md-block">
 										<h5>Troisième photo</h5>
 										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 									</div>
 								</div>
 								<div class="carousel-item">
-									<img src="img/a-propos/blitz/detecteur4.jpg" class="img-thumbnail carousel-img mx-auto d-block" alt="...">
+									<img src="img/a-propos/blitz/detecteur4.jpg" class="img-fluid img-carousel img-thumbnail mx-auto d-block" alt="...">
 									<div class="carousel-caption d-none d-md-block">
 										<h5>Quatrième photo</h5>
 										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 									</div>
 								</div>
 								<div class="carousel-item">
-									<img src="img/a-propos/blitz/detecteur5.jpg" class="img-thumbnail carousel-img mx-auto d-block" alt="...">
+									<img src="img/a-propos/blitz/detecteur5.jpg" class="img-fluid img-carousel img-thumbnail mx-auto d-block" alt="...">
 									<div class="carousel-caption d-none d-md-block">
 										<h5>Cinquième photo</h5>
 										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 									</div>
 								</div>
 								<div class="carousel-item">
-									<img src="img/a-propos/blitz/detecteur6.jpg" class="img-thumbnail carousel-img mx-auto d-block" alt="...">
+									<img src="img/a-propos/blitz/detecteur6.jpg" class="img-fluid img-carousel img-thumbnail mx-auto d-block" alt="...">
 									<div class="carousel-caption d-none d-md-block">
 										<h5>Sixième photo</h5>
 										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 									</div>
 								</div>
 								<div class="carousel-item">
-									<img src="img/a-propos/blitz/detecteur7.jpg" class="img-thumbnail carousel-img mx-auto d-block" alt="...">
+									<img src="img/a-propos/blitz/detecteur7.jpg" class="img-fluid img-carousel img-thumbnail mx-auto d-block" alt="...">
 									<div class="carousel-caption d-none d-md-block">
 										<h5>xx photo</h5>
 										<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
