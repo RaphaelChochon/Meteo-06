@@ -183,6 +183,7 @@ $today = strtotime('today midnight');
 			$tabAccueil [$row['ts']] ['radiationMod'] = $radiationMod;
 			$tabAccueil [$row['ts']] ['UvMod'] = $UvMod;
 			$tabAccueil [$row['ts']] ['EtMod'] = $EtMod;
+			$countTabAccueil = count($tabAccueil);
 		}
 	}
 

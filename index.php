@@ -102,8 +102,8 @@
 						</h4>
 					<?php endif; ?>
 				<!-- FIN module en ligne/Hors ligne -->
-				<!-- START tableau 3 dernières heures -->
-					<div class="table-responsive table-scroll">
+				<!-- START tableau 24 dernières heures -->
+				<div class="table-responsive table-scroll">
 					<table class="table table-striped table-bordered table-hover table-sm table-sticky">
 						<!-- <caption class="textTabsCaption">⇧ Principaux paramètres sur les 24 dernières heures ⇧</caption> -->
 						<thead>
@@ -175,10 +175,10 @@
 					</table>
 				</div>
 				<p class="d-none d-lg-block source bg-light text-center">
-					⇧ Principaux params. sur 24h ⇧
+					⇧ <span class="badge badge-success"><?php echo $countTabAccueil; ?> lignes</span>  Principaux params. sur 24h ⇧
 				</p>
 				<p class="d-lg-none source bg-light text-right">
-					⇧ Principaux params. sur 24h ⇨
+					⇧ <span class="badge badge-success"><?php echo $countTabAccueil; ?> lignes</span>  Principaux params. sur 24h ⇨
 				</p>
 				</div><!-- FIN tableau 3 dernières heures -->
 				<!-- START Webcam -->
