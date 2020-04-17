@@ -704,6 +704,8 @@
 						chart: {
 							type : 'line',
 							zoomType: 'x',
+							panning: true,
+							panKey: 'shift'
 						},
 						title: {
 							text: 'Température et humidité <?php echo date('d/m/Y',$tsOptDay) ?> UTC',
@@ -759,6 +761,7 @@
 							shared: true,
 							valueDecimals: 1,
 							xDateFormat: '<b>%e %B à %H:%M UTC</b>',
+							followTouchMove: false
 						},
 						boost: {
 							enabled:false,
