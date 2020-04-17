@@ -53,7 +53,7 @@
 
 		<!-- Bootstrap 4.4.1 -->
 		<link href="vendors/bootstrap/css/bootswatch-united-4.4.1.min.css" rel="stylesheet">
-		<link href="vendors/custom/custom.css?v=1.3" rel="stylesheet">
+		<link href="vendors/custom/custom.css?v=1.4" rel="stylesheet">
 		<script defer src="vendors/bootstrap/js/popper-1.16.0.min.js"></script>
 		<script defer src="vendors/bootstrap/js/bootstrap-4.4.1.min.js"></script>
 
@@ -116,7 +116,7 @@
 				<div class="col-md-4">
 					<p class="text-center">
 						Affichage des statistiques pour la journée selectionnée.
-						Respect des <b>normes OMM</b> pour le calcul des extrêmes et cumul.
+						Calcul des extrêmes et cumuls aux <b>normes OMM</b>.
 					</p>
 				</div>
 				<div class="col-md-4">
@@ -159,7 +159,7 @@
 				<div class="alert alert-dismissible alert-danger">
 					<h4 class="alert-heading">Oops !</h4>
 					<p class="mb-0">
-						Vous avez sélectionné une date pour laquelle aucune (ou moins de 10) données sont disponibles.
+						Vous avez sélectionné une date pour laquelle aucune donnée n'est disponible.
 						<br>
 						<strong>Veuillez choisir une autre date.</strong>
 					</p>
@@ -202,19 +202,19 @@
 						<tbody>
 							<tr>
 								<th>Tn</th>
-								<td><?php //echo $rainrate; ?>&#8239;°C</td>
+								<td class="textMin"><?php echo $TnDay; ?>&#8239;°C</td>
 							</tr>
 							<tr>
 								<th>Tx</th>
-								<td><?php //echo $Rr3h; ?>&#8239;°C</td>
+								<td class="textMax"><?php echo $TxDay; ?>&#8239;°C</td>
 							</tr>
 							<tr>
 								<th>Tmoy</th>
-								<td><?php //echo $Rr3h; ?>&#8239;°C</td>
+								<td><?php if (is_numeric($TnDay) && is_numeric($TxDay)){ echo round(($TnDay + $TxDay)/2,1);} else {echo "N/A";} ?>&#8239;°C</td>
 							</tr>
 							<tr>
 								<th>Amplitude</th>
-								<td><?php //echo $Rr3h; ?>&#8239;°C</td>
+								<td><?php if (is_numeric($TnDay) && is_numeric($TxDay)){ echo round(($TxDay - $TnDay),1);} else {echo "N/A";} ?>&#8239;°C</td>
 							</tr>
 						</tbody>
 					</table>
@@ -231,19 +231,19 @@
 						<tbody>
 							<tr>
 								<th>Humidité min</th>
-								<td><?php //echo $rainrate; ?>&#8239;%</td>
+								<td class="textMin"><?php echo $HrMin; ?>&#8239;%</td>
 							</tr>
 							<tr>
 								<th>Humidité max</th>
-								<td><?php //echo $Rr3h; ?>&#8239;%</td>
+								<td class="textMax"><?php echo $HrMax; ?>&#8239;%</td>
 							</tr>
 							<tr>
 								<th>Td min</th>
-								<td><?php //echo $Rr3h; ?>&#8239;°C</td>
+								<td class="textMin"><?php echo $TdMin; ?>&#8239;°C</td>
 							</tr>
 							<tr>
 								<th>Td max</th>
-								<td><?php //echo $Rr3h; ?>&#8239;°C</td>
+								<td class="textMax"><?php echo $TdMax; ?>&#8239;°C</td>
 							</tr>
 						</tbody>
 					</table>
@@ -260,19 +260,19 @@
 						<tbody>
 							<tr>
 								<th>Pression min</th>
-								<td><?php //echo $rainrate; ?>&#8239;%</td>
+								<td class="textMin"><?php echo $PrMin; ?>&#8239;hPa</td>
 							</tr>
 							<tr>
 								<th>Pression max</th>
-								<td><?php //echo $Rr3h; ?>&#8239;%</td>
+								<td class="textMax"><?php echo $PrMax; ?>&#8239;hPa</td>
 							</tr>
 							<tr>
 								<th>UV max</th>
-								<td><?php //echo $Rr3h; ?>&#8239;°C</td>
+								<td class="textMax"><?php echo $UvMax; ?></td>
 							</tr>
 							<tr>
 								<th>Ray. sol. max</th>
-								<td><?php //echo $Rr3h; ?>&#8239;°C</td>
+								<td class="textMax"><?php echo $RadMax; ?>&#8239;W/m²</td>
 							</tr>
 						</tbody>
 					</table>
@@ -291,19 +291,19 @@
 						<tbody>
 							<tr>
 								<th>Cumul de pluie</th>
-								<td><?php //echo $rainrate; ?>&#8239;mm</td>
+								<td class="textSum"><?php echo $RrCumul; ?>&#8239;mm</td>
 							</tr>
 							<tr>
 								<th>Intensité pluie max</th>
-								<td><?php //echo $Rr3h; ?>&#8239;mm/h</td>
+								<td class="textMax"><?php echo $RRateMax; ?>&#8239;mm/h</td>
 							</tr>
 							<tr>
 								<th>Cumul d'évapotranspiration</th>
-								<td><?php //echo $Rr3h; ?>&#8239;mm</td>
+								<td class="textSum"><?php echo $EtCumul; ?>&#8239;mm</td>
 							</tr>
 							<tr>
 								<th>ET horaire max</th>
-								<td><?php //echo $Rr3h; ?>&#8239;mm/h</td>
+								<td class="textMax"><?php echo $EtMax; ?>&#8239;mm/h</td>
 							</tr>
 						</tbody>
 					</table>
@@ -647,7 +647,7 @@
 							tickInterval: 7200*1000,
 							crosshair: true,
 							plotLines: [{
-								value: <?php echo $minuit1;?>,
+								value: <?php echo $tsMinuit1 * 1000;?>,
 								dashStyle: 'ShortDash',
 								width: 2,
 								color: 'red',
@@ -660,7 +660,7 @@
 									x: 12,
 								}
 							},{
-								value: <?php echo $minuit2;?>,
+								value: <?php echo $tsMinuit2 * 1000;?>,
 								dashStyle: 'ShortDash',
 								width: 2,
 								color: 'red',

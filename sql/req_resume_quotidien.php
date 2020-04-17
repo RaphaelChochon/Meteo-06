@@ -2,6 +2,7 @@
 
 /**
  * GENERAL
+ * Préparation des dt et ts start et stop
  */
 
 // Date UTC
@@ -13,8 +14,8 @@
 	$tsOptDayStart = $tsOptDay - (6 * 3600); // On enlève 6 heures pour tomber la veille à 18 heures
 	$tsOptDayStop = $tsOptDay + ((24 + 6) * 3600); // On ajoute 24 + 6 heures pour tomber le lendemain à 6 heures
 
-	$minuit1 = $tsOptDay * 1000;
-	$minuit2 = ($minuit1 + (24 * 3600 * 1000));
+	$tsMinuit1 = $tsOptDay;
+	$tsMinuit2 = ($tsMinuit1 + (24 * 3600));
 
 // Diff si journée en cours
 	if (time() >= $tsOptDayStart && time() < $tsOptDayStop) {
@@ -46,13 +47,135 @@
 	}
 	if ($result) {
 		$row = $result->fetch(PDO::FETCH_ASSOC);
-		if ($row['nbDt'] < 10) {
+		if ($row['nbDt'] == 0) {
 			$lessValue = true;
 		}
 	}
 
 // IF NOT lessValue
 if (!$lessValue) {
+
+	/**
+	 * STATS OMM
+	 * Calcul des Tn, Tx, min et max de chaque params et somme de pluie et ET
+	 */
+	
+	// Tn
+		$tsStop18h = $tsOptDayStart + (24*3600); // 18h le jour meme
+		$query_string = "SELECT MIN(`outTemp`) AS TnDay
+						FROM $db_table
+						WHERE `dateTime` >= '$tsOptDayStart' AND `dateTime` < '$tsStop18h';";
+		$result       = $db_handle_pdo->query($query_string);
+		if (!$result) {
+			// Erreur
+			echo "Erreur dans la requete ".$query_string."\n";
+			echo "\nPDO::errorInfo():\n";
+			print_r($db_handle_pdo->errorInfo());
+			exit("\n");
+		}
+		if ($result) {
+			$row = $result->fetch(PDO::FETCH_ASSOC);
+			$TnDay = 'N/A';
+			if (!is_null($row['TnDay'])) {
+				$TnDay = round($row['TnDay'],1);
+			}
+		}
+
+	// Tx + RR + RRate
+		$tsStart6h = $tsOptDayStop - (24*3600); // 6h le jour meme
+		$query_string = "SELECT MAX(`outTemp`) AS TxDay,
+								SUM(`rain`) AS RrCumul,
+								MAX(`rainRate`) AS RRateMax
+						FROM $db_table
+						WHERE `dateTime` >= '$tsStart6h' AND `dateTime` < '$tsOptDayStop';";
+		$result       = $db_handle_pdo->query($query_string);
+		if (!$result) {
+			// Erreur
+			echo "Erreur dans la requete ".$query_string."\n";
+			echo "\nPDO::errorInfo():\n";
+			print_r($db_handle_pdo->errorInfo());
+			exit("\n");
+		}
+		if ($result) {
+			$row = $result->fetch(PDO::FETCH_ASSOC);
+			$TxDay = 'N/A';
+			$RrCumul = 'N/A';
+			$RRateMax = 'N/A';
+			if (!is_null($row['TxDay'])) {
+				$TxDay = round($row['TxDay'],1);
+			}
+			if (!is_null($row['RrCumul'])) {
+				$RrCumul = round($row['RrCumul']*10,1);
+			}
+			if (!is_null($row['RRateMax'])) {
+				$RRateMax = round($row['RRateMax']*10,1);
+			}
+		}
+
+	// Hr + Td + P
+		$query_string = "SELECT MIN(`outHumidity`) AS HrMin,
+								MAX(`outHumidity`) AS HrMax,
+								MIN(`dewpoint`) AS TdMin,
+								MAX(`dewpoint`) AS TdMax,
+								MIN(`barometer`) AS PrMin,
+								MAX(`barometer`) AS PrMax,
+								MAX(`UV`) AS UvMax,
+								MAX(`radiation`) AS RadMax,
+								SUM(`ET`) AS EtCumul,
+								MAX(`ET`) AS EtMax
+						FROM $db_table
+						WHERE `dateTime` >= '$tsMinuit1' AND `dateTime` < '$tsMinuit2';";
+		$result       = $db_handle_pdo->query($query_string);
+		if (!$result) {
+			// Erreur
+			echo "Erreur dans la requete ".$query_string."\n";
+			echo "\nPDO::errorInfo():\n";
+			print_r($db_handle_pdo->errorInfo());
+			exit("\n");
+		}
+		if ($result) {
+			$row = $result->fetch(PDO::FETCH_ASSOC);
+			$HrMin = 'N/A';
+			$HrMax = 'N/A';
+			$TdMin = 'N/A';
+			$TdMax = 'N/A';
+			$PrMin = 'N/A';
+			$PrMax = 'N/A';
+			$UvMax = 'N/A';
+			$RadMax = 'N/A';
+			$EtCumul = 'N/A';
+			$EtMax = 'N/A';
+			if (!is_null($row['HrMin'])) {
+				$HrMin = round($row['HrMin'],0);
+			}
+			if (!is_null($row['HrMax'])) {
+				$HrMax = round($row['HrMax'],0);
+			}
+			if (!is_null($row['TdMin'])) {
+				$TdMin = round($row['TdMin'],1);
+			}
+			if (!is_null($row['TdMax'])) {
+				$TdMax = round($row['TdMax'],1);
+			}
+			if (!is_null($row['PrMin'])) {
+				$PrMin = round($row['PrMin'],1);
+			}
+			if (!is_null($row['PrMax'])) {
+				$PrMax = round($row['PrMax'],1);
+			}
+			if (!is_null($row['UvMax'])) {
+				$UvMax = round($row['UvMax'],1);
+			}
+			if (!is_null($row['RadMax'])) {
+				$RadMax = round($row['RadMax'],0);
+			}
+			if (!is_null($row['EtCumul'])) {
+				$EtCumul = round($row['EtCumul'],2);
+			}
+			if (!is_null($row['EtMax'])) {
+				$EtMax = round($row['EtMax'],2);
+			}
+		}
 
 	/**
 	 * TABLEAU DATA

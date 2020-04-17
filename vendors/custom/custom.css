@@ -133,3 +133,18 @@ body{
 	width: 100%;
 	margin: 0 auto;
 }
+
+/* ## Typo min et max
+--------------------------------------------- */
+.textMin {
+	color: #19B5FE; /* DODGER BLUE bootflat */
+	/* font-weight: bold; */
+}
+.textMax {
+	color: #CF000F; /* MONZA bootflat */
+	/* font-weight: bold; */
+}
+.textSum {
+	color: #4B77BE; /* STEEL BLUE bootflat */
+	font-weight: bold;
+}
