@@ -41,17 +41,25 @@
 	}
 	if ($result) {
 		$row = $result->fetch(PDO::FETCH_ASSOC);
+
+		// jour
+		$dtFisrtDay = date('Y-m-d',$row['tsStartMaxWeewx']);
+		$dtLastDay = date('Y-m-d',$row['tsStopMaxWeewx']);
+
+		// année et mois
 		$firstYear = date('Y',$row['tsStartMaxWeewx']);
 		$firstYearMonth = date('Y-m',$row['tsStartMaxWeewx']);
 		$lastYear = date('Y',$row['tsStopMaxWeewx']);
 		$lastYearMonth = date('Y-m',$row['tsStopMaxWeewx']);
 
+		// année
 		$beginY = DateTime::createFromFormat('Y', $firstYear); // Objet dt de la première année
 		$endY = DateTime::createFromFormat('Y', $lastYear); // Objet dt de la dernière année
 		$intervalYear = new DateInterval('P1Y');
 		$eY = $endY->modify( '+1 year' );
 		$yearRange = new DatePeriod($beginY, $intervalYear ,$eY); // -> On se sert de yearRange dans graphs.php pour la heatmap
 
+		// mois
 		$beginM = DateTime::createFromFormat('Y-m', $firstYearMonth); // Objet dt de la première année
 		$endM = DateTime::createFromFormat('Y-m', $lastYearMonth); // Objet dt de la dernière année
 		$intervalMonth = new DateInterval('P1M');
