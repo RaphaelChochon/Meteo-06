@@ -603,13 +603,6 @@
 						global: {
 							useUTC: true
 						},
-						chart: {
-							panning: true,
-							panKey: 'shift'
-						},
-						tooltop: {
-							followTouchMove: false
-						},
 						lang: {
 							months: ["Janvier "," Février "," Mars "," Avril "," Mai "," Juin "," Juillet "," Août "," Septembre "," Octobre "," Novembre "," Décembre"],
 							weekdays: ["Dim "," Lun "," Mar "," Mer "," Jeu "," Ven "," Sam"],
@@ -704,8 +697,6 @@
 						chart: {
 							type : 'line',
 							zoomType: 'x',
-							panning: true,
-							panKey: 'shift'
 						},
 						title: {
 							text: 'Température et humidité <?php echo date('d/m/Y',$tsOptDay) ?> UTC',
@@ -761,7 +752,6 @@
 							shared: true,
 							valueDecimals: 1,
 							xDateFormat: '<b>%e %B à %H:%M UTC</b>',
-							followTouchMove: false
 						},
 						boost: {
 							enabled:false,
