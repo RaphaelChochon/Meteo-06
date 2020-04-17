@@ -322,7 +322,9 @@ if ($graphType == 'graphs') {
 		}
 
 	// appel du script de connexion
-		// @@todo à remplacer par PDO
+		/**
+		 * @todo a remplacer par PDO
+		 */
 		require_once("connect.php");
 
 	// Récupération des valeurs climatos
@@ -372,7 +374,7 @@ if ($graphType == 'graphs') {
 }
 elseif ($graphType == 'heatmap') {
 	/**
-	 * @todo trnasférer le calcul du SUM RR dans une table ou en cache
+	 * @todo transférer le calcul du SUM RR dans une table ou en cache
 	 */
 
 	// Détermination des tsStart tsStop
