@@ -114,14 +114,14 @@
 			<hr class="my-3">
 			<div class="row align-items-center">
 				<div class="col-md-4">
-					<p class="text-justify">
+					<p class="text-center">
 						Affichage des statistiques pour la journée selectionnée.
 						Respect des <b>normes OMM</b> pour le calcul des extrêmes et cumul.
 					</p>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<legend>Changer de date :</legend>
+						<h5 class="text-center">Changer de date :</h5>
 						<div class="input-group date" id="dtPicker" data-target-input="nearest">
 							<input type="text" class="form-control datetimepicker-input" data-target="#dtPicker"/>
 							<div class="input-group-append" data-target="#dtPicker" data-toggle="datetimepicker">
@@ -143,7 +143,7 @@
 					</script>
 				</div>
 				<div class="col-md-4">
-					<p class="text-justify">
+					<p class="text-center">
 						Toutes les heures sur cette page sont indiquées en heure UTC.
 						<br>
 						<?php date_default_timezone_set('Europe/Paris'); echo date('H\hi'); ?> <span class="badge badge-success">loc.</span>
@@ -602,6 +602,13 @@
 					Highcharts.setOptions({
 						global: {
 							useUTC: true
+						},
+						chart: {
+							panning: true,
+							panKey: 'shift'
+						},
+						tooltop: {
+							followTouchMove: false
 						},
 						lang: {
 							months: ["Janvier "," Février "," Mars "," Avril "," Mai "," Juin "," Juillet "," Août "," Septembre "," Octobre "," Novembre "," Décembre"],
