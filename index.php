@@ -108,7 +108,7 @@
 						<!-- <caption class="textTabsCaption">⇧ Principaux paramètres sur les 24 dernières heures ⇧</caption> -->
 						<thead>
 							<tr>
-								<th>Heure loc.</th>
+								<th>Heure <span class="badge badge-success">loc.</span></th>
 								<th>Température</th>
 								<th>Hygrométrie</th>
 								<th>Pt. de rosée</th>
@@ -175,10 +175,10 @@
 					</table>
 				</div>
 				<p class="d-none d-lg-block source bg-light text-center">
-					⇧ <span class="badge badge-success"><?php echo $countTabAccueil; ?> lignes</span>  Principaux params. sur 24h ⇧
+					⇧ <span class="badge badge-info"><?php echo $countTabAccueil; ?> lignes</span>  Principaux params. sur 24h ⇧
 				</p>
 				<p class="d-lg-none source bg-light text-right">
-					⇧ <span class="badge badge-success"><?php echo $countTabAccueil; ?> lignes</span>  Principaux params. sur 24h ⇨
+					⇧ <span class="badge badge-info"><?php echo $countTabAccueil; ?> lignes</span>  Principaux params. sur 24h ⇨
 				</p>
 				</div><!-- FIN tableau 3 dernières heures -->
 				<!-- START Webcam -->
