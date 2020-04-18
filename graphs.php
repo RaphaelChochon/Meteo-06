@@ -188,11 +188,9 @@
 					<p class="text-center">
 						Choisir un type de graphique :
 					</p>
-					<a role="button" class="btn btn-primary" href="./graphs.php?type=graphs&period=24h#anchorButton">24 heures</a>
+					<a role="button" class="btn btn-primary" href="./graphs.php?type=graphs&period=24h#anchorButtons">24 heures</a>
 					<a role="button" class="btn btn-primary" href="./graphs.php?type=graphs&period=48h#anchorButtons">48 heures</a>
 					<a role="button" class="btn btn-primary" href="./graphs.php?type=graphs&period=7j#anchorButtons">7 jours</a>
-					<!-- <a href="./graphs.php?type=month&period=<?php echo $lastYearMonth;?>#anchorButtons"><button type="button" class="btn btn-info">Mensuel</button></a> -->
-					<!-- <br><br> -->
 					<div class="btn-group">
 						<a href="./graphs.php?type=heatmap&period=<?php echo $lastYear;?>#anchorButtons" class="btn btn-primary">Cartes annuelles</a>
 						<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
