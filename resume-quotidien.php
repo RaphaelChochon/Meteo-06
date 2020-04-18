@@ -11,7 +11,6 @@
 	} else {
 		$optDay = date('Y-m-d');
 	}
-	$optDayObject = DateTime::createFromFormat('Y-m-d', $optDay)
 ?>
 <!DOCTYPE html>
 <html lang="fr-FR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
@@ -119,28 +118,51 @@
 						Calcul des extrêmes et cumuls aux <b>normes OMM</b>.
 					</p>
 				</div>
+				<!-- Date -->
 				<div class="col-md-4">
-					<div class="form-group">
-						<h5 class="text-center">Changer de date :</h5>
-						<div class="input-group date" id="dtPicker" data-target-input="nearest">
-							<input type="text" class="form-control datetimepicker-input" data-target="#dtPicker"/>
-							<div class="input-group-append" data-target="#dtPicker" data-toggle="datetimepicker">
-								<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<h5 class="text-center">Changer de date :</h5>
+								<div class="input-group date" id="dtPicker" data-target-input="nearest">
+									<input type="text" class="form-control datetimepicker-input text-center" data-target="#dtPicker" readonly="readonly">
+									<div class="input-group-append" data-target="#dtPicker" data-toggle="datetimepicker">
+										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-					<script type="text/javascript">
-						$(function () {
-							$('#dtPicker').datetimepicker({
-								// viewMode: 'years',
-								format: 'DD-MM-YYYY',
-								// format: 'DD-MM-YYYY HH:mm',
-								locale: moment.locale('fr'),
-								maxDate: moment(),
-								useCurrent: true
+						<script type="text/javascript">
+							$(function () {
+								var defaultDate = <?php echo $optDay_quoted;?>;
+								var firstDay = '<?php echo $dtFisrtDay;?>';
+								$('#dtPicker').datetimepicker({
+									format: 'ddd DD MMM YYYY',
+									locale: moment.locale('fr'),
+									minDate: moment(firstDay, 'YYYY-MM-DD'),
+									maxDate: moment(),
+									useCurrent: false,
+									ignoreReadonly: true,
+									defaultDate: moment(defaultDate, 'YYYY-MM-DD')
+								});
+								$("#dtPicker").on("change.datetimepicker", function (e) {
+									moment.locale('fr');
+									d = moment(e.date,'ddd DD MMM YYYY').format('YYYY-MM-DD');
+									var url = "./resume-quotidien.php?day=";
+									url = url + d;
+									window.location.href = url;
+								});
 							});
-						});
-					</script>
+						</script>
+					</div>
+					<div class="row mb-3">
+						<div class="col text-left">
+							<a role="button" class="btn btn-primary  <?php if (strtotime($optYesterday) < strtotime($dtFisrtDay)) {echo "disabled";} ?>" href="./resume-quotidien.php?day=<?php echo $optYesterday; ?>"><i class="fas fa-chevron-circle-left"></i>&nbsp;<?php list($nomJour, $jour, $mois) = explode('-', date('w-d-n', strtotime($optYesterday))); echo $jourFrancaisAbrev[$nomJour].' '.$jour.' '.$moisFrancaisAbrev[$mois];?></a>
+						</div>
+						<div class="col text-right">
+							<a role="button" class="btn btn-primary <?php if (strtotime($optTomorrow) > strtotime($dtLastDay)) {echo "disabled";} ?>" href="./resume-quotidien.php?day=<?php echo $optTomorrow; ?>"><?php list($nomJour, $jour, $mois) = explode('-', date('w-d-n', strtotime($optTomorrow))); echo $jourFrancaisAbrev[$nomJour].' '.$jour.' '.$moisFrancaisAbrev[$mois];?>&nbsp;<i class="fas fa-chevron-circle-right"></i></a>
+						</div>
+					</div>
 				</div>
 				<div class="col-md-4">
 					<p class="text-center">
@@ -699,7 +721,7 @@
 							zoomType: 'x',
 						},
 						title: {
-							text: 'Température et humidité <?php echo date('d/m/Y',$tsOptDay) ?> UTC',
+							text: 'Température et humidité du <?php echo date('d/m/Y',$tsOptDay) ?> en heure UTC',
 						},
 						subtitle: {
 							text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres | Tn et Tx aux normes OMM',
@@ -819,7 +841,7 @@
 							zoomType: 'x',
 						},
 						title: {
-							text: 'Pression atmo. <?php echo date('d/m/Y',$tsOptDay) ?> UTC',
+							text: 'Pression atmo. du <?php echo date('d/m/Y',$tsOptDay) ?> en heure UTC',
 						},
 						subtitle: {
 							text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
@@ -885,7 +907,7 @@
 							zoomType: 'x',
 						},
 						title: {
-							text: 'Vent <?php echo date('d/m/Y',$tsOptDay) ?> en heure UTC',
+							text: 'Vent du <?php echo date('d/m/Y',$tsOptDay) ?> en heure UTC',
 						},
 						subtitle: {
 							text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
@@ -1031,7 +1053,7 @@
 							zoomType: 'x',
 						},
 						title: {
-							text: 'Précipitations <?php echo date('d/m/Y',$tsOptDay) ?> en heure UTC',
+							text: 'Précipitations du <?php echo date('d/m/Y',$tsOptDay) ?> en heure UTC',
 						},
 						subtitle: {
 							text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres | Cumul à 6h UTC aux normes OMM',
@@ -1164,7 +1186,7 @@
 							panKey: 'shift'
 						},
 						title: {
-							text: 'Indice UV <?php echo date('d/m/Y',$tsOptDay) ?> en heure UTC',
+							text: 'Indice UV du <?php echo date('d/m/Y',$tsOptDay) ?> en heure UTC',
 						},
 						subtitle: {
 							text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
@@ -1240,7 +1262,7 @@
 							zoomType: 'x',
 						},
 						title: {
-							text: 'Rayonnement solaire <?php echo date('d/m/Y',$tsOptDay) ?> en heure UTC',
+							text: 'Rayonnement solaire du <?php echo date('d/m/Y',$tsOptDay) ?> en heure UTC',
 						},
 						subtitle: {
 							text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
@@ -1313,7 +1335,7 @@
 							zoomType: 'x',
 						},
 						title: {
-							text: 'Évapotranspiration <?php echo date('d/m/Y',$tsOptDay) ?> en heure UTC',
+							text: 'Évapotranspiration du <?php echo date('d/m/Y',$tsOptDay) ?> en heure UTC',
 						},
 						subtitle: {
 							text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',

@@ -17,6 +17,9 @@
 	$tsMinuit1 = $tsOptDay;
 	$tsMinuit2 = ($tsMinuit1 + (24 * 3600));
 
+	$optYesterday = date('Y-m-d', strtotime($optDay.'-1 day'));
+	$optTomorrow = date('Y-m-d', strtotime($optDay.'+1 day'));
+
 // Diff si journée en cours
 	if (time() >= $tsOptDayStart && time() < $tsOptDayStop) {
 		$dtOptDayStart = DateTime::createFromFormat('U', $tsOptDayStart);

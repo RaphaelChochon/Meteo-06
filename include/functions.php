@@ -1,4 +1,10 @@
 <?php
+// Tableaux jours et mois en français
+	$jourFrancais      = array("dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi");
+	$jourFrancaisAbrev = array("dim", "lun", "mar", "mer", "jeu", "ven", "sam");
+	$moisFrancais      = Array("", "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre");
+	$moisFrancaisAbrev = Array("", "janv", "févr", "mars", "avr", "mai", "juin", "juill", "août", "sept", "oct", "nov", "déc");
+
 // FONCTION arondi des minutes
 	/**
 	 * Round down minutes to the nearest lower interval of a DateTime object.
