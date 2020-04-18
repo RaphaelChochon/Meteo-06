@@ -606,6 +606,7 @@
 							// Axe 0
 							lineColor: '#FF0000',
 							lineWidth: 1,
+							tickPixelInterval: 30,
 							title: {
 								text: 'Température et pt de rosée (°C)',
 								style: {
@@ -622,6 +623,7 @@
 							opposite: true,
 							min:0,
 							max: 100,
+							tickPixelInterval: 30,
 							lineColor: '#3399FF',
 							lineWidth: 1,
 							title: {
