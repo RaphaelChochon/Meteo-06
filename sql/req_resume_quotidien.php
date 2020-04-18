@@ -475,10 +475,12 @@ if (!$lessValue) {
 				$windGustMaxDir5m = "null";
 				$windGustMaxdt5m  = "null";
 				$ts = $row['ts']*1000;
-				if ($row['windGust'] !== '0' && !is_null ($row['windGust'])) {
+				if (!is_null ($row['windGust'])) {
 					$windGustMax5m = round($row['windGust'],1);
-					if (!is_null ($row['windGustDir'])) { $windGustMaxDir5m = round($row['windGustDir'],1); }
-					$windGustMaxdt5m = date('H\hi',$row['dateTime']);
+					if (!is_null ($row['windGustDir'])) {
+						$windGustMaxDir5m = round($row['windGustDir'],1);
+						$windGustMaxdt5m = date('H\hi',$row['dateTime']);
+					}
 				}
 				$dataWg[] = "[$ts, $windGustMax5m, $windGustMaxDir5m, '$windGustMaxdt5m']";
 				$dataWgD[] = "[$ts, $windGustMaxDir5m]";

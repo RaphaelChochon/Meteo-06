@@ -174,10 +174,12 @@ if ($graphType == 'graphs') {
 				$windGustMaxDir10m = "null";
 				$windGustMaxdt10m  = "null";
 				$ts = $row['ts']*1000;
-				if ($row['windGust'] !== '0' && !is_null ($row['windGust'])) {
+				if (!is_null ($row['windGust'])) {
 					$windGustMax10m = round($row['windGust'],1);
-					if (!is_null ($row['windGustDir'])) { $windGustMaxDir10m = round($row['windGustDir'],1); }
-					$windGustMaxdt10m = date('H\hi',$row['dateTime']);
+					if (!is_null ($row['windGustDir'])) {
+						$windGustMaxDir10m = round($row['windGustDir'],1);
+						$windGustMaxdt10m = date('H\hi',$row['dateTime']);
+					}
 				}
 				$dataWg[] = "[$ts, $windGustMax10m, $windGustMaxDir10m, '$windGustMaxdt10m']";
 				$dataWgD[] = "[$ts, $windGustMaxDir10m]";
