@@ -47,7 +47,6 @@
 		<script defer src="vendors/bootstrap/js/bootstrap-4.4.1.min.js"></script>
 
 		<!-- Highcharts -->
-		<link href="vendors/highcharts/css/highcharts-8.0.4.css" rel="stylesheet">
 		<script defer src="vendors/highcharts/js/highcharts-8.0.4.js"></script>
 		<script defer src="vendors/highcharts/modules/exporting-8.0.4.js"></script>
 		<script defer src="vendors/highcharts/modules/offline-exporting-8.0.4.js"></script>
