@@ -706,7 +706,17 @@
 									fontSize: "8px",
 								},
 							}
-						}]
+						}],
+						plotOptions: {
+							series: {
+								states: {
+									hover: {
+										enabled: true,
+										lineWidthPlus: 0 // désactive le highlighting des series
+									}
+								}
+							}
+						}
 					});
 					/*
 						START GRAPH TEMP/HYGRO
