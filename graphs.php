@@ -591,7 +591,7 @@
 						},
 						exporting: {
 							filename: '<?php echo $short_station_name; ?> Temperature',
-							sourceHeight: '400',
+							sourceHeight: '500',
 							sourceWidth: '1200',
 							csv: {
 								itemDelimiter:';',
@@ -716,7 +716,7 @@
 						},
 						exporting: {
 							filename: '<?php echo $short_station_name; ?> Pression',
-							sourceHeight: '400',
+							sourceHeight: '500',
 							sourceWidth: '1200',
 							csv: {
 								itemDelimiter:';',
@@ -782,7 +782,7 @@
 						},
 						exporting: {
 							filename: '<?php echo $short_station_name; ?> Vent',
-							sourceHeight: '400',
+							sourceHeight: '500',
 							sourceWidth: '1200',
 							csv: {
 								itemDelimiter:';',
@@ -930,7 +930,7 @@
 						},
 						exporting: {
 							filename: '<?php echo $short_station_name; ?> Precipitations',
-							sourceHeight: '400',
+							sourceHeight: '500',
 							sourceWidth: '1200',
 							csv: {
 								itemDelimiter:';',
@@ -1063,7 +1063,7 @@
 						},
 						exporting: {
 							filename: '<?php echo $short_station_name; ?> UV',
-							sourceHeight: '400',
+							sourceHeight: '500',
 							sourceWidth: '1200',
 							csv: {
 								itemDelimiter:';',
@@ -1139,7 +1139,7 @@
 						},
 						exporting: {
 							filename: '<?php echo $short_station_name; ?> Rayonnement solaire',
-							sourceHeight: '400',
+							sourceHeight: '500',
 							sourceWidth: '1200',
 							csv: {
 								itemDelimiter:';',
@@ -1212,7 +1212,7 @@
 						},
 						exporting: {
 							filename: '<?php echo $short_station_name; ?> Évapotranspiration',
-							sourceHeight: '400',
+							sourceHeight: '500',
 							sourceWidth: '1200',
 							csv: {
 								itemDelimiter:';',

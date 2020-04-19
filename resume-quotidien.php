@@ -724,7 +724,7 @@
 						},
 						exporting: {
 							filename: '<?php echo $short_station_name."_".date('Y-m-d',$tsOptDay); ?>_Temperature',
-							sourceHeight: '400',
+							sourceHeight: '500',
 							sourceWidth: '1200',
 							csv: {
 								itemDelimiter:';',
@@ -849,7 +849,7 @@
 						},
 						exporting: {
 							filename: '<?php echo $short_station_name."_".date('Y-m-d',$tsOptDay); ?>_Pression',
-							sourceHeight: '400',
+							sourceHeight: '500',
 							sourceWidth: '1200',
 							csv: {
 								itemDelimiter:';',
@@ -915,7 +915,7 @@
 						},
 						exporting: {
 							filename: '<?php echo $short_station_name."_".date('Y-m-d',$tsOptDay); ?>_Vent',
-							sourceHeight: '400',
+							sourceHeight: '500',
 							sourceWidth: '1200',
 							csv: {
 								itemDelimiter:';',
@@ -1063,7 +1063,7 @@
 						},
 						exporting: {
 							filename: '<?php echo $short_station_name."_".date('Y-m-d',$tsOptDay); ?>_Precipitations',
-							sourceHeight: '400',
+							sourceHeight: '500',
 							sourceWidth: '1200',
 							csv: {
 								itemDelimiter:';',
@@ -1196,7 +1196,7 @@
 						},
 						exporting: {
 							filename: '<?php echo $short_station_name."_".date('Y-m-d',$tsOptDay); ?>_UV',
-							sourceHeight: '400',
+							sourceHeight: '500',
 							sourceWidth: '1200',
 							csv: {
 								itemDelimiter:';',
@@ -1272,7 +1272,7 @@
 						},
 						exporting: {
 							filename: '<?php echo $short_station_name."_".date('Y-m-d',$tsOptDay); ?> Rayonnement solaire',
-							sourceHeight: '400',
+							sourceHeight: '500',
 							sourceWidth: '1200',
 							csv: {
 								itemDelimiter:';',
@@ -1345,7 +1345,7 @@
 						},
 						exporting: {
 							filename: '<?php echo $short_station_name."_".date('Y-m-d',$tsOptDay); ?>_Évapotranspiration',
-							sourceHeight: '400',
+							sourceHeight: '500',
 							sourceWidth: '1200',
 							csv: {
 								itemDelimiter:';',
