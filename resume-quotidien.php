@@ -117,7 +117,7 @@
 				<div class="col-md-4">
 					<div class="row">
 						<div class="col-md-12">
-							<div class="form-group">
+							<div class="form-group" id="anchorDate">
 								<h5 class="text-center">Changer de date :</h5>
 								<div class="input-group date" id="dtPicker" data-target-input="nearest">
 									<input type="text" class="form-control datetimepicker-input text-center" data-target="#dtPicker" readonly="readonly">
@@ -143,8 +143,7 @@
 								$("#dtPicker").on("change.datetimepicker", function (e) {
 									moment.locale('fr');
 									d = moment(e.date,'ddd DD MMM YYYY').format('YYYY-MM-DD');
-									var url = "./resume-quotidien.php?day=";
-									url = url + d;
+									var url = "./resume-quotidien.php?day=" + d + "#anchorDate";
 									window.location.href = url;
 								});
 							});
@@ -152,10 +151,10 @@
 					</div>
 					<div class="row mb-3">
 						<div class="col text-left">
-							<a role="button" class="btn btn-primary  <?php if (strtotime($optYesterday) < strtotime($dtFisrtDay)) {echo "disabled";} ?>" href="./resume-quotidien.php?day=<?php echo $optYesterday; ?>"><i class="fas fa-chevron-circle-left"></i>&nbsp;<?php list($nomJour, $jour, $mois) = explode('-', date('w-d-n', strtotime($optYesterday))); echo $jourFrancaisAbrev[$nomJour].' '.$jour.' '.$moisFrancaisAbrev[$mois];?></a>
+							<a role="button" class="btn btn-primary  <?php if (strtotime($optYesterday) < strtotime($dtFisrtDay)) {echo "disabled";} ?>" href="./resume-quotidien.php?day=<?php echo $optYesterday; ?>#anchorDate"><i class="fas fa-chevron-circle-left"></i>&nbsp;<?php list($nomJour, $jour, $mois) = explode('-', date('w-d-n', strtotime($optYesterday))); echo $jourFrancaisAbrev[$nomJour].' '.$jour.' '.$moisFrancaisAbrev[$mois];?></a>
 						</div>
 						<div class="col text-right">
-							<a role="button" class="btn btn-primary <?php if (strtotime($optTomorrow) > strtotime($dtLastDay)) {echo "disabled";} ?>" href="./resume-quotidien.php?day=<?php echo $optTomorrow; ?>"><?php list($nomJour, $jour, $mois) = explode('-', date('w-d-n', strtotime($optTomorrow))); echo $jourFrancaisAbrev[$nomJour].' '.$jour.' '.$moisFrancaisAbrev[$mois];?>&nbsp;<i class="fas fa-chevron-circle-right"></i></a>
+							<a role="button" class="btn btn-primary <?php if (strtotime($optTomorrow) > strtotime($dtLastDay)) {echo "disabled";} ?>" href="./resume-quotidien.php?day=<?php echo $optTomorrow; ?>#anchorDate"><?php list($nomJour, $jour, $mois) = explode('-', date('w-d-n', strtotime($optTomorrow))); echo $jourFrancaisAbrev[$nomJour].' '.$jour.' '.$moisFrancaisAbrev[$mois];?>&nbsp;<i class="fas fa-chevron-circle-right"></i></a>
 						</div>
 					</div>
 				</div>
