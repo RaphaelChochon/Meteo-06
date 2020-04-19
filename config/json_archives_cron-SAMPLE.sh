@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# path to folder sql/
-cd /var/www/html/meteo/sql/
-
-# DO NOT MODIFY THIS
-php makejson_archives.php
