@@ -666,7 +666,7 @@
 							plotLines: [{
 								value: <?php echo $tsMinuit1 * 1000;?>,
 								dashStyle: 'ShortDash',
-								width: 2,
+								width: 1,
 								color: 'red',
 								zIndex: 1,
 								label: {
@@ -680,7 +680,7 @@
 							},{
 								value: <?php echo $tsMinuit2 * 1000;?>,
 								dashStyle: 'ShortDash',
-								width: 2,
+								width: 1,
 								color: 'red',
 								zIndex: 1,
 								label: {

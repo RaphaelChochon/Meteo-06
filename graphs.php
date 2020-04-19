@@ -464,7 +464,7 @@
 							plotLines: [{
 								value: <?php echo $minuit;?>,
 								dashStyle: 'ShortDash',
-								width: 2,
+								width: 1,
 								color: 'red',
 								label: {
 									text: 'minuit UTC',
@@ -477,7 +477,7 @@
 							},{
 								value: <?php echo $minuit_hier;?>,
 								dashStyle: 'ShortDash',
-								width: 2,
+								width: 1,
 								color: 'red',
 								zIndex: 1,
 								label: {
@@ -491,7 +491,7 @@
 							},{
 								value: <?php echo $minuit_3;?>,
 								dashStyle: 'ShortDash',
-								width: 2,
+								width: 1,
 								color: 'red',
 								zIndex: 1,
 								label: {
@@ -505,7 +505,7 @@
 							},{
 								value: <?php echo $minuit_4;?>,
 								dashStyle: 'ShortDash',
-								width: 2,
+								width: 1,
 								color: 'red',
 								zIndex: 1,
 								label: {
@@ -519,7 +519,7 @@
 							},{
 								value: <?php echo $minuit_5;?>,
 								dashStyle: 'ShortDash',
-								width: 2,
+								width: 1,
 								color: 'red',
 								zIndex: 1,
 								label: {
@@ -533,7 +533,7 @@
 							},{
 								value: <?php echo $minuit_6;?>,
 								dashStyle: 'ShortDash',
-								width: 2,
+								width: 1,
 								color: 'red',
 								zIndex: 1,
 								label: {
@@ -547,7 +547,7 @@
 							},{
 								value: <?php echo $minuit_7;?>,
 								dashStyle: 'ShortDash',
-								width: 2,
+								width: 1,
 								color: 'red',
 								zIndex: 1,
 								label: {
