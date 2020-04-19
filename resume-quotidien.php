@@ -58,18 +58,13 @@
 
 		<!-- ######### Pour Highcharts ######### -->
 		<!-- Highcharts BASE -->
-		<link href="vendors/highcharts/css/highcharts-8.0.4.css" rel="stylesheet">
 		<script defer src="vendors/highcharts/js/highcharts-8.0.4.js"></script>
-		<!-- Spécifique pour HeatMap -->
-		<script defer src="vendors/highcharts/modules/heatmap-8.0.4.js"></script>
 		<!-- Highcharts more et modules d'export -->
-		<script defer src="vendors/highcharts/js/highcharts-more-6.2.0.js"></script>
+		<script defer src="vendors/highcharts/js/highcharts-more-8.0.4.js"></script>
 		<script defer src="vendors/highcharts/modules/exporting-8.0.4.js"></script>
 		<script defer src="vendors/highcharts/modules/offline-exporting-8.0.4.js"></script>
 		<script defer src="vendors/highcharts/modules/export-data-8.0.4.js"></script>
 		<script defer src="vendors/highcharts/modules/annotations-8.0.4.js"></script>
-		<!-- Highcharts Boost -->
-		<script defer src="vendors/highcharts/modules/boost-8.0.4.js"></script>
 
 		<!-- ######### Pour un DatePicker ######### -->
 		<!-- Font Awesome CSS for Tempus Dominus -->
@@ -673,6 +668,7 @@
 								dashStyle: 'ShortDash',
 								width: 2,
 								color: 'red',
+								zIndex: 1,
 								label: {
 									text: 'minuit UTC',
 									align: 'right',
@@ -789,10 +785,11 @@
 						},
 						series: [{
 							name: 'Température',
+							id: 'series-temp',
 							type: 'line',
 							data: [<?php echo join($dataTemp, ',') ?>],
 							// boostThreshold: 20,
-							zIndex: 1,
+							zIndex: 2,
 							color: '#ff0000',
 							negativeColor:'#0d1cc5',
 							tooltip: {
@@ -800,17 +797,19 @@
 							}
 						},{
 							name: 'Température min/max',
+							linkedTo: 'series-temp',
 							type: 'errorbar',
-							// yAxis: 0,
-							color: '#ff4747',
-							data: [<?php echo join($dataTnTx, ',') ?>],
-							// boostThreshold: 20,
+							yAxis: 0,
+							color: '#ff0000',
+							lineWidth: 1.2,
 							tooltip: {
 								pointFormat: 'Temp. min/max sur l\'intvl: {point.low}-{point.high}°C)<br/>'
 							},
-							zIndex: 10,
+							zIndex: 20,
+							data: [<?php echo join($dataTnTx, ',') ?>],
 							showInLegend: true,
-							visible: false
+							visible: false,
+							includeInDataExport : true
 						},{
 							name: 'Humidité',
 							type: 'line',
