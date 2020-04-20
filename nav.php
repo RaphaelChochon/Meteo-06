@@ -14,42 +14,38 @@
 				</li>
 				';
 			};?>
+			<li class="nav-item">
+				<a class="nav-link" href="resume-quotidien.php?day=<?php echo date('Y-m-d');?>">Résumé quotidien</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="graphs.php?type=graphs&period=24h">Graphiques</a>
+			</li>
 			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTabRecap" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Résumés
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownClimato" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Climatologie
 				</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdownTabRecap">
-					<a class="dropdown-item" href="resume-quotidien.php?day=<?php echo date('Y-m-d');?>">Résumé quotidien</a>
-					<a class="dropdown-item" href="resume-mensuel.php">Résumé mensuel -> a venir</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdownClimato">
+					<a class="dropdown-item" href="climatologie-mensuelle.php">Climato. mensuelle</a>
+					<a class="dropdown-item" href="climatologie-annuelle.php">Climato. annuelle</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="graphs-climatologie-globale.php">Graphs. climato. globale</a>
+					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="tableau_records.php">Records de la station -> a revoir</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="noaa.php">Accès aux tableaux NOAA<br>Rapports mensuels et annuels</a>
 				</div>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="graphs.php?type=graphs&period=24h">Graphiques</a>
-				<!-- <a class="nav-link" href="graphs.php">Graphiques<span style="color:red;font-weight:bold;font-size:small;"><sup> New</sup></span></a> -->
-			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownClimato" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Graphs. climato.
+					Divers
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownClimato">
-					<a class="dropdown-item" href="climatologie-quotidienne.php">Climato. quotidienne</a>
+					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="comparatif-moyenne.php">Comparatif de moyennes de-<br>-températures</a>
+					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="climato-quoti-fiab.php">Indice de fiabilité de la-<br>-climato.</a>
 				</div>
 			</li>
-			<!-- <li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownClimato" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Archives
-				</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdownClimato">
-					<a class="dropdown-item" href="noaa.php">Accès aux tableaux NOAA<br>Rapports mensuels et annuels</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="archives.php">Graphique de toutes les archives<br>Attention, lent à charger...</a>
-				</div>
-			</li> -->
 			<?php if ($additional_menu){
 				include 'config/additional_menu.php';
 			};?>
