@@ -383,9 +383,11 @@ elseif ($graphType == 'heatmap') {
 	$tsStartYear =strtotime($period.'-01-01 00:00:00');
 	$tsStopYear =strtotime($period.'-12-31 23:59:59');
 
-	// Récup des données de température
+	// Récup des données de température et humidité
 	$query_string = "SELECT `dateTime` AS `ts`,
-					`outTemp` AS `TempHourly`
+					`outTemp` AS `TempHourly`,
+					`outHumidity` AS `HumidityHourly`,
+					`dewpoint` AS `DewPointHourly`
 					FROM $db_table
 					WHERE `dateTime` >= $tsStartYear AND `dateTime` <= $tsStopYear 
 					AND (`dateTime`%3600)=0
@@ -402,14 +404,26 @@ elseif ($graphType == 'heatmap') {
 	if ($result) {
 		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			$ts = strtotime(date('Y-m-d',$row['ts']))*1000;
-			$heureTempHourly = date('G',$row['ts']); // heure au format 24h de 0 à 23
+			$heureHourly = date('G',$row['ts']); // heure au format 24h de 0 à 23
 			$TempHourly        = "null";
+			$HumidityHourly        = "null";
+			$DewPointHourly        = "null";
 
 			// Traitement des données
 			if ($row['TempHourly'] != null) {
 				$TempHourly = round($row['TempHourly'],1);
 			}
-			$dataTempHourly[] = "[$ts, $heureTempHourly, $TempHourly]";
+			$dataTempHourly[] = "[$ts, $heureHourly, $TempHourly]";
+
+			if ($row['HumidityHourly'] != null) {
+				$HumidityHourly = round($row['HumidityHourly'],1);
+			}
+			$dataHumidityHourly[] = "[$ts, $heureHourly, $HumidityHourly]";
+
+			if ($row['DewPointHourly'] != null) {
+				$DewPointHourly = round($row['DewPointHourly'],1);
+			}
+			$dataDewPointHourly[] = "[$ts, $heureHourly, $DewPointHourly]";
 		}
 	}
 

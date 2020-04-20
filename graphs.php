@@ -1326,6 +1326,18 @@
 			<hr>
 			<div class="row">
 				<div class="col-md-12">
+					<div id="heatMapHrHourly" style="width:100%; height: 500px;"></div>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-12">
+					<div id="heatMapTdHourly" style="width:100%; height: 500px;"></div>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-12">
 					<div id="heatMapRainHourly" style="width:100%; height: 500px;"></div>
 				</div>
 			</div>
@@ -1381,7 +1393,7 @@
 							zoomType: 'xy',
 						},
 						title: {
-							text: 'Températures horaires <?php echo $period; ?>',
+							text: 'Température horaire <?php echo $period; ?>',
 						},
 						subtitle: {
 							text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres | Heures UTC',
@@ -1444,7 +1456,7 @@
 							startOnTick: false,
 							endOnTick: false,
 							labels: {
-								format: '{value}℃'
+								format: '{value} °C'
 							}
 						},
 						series: [{
@@ -1455,7 +1467,173 @@
 							colsize: 24 * 36e5, // one day
 							tooltip: {
 								headerFormat: 'Température<br/>',
-								pointFormat: '{point.x:%e %b %Y} {point.y}:00: <b>{point.value}°C</b>'
+								pointFormat: '{point.x:%e %b %Y} {point.y}:00: <b>{point.value} °C</b>'
+							},
+						}]
+					});
+
+					var heatMapHrHourly = Highcharts.chart('heatMapHrHourly', {
+						chart: {
+							type : 'heatmap',
+							zoomType: 'xy',
+						},
+						title: {
+							text: 'Humidité horaire <?php echo $period; ?>',
+						},
+						subtitle: {
+							text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres | Heures UTC',
+						},
+						exporting: {
+							filename: '<?php echo $short_station_name; ?>_HumiditeHoraire_<?php echo $period; ?>',
+							sourceHeight: '500',
+							sourceWidth: '1200',
+							csv: {
+								itemDelimiter:';',
+								decimalPoint:'.'
+							},
+						},
+						boost: {
+							useGPUTranslations: true
+						},
+						xAxis: {
+							type: 'datetime',
+							min: Date.UTC(<?php echo $period; ?>, 0, 1),
+							max: Date.UTC(<?php echo $period; ?>, 11, 31, 23, 59, 59),
+							labels: {
+								align: 'left',
+								x: 5,
+								y: 14,
+								format: '{value:%B}' // long month
+							},
+							showLastLabel: false,
+							tickLength: 16
+						},
+						yAxis: {
+							title: {
+								text: null
+							},
+							labels: {
+								format: '{value}h'
+							},
+							minPadding: 0,
+							maxPadding: 0,
+							startOnTick: false,
+							endOnTick: false,
+							tickPositions: [0, 6, 12, 18, 24],
+							tickWidth: 1,
+							min: 0,
+							max: 23,
+							reversed: true
+						},
+						colorAxis: {
+							stops: [
+								[0, '#ffffbf'],
+								[0.4, '#bae7ff'],
+								[0.6, '#82d4ff'],
+								[1, '#3060cf']
+							],
+							min: 0,
+							max: 100,
+							startOnTick: false,
+							endOnTick: false,
+							labels: {
+								format: '{value} %'
+							}
+						},
+						series: [{
+							data: [<?php echo join($dataHumidityHourly, ',') ?>],
+							boostThreshold: 100,
+							borderWidth: 0,
+							nullColor: '#ffffff',
+							colsize: 24 * 36e5, // one day
+							tooltip: {
+								headerFormat: 'Humidité<br/>',
+								pointFormat: '{point.x:%e %b %Y} {point.y}:00: <b>{point.value} %</b>'
+							},
+						}]
+					});
+
+					var heatMapTdHourly = Highcharts.chart('heatMapTdHourly', {
+						chart: {
+							type : 'heatmap',
+							zoomType: 'xy',
+						},
+						title: {
+							text: 'Point de rosée horaire <?php echo $period; ?>',
+						},
+						subtitle: {
+							text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres | Heures UTC',
+						},
+						exporting: {
+							filename: '<?php echo $short_station_name; ?>_Point-de-rosee_Horaire_<?php echo $period; ?>',
+							sourceHeight: '500',
+							sourceWidth: '1200',
+							csv: {
+								itemDelimiter:';',
+								decimalPoint:'.'
+							},
+						},
+						boost: {
+							useGPUTranslations: true
+						},
+						xAxis: {
+							type: 'datetime',
+							min: Date.UTC(<?php echo $period; ?>, 0, 1),
+							max: Date.UTC(<?php echo $period; ?>, 11, 31, 23, 59, 59),
+							labels: {
+								align: 'left',
+								x: 5,
+								y: 14,
+								format: '{value:%B}' // long month
+							},
+							showLastLabel: false,
+							tickLength: 16
+						},
+						yAxis: {
+							title: {
+								text: null
+							},
+							labels: {
+								format: '{value}h'
+							},
+							minPadding: 0,
+							maxPadding: 0,
+							startOnTick: false,
+							endOnTick: false,
+							tickPositions: [0, 6, 12, 18, 24],
+							tickWidth: 1,
+							min: 0,
+							max: 23,
+							reversed: true
+						},
+						colorAxis: {
+							stops: [
+								[0.1, '#e14aff'], // violet
+								[0.15, '#e886f7'], // rose
+								[0.25, '#372bba'], // bleu marine
+								[0.45, '#42a4ff'], // bleu clair
+								[0.55, '#34e36c'], // vert
+								[0.75, '#e5fc30'], // jaune moyen
+								[0.85, '#fcae30'], // orange
+								[0.9, '#fc4f30'] // rouge
+							],
+							min: -25,
+							max: 25,
+							startOnTick: false,
+							endOnTick: false,
+							labels: {
+								format: '{value} °C'
+							}
+						},
+						series: [{
+							data: [<?php echo join($dataDewPointHourly, ',') ?>],
+							boostThreshold: 100,
+							borderWidth: 0,
+							nullColor: '#ffffff',
+							colsize: 24 * 36e5, // one day
+							tooltip: {
+								headerFormat: 'Point de rosée<br/>',
+								pointFormat: '{point.x:%e %b %Y} {point.y}:00: <b>{point.value} °C</b>'
 							},
 						}]
 					});
@@ -1466,7 +1644,7 @@
 							zoomType: 'xy',
 						},
 						title: {
-							text: 'Précipitations horaires <?php echo $period; ?>',
+							text: 'Précipitations horaire <?php echo $period; ?>',
 						},
 						subtitle: {
 							text: 'Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres | Heures UTC',
@@ -1527,7 +1705,7 @@
 							startOnTick: false,
 							endOnTick: false,
 							labels: {
-								format: '{value}mm'
+								format: '{value} mm'
 							}
 						},
 						series: [{
@@ -1538,50 +1716,13 @@
 							colsize: 24 * 36e5, // one day
 							tooltip: {
 								headerFormat: 'Précipitations<br/>',
-								pointFormat: '{point.x:%e %b %Y} {point.y}:00: <b>{point.value}mm</b>'
+								pointFormat: '{point.x:%e %b %Y} {point.y}:00: <b>{point.value} mm</b>'
 							},
 						}]
 					});
 				});
 			</script>
-		<?php endif; ?>
-
-		<!-- DEBUT type=graphs -->
-		<?php if ($graphType == 'month') : ?>
-			<?php
-				// foreach ($monthRange as $month) {
-				// 	echo $month->format('Y-m')."<br>";
-				// }
-			?>
-
-			<!-- <div class="container">
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="form-group">
-							<div class="input-group date" id="dtPicker" data-target-input="nearest">
-								<input type="text" class="form-control datetimepicker-input" data-target="#dtPicker"/>
-								<span class="input-group-addon" data-target="#dtPicker" data-toggle="datetimepicker">
-									<span class="glyphicon glyphicon-calendar"></span>
-								</span>
-							</div>
-						</div>
-					</div>
-					<script type="text/javascript">
-						$(function () {
-							$('#dtPicker').datetimepicker({
-								// viewMode: 'years',
-								format: 'MM-YYYY',
-								locale: moment.locale('fr'),
-								maxDate: moment(),
-								useCurrent: true
-								// format: 'DD-MM-YYYY HH:mm',
-							});
-						});
-					</script>
-				</div>
-			</div> -->
-
-			<?php endif; ?>
+		<?php endif; ?> <!-- FIN heatmap -->
 
 			<footer class="footer bg-light">
 				<?php include 'footer.php';?>
