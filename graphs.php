@@ -1530,7 +1530,8 @@
 								[0, '#ffffbf'],
 								[0.4, '#bae7ff'],
 								[0.6, '#82d4ff'],
-								[1, '#3060cf']
+								[0.9, '#3060cf'],
+								[1, '#e14aff']
 							],
 							min: 0,
 							max: 100,
@@ -1608,17 +1609,18 @@
 						},
 						colorAxis: {
 							stops: [
-								[0.1, '#e14aff'], // violet
+								[0.05, '#e14aff'], // violet
 								[0.15, '#e886f7'], // rose
 								[0.25, '#372bba'], // bleu marine
 								[0.45, '#42a4ff'], // bleu clair
 								[0.55, '#34e36c'], // vert
 								[0.75, '#e5fc30'], // jaune moyen
 								[0.85, '#fcae30'], // orange
-								[0.9, '#fc4f30'] // rouge
+								[0.9,  '#fc4f30'], // rouge
+								[1,    '#ff0000'] // rouge foncé
 							],
-							min: -25,
-							max: 25,
+							min: -20,
+							max: 30,
 							startOnTick: false,
 							endOnTick: false,
 							labels: {
