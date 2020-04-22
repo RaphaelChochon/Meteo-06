@@ -1,5 +1,4 @@
 <?php
-	require_once("config/config.php");
 	$db=$db_name.".".$db_table;
 	try {
 		$db_handle_pdo = new PDO("mysql:host=$server;dbname=$db_name", $user, $pass);
