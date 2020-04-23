@@ -48,12 +48,11 @@
 
 		<!-- ######### Pour Highcharts ######### -->
 		<!-- Highcharts BASE -->
-		<link href="vendors/highcharts/css/highcharts-8.0.4.css" rel="stylesheet">
 		<script defer src="vendors/highcharts/js/highcharts-8.0.4.js"></script>
 		<!-- Spécifique pour HeatMap -->
 		<script defer src="vendors/highcharts/modules/heatmap-8.0.4.js"></script>
 		<!-- Highcharts more et modules d'export -->
-		<script defer src="vendors/highcharts/js/highcharts-more-6.2.0.js"></script>
+		<script defer src="vendors/highcharts/js/highcharts-more-8.0.4.js"></script>
 		<script defer src="vendors/highcharts/modules/exporting-8.0.4.js"></script>
 		<script defer src="vendors/highcharts/modules/offline-exporting-8.0.4.js"></script>
 		<script defer src="vendors/highcharts/modules/export-data-8.0.4.js"></script>
