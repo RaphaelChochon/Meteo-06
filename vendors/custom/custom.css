@@ -150,3 +150,13 @@ body{
 	height: 400px;
 	width: 100%;
 }
+
+/* ## Admin
+--------------------------------------------- */
+.card-admin {
+	width: 22rem;
+	height: 16rem;
+}
+.card-text-admin {
+	height: 4.5rem;
+}
