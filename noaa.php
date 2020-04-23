@@ -38,13 +38,13 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		<!-- JQUERY JS -->
-		<script src="vendors/jquery/jquery-slim-3.4.1.min.js"></script>
+		<script src="content/jquery/jquery-slim-3.4.1.min.js"></script>
 
 		<!-- Bootstrap 4.4.1 -->
-		<link href="vendors/bootstrap/css/bootswatch-united-4.4.1.min.css" rel="stylesheet">
-		<link href="vendors/custom/custom.css?v=1.2" rel="stylesheet">
-		<script defer src="vendors/bootstrap/js/popper-1.16.0.min.js"></script>
-		<script defer src="vendors/bootstrap/js/bootstrap-4.4.1.min.js"></script>
+		<link href="content/bootstrap/css/bootswatch-united-4.4.1.min.css" rel="stylesheet">
+		<link href="content/custom/custom.css?v=1.2" rel="stylesheet">
+		<script defer src="content/bootstrap/js/popper-1.16.0.min.js"></script>
+		<script defer src="content/bootstrap/js/bootstrap-4.4.1.min.js"></script>
 
 		<script type="text/javascript">
 			function openNoaaFileMonth(file_month){

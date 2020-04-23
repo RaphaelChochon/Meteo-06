@@ -37,12 +37,12 @@
 			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-		<link href="vendors/bootswatch-flatly/bootstrap.min.css" rel="stylesheet">
-		<link href="vendors/custom/custom.css?v=1.1" rel="stylesheet">
+		<link href="content/bootswatch-flatly/bootstrap.min.css" rel="stylesheet">
+		<link href="content/custom/custom.css?v=1.1" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script src="vendors/bootstrap/js/tooltip.js"></script>
-		<script src="vendors/bootstrap/js/popover.js"></script>
-		<script src="vendors/bootstrap/js/bootstrap.min.js"></script>
+		<script src="content/bootstrap/js/tooltip.js"></script>
+		<script src="content/bootstrap/js/popover.js"></script>
+		<script src="content/bootstrap/js/bootstrap.min.js"></script>
 		<script>
 			$(function () {
 				$('[data-toggle="popover"]').popover()

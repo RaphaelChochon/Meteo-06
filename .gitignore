@@ -1,11 +1,7 @@
 sftp-config.json
 config/config.php
 sql/makejson_last.php
-vendors/bootstrap-3.3.7/*
 webcam/*
-vendors/custom/charts.css
-config/json_cron.sh
-config/json_archives_cron.sh
 config/web_analytics.php
 config/res_sociaux.php
 config/additional_menu.php
