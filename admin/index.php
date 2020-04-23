@@ -76,6 +76,23 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12 align-baseline">
+					<?php if ($presence_iss_radio) : ?>
+					<!-- Réception -->
+					<div class="card d-inline-block border-primary card-admin m-1">
+						<div class="card-header">
+							Statistiques de réception et tension
+						</div>
+						<div class="card-body">
+							<h4 class="card-title">
+								Statistiques techniques
+							</h4>
+							<p class="card-text overflow-hidden card-text-admin">
+								Affichage des statistiques de réception entre la console et l'ISS et de la tension des piles de la console (pour les VP2).
+							</p>
+							<a role="button" href="/admin/stats-reception.php" class="btn btn-outline-primary btn-lg btn-block">Accès</a>
+						</div>
+					</div>
+					<?php endif; ?>
 					<!-- Extract data -->
 					<div class="card d-inline-block border-primary card-admin m-1">
 						<div class="card-header">
