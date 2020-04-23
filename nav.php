@@ -65,6 +65,9 @@
 	document.addEventListener('DOMContentLoaded', function () {
 		$('li.active').removeClass('active');
 		var pathArray = window.location.pathname.split('/');
+		if (pathArray[1] === '') {
+			pathArray[1] = 'index.php';
+		}
 		// console.log(pathArray);
 		$('a[href^="/' + pathArray[1] + '"]').closest('li').addClass('active');
 	});
