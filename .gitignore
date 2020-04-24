@@ -8,3 +8,5 @@ config/additional_menu.php
 config/widget_vigi.php
 config/a-propos.php
 fiche-station.pdf
+composer.lock
+vendor
