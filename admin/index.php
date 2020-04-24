@@ -1,7 +1,15 @@
-<?php require_once '../config/config.php';?>
-<?php require_once '../sql/connect_pdo.php';?>
-<?php require_once '../sql/import.php';?>
-<?php require_once '../include/functions.php';?>
+<?php
+	require_once __DIR__ . '/../include/access_rights.php';
+	if (!$auth->isLoggedIn()) {
+		// Redirection
+		header('Location: /admin/login.php'); 
+		exit();
+	}
+?>
+<?php require_once __DIR__ . '/../config/config.php';?>
+<?php require_once __DIR__ . '/../sql/connect_pdo.php';?>
+<?php require_once __DIR__ . '/../sql/import.php';?>
+<?php require_once __DIR__ . '/../include/functions.php';?>
 <!DOCTYPE html>
 <html lang="fr-FR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 	<head>
@@ -9,7 +17,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<?php include '../config/favicon.php';?>
+		<?php include __DIR__ . '/../config/favicon.php';?>
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -25,18 +33,17 @@
 		<script defer src="../content/bootstrap/js/popper-1.16.0.min.js"></script>
 		<script defer src="../content/bootstrap/js/bootstrap-4.4.1.min.js"></script>
 
-		<!-- ######### Pour un DatePicker ######### -->
-		<!-- Font Awesome CSS for Tempus Dominus -->
+		<!-- Font Awesome CSS -->
 		<link href="../content/fontawesome-5.13.0/css/all.min.css" rel="stylesheet">
 	</head>
 	<body>
 		<div class="container">
 			<header>
-				<?php include '../header.php';?>
+				<?php include __DIR__ . '/../header.php';?>
 			</header>
 			<br>
 			<nav>
-				<?php include '../nav.php';?>
+				<?php include __DIR__ . '/../nav.php';?>
 			</nav>
 			<br>
 
@@ -74,6 +81,8 @@
 					</p>
 				</div>
 			</div>
+			<!-- Vérif des droits d'accès -->
+			<?php if (defined('USER_IS_ADMIN') || defined('USER_IS_PROPRIO')) :?>
 			<div class="row">
 				<div class="col-md-12 align-baseline">
 					<?php if ($presence_iss_radio) : ?>
@@ -110,8 +119,20 @@
 					</div>
 				</div>
 			</div>
+			<?php else :?>
+			<div class="row">
+				<div class="col-md-6 mx-auto">
+					<div class="alert alert-danger">
+						<h4 class="alert-heading mt-1">Au mauvais endroit...</h4>
+						<p class="text-justify mb-0">
+							<strong>Oops !</strong> Il semblerait que vous n'ayez pas les droits suffisants pour accéder à cette page.
+						</p>
+					</div>
+				</div>
+			</div>
+			<?php endif; ?>
 			<footer class="footer bg-light">
-				<?php include '../footer.php';?>
+				<?php include __DIR__ . '/../footer.php';?>
 			</footer>
 		</div>
 	</body>

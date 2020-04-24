@@ -1,7 +1,15 @@
-<?php require_once '../config/config.php';?>
-<?php require_once '../sql/connect_pdo.php';?>
-<?php require_once '../sql/import.php';?>
-<?php require_once '../include/functions.php';?>
+<?php
+	require_once __DIR__ . '/../include/access_rights.php';
+	if (!$auth->isLoggedIn()) {
+		// Redirection
+		header('Location: /admin/login.php'); 
+		exit();
+	}
+?>
+<?php require_once __DIR__ . '/../config/config.php';?>
+<?php require_once __DIR__ . '/../sql/connect_pdo.php';?>
+<?php require_once __DIR__ . '/../sql/import.php';?>
+<?php require_once __DIR__ . '/../include/functions.php';?>
 <!DOCTYPE html>
 <html lang="fr-FR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 	<head>
@@ -40,25 +48,32 @@
 		<script defer src="../content/highcharts/modules/boost-8.0.4.js"></script>
 
 		<!-- ######### Pour un DatePicker ######### -->
-		<!-- Font Awesome CSS for Tempus Dominus -->
+		<!-- Font Awesome CSS -->
 		<link href="../content/fontawesome-5.13.0/css/all.min.css" rel="stylesheet">
-		<!-- Moment.js -->
-		<script defer type="text/javascript" src="../content/moment/moment.js"></script>
-		<script defer type="text/javascript" src="../content/moment/moment-locale-fr.js"></script>
-		<!-- Tempus Dominus -->
-		<script defer type="text/javascript" src="../content/tempusdominus/tempusdominus-bootstrap-4.min.js"></script>
-		<link rel="stylesheet" href="../content/tempusdominus/tempusdominus-bootstrap-4.min.css" />
 	</head>
 	<body>
 		<div class="container">
 			<header>
-				<?php include '../header.php';?>
+				<?php include __DIR__ . '/../header.php';?>
 			</header>
 			<br>
 			<nav>
-				<?php include '../nav.php';?>
+				<?php include __DIR__ . '/../nav.php';?>
 			</nav>
 			<br>
+			<!-- Vérif des droits d'accès -->
+			<?php if (!defined('USER_IS_ADMIN') && !defined('USER_IS_PROPRIO')) :?>
+			<div class="row">
+				<div class="col-md-6 mx-auto">
+					<div class="alert alert-danger">
+						<h4 class="alert-heading mt-1">Au mauvais endroit...</h4>
+						<p class="text-justify mb-0">
+							<strong>Oops !</strong> Il semblerait que vous n'ayez pas les droits nécessaires pour accéder à cette page.
+						</p>
+					</div>
+				</div>
+			</div>
+			<?php else :?>
 
 			<!-- DEBUT DU CORPS DE PAGE -->
 			<!-- Bannière infos -->
@@ -71,7 +86,7 @@
 			<?php endif; ?>
 
 			<!-- On récupère les valeurs en BDD pour peupler les graphs ci-après -->
-			<?php require_once 'req_stats-reception.php'; ?>
+			<?php include __DIR__ . '/req_stats-reception.php'; ?>
 
 			<div class="row">
 				<div class="col-md-12">
@@ -613,8 +628,10 @@
 
 
 			<hr class="my-4">
+			<!-- Fin de vérif des droits proprios -->
+			<?php endif; ?>
 			<footer class="footer bg-light">
-				<?php include '../footer.php';?>
+				<?php include __DIR__ . '/../footer.php';?>
 			</footer>
 		</div>
 	</body>
