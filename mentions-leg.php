@@ -1,7 +1,8 @@
-<?php require_once 'config/config.php';?>
-<?php require_once 'sql/connect_pdo.php';?>
-<?php require_once 'sql/import.php';?>
-<?php require_once 'include/functions.php';?>
+<?php require_once __DIR__ . '/include/access_rights.php';?>
+<?php require_once __DIR__ . '/config/config.php';?>
+<?php require_once __DIR__ . '/sql/connect_pdo.php';?>
+<?php require_once __DIR__ . '/sql/import.php';?>
+<?php require_once __DIR__ . '/include/functions.php';?>
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
@@ -10,7 +11,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="canonical" href="<?php if ($SSL){echo'https://';}else echo'http://';?><?php echo $_SERVER['HTTP_HOST']; ?><?php echo $_SERVER['PHP_SELF']; ?>" />
-		<?php include 'config/favicon.php';?>
+		<?php include __DIR__ . '/config/favicon.php';?>
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -29,11 +30,11 @@
 	<body>
 	<div class="container">
 		<header>
-			<?php include 'header.php';?>
+			<?php include __DIR__ . '/header.php';?>
 		</header>
 		<br>
 		<nav>
-			<?php include 'nav.php';?>
+			<?php include __DIR__ . '/nav.php';?>
 		</nav>
 
 		<!-- DEBUT DU CORPS DE PAGE -->
@@ -54,7 +55,7 @@
 
 
 	<footer class="footer bg-light">
-		<?php include 'footer.php';?>
+		<?php include __DIR__ . '/footer.php';?>
 	</footer>
 	</div>
 	</body>

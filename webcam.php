@@ -1,4 +1,5 @@
-<?php require_once 'config/config.php';?>
+<?php require_once __DIR__ . '/include/access_rights.php';?>
+<?php require_once __DIR__ . '/config/config.php';?>
 <!DOCTYPE html>
 <html lang="fr-FR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 	<head>
@@ -27,7 +28,7 @@
 		<meta name="twitter:image" content="<?php echo $url_site; ?>/img/capture_site.jpg" />
 		<meta name="twitter:creator" content="<?php echo $tw_account_name; ?>" />
 		<!-- Fin des balises META SEO -->
-		<?php include 'config/favicon.php';?>
+		<?php include __DIR__ . '/config/favicon.php';?>
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -42,15 +43,18 @@
 		<link href="content/custom/custom.css?v=1.2" rel="stylesheet">
 		<script defer src="content/bootstrap/js/popper-1.16.0.min.js"></script>
 		<script defer src="content/bootstrap/js/bootstrap-4.4.1.min.js"></script>
+
+		<!-- Font Awesome CSS -->
+		<link href="../content/fontawesome-5.13.0/css/all.min.css" rel="stylesheet">
 	</head>
 	<body>
 	<div class="container">
 		<header>
-			<?php include 'header.php';?>
+			<?php include __DIR__ . '/header.php';?>
 		</header>
 		<br>
 		<nav>
-			<?php include 'nav.php';?>
+			<?php include __DIR__ . '/nav.php';?>
 		</nav>
 
 		<!-- DEBUT DU CORPS DE PAGE -->
@@ -119,7 +123,7 @@
 		<br>
 
 	<footer class="footer bg-light">
-		<?php include 'footer.php';?>
+		<?php include __DIR__ . '/footer.php';?>
 	</footer>
 	</div>
 	</body>

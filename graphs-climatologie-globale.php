@@ -1,7 +1,8 @@
-<?php require_once 'config/config.php';?>
-<?php require_once 'sql/connect_pdo.php';?>
-<?php require_once 'sql/import.php';?>
-<?php require_once 'include/functions.php';?>
+<?php require_once __DIR__ . '/include/access_rights.php';?>
+<?php require_once __DIR__ . '/config/config.php';?>
+<?php require_once __DIR__ . '/sql/connect_pdo.php';?>
+<?php require_once __DIR__ . '/sql/import.php';?>
+<?php require_once __DIR__ . '/include/functions.php';?>
 <!DOCTYPE html>
 <html lang="fr-FR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 	<head>
@@ -53,15 +54,18 @@
 		<script defer src="content/highcharts/modules/export-data-8.0.4.js"></script>
 		<!-- @ToDo Mettre en place boost sur ces graphs -->
 		<!-- <script defer src="content/highcharts/modules/boost-8.0.4.js"></script> -->
+
+		<!-- Font Awesome CSS -->
+		<link href="content/fontawesome-5.13.0/css/all.min.css" rel="stylesheet">
 	</head>
 	<body>
 		<div class="container">
 			<header>
-				<?php include 'header.php';?>
+				<?php include __DIR__ . '/header.php';?>
 			</header>
 			<br>
 			<nav>
-				<?php include 'nav.php';?>
+				<?php include __DIR__ . '/nav.php';?>
 			</nav>
 			<br>
 
@@ -76,7 +80,7 @@
 			<?php endif; ?>
 
 			<!-- On récupère les valeurs en BDD pour peupler les tableaux ci-après -->
-			<?php require_once 'sql/req_climato_quotidienne.php';?>
+			<?php include __DIR__ . '/sql/req_climato_quotidienne.php';?>
 
 			<div class="row">
 				<div class="col-md-12">
@@ -438,7 +442,7 @@
 			-->
 
 	<footer class="footer bg-light">
-		<?php include 'footer.php';?>
+		<?php include __DIR__ . '/footer.php';?>
 	</footer>
 	</div>
 	</body>

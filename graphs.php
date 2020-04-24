@@ -1,7 +1,8 @@
-<?php require_once 'config/config.php';?>
-<?php require_once 'sql/connect_pdo.php';?>
-<?php require_once 'sql/import.php';?>
-<?php require_once 'include/functions.php';?>
+<?php require_once __DIR__ . '/include/access_rights.php';?>
+<?php require_once __DIR__ . '/config/config.php';?>
+<?php require_once __DIR__ . '/sql/connect_pdo.php';?>
+<?php require_once __DIR__ . '/sql/import.php';?>
+<?php require_once __DIR__ . '/include/functions.php';?>
 <?php
 // Récup des params
 	$optType = array('graphs','month','heatmap');
@@ -71,7 +72,7 @@
 	
 
 	// appel du script de requete
-	require_once 'sql/req_graphs.php';
+	include __DIR__ . '/sql/req_graphs.php';
 
 ?>
 <!DOCTYPE html>
@@ -102,7 +103,7 @@
 		<meta name="twitter:image" content="<?php echo $url_site; ?>/img/capture_site.jpg" />
 		<meta name="twitter:creator" content="<?php echo $tw_account_name; ?>" />
 		<!-- Fin des balises META SEO -->
-		<?php include 'config/favicon.php';?>
+		<?php include __DIR__ . '/config/favicon.php';?>
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -133,9 +134,10 @@
 			<script defer src="content/highcharts/modules/boost-8.0.4.js"></script>
 		<?php endif; ?>
 
+		<!-- Font Awesome CSS -->
+		<link href="content/fontawesome-5.13.0/css/all.min.css" rel="stylesheet">
+
 		<?php if ($graphType == 'month') : ?>
-			<!-- Font Awesome CSS for Tempus Dominus -->
-			<link href="content/font-awesome/font-awesome-4.7.0.min.css" rel="stylesheet">
 			<!-- Moment.js -->
 			<script type="text/javascript" src="content/moment/moment.js"></script>
 			<script type="text/javascript" src="content/moment/moment-locale-fr.js"></script>
@@ -147,11 +149,11 @@
 	<body>
 		<div class="container">
 			<header>
-				<?php include 'header.php';?>
+				<?php include __DIR__ . '/header.php';?>
 			</header>
 			<br>
 			<nav>
-				<?php include 'nav.php';?>
+				<?php include __DIR__ . '/nav.php';?>
 			</nav>
 			<br>
 
@@ -1727,7 +1729,7 @@
 		<?php endif; ?> <!-- FIN heatmap -->
 
 			<footer class="footer bg-light">
-				<?php include 'footer.php';?>
+				<?php include __DIR__ . '/footer.php';?>
 			</footer>
 		</div>
 	</body>

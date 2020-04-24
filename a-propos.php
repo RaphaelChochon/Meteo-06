@@ -1,7 +1,8 @@
-<?php require_once 'config/config.php';?>
-<?php require_once 'sql/connect_pdo.php';?>
-<?php require_once 'sql/import.php';?>
-<?php require_once 'include/functions.php';?>
+<?php require_once __DIR__ . '/include/access_rights.php';?>
+<?php require_once __DIR__ . '/config/config.php';?>
+<?php require_once __DIR__ . '/sql/connect_pdo.php';?>
+<?php require_once __DIR__ . '/sql/import.php';?>
+<?php require_once __DIR__ . '/include/functions.php';?>
 <!DOCTYPE html>
 <html lang="fr-FR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 	<head>
@@ -30,7 +31,7 @@
 		<meta name="twitter:image" content="<?php echo $url_site; ?>/img/capture_site.jpg" />
 		<meta name="twitter:creator" content="<?php echo $tw_account_name; ?>" />
 		<!-- Fin des balises META SEO -->
-		<?php include 'config/favicon.php';?>
+		<?php include __DIR__ . '/config/favicon.php';?>
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -51,15 +52,18 @@
 		<!-- Leaflet -->
 		<link href="content/leaflet-1.6.0/leaflet.css" rel="stylesheet">
 		<script src="content/leaflet-1.6.0/leaflet.js"></script>
+
+		<!-- Font Awesome CSS -->
+		<link href="../content/fontawesome-5.13.0/css/all.min.css" rel="stylesheet">
 	</head>
 	<body>
 		<div class="container">
 			<header>
-				<?php include 'header.php';?>
+				<?php include __DIR__ . '/header.php';?>
 			</header>
 			<br>
 			<nav>
-				<?php include 'nav.php';?>
+				<?php include __DIR__ . '/nav.php';?>
 			</nav>
 			<br>
 
@@ -91,7 +95,7 @@
 			<br>
 
 			<!-- On inclus le a propos custom -->
-			<?php include 'config/a-propos.php'; ?>
+			<?php include __DIR__ . '/config/a-propos.php'; ?>
 			<br>
 			<hr>
 			<div class="row">
@@ -104,7 +108,7 @@
 			<hr>
 
 			<footer class="footer bg-light">
-				<?php include 'footer.php';?>
+				<?php include __DIR__ . '/footer.php';?>
 			</footer>
 		</div>
 	</body>
