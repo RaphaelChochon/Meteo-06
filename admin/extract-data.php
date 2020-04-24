@@ -295,7 +295,7 @@
 				<div class="col-md-12">
 					<h5 class="text-left">Vos précédentes requêtes :</h5>
 					<div class="form-group row">
-						<label for="pasDeTemps" class="col-sm-3 col-form-label">Choisissez :</label>
+						<label for="extractFile" class="col-sm-3 col-form-label">Choisissez :</label>
 						<div class="col-sm-9">
 							<select class="form-control" id="extractFile" name="extractFile" onchange="downloadExtractFile(value)">
 								<?php
