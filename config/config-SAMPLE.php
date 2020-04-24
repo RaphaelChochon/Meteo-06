@@ -28,6 +28,12 @@
 	$db_name = "weewx"; // BDD name
 	$db_table= "archive"; // table name
 
+	// CONNECT BDD AUTHENTIFICATION (pour l'admin)
+	$serverAuth  = "localhost"; //localhost or host adress/IP
+	$userAuth    = "auth"; // User MySQL
+	$passAuth    = "passe"; // password
+	$dbNameAuth = "auth"; // BDD name
+
 	// GENERAL CONFIG
 	$station_name        = "Name of my station";
 	$short_station_name  = "Short name";
