@@ -5,6 +5,8 @@
 
 	// Cookie domain
 	\ini_set('session.cookie_domain', $cookieDomain);
+	// Cookie secure
+	\ini_set('session.cookie_secure', 1);
 	// Connect BDD
 	$auth = new \Delight\Auth\Auth($db_auth);
 
