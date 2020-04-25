@@ -57,8 +57,6 @@
 				</div>
 			<?php endif; ?>
 
-			<!-- On récupère les valeurs en BDD pour peupler les tableaux ci-après -->
-
 			<div class="row">
 				<div class="col-md-12">
 					<!-- START module en ligne/Hors ligne -->
