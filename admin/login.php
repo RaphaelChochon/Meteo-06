@@ -36,6 +36,37 @@ require_once __DIR__ . '/../sql/connect_auth.php';
 		}
 	}
 
+// Récup d'infos supp si connecté
+	if ($auth->isLoggedIn()) {
+		$userId = $auth->getUserId();
+
+		// Récup du profil et des droits admin
+		$query_string = "SELECT * FROM `users_profile` WHERE `id_user` = '$userId';";
+		$result       = $db_auth->query($query_string);
+		if ($result) {
+			$row = $result->fetch(PDO::FETCH_ASSOC);
+			$userPrenom = $row['prenom'];
+			$userNom = $row['nom'];
+			if ($row['admin'] == 1) {
+				define('USER_IS_ADMIN', true);
+			}
+		}
+
+		// Récup des droits stations
+		$userStationAccess = array();
+		$query_string = "SELECT `id`, `station` FROM `station_access` WHERE `id_user` = '$userId';";
+		$result       = $db_auth->query($query_string);
+		if ($result) {
+			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+				if ($row['station'] != null) {
+					$userStationAccess[] = $row['station'];
+				}
+			}
+			if (in_array($db_name,$userStationAccess)) {
+				define('USER_IS_PROPRIO', true);
+			}
+		}
+	}
 ?>
 <!DOCTYPE html>
 <html lang="fr-FR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
@@ -44,7 +75,7 @@ require_once __DIR__ . '/../sql/connect_auth.php';
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<?php include '../config/favicon.php';?>
+		<?php include __DIR__ . '/../config/favicon.php';?>
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -66,11 +97,11 @@ require_once __DIR__ . '/../sql/connect_auth.php';
 	<body>
 		<div class="container">
 			<header>
-				<?php include '../header.php';?>
+				<?php include __DIR__ . '/../header.php';?>
 			</header>
 			<br>
 			<nav>
-				<?php include '../nav.php';?>
+				<?php include __DIR__ . '/../nav.php';?>
 			</nav>
 			<br>
 
@@ -78,29 +109,21 @@ require_once __DIR__ . '/../sql/connect_auth.php';
 				<div class="col-md-4 mx-auto">
 					<?php if ($auth->isLoggedIn()) : ?>
 						<!-- Si connecté -->
-						<?php
-							$userId = $auth->getUserId();
-							// Récup des infos profil
-							$query_string = "SELECT * FROM `users_profile` WHERE `id_user` = '$userId';";
-							$result       = $db_auth->query($query_string);
-							if ($result) {
-								$row = $result->fetch(PDO::FETCH_ASSOC);
-								$userPrenom = $row['prenom'];
-								$userNom = $row['nom'];
-								if ($row['admin'] == 1) {
-									define('USER_IS_ADMIN', true);
-								}
-							}
-						?>
 						<h4 class="text-center mb-4">Bonjour <?php echo $userPrenom." ".$userNom; ?></h4>
 						<p class="text-center">
-							Vous êtes bien connecté et pouvez continuer votre navigation.
-							<br>
-							<?php if (defined('USER_IS_ADMIN')){
-								echo '<b>Vous êtes administrateur.</b>';
-							} ?>
+							Vous êtes bien connecté et pouvez continuer votre navigation sur l'ensemble des sites "station-météo" de l'association.
+							<br><br>
+							<?php
+								if (defined('USER_IS_ADMIN')){
+									echo '<b>Vous êtes administrateur.</b>';
+								}
+								echo '<br>';
+								if (defined('USER_IS_PROPRIO')){
+									echo '<b>Vous êtes le propriétaire de cette station.</b>';
+								}
+							?>
 						</p>
-						<a role="button" class="btn btn-primary btn-block my-3" href="modif-profil.php"><i class="fas fa-users-cog"></i> Modifier mes informations</a>
+						<a role="button" class="btn btn-primary btn-block my-3" href="https://auth.meteo06.fr/modif-profil.php" target="_blank"><i class="fas fa-users-cog"></i> Modifier mes infos sur auth.meteo06.fr</a>
 						<div class="form-group">
 							<form method="post" action="logout.php">
 								<button type="submit" class="btn btn-danger btn-block"><i class="fas fa-user-slash"></i> Se déconnecter</button>
@@ -122,7 +145,7 @@ require_once __DIR__ . '/../sql/connect_auth.php';
 											<div class="input-group-prepend">
 												<span class="input-group-text"><i class="fas fa-user"></i></span>
 											</div>
-											<input type="text" class="form-control <?php if ($wrongUsername) echo 'is-invalid'; ?>" id="username" name="username" placeholder="Nom d'utilisateur" required>
+											<input type="text" class="form-control <?php if ($wrongUsername) echo 'is-invalid'; ?>" id="username" name="username" placeholder="Nom d'utilisateur" autocomplete="username" required>
 											<?php if ($wrongUsername) echo '<div class="invalid-feedback">Nom d\'utilisateur invalide</div>'; ?>
 										</div>
 									</div>
@@ -134,7 +157,7 @@ require_once __DIR__ . '/../sql/connect_auth.php';
 											<div class="input-group-prepend">
 												<span class="input-group-text"><i class="fas fa-key"></i></span>
 											</div>
-											<input type="password" class="form-control <?php if ($wrongPassword) echo 'is-invalid'; ?>" id="password" name="password" placeholder="Mot de passe" required>
+											<input type="password" class="form-control <?php if ($wrongPassword) echo 'is-invalid'; ?>" id="password" name="password" placeholder="Mot de passe" autocomplete="current-password" required>
 											<?php if ($wrongPassword) echo '<div class="invalid-feedback">Mot de passe invalide</div>'; ?>
 										</div>
 									</div>
