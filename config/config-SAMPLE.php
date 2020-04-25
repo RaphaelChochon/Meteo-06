@@ -29,10 +29,12 @@
 	$db_table= "archive"; // table name
 
 	// CONNECT BDD AUTHENTIFICATION (pour l'admin)
-	$serverAuth  = "localhost"; //localhost or host adress/IP
-	$userAuth    = "auth"; // User MySQL
-	$passAuth    = "passe"; // password
-	$dbNameAuth = "auth"; // BDD name
+	$serverAuth = "localhost";  //localhost or host adress/IP
+	$userAuth   = "auth";       // User MySQL
+	$passAuth   = "passe";      // password
+	$dbNameAuth = "auth";       // BDD name
+
+	$cookieDomain = "host";  // Nom de domaine pour définir la portée du cookie d'authentification. Ex : meteo06.fr
 
 	// GENERAL CONFIG
 	$station_name        = "Name of my station";

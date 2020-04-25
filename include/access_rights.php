@@ -3,6 +3,8 @@
 	require_once __DIR__ . '/../config/config.php';
 	require_once __DIR__ . '/../sql/connect_auth.php';
 
+	// Cookie domain
+	\ini_set('session.cookie_domain', $cookieDomain);
 	// Connect BDD
 	$auth = new \Delight\Auth\Auth($db_auth);
 
@@ -36,4 +38,3 @@
 			}
 		}
 	}
-?>
