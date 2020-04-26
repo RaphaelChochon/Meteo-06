@@ -13,15 +13,18 @@
 	if ($auth->isLoggedIn()) {
 		$userId = $auth->getUserId();
 
-		// Récup du profil et des droits admin
+		// Récup du profil et des droits admin/équipe
 		$query_string = "SELECT * FROM `users_profile` WHERE `id_user` = '$userId';";
 		$result       = $db_auth->query($query_string);
 		if ($result) {
 			$row = $result->fetch(PDO::FETCH_ASSOC);
 			$userPrenom = $row['prenom'];
 			$userNom = $row['nom'];
-			if ($row['admin'] == 1) {
+			if ($row['is_admin'] == 1) {
 				define('USER_IS_ADMIN', true);
+			}
+			if ($row['is_team'] == 1) {
+				define('USER_IS_TEAM', true);
 			}
 		}
 
