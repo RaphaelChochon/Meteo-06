@@ -79,7 +79,7 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<h3 class="text-center"> Extraction de données</h3>
+					<h3 class="text-center">Extraction de données</h3>
 				</div>
 			</div>
 			<!-- Texte prez -->
