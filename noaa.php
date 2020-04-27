@@ -151,13 +151,15 @@
 
 			<div class="row">
 				<div class="col-md-12">
-				<p class="text-justify">
-					Vous pouvez via les listes déroulantes ci-dessous, accéder aux rapports climatologiques mensuels et annuels bruts de la station au format "NOAA". Ce sont des fichiers texte très simple qui sont mis à jours tous les quarts d'heures pour le rapport mensuel en cours
-				</p>
-				<br>
-				<h5 class="text-center">Rapports mensuels :</h5>
-				<div class="text-center">
-					<select name="Month" onchange="openNoaaFileMonth(value)">
+					<p class="text-justify">
+						Vous pouvez via les listes déroulantes ci-dessous, accéder aux rapports climatologiques mensuels et annuels bruts de la station au format "NOAA". Ce sont des fichiers texte très simple qui sont mis à jours tous les quarts d'heures pour le rapport mensuel en cours
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 mx-auto text-center">
+					<h5 class="text-center">Rapports mensuels :</h5>
+					<select class="form-control" name="Month" onchange="openNoaaFileMonth(value)">
 						<?php
 							$path = "NOAA/raw/month";
 							$blacklist = array('.','..');
@@ -173,11 +175,9 @@
 						?>
 						<option selected value="#">- Selectionnez le mois -</option>'
 					</select>
-				</div>
-				<hr>
-				<h5 class="text-center">Rapports annuels :</h5>
-				<div class="text-center">
-					<select name="Year" onchange="openNoaaFileYear(value)">
+					<hr>
+					<h5 class="text-center">Rapports annuels :</h5>
+					<select class="form-control" name="Year" onchange="openNoaaFileYear(value)">
 						<?php
 							$path = "NOAA/raw/year";
 							$blacklist = array('.','..');
@@ -194,7 +194,6 @@
 						<option selected value="#">- Selectionnez l'année -</option>'
 					</select>
 				</div>
-			</div>
 			</div>
 			<hr>
 			<div class="row">
