@@ -210,9 +210,14 @@
 									<option value="barometer">Pression atmo.</option>
 									<option value="rain">Cumul de précipitations</option>
 									<option value="rainRate">Intensité de précipitations</option>
-									<option value="UV">Indice UV</option>
-									<option value="radiation">Rayonnement solaire</option>
-									<option value="ET">Evapotranspiration</option>
+									<?php if ($presence_uv) {
+										echo '<option value="UV">Indice UV</option>';
+									}?>
+									<?php if ($presence_radiation) {
+										echo '<option value="radiation">Rayonnement solaire</option>';
+										echo '<option value="ET">Evapotranspiration</option>';
+									}?>
+									
 									<option value="windGust">Rafale de vent</option>
 									<option value="windSpeed">Vent moyen</option>
 									<option value="inTemp">Température intérieure</option>

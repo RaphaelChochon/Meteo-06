@@ -166,17 +166,21 @@ if (!$lessValue) {
 			if (!is_null($row['PrMax'])) {
 				$PrMax = round($row['PrMax'],1);
 			}
-			if (!is_null($row['UvMax'])) {
-				$UvMax = round($row['UvMax'],1);
+			if ($presence_radiation) {
+				if (!is_null($row['UvMax'])) {
+					$UvMax = round($row['UvMax'],1);
+				}
 			}
-			if (!is_null($row['RadMax'])) {
-				$RadMax = round($row['RadMax'],0);
-			}
-			if (!is_null($row['EtCumul'])) {
-				$EtCumul = round($row['EtCumul'],2);
-			}
-			if (!is_null($row['EtMax'])) {
-				$EtMax = round($row['EtMax'],2);
+			if ($presence_radiation) {
+				if (!is_null($row['RadMax'])) {
+					$RadMax = round($row['RadMax'],0);
+				}
+				if (!is_null($row['EtCumul'])) {
+					$EtCumul = round($row['EtCumul'],2);
+				}
+				if (!is_null($row['EtMax'])) {
+					$EtMax = round($row['EtMax'],2);
+				}
 			}
 		}
 
@@ -267,9 +271,15 @@ if (!$lessValue) {
 				$tabRecapQuoti [$row['ts']] ['HrMod'] = $HrMod;
 				$tabRecapQuoti [$row['ts']] ['TdMod'] = $TdMod;
 				$tabRecapQuoti [$row['ts']] ['barometerMod'] = $barometerMod;
-				$tabRecapQuoti [$row['ts']] ['radiationMod'] = $radiationMod;
-				$tabRecapQuoti [$row['ts']] ['UvMod'] = $UvMod;
-				$tabRecapQuoti [$row['ts']] ['EtMod'] = $EtMod;
+				
+				if ($presence_uv){
+					$tabRecapQuoti [$row['ts']] ['UvMod'] = $UvMod;
+				}
+				
+				if ($presence_radiation){
+					$tabRecapQuoti [$row['ts']] ['radiationMod'] = $radiationMod;
+					$tabRecapQuoti [$row['ts']] ['EtMod'] = $EtMod;
+				}
 			}
 		}
 
@@ -608,22 +618,26 @@ if (!$lessValue) {
 				$dataRRate[] = "[$ts, $rainRateMaxMod]";
 
 				//Radiation
-				if (!is_null ($row['radiationMinMod'])) {
-					$radiationMinMod = round($row['radiationMinMod'],0);
+				if ($presence_radiation) {
+					if (!is_null ($row['radiationMinMod'])) {
+						$radiationMinMod = round($row['radiationMinMod'],0);
+					}
+					if (!is_null ($row['radiationMaxMod'])) {
+						$radiationMaxMod = round($row['radiationMaxMod'],0);
+					}
+					$dataRadiationMinMax[] = "[$ts, $radiationMinMod, $radiationMaxMod]";
 				}
-				if (!is_null ($row['radiationMaxMod'])) {
-					$radiationMaxMod = round($row['radiationMaxMod'],0);
-				}
-				$dataRadiationMinMax[] = "[$ts, $radiationMinMod, $radiationMaxMod]";
 
 				//UV
-				if (!is_null ($row['UvMinMod'])) {
-					$UvMinMod = round($row['UvMinMod'],1);
+				if ($presence_uv) {
+					if (!is_null ($row['UvMinMod'])) {
+						$UvMinMod = round($row['UvMinMod'],1);
+					}
+					if (!is_null ($row['UvMaxMod'])) {
+						$UvMaxMod = round($row['UvMaxMod'],1);
+					}
+					$dataUvMinMax[] = "[$ts, $UvMinMod, $UvMaxMod]";
 				}
-				if (!is_null ($row['UvMaxMod'])) {
-					$UvMaxMod = round($row['UvMaxMod'],1);
-				}
-				$dataUvMinMax[] = "[$ts, $UvMinMod, $UvMaxMod]";
 			}
 		}
 

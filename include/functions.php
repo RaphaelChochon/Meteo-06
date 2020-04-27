@@ -125,6 +125,7 @@
 	 * @return array $csvTab = [header] => [value]
 	 */
 	function insertHeaderCsvTab($interval, $paramsMeteo, $csvTab) {
+		global $presence_uv,$presence_radiation;
 		// Interval == $mod
 		if ($interval === 'raw') {
 			$mod = 1;
@@ -193,20 +194,24 @@
 			$csvTab ['header'] ['windGustDt'] = null;
 		}
 
-		if (in_array('UV',$paramsMeteo)) {
-			$csvTab ['header'] ['UV'] = null;
+		if ($presence_uv) {
+			if (in_array('UV',$paramsMeteo)) {
+				$csvTab ['header'] ['UV'] = null;
+			}
+			if (in_array('UV',$paramsMeteo) && $mod !== 1) {
+				$csvTab ['header'] ['UvMax'] = null;
+			}
 		}
-		if (in_array('UV',$paramsMeteo) && $mod !== 1) {
-			$csvTab ['header'] ['UvMax'] = null;
-		}
-		if (in_array('radiation',$paramsMeteo)) {
-			$csvTab ['header'] ['radiation'] = null;
-		}
-		if (in_array('radiation',$paramsMeteo) && $mod !== 1) {
-			$csvTab ['header'] ['radiationMax'] = null;
-		}
-		if (in_array('ET',$paramsMeteo)) {
-			$csvTab ['header'] ['ET'] = null;
+		if ($presence_radiation) {
+			if (in_array('radiation',$paramsMeteo)) {
+				$csvTab ['header'] ['radiation'] = null;
+			}
+			if (in_array('radiation',$paramsMeteo) && $mod !== 1) {
+				$csvTab ['header'] ['radiationMax'] = null;
+			}
+			if (in_array('ET',$paramsMeteo)) {
+				$csvTab ['header'] ['ET'] = null;
+			}
 		}
 		if (in_array('inTemp',$paramsMeteo)) {
 			$csvTab ['header'] ['inTemp'] = null;
@@ -254,7 +259,7 @@
 	 * @return array $csvTab = [$row['ts']] ['outTemp'] = $outTemp ...
 	 */
 	function extractParamsInst($db_handle_pdo, $interval, $tsStart, $tsStop, $paramsMeteo, $csvTab) {
-		global $db_table;
+		global $db_table,$presence_radiation,$presence_uv;
 
 		// Interval == $mod
 		if ($interval === 'raw') {
@@ -285,14 +290,18 @@
 		if (in_array('rainRate',$paramsMeteo)) {
 			$query_string .= ", `rainRate` AS `rainRate`";
 		}
-		if (in_array('UV',$paramsMeteo)) {
-			$query_string .= ", `UV` AS `UV`";
+		if ($presence_uv) {
+			if (in_array('UV',$paramsMeteo)) {
+				$query_string .= ", `UV` AS `UV`";
+			}
 		}
-		if (in_array('radiation',$paramsMeteo)) {
-			$query_string .= ", `radiation` AS `radiation`";
-		}
-		if (in_array('ET',$paramsMeteo)) {
-			$query_string .= ", `ET` AS `ET`";
+		if ($presence_radiation) {
+			if (in_array('radiation',$paramsMeteo)) {
+				$query_string .= ", `radiation` AS `radiation`";
+			}
+			if (in_array('ET',$paramsMeteo)) {
+				$query_string .= ", `ET` AS `ET`";
+			}
 		}
 
 		if (in_array('inTemp',$paramsMeteo)) {
@@ -375,26 +384,30 @@
 					}
 					$csvTab [$row['ts']] ['rainRate'] = $rainRate;
 				}
-				if (in_array('UV',$paramsMeteo)) {
-					$UV = null;
-					if (!is_null ($row['UV'])) {
-						$UV = round($row['UV'],1);
+				if ($presence_uv) {
+					if (in_array('UV',$paramsMeteo)) {
+						$UV = null;
+						if (!is_null ($row['UV'])) {
+							$UV = round($row['UV'],1);
+						}
+						$csvTab [$row['ts']] ['UV'] = $UV;
 					}
-					$csvTab [$row['ts']] ['UV'] = $UV;
 				}
-				if (in_array('radiation',$paramsMeteo)) {
-					$radiation = null;
-					if (!is_null ($row['radiation'])) {
-						$radiation = round($row['radiation'],0);
+				if ($presence_radiation) {
+					if (in_array('radiation',$paramsMeteo)) {
+						$radiation = null;
+						if (!is_null ($row['radiation'])) {
+							$radiation = round($row['radiation'],0);
+						}
+						$csvTab [$row['ts']] ['radiation'] = $radiation;
 					}
-					$csvTab [$row['ts']] ['radiation'] = $radiation;
-				}
-				if (in_array('ET',$paramsMeteo)) {
-					$ET = null;
-					if (!is_null ($row['ET'])) {
-						$ET = round($row['ET'],2);
+					if (in_array('ET',$paramsMeteo)) {
+						$ET = null;
+						if (!is_null ($row['ET'])) {
+							$ET = round($row['ET'],2);
+						}
+						$csvTab [$row['ts']] ['ET'] = $ET;
 					}
-					$csvTab [$row['ts']] ['ET'] = $ET;
 				}
 
 				if (in_array('inTemp',$paramsMeteo)) {
@@ -610,7 +623,7 @@
 	 * @return array $csvTab = [$row['ts']] ['outTempMin'] = $outTempMin ...
 	 */
 	function extractParamsExtreme($db_handle_pdo, $interval, $tsStart, $tsStop, $paramsMeteo, $csvTab) {
-		global $db_table;
+		global $db_table, $presence_radiation, $presence_uv;
 
 		// Interval == $mod
 		if ($interval === 'raw') {
@@ -645,11 +658,15 @@
 		if (in_array('rainRate',$paramsMeteo)) {
 			$query_string .= ", MAX(`rainRate`) AS `rainRateMax`";
 		}
-		if (in_array('UV',$paramsMeteo)) {
-			$query_string .= ", MAX(`UV`) AS `UvMax`";
+		if ($presence_uv) {
+			if (in_array('UV',$paramsMeteo)) {
+				$query_string .= ", MAX(`UV`) AS `UvMax`";
+			}
 		}
-		if (in_array('radiation',$paramsMeteo)) {
-			$query_string .= ", MAX(`radiation`) AS `radiationMax`";
+		if ($presence_radiation) {
+			if (in_array('radiation',$paramsMeteo)) {
+				$query_string .= ", MAX(`radiation`) AS `radiationMax`";
+			}
 		}
 
 		if (in_array('inTemp',$paramsMeteo)) {
@@ -749,19 +766,23 @@
 					}
 					$csvTab [$row['ts']] ['rainRateMax'] = $rainRateMax;
 				}
-				if (in_array('UV',$paramsMeteo)) {
-					$UvMax = null;
-					if (!is_null ($row['UvMax'])) {
-						$UvMax = round($row['UvMax'],1);
+				if ($presence_uv) {
+					if (in_array('UV',$paramsMeteo)) {
+						$UvMax = null;
+						if (!is_null ($row['UvMax'])) {
+							$UvMax = round($row['UvMax'],1);
+						}
+						$csvTab [$row['ts']] ['UvMax'] = $UvMax;
 					}
-					$csvTab [$row['ts']] ['UvMax'] = $UvMax;
 				}
-				if (in_array('radiation',$paramsMeteo)) {
-					$radiationMax = null;
-					if (!is_null ($row['radiationMax'])) {
-						$radiationMax = round($row['radiationMax'],0);
+				if ($presence_radiation) {
+					if (in_array('radiation',$paramsMeteo)) {
+						$radiationMax = null;
+						if (!is_null ($row['radiationMax'])) {
+							$radiationMax = round($row['radiationMax'],0);
+						}
+						$csvTab [$row['ts']] ['radiationMax'] = $radiationMax;
 					}
-					$csvTab [$row['ts']] ['radiationMax'] = $radiationMax;
 				}
 				if (in_array('inTemp',$paramsMeteo)) {
 					$inTempMin = null;

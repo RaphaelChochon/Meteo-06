@@ -180,9 +180,15 @@ $today = strtotime('today midnight');
 			$tabAccueil [$row['ts']] ['HrMod'] = $HrMod;
 			$tabAccueil [$row['ts']] ['TdMod'] = $TdMod;
 			$tabAccueil [$row['ts']] ['barometerMod'] = $barometerMod;
-			$tabAccueil [$row['ts']] ['radiationMod'] = $radiationMod;
-			$tabAccueil [$row['ts']] ['UvMod'] = $UvMod;
-			$tabAccueil [$row['ts']] ['EtMod'] = $EtMod;
+
+			if ($presence_radiation) {
+				$tabAccueil [$row['ts']] ['radiationMod'] = $radiationMod;
+				$tabAccueil [$row['ts']] ['EtMod'] = $EtMod;
+			}
+			if ($presence_uv) {
+				$tabAccueil [$row['ts']] ['UvMod'] = $UvMod;
+			}
+			
 			$countTabAccueil = count($tabAccueil);
 		}
 	}
