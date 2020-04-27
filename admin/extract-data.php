@@ -274,7 +274,7 @@
 
 									// Insert dans le CSV
 									$fieldsNumber = count($csvTab['header']);
-									$csvFile = "./tempCSV/extract_".$station_name."_".date('Y-m-d',$tsStart)."_".date('Y-m-d',$tsStop)."_".date('Y-m-d-His').'.csv';
+									$csvFile = "./tempCSV/extract_".str_replace(' ', '_', $station_name)."_".date('Y-m-d',$tsStart)."_".date('Y-m-d',$tsStop)."_".date('Y-m-d-His').'.csv';
 									$fp      = fopen($csvFile, 'w');
 									fputcsv($fp,array_keys($csvTab['header']));
 									foreach($csvTab as $k => $fields) {
