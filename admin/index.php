@@ -80,54 +80,71 @@
 				</div>
 			</div>
 			<!-- Vérif des droits d'accès -->
-			<?php if (defined('USER_IS_ADMIN') || defined('USER_IS_PROPRIO')) :?>
-			<div class="row">
-				<div class="col-md-12 align-baseline">
-					<?php if ($presence_iss_radio) : ?>
-					<!-- Réception -->
-					<div class="card d-inline-block border-primary card-admin m-1">
-						<div class="card-header">
-							Statistiques de réception et tension
+			<?php if (defined('USER_IS_ADMIN') || defined('USER_IS_TEAM') || defined('USER_IS_PROPRIO')) :?>
+				<div class="row mb-3">
+					<div class="col-md-12">
+						<?php if ($presence_iss_radio) : ?>
+							<!-- Réception -->
+							<div class="card d-inline-block border-primary card-admin m-1">
+								<div class="card-header">
+									Statistiques de réception et tension
+								</div>
+								<div class="card-body">
+									<h4 class="card-title">
+										Statistiques techniques
+									</h4>
+									<p class="card-text overflow-hidden card-text-admin">
+										Affichage des statistiques de réception entre la console et l'ISS et de la tension des piles de la console (pour les VP2).
+									</p>
+									<a role="button" href="/admin/stats-reception.php" class="btn btn-outline-primary btn-lg btn-block">Accès</a>
+								</div>
+							</div>
+						<?php endif; ?>
+						<!-- Extract data -->
+						<div class="card d-inline-block border-primary card-admin m-1">
+							<div class="card-header">
+								Données station
+							</div>
+							<div class="card-body">
+								<h4 class="card-title">
+									Extraction de données
+								</h4>
+								<p class="card-text overflow-hidden card-text-admin">
+									Extraire des données sous la forme d'un fichier CSV en créant une requête.
+								</p>
+								<a role="button" href="/admin/extract-data.php" class="btn btn-outline-primary btn-lg btn-block">Accès</a>
+							</div>
 						</div>
-						<div class="card-body">
-							<h4 class="card-title">
-								Statistiques techniques
-							</h4>
-							<p class="card-text overflow-hidden card-text-admin">
-								Affichage des statistiques de réception entre la console et l'ISS et de la tension des piles de la console (pour les VP2).
-							</p>
-							<a role="button" href="/admin/stats-reception.php" class="btn btn-outline-primary btn-lg btn-block">Accès</a>
-						</div>
-					</div>
-					<?php endif; ?>
-					<!-- Extract data -->
-					<div class="card d-inline-block border-primary card-admin m-1">
-						<div class="card-header">
-							Données station
-						</div>
-						<div class="card-body">
-							<h4 class="card-title">
-								Extraction des données
-							</h4>
-							<p class="card-text overflow-hidden card-text-admin">
-								Extraire des données sous la forme d'un fichier CSV en créant une requête.
-							</p>
-							<a role="button" href="/admin/extract-data.php" class="btn btn-outline-primary btn-lg btn-block">Accès</a>
-						</div>
+						<?php if (defined('USER_IS_ADMIN') || defined('USER_IS_TEAM')) :?>
+							<!-- Gestion bannière -->
+							<div class="card d-inline-block border-primary card-admin m-1">
+								<div class="card-header">
+									Bannière/message
+								</div>
+								<div class="card-body">
+									<h4 class="card-title">
+										Gestion de la bannière
+									</h4>
+									<p class="card-text overflow-hidden card-text-admin">
+										Ajouter et/ou modifier le texte de la bannière (qui s'affiche sur toutes les pages) pour annoncer une panne par exemple.
+									</p>
+									<a role="button" href="/admin/gestion-banniere.php" class="btn btn-outline-primary btn-lg btn-block">Accès</a>
+								</div>
+							</div>
+						<?php endif; ?>
 					</div>
 				</div>
-			</div>
 			<?php else :?>
-			<div class="row">
-				<div class="col-md-6 mx-auto">
-					<div class="alert alert-danger">
-						<h4 class="alert-heading mt-1">Au mauvais endroit...</h4>
-						<p class="text-justify mb-0">
-							<strong>Oops !</strong> Il semblerait que vous n'ayez pas les droits suffisants pour accéder à cette page.
-						</p>
+				<div class="row">
+					<div class="col-md-6 mx-auto">
+						<div class="alert alert-danger">
+							<h4 class="alert-heading mt-1">Au mauvais endroit...</h4>
+							<p class="text-justify mb-0">
+								<strong>Oops !</strong> Il semblerait que vous n'ayez pas les droits suffisants pour accéder à cette page. Vous n'êtes peut-être pas sur le site de votre station ?
+							</p>
+						</div>
 					</div>
 				</div>
-			</div>
 			<?php endif; ?>
 			<footer class="footer bg-light">
 				<?php include __DIR__ . '/../footer.php';?>
