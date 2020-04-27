@@ -1,8 +1,10 @@
-<?php require_once __DIR__ . '/include/access_rights.php';?>
-<?php require_once __DIR__ . '/config/config.php';?>
-<?php require_once __DIR__ . '/sql/connect_pdo.php';?>
-<?php require_once __DIR__ . '/sql/import.php';?>
-<?php require_once __DIR__ . '/include/functions.php';?>
+<?php 
+	require_once __DIR__ . '/include/access_rights.php';
+	require_once __DIR__ . '/config/config.php';
+	require_once __DIR__ . '/sql/connect_pdo.php';
+	require_once __DIR__ . '/sql/import.php';
+	require_once __DIR__ . '/include/functions.php';
+?>
 <!DOCTYPE html>
 <html lang="fr-FR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 	<head>
