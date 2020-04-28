@@ -85,12 +85,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Balises META SEO pour le referencement Google, Facebook Twitter etc. -->
 		<meta name="description" content="Graphiques de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>"/>
-		<link rel="canonical" href="<?php if ($SSL){echo'https://';}else echo'http://';?><?php echo $_SERVER['HTTP_HOST']; ?><?php echo $_SERVER['PHP_SELF']; ?>" />
+		<link rel="canonical" href="<?php if ($SSL){echo'https://';}else echo'http://'; echo $_SERVER['HTTP_HOST'].parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);?>" />
 		<meta property="og:locale" content="fr_FR" />
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content="<?php echo $short_station_name; ?> | Graphiques" />
 		<meta property="og:description" content="Graphiques de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>" />
-		<meta property="og:url" content="<?php if ($SSL){echo'https://';}else echo'http://';?><?php echo $_SERVER['HTTP_HOST']; ?><?php echo $_SERVER['PHP_SELF']; ?>" />
+		<meta property="og:url" content="<?php if ($SSL){echo'https://';}else echo'http://'; echo $_SERVER['HTTP_HOST'].parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);?>" />
 		<meta property="og:site_name" content="<?php echo $short_station_name; ?>" />
 		<meta property="fb:app_id" content="<?php echo $fb_app_id; ?>" />
 		<meta property="og:image" content="<?php echo $url_site; ?>/img/capture_site.jpeg" />
