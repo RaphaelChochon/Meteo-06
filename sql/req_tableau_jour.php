@@ -1,5 +1,8 @@
 <?php
-$today = strtotime('today midnight');
+// Date UTC
+	date_default_timezone_set('UTC');
+
+	$today = strtotime('today midnight');
 // On récupère le dernier enregistrement en BDD
 	$query_string = "SELECT * FROM $db_table ORDER BY `dateTime` DESC LIMIT 1;";
 	$result       = $db_handle_pdo->query($query_string);

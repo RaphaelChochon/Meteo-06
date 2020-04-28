@@ -130,7 +130,13 @@
 						</thead>
 						<tbody>
 							<tr>
-								<th class="textTabPrimary"><?php echo date('H\hi',$stop) ?></th>
+								<th class="textTabPrimary">
+									<?php
+										date_default_timezone_set('Europe/Paris');
+										echo date('H\hi',$stop);
+										date_default_timezone_set('UTC');
+									?>
+								</th>
 								<td class="textTabPrimary"><?php echo $temp; ?>&#8239;°C</td>
 								<td class="textTabPrimary"><?php echo $hygro; ?>&#8239;%</td>
 								<td class="textTabPrimary"><?php echo $dewpoint; ?>&#8239;°C</td>
@@ -147,7 +153,9 @@
 							foreach ($tabAccueil as $ts => $value) {
 								if ($stop == $ts) continue; // Supprime si doublon
 								echo "<tr>";
+								date_default_timezone_set('Europe/Paris');
 								$dt = date('H\hi',$ts);
+								date_default_timezone_set('UTC');
 								echo "<th>$dt</th>";
 								echo "<td>".$value['TempMod']."&#8239;°C</td>";
 								echo "<td>".$value['HrMod']."&#8239;%</td>";
