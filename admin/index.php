@@ -84,6 +84,21 @@
 			<?php if (defined('USER_IS_ADMIN') || defined('USER_IS_TEAM') || defined('USER_IS_PROPRIO')) :?>
 				<div class="row mb-3">
 					<div class="col-md-12">
+						<!-- Données intérieures -->
+						<div class="card d-inline-block border-primary card-admin m-1">
+							<div class="card-header">
+								Données console
+							</div>
+							<div class="card-body">
+								<h4 class="card-title">
+									Sondes intérieures
+								</h4>
+								<p class="card-text overflow-hidden card-text-admin">
+									Affichage de la température et l'humidité de la console.
+								</p>
+								<a role="button" href="/admin/sondes-interieures.php" class="btn btn-outline-primary btn-lg btn-block">Accès</a>
+							</div>
+						</div>
 						<?php if ($presence_iss_radio) : ?>
 							<!-- Réception -->
 							<div class="card d-inline-block border-primary card-admin m-1">
