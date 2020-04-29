@@ -107,7 +107,7 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<h3 class="text-center"> Statistiques de réception</h3>
+					<h3 class="text-center">Statistiques de réception</h3>
 				</div>
 			</div>
 			<hr class="my-4">
