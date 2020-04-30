@@ -1400,7 +1400,7 @@
 							groupPadding: 0,
 							borderWidth: 0,
 							shadow: false,
-							borderWidth: 10,
+							borderWidth: 0,
 							tooltip: {
 								useHTML: true,
 								pointFormatter: function () {
@@ -1422,10 +1422,6 @@
 						for(var i = l-1; i >= 0; i-=1) {
 							temperature.removeAnnotation(temperature.annotations[i]);
 						}
-						// temperature.addAnnotation(LabelsPersoT);
-						// temperature.update({
-						// 	series: temperature.series,
-						// });
 					});
 					$("#removeAnnoRR").click(function() {
 						var l = precip.annotations.length;

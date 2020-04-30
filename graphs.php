@@ -1269,7 +1269,7 @@
 							groupPadding: 0,
 							borderWidth: 0,
 							shadow: false,
-							borderWidth: 10,
+							borderWidth: 0,
 							tooltip: {
 								useHTML: true,
 								pointFormatter: function () {
