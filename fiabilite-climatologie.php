@@ -82,7 +82,7 @@
 			<?php endif; ?>
 
 			<!-- On récupère les valeurs en BDD pour peupler les tableaux ci-après -->
-			<?php include __DIR__ . '/sql/req_climato_quoti_fiab.php';?>
+			<?php include __DIR__ . '/sql/req_fiabilite-climatologie.php';?>
 
 			<div class="row">
 				<div class="col-md-12">
