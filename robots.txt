@@ -1,6 +1,13 @@
 User-agent: *
-Disallow: /interieur.php
-Disallow: /modele.php
+Disallow: /admin/
+Disallow: /config/
+Disallow: /content/
+Disallow: /favicon/
+Disallow: /img/
+Disallow: /include/
 Disallow: /install/
-Disallow: /json/
 Disallow: /NOAA/
+Disallow: /sql/
+Disallow: /vendor/
+Disallow: /webcam/
+Disallow: /modele.php
