@@ -195,12 +195,36 @@
 						<!-- Résultats partiels car journée en cours -->
 						<div class="row justify-content-md-center mb-5">
 							<div class="col-md-6">
-								<div class="alert alert-dismissible alert-warning">
+								<div class="alert alert-warning">
 									<h4 class="alert-heading">Attention !</h4>
-									<p class="mb-0">Résultats partiels, la journée n'est pas terminée (<?php echo $percentIntervalInMinutes.'%'; ?>)</p>
+									<p class="mb-0 text-justify">
+										Résultats partiels, la journée n'est pas terminée (<?php echo $percentIntervalInMinutes.'%'; ?>)
+									</p>
 								</div>
 								<div class="progress">
 									<div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo $percentIntervalInMinutes.'%'; ?>" aria-valuenow="<?php echo $percentIntervalInMinutes; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+							</div>
+						</div>
+					<?php endif; ?>
+
+					<?php if ($fiabTn <= 95 || $fiabTx <= 95 || $fiabRr <= 95) : ?>
+						<!-- Problème de fiabilité -->
+						<div class="row justify-content-md-center mb-5">
+							<div class="col-md-6">
+								<div class="alert alert-warning">
+									<h4 class="alert-heading">Attention, problème de fiabilité</h4>
+									<p class="mb-0 text-justify">
+										Nous avons identifié un potentiel problème pour cette journée.
+										<br>
+										L'indice de fiabilité d'une des valeurs suivantes est insuffisant :
+										<ul>
+											<li>Fiabilité Tn : <?php if ($fiabTn<=95) {echo '<span class="textOfflineStation">'.$fiabTn.'%</span>';}else{ echo $fiabTn.'%';}?></li>
+											<li>Fiabilité Tx : <?php if ($fiabTx<=95) {echo '<span class="textOfflineStation">'.$fiabTx.'%</span>';}else{ echo $fiabTx.'%';}?></li>
+										</ul>
+										Cela peut indiquer un manque de données sur une partie de la journée, et par conséquent, rendre les statistiques présentées ci-dessous incomplètes.
+										<a role="button" class="btn btn-block btn-primary mt-3" href="/fiabilite-climatologie.php">Retrouvez plus de détails sur cet indice ici</a>
+									</p>
 								</div>
 							</div>
 						</div>

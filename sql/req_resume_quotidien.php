@@ -658,7 +658,9 @@ if (!$lessValue) {
 		$query_string = "SELECT date_day AS dateTime,
 							Tn AS Tn, Tn_datetime AS TnDt,
 							Tx AS Tx, Tx_datetime AS TxDt,
-							RR AS RR, RR_max_intensite AS RRmaxInt, RR_maxInt_datetime AS RRmaxIntDt
+							RR AS RR, RR_max_intensite AS RRmaxInt, RR_maxInt_datetime AS RRmaxIntDt,
+							RRRecord AS RRRecord, TnRecord AS TnRecord, TxRecord AS TxRecord,
+							expectedRecord06 AS expectedRecordTx, expectedRecord18 AS expectedRecordTn, expectedRecord00 AS expectedRecord00
 						FROM $db_name_climato.$db_table_climato
 						WHERE date_day = $optDay_quoted;";
 		$result       = $db_handle_pdo->query($query_string);
@@ -671,25 +673,46 @@ if (!$lessValue) {
 			exit("Erreur.\n");
 		}
 		if ($result) {
-			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				$dateDay = $row['dateTime'];
-				if ($row['Tn'] != null) { $rowArrayTn['Tn'] = round($row['Tn'],1); } else {$rowArrayTn['Tn'] = null;};
-				if ($row['TnDt'] != null) { $rowArrayTn['TnDt'] = strtotime($row['TnDt'])*1000; } else {$rowArrayTn['TnDt'] = null;};
-				if ($row['dateTime'] != null) { $rowArrayTn['dateDay'] = strtotime($row['dateTime'])*1000; } else {$rowArrayTn['dateDay'] = null;};
+			$row = $result->fetch(PDO::FETCH_ASSOC);
+			$dateDay = $row['dateTime'];
+			if ($row['Tn'] != null) { $rowArrayTn['Tn'] = round($row['Tn'],1); } else {$rowArrayTn['Tn'] = null;};
+			if ($row['TnDt'] != null) { $rowArrayTn['TnDt'] = strtotime($row['TnDt'])*1000; } else {$rowArrayTn['TnDt'] = null;};
+			if ($row['dateTime'] != null) { $rowArrayTn['dateDay'] = strtotime($row['dateTime'])*1000; } else {$rowArrayTn['dateDay'] = null;};
 
-				if ($row['Tx'] != null) { $rowArrayTx['Tx'] = round($row['Tx'],1); } else {$rowArrayTx['Tx'] = null;};
-				if ($row['TxDt'] != null) { $rowArrayTx['TxDt'] = strtotime($row['TxDt'])*1000; } else {$rowArrayTx['TxDt'] = null;};
-				if ($row['dateTime'] != null) { $rowArrayTx['dateDay'] = strtotime($row['dateTime'])*1000; } else {$rowArrayTx['dateDay'] = null;};
+			if ($row['Tx'] != null) { $rowArrayTx['Tx'] = round($row['Tx'],1); } else {$rowArrayTx['Tx'] = null;};
+			if ($row['TxDt'] != null) { $rowArrayTx['TxDt'] = strtotime($row['TxDt'])*1000; } else {$rowArrayTx['TxDt'] = null;};
+			if ($row['dateTime'] != null) { $rowArrayTx['dateDay'] = strtotime($row['dateTime'])*1000; } else {$rowArrayTx['dateDay'] = null;};
 
-				$rowArrayClim['dateDay'] = $dateDay;
-				$rowArrayClim['dateDay6h'] = (strtotime($dateDay)+108000)*1000;
-				if ($row['RR'] != null) { $rowArrayClim['RR'] = round($row['RR'],1); } else {$rowArrayClim['RR'] = null;};
-				if ($row['RRmaxInt'] != null) { $rowArrayClim['RRmaxInt'] = round($row['RRmaxInt'],1); $rowArrayClim['RRmaxIntDt'] = strtotime($row['RRmaxIntDt'])*1000; } else {$rowArrayClim['RRmaxInt'] = null; $rowArrayClim['RRmaxIntDt'] = null; };
+			$rowArrayClim['dateDay'] = $dateDay;
+			$rowArrayClim['dateDay6h'] = (strtotime($dateDay)+108000)*1000;
+			if ($row['RR'] != null) { $rowArrayClim['RR'] = round($row['RR'],1); } else {$rowArrayClim['RR'] = null;};
+			if ($row['RRmaxInt'] != null) { $rowArrayClim['RRmaxInt'] = round($row['RRmaxInt'],1); $rowArrayClim['RRmaxIntDt'] = strtotime($row['RRmaxIntDt'])*1000; } else {$rowArrayClim['RRmaxInt'] = null; $rowArrayClim['RRmaxIntDt'] = null; };
 
-				array_push($dataTn,$rowArrayTn);
-				array_push($dataTx,$rowArrayTx);
-				array_push($dataRRClimato,$rowArrayClim);
+			array_push($dataTn,$rowArrayTn);
+			array_push($dataTx,$rowArrayTx);
+			array_push($dataRRClimato,$rowArrayClim);
+
+			// Tn Fiab
+			if ($row['TnRecord'] != null && $row['TnRecord'] != 0 && $row['expectedRecordTn'] != null && $row['expectedRecordTn'] != 0) {
+				$fiabTn = round(($row['TnRecord']*100)/$row['expectedRecordTn'],1);
+			} else {
+				$fiabTn = null;
 			}
+
+			// Tx Fiab
+			if ($row['TxRecord'] != null && $row['TxRecord'] != 0 && $row['expectedRecordTx'] != null && $row['expectedRecordTx'] != 0) {
+				$fiabTx = round(($row['TxRecord']*100)/$row['expectedRecordTx'],1);
+			} else {
+				$fiabTx = null;
+			}
+
+			// RR Fiab
+			if ($row['RRRecord'] != null && $row['RRRecord'] != 0 && $row['expectedRecordTx'] != null && $row['expectedRecordTx'] != 0) {
+				$fiabRr = round(($row['RRRecord']*100)/$row['expectedRecordTx'],1);
+			} else {
+				$fiabRr = null;
+			}
+
 		}
 } // fin lessValue
 
