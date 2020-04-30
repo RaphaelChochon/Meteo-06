@@ -10,12 +10,12 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Balises META SEO pour le referencement Google, Facebook Twitter etc. -->
-		<meta name="description" content="Webcam en live de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>"/>
+		<meta name="description" content="<?php echo $hashtag_meteo; ?> Webcam en direct de la station <?php echo $station_name; ?>"/>
 		<link rel="canonical" href="<?php if ($SSL){echo'https://';}else echo'http://'; echo $_SERVER['HTTP_HOST'].parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);?>" />
 		<meta property="og:locale" content="fr_FR" />
 		<meta property="og:type" content="website" />
-		<meta property="og:title" content="<?php echo $short_station_name; ?> | Webcam" />
-		<meta property="og:description" content="Webcam en live de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>" />
+		<meta property="og:title" content="<?php echo $short_station_name; ?> | Webcam en direct" />
+		<meta property="og:description" content="<?php echo $hashtag_meteo; ?> Webcam en direct de la station <?php echo $station_name; ?>" />
 		<meta property="og:url" content="<?php if ($SSL){echo'https://';}else echo'http://'; echo $_SERVER['HTTP_HOST'].parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);?>" />
 		<meta property="og:site_name" content="<?php echo $short_station_name; ?>" />
 		<meta property="fb:app_id" content="<?php echo $fb_app_id; ?>" />
@@ -24,8 +24,8 @@
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:description" content="Webcam en live de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>" />
-		<meta name="twitter:title" content="<?php echo $short_station_name; ?> | Webcam" />
+		<meta name="twitter:description" content="<?php echo $hashtag_meteo; ?> Webcam en direct de la station <?php echo $station_name; ?>" />
+		<meta name="twitter:title" content="<?php echo $short_station_name; ?> | Webcam en direct" />
 		<meta name="twitter:site" content="<?php echo $tw_account_name; ?>" />
 		<meta name="twitter:image" content="<?php echo $url_site; ?>/img/capture_site.jpg" />
 		<meta name="twitter:creator" content="<?php echo $tw_account_name; ?>" />

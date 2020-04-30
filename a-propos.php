@@ -1,8 +1,10 @@
-<?php require_once __DIR__ . '/include/access_rights.php';?>
-<?php require_once __DIR__ . '/config/config.php';?>
-<?php require_once __DIR__ . '/sql/connect_pdo.php';?>
-<?php require_once __DIR__ . '/sql/import.php';?>
-<?php require_once __DIR__ . '/include/functions.php';?>
+<?php
+	require_once __DIR__ . '/include/access_rights.php';
+	require_once __DIR__ . '/config/config.php';
+	require_once __DIR__ . '/sql/connect_pdo.php';
+	require_once __DIR__ . '/sql/import.php';
+	require_once __DIR__ . '/include/functions.php';
+?>
 <!DOCTYPE html>
 <html lang="fr-FR" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 	<head>
@@ -11,12 +13,12 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Balises META SEO pour le referencement Google, Facebook Twitter etc. -->
-		<meta name="description" content="A propos de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>"/>
+		<meta name="description" content="<?php echo $hashtag_meteo; ?> A propos de la station <?php echo $station_name; ?>"/>
 		<link rel="canonical" href="<?php if ($SSL){echo'https://';}else echo'http://'; echo $_SERVER['HTTP_HOST'].parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);?>" />
 		<meta property="og:locale" content="fr_FR" />
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content="<?php echo $short_station_name; ?> | A propos" />
-		<meta property="og:description" content="A propos de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>" />
+		<meta property="og:description" content="<?php echo $hashtag_meteo; ?> A propos de la station <?php echo $station_name; ?>" />
 		<meta property="og:url" content="<?php if ($SSL){echo'https://';}else echo'http://'; echo $_SERVER['HTTP_HOST'].parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);?>" />
 		<meta property="og:site_name" content="<?php echo $short_station_name; ?>" />
 		<meta property="fb:app_id" content="<?php echo $fb_app_id; ?>" />
@@ -25,7 +27,7 @@
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:description" content="A propos de la station <?php echo $station_name; ?> <?php echo $hashtag_meteo; ?>" />
+		<meta name="twitter:description" content="<?php echo $hashtag_meteo; ?> A propos de la station <?php echo $station_name; ?>" />
 		<meta name="twitter:title" content="<?php echo $short_station_name; ?> | A propos" />
 		<meta name="twitter:site" content="<?php echo $tw_account_name; ?>" />
 		<meta name="twitter:image" content="<?php echo $url_site; ?>/img/capture_site.jpg" />

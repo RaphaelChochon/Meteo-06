@@ -13,12 +13,12 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Balises META SEO pour le referencement Google, Facebook Twitter etc. -->
-		<meta name="description" content="Suivez les relevés météos en live de la station <?php echo $station_name; ?> sur ce site. Précipitations, températures, pression, pluie, graphiques, archives et webcam <?php echo $hashtag_meteo; ?>"/>
+		<meta name="description" content="<?php echo $hashtag_meteo; ?> Relevés météo de la station <?php echo $station_name; ?> - Précipitations, température, pression, graphiques, webcam, pluie, orage"/>
 		<link rel="canonical" href="<?php if ($SSL){echo'https://';}else echo'http://'; echo $_SERVER['HTTP_HOST'].parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);?>" />
 		<meta property="og:locale" content="fr_FR" />
 		<meta property="og:type" content="website" />
-		<meta property="og:title" content="<?php echo $short_station_name; ?> | Accueil" />
-		<meta property="og:description" content="Suivez les relevés météos en live de la station <?php echo $station_name; ?> sur ce site. Précipitations, températures, pression, pluie, graphiques, archives et webcam <?php echo $hashtag_meteo; ?>" />
+		<meta property="og:title" content="Station météo <?php echo $short_station_name; ?> | Relevés en direct" />
+		<meta property="og:description" content="<?php echo $hashtag_meteo; ?> Relevés météo de la station <?php echo $station_name; ?> - Précipitations, température, pression, graphiques, webcam, pluie, orage" />
 		<meta property="og:url" content="<?php if ($SSL){echo'https://';}else echo'http://'; echo $_SERVER['HTTP_HOST'].parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);?>" />
 		<meta property="og:site_name" content="<?php echo $short_station_name; ?>" />
 		<meta property="fb:app_id" content="<?php echo $fb_app_id; ?>" />
@@ -27,8 +27,8 @@
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
 		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:description" content="Suivez les relevés météos en live de la station <?php echo $station_name; ?> sur ce site. Précipitations, températures, pression, pluie, graphiques, archives et webcam <?php echo $hashtag_meteo; ?>" />
-		<meta name="twitter:title" content="<?php echo $short_station_name; ?> | Accueil" />
+		<meta name="twitter:description" content="<?php echo $hashtag_meteo; ?> Relevés météo de la station <?php echo $station_name; ?> - Précipitations, température, pression, graphiques, webcam, pluie, orage" />
+		<meta name="twitter:title" content="Station météo <?php echo $short_station_name; ?> | Relevés en direct" />
 		<meta name="twitter:site" content="<?php echo $tw_account_name; ?>" />
 		<meta name="twitter:image" content="<?php echo $url_site; ?>/img/capture_site.jpg" />
 		<meta name="twitter:creator" content="<?php echo $tw_account_name; ?>" />
@@ -348,7 +348,7 @@
 					<!-- START radar de précip -->
 					<h3 class="text-center">Radar de précipitations</h3>
 					<div class="img-thumbnail text-center">
-						<img class="img-fluid" src="<?php echo $radar_url; ?>" alt="Image radar des précipitations">
+						<img class="img-fluid" src="<?php echo $radar_url; ?>" alt="Image radar des précipitations par <?php echo $radar_source; ?>">
 					</div>
 					<p class="source">
 						Source : <a href="<?php echo $radar_source_url; ?>" target="blank"><?php echo $radar_source; ?></a>
