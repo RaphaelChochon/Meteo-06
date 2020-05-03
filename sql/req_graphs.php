@@ -323,22 +323,8 @@ if ($graphType == 'graphs') {
 			}
 		}
 
-	// appel du script de connexion
-		/**
-		 * @todo a remplacer par PDO
-		 */
-		require_once("connect.php");
 
-	// Récupération des valeurs climatos
-		$db_name_climato = "climato_station";
-		$a = explode("_",$db_name);
-		$aCount = count($a);
-		if ($aCount == '2') {
-			$db_table_climato = $a[1]."_day";
-		} elseif ($aCount == '3') {
-			$db_table_climato = $a[1]."_".$a[2]."_day";
-		}
-
+	// CLIMATO
 		$dateDay1 = date('Y-m-d',$tsStop);
 		$dateDay5 = date('Y-m-d',$tsStop-(86400*7));
 
@@ -346,33 +332,77 @@ if ($graphType == 'graphs') {
 		$dataTx = array();
 		$dataRRClimato = array();
 
-		if ($result = mysqli_query($conn,
-			"SELECT date_day AS dateTime, Tn AS Tn, Tn_datetime AS TnDt, Tx AS Tx, Tx_datetime AS TxDt,
-			RR AS RR, RR_max_intensite AS RRmaxInt, RR_maxInt_datetime AS RRmaxIntDt
-			FROM $db_name_climato.$db_table_climato
-			WHERE date_day >= '$dateDay5' AND date_day <= '$dateDay1'
-			ORDER BY Datetime ASC")){
-			while($row = mysqli_fetch_array($result)) {
-				$dateDay = $row['dateTime'];
-				if ($row['Tn'] != null) { $rowArrayTn['Tn'] = round($row['Tn'],1); } else {$rowArrayTn['Tn'] = null;};
-				if ($row['TnDt'] != null) { $rowArrayTn['TnDt'] = strtotime($row['TnDt'])*1000; } else {$rowArrayTn['TnDt'] = null;};
-				if ($row['dateTime'] != null) { $rowArrayTn['dateDay'] = strtotime($row['dateTime'])*1000; } else {$rowArrayTn['dateDay'] = null;};
+		$query_string = "SELECT `dateDay` AS `dateDay`,
+							`Tn` AS `Tn`,
+							`TnDt` AS `TnDt`,
+							`Tx` AS `Tx`,
+							`TxDt` AS `TxDt`,
+							`RR` AS `RR`,
+							`RRateMax` AS `RRateMax`,
+							`RRateMaxDt` AS `RRateMaxDt`
+						FROM `$db_name_climato`.`$db_table_climato`
+						WHERE `dateDay` >= '$dateDay5' AND `dateDay` <= '$dateDay1'
+						ORDER BY `dateDay` ASC;";
+		$result       = $db_handle_pdo->query($query_string);
 
-				if ($row['Tx'] != null) { $rowArrayTx['Tx'] = round($row['Tx'],1); } else {$rowArrayTx['Tx'] = null;};
-				if ($row['TxDt'] != null) { $rowArrayTx['TxDt'] = strtotime($row['TxDt'])*1000; } else {$rowArrayTx['TxDt'] = null;};
-				if ($row['dateTime'] != null) { $rowArrayTx['dateDay'] = strtotime($row['dateTime'])*1000; } else {$rowArrayTx['dateDay'] = null;};
+		if (!$result) {
+			// Erreur
+			echo "Erreur dans la requete ".$query_string."\n";
+			echo "\nPDO::errorInfo():\n";
+			print_r($db_handle_pdo->errorInfo());
+			exit("Erreur.\n");
+		}
+		if ($result) {
+			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+				$dateDay = $row['dateDay'];
 
-				$rowArrayClim['dateDay'] = $dateDay;
-				$rowArrayClim['dateDay6h'] = (strtotime($dateDay)+108000)*1000;
-				if ($row['RR'] != null) { $rowArrayClim['RR'] = round($row['RR'],1); } else {$rowArrayClim['RR'] = null;};
-				if ($row['RRmaxInt'] != null) { $rowArrayClim['RRmaxInt'] = round($row['RRmaxInt'],1); $rowArrayClim['RRmaxIntDt'] = strtotime($row['RRmaxIntDt'])*1000; } else {$rowArrayClim['RRmaxInt'] = null; $rowArrayClim['RRmaxIntDt'] = null; };
+				// Tn
+				$rowArrayTn['Tn'] = null;
+				$rowArrayTn['TnDt'] = null;
+				$rowArrayTn['dateDay'] = null;
+				if ( !is_null($row['Tn']) ) {
+					$rowArrayTn['Tn'] = round($row['Tn'],1);
+				}
+				if ( !is_null($row['TnDt']) ) { 
+					$rowArrayTn['TnDt'] = strtotime($row['TnDt'])*1000;
+				}
+				if ( !is_null($row['dateDay']) ) {
+					$rowArrayTn['dateDay'] = strtotime($row['dateDay'])*1000;
+				}
+
+				// Tx
+				$rowArrayTx['Tx'] = null;
+				$rowArrayTx['TxDt'] = null;
+				$rowArrayTx['dateDay'] = null;
+				if ( !is_null($row['Tx']) ) {
+					$rowArrayTx['Tx'] = round($row['Tx'],1);
+				}
+				if ( !is_null($row['TxDt']) ) {
+					$rowArrayTx['TxDt'] = strtotime($row['TxDt'])*1000;
+				}
+				if ( !is_null($row['dateDay']) ) {
+					$rowArrayTx['dateDay'] = strtotime($row['dateDay'])*1000;
+				}
+
+				// RR
+				$RowArrayRr['dateDay'] = $dateDay;
+				$RowArrayRr['dateDay6h'] = (strtotime($dateDay) + (30 * 60 * 60)) * 1000;
+				$RowArrayRr['RR'] = null;
+				$RowArrayRr['RRmaxInt'] = null;
+				$RowArrayRr['RRmaxIntDt'] = null;
+				if ( !is_null($row['RR']) ) {
+					$RowArrayRr['RR'] = round($row['RR'],1);
+				}
+				if ( !is_null($row['RRateMax']) ) {
+					$RowArrayRr['RRmaxInt'] = round($row['RRateMax'],1);
+					$RowArrayRr['RRmaxIntDt'] = strtotime($row['RRateMaxDt'])*1000;
+				}
 
 				array_push($dataTn,$rowArrayTn);
 				array_push($dataTx,$rowArrayTx);
-				array_push($dataRRClimato,$rowArrayClim);
+				array_push($dataRRClimato,$RowArrayRr);
 			}
 		}
-		mysqli_close($conn);
 }
 elseif ($graphType == 'heatmap') {
 	/**

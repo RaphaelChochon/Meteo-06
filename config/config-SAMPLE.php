@@ -28,6 +28,16 @@
 	$db_name = "weewx"; // BDD name
 	$db_table= "archive"; // table name
 
+	// BDD CLIMATO
+	$db_name_climato = "climatologie";
+	$a = explode("_",$db_name);
+	$aCount = count($a);
+	if ($aCount == '2') {
+		$db_table_climato = $a[1]."_day";
+	} elseif ($aCount == '3') {
+		$db_table_climato = $a[1]."_".$a[2]."_day";
+	}
+
 	// CONNECT BDD AUTHENTIFICATION (pour l'admin)
 	$serverAuth = "localhost";  //localhost or host adress/IP
 	$userAuth   = "auth";       // User MySQL
