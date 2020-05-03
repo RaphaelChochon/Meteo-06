@@ -12,7 +12,6 @@ if ($graphType == 'graphs') {
 			echo "Erreur dans la requete ".$query_string."\n";
 			echo "\nPDO::errorInfo():\n";
 			print_r($db_handle_pdo->errorInfo());
-			exit("\n");
 		}
 		if ($result) {
 			$row = $result->fetch(PDO::FETCH_ASSOC);
@@ -82,7 +81,6 @@ if ($graphType == 'graphs') {
 			echo "Erreur dans la requete ".$query_string."\n";
 			echo "\nPDO::errorInfo():\n";
 			print_r($db_handle_pdo->errorInfo());
-			exit("Erreur.\n");
 		}
 		if ($result) {
 			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -166,7 +164,6 @@ if ($graphType == 'graphs') {
 			echo "Erreur dans la requete ".$query_string."\n";
 			echo "\nPDO::errorInfo():\n";
 			print_r($db_handle_pdo->errorInfo());
-			exit("Erreur.\n");
 		}
 		if ($result) {
 			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -197,7 +194,6 @@ if ($graphType == 'graphs') {
 			echo "Erreur dans la requete ".$query_string."\n";
 			echo "\nPDO::errorInfo():\n";
 			print_r($db_handle_pdo->errorInfo());
-			exit("Erreur.\n");
 		}
 		if ($result) {
 			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -221,7 +217,6 @@ if ($graphType == 'graphs') {
 			echo "Erreur dans la requete ".$query_string."\n";
 			echo "\nPDO::errorInfo():\n";
 			print_r($db_handle_pdo->errorInfo());
-			exit("Erreur.\n");
 		}
 		if ($result) {
 			// Construction du tableau
@@ -263,7 +258,6 @@ if ($graphType == 'graphs') {
 			echo "Erreur dans la requete ".$query_string."\n";
 			echo "\nPDO::errorInfo():\n";
 			print_r($db_handle_pdo->errorInfo());
-			exit("Erreur.\n");
 		}
 		if ($result) {
 			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -350,7 +344,6 @@ if ($graphType == 'graphs') {
 			echo "Erreur dans la requete ".$query_string."\n";
 			echo "\nPDO::errorInfo():\n";
 			print_r($db_handle_pdo->errorInfo());
-			exit("Erreur.\n");
 		}
 		if ($result) {
 			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -429,7 +422,6 @@ elseif ($graphType == 'heatmap') {
 		echo "Erreur dans la requete ".$query_string."\n";
 		echo "\nPDO::errorInfo():\n";
 		print_r($db_handle_pdo->errorInfo());
-		exit("\n");
 	}
 	if ($result) {
 		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -470,7 +462,6 @@ elseif ($graphType == 'heatmap') {
 		echo "Erreur dans la requete ".$query_string."\n";
 		echo "\nPDO::errorInfo():\n";
 		print_r($db_handle_pdo->errorInfo());
-		exit("Erreur.\n");
 	}
 	if ($result) {
 		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
