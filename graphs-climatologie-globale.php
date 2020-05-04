@@ -54,8 +54,7 @@
 		<script defer src="content/highcharts/modules/exporting-8.0.4.js"></script>
 		<script defer src="content/highcharts/modules/offline-exporting-8.0.4.js"></script>
 		<script defer src="content/highcharts/modules/export-data-8.0.4.js"></script>
-		<!-- @ToDo Mettre en place boost sur ces graphs -->
-		<!-- <script defer src="content/highcharts/modules/boost-8.0.4.js"></script> -->
+		<script defer src="content/highcharts/modules/boost-8.0.4.js"></script>
 
 		<!-- Font Awesome CSS -->
 		<link href="content/fontawesome-5.13.0/css/all.min.css" rel="stylesheet">
@@ -101,9 +100,11 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12 ">
-					<h3 class="text-center">Climatologie quotidienne</h3>
+					<h3 class="text-center">Climatologie globale</h3>
 					<p class="text-justify">
-						Vous trouverez sur cette page la climatologie quotidienne de la station sous forme de graphiques. <br>Vous pouvez zoomer sur une zone spécifique, faire apparaitre une infobulle au passage de la souris ou au clic sur mobile, et afficher/masquer un paramètre météo en cliquant sur son intitulé dans la légende. Ils sont également exportables en cliquant sur le bouton au-dessus à droite de chaque graphique.
+						Vous trouverez sur cette page la climatologie globale de la station sous forme de graphiques.
+						<br>
+						Vous pouvez zoomer sur une zone spécifique, faire apparaitre une infobulle au passage de la souris ou au clic sur mobile, et afficher/masquer un paramètre météo en cliquant sur son intitulé dans la légende. Ils sont également exportables en cliquant sur le bouton au-dessus à droite de chaque graphique.
 					</p>
 					<h5 class="text-center">Note importante :</h5>
 					<p class="text-justify">
@@ -113,7 +114,7 @@
 							<li>Tn : Pour le jour J, température minimale de 18h J-1, à 18h jour J (UTC)</li>
 							<li>Précipitations : Cumul de pluie pour le jour J de 6h jour J, à 6h J+1 (UTC)</li>
 						</ul>
-						Un indice de fiabilité est donné pour certains paramètres calculés. Il est exprimé en pourcentage et indique si toutes les données de la journée en question sont présentes. 100% indiquent une très bonne fiabilité, alors qu'une valeur inférieure peut indiquer un manque de données, et donc une approximation.<br><b>Cet indice représente donc principalement la fiabilité de la transmission. Il est présent afin d'aider à l'interprétation mais ne représente en aucun cas un indicateur de validation/invalidation des données affichées.</b><br><br>
+						<!-- Un indice de fiabilité est donné pour certains paramètres calculés. Il est exprimé en pourcentage et indique si toutes les données de la journée en question sont présentes. 100% indiquent une très bonne fiabilité, alors qu'une valeur inférieure peut indiquer un manque de données, et donc une approximation.<br><b>Cet indice représente donc principalement la fiabilité de la transmission. Il est présent afin d'aider à l'interprétation mais ne représente en aucun cas un indicateur de validation/invalidation des données affichées.</b><br><br> -->
 						
 						Les données sont mises à jour plusieurs fois par heure, mais il est important de noter que <b>les données affichées pour la journée en cours sont incomplètes et/ou provisoires</b>. Il faut attendre le lendemain à 6h UTC pour que toutes les données de la veille soit complètes.
 					</p>
@@ -188,26 +189,40 @@
 									fontSize: "9px",
 									padding: "0.5em 0.5em"
 								}
+						},
+						credits: {
+							enabled: false
+						},
+						plotOptions: {
+							series: {
+								states: {
+									hover: {
+										enabled: true,
+										lineWidthPlus: 0 // désactive le highlighting des series
+									}
+								}
+							}
 						}
 					});
 					// GRAPHS
+					var dataTn = [<?php echo join($dataTn, ',') ?>];
+					var metaTn = [<?php echo join($metaTn, ',') ?>];
+					var dataTx = [<?php echo join($dataTx, ',') ?>];
+					var metaTx = [<?php echo join($metaTx, ',') ?>];
+					var dataTmoy = [<?php echo join($dataTmoy, ',') ?>];
 					var graphTemp = Highcharts.chart('graphTemp', {
 						chart: {
 							type : 'line',
 							zoomType: 'x',
 						},
 						title: {
-							text: 'Température maxi, moyenne et mini au pas de temps quotidien'
+							text: 'Température mini, moyenne et maxi au pas de temps quotidien'
 						},
 						subtitle: {
 							text: 'Tn et Tx aux normes OMM, température moyenne : Tn+Tx/2 | UTC<br>Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
 						},
-						credits: {
-							text: '<?php echo $name_manager_graph; ?>',
-							href: '<?php echo $site_manager_graph; ?>'
-						},
 						exporting: {
-							filename: '<?php echo $short_station_name; ?> climato_temp',
+							filename: '<?php echo $short_station_name; ?>_climato-globale_temperature',
 							sourceHeight: '500',
 							sourceWidth: '1200',
 							csv: {
@@ -253,31 +268,37 @@
 						tooltip: {
 							shared: true,
 							valueDecimals: 1,
-							// xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 							xDateFormat: '<b>%e %B %Y</b>',
 						},
+						boost: {
+							enabled:true,
+							useGPUTranslations: false,
+							seriesThreshold:1,
+						},
 						series: [{
-							name : 'Température maxi. (Tx)',
-							type: 'spline',
-							data : <?php echo $dataTx ?>,
+							name : 'Température mini. (Tn)',
+							type: 'line',
+							data : dataTn,
+							boostThreshold: 20,
 							zIndex: 1,
-							color: '#ff0000',
-							turboThreshold: 0,
+							color: '#003bff',
+							// turboThreshold: 0,
 							tooltip: {
 								useHTML: true,
 								pointFormatter: function () {
-									var TxDate = new Date(this.TxDt);
-									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' °C</b> le <b>'+("0"+TxDate.getUTCDate()).slice(-2)+'/'+("0"+(TxDate.getUTCMonth()+1)).slice(-2)+'</b> à <b>'+("0"+TxDate.getUTCHours()).slice(-2)+':'+("0"+TxDate.getUTCMinutes()).slice(-2)+' UTC</b><br/><span style="color:'+this.series.color+'">\u25CF</span> Indice de fiabilité : '+this.TxFiab+'%<br/>'+
+									var TnDate = new Date(metaTn[this.index][0]);
+									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' °C</b> le <b>'+("0"+TnDate.getUTCDate()).slice(-2)+'/'+("0"+(TnDate.getUTCMonth()+1)).slice(-2)+'</b> à <b>'+("0"+TnDate.getUTCHours()).slice(-2)+':'+("0"+TnDate.getUTCMinutes()).slice(-2)+' UTC</b><br/><span style="color:'+this.series.color+'">\u25CF</span> Nb d\'enregistrement : '+metaTn[this.index][1]+'<br/>'+
 									'----<br>';
 								}
 							}
 						},{
 							name : 'Température moyenne. (Tmoy)',
-							type: 'spline',
-							data : <?php echo $dataTmoy ?>,
+							type: 'line',
+							data : dataTmoy,
+							boostThreshold: 20,
 							zIndex: 1,
 							color: '#292a2d',
-							turboThreshold: 0,
+							// turboThreshold: 0,
 							tooltip: {
 								useHTML: true,
 								pointFormatter: function () {
@@ -286,29 +307,31 @@
 								}
 							}
 						},{
-							name : 'Température mini. (Tn)',
-							type: 'spline',
-							data : <?php echo $dataTn ?>,
+							name : 'Température maxi. (Tx)',
+							type: 'line',
+							data : dataTx,
+							boostThreshold: 20,
 							zIndex: 1,
-							color: '#003bff',
-							turboThreshold: 0,
+							color: '#ff0000',
+							// turboThreshold: 0,
 							tooltip: {
 								useHTML: true,
-								// pointFormat : '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y} °C</b><br/>',
 								pointFormatter: function () {
-									var TnDate = new Date(this.TnDt);
-									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' °C</b> le <b>'+("0"+TnDate.getUTCDate()).slice(-2)+'/'+("0"+(TnDate.getUTCMonth()+1)).slice(-2)+'</b> à <b>'+("0"+TnDate.getUTCHours()).slice(-2)+':'+("0"+TnDate.getUTCMinutes()).slice(-2)+' UTC</b><br/><span style="color:'+this.series.color+'">\u25CF</span> Indice de fiabilité : '+this.TnFiab+'%<br/>';
+									var TxDate = new Date(metaTx[this.index][0]);
+									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' °C</b> le <b>'+("0"+TxDate.getUTCDate()).slice(-2)+'/'+("0"+(TxDate.getUTCMonth()+1)).slice(-2)+'</b> à <b>'+("0"+TxDate.getUTCHours()).slice(-2)+':'+("0"+TxDate.getUTCMinutes()).slice(-2)+' UTC</b><br/><span style="color:'+this.series.color+'">\u25CF</span> Nb d\'enregistrement : '+metaTx[this.index][1]+'<br/>';
 								}
 							}
 						}]
 					});
+					var dataRR = [<?php echo join($dataRR, ',') ?>];
+					var metaRR = [<?php echo join($metaRR, ',') ?>];
 					var graphRR = Highcharts.chart('graphRR', {
 						chart: {
 							type : 'line',
 							zoomType: 'x',
 						},
 						title: {
-							text: 'Cumul de précipitations au pas de temps quotidien, et cumul annuel'
+							text: 'Cumul de précipitations quotidien, mensuel et annuel'
 						},
 						subtitle: {
 							text: 'Précipitations aux normes OMM | UTC<br>Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
@@ -318,7 +341,7 @@
 							href: '<?php echo $site_manager_graph; ?>'
 						},
 						exporting: {
-							filename: '<?php echo $short_station_name; ?> climato_rr',
+							filename: '<?php echo $short_station_name; ?>_climato-globale_precipitations',
 							sourceHeight: '500',
 							sourceWidth: '1200',
 							csv: {
@@ -366,7 +389,7 @@
 							lineColor: '#2c469c',
 							lineWidth: 1,
 							title: {
-								text: 'Cumul annuel (mm)',
+								text: 'Cumul mensuel et annuel (mm)',
 								style: {
 									"color": "#2c469c",
 								},
@@ -382,34 +405,41 @@
 							valueDecimals: 1,
 							xDateFormat: '<b>%e %B %Y</b>',
 						},
+						boost: {
+							enabled:true,
+							useGPUTranslations: false,
+							seriesThreshold:1,
+						},
 						series: [{
 							name : 'Cumul quotidien',
 							type: 'column',
-							data : <?php echo $dataRR ?>,
+							data : dataRR,
+							boostThreshold: 20,
 							zIndex: 1,
 							color: '#2175fc',
 							turboThreshold: 0,
 							tooltip: {
 								useHTML: true,
 								pointFormatter: function () {
-									var RRMaxIntDt = new Date(this.RRMaxIntDt);
-									if (this.RRMaxInt != null) {
+									var RRMaxIntDt = new Date(metaRR[this.index][1]);
+									if (metaRR[this.index][0] != null) {
 										return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' mm</b><br>'+
-										'<span style="color:'+this.series.color+'">\u25CF</span> Intensité max. de '+this.RRMaxInt+' mm/h'+
+										'<span style="color:'+this.series.color+'">\u25CF</span> Intensité max. de '+metaRR[this.index][0]+' mm/h'+
 										' le <b>'+("0"+RRMaxIntDt.getUTCDate()).slice(-2)+'/'+("0"+(RRMaxIntDt.getUTCMonth()+1)).slice(-2)+'</b> à <b>'+("0"+RRMaxIntDt.getUTCHours()).slice(-2)+':'+("0"+RRMaxIntDt.getUTCMinutes()).slice(-2)+' UTC</b><br/>'+
-										'<span style="color:'+this.series.color+'">\u25CF</span> Indice de fiabilité : '+this.RRFiab+'%<br/>'+
+										'<span style="color:'+this.series.color+'">\u25CF</span> Nb d\'enregistrement : '+metaRR[this.index][2]+'<br/>'+
 										'----<br>';
 									} else {
 										return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' mm</b><br>'+
-										'<span style="color:'+this.series.color+'">\u25CF</span> Indice de fiabilité : '+this.RRFiab+'%<br/>'+
+										'<span style="color:'+this.series.color+'">\u25CF</span> Nb d\'enregistrement : '+metaRR[this.index][2]+'<br/>'+
 										'----<br>';
 									}
 								}
 							}
 						},{
 							name : 'Cumul mensuel',
-							type: 'spline',
-							data : <?php echo $dataRRMonth ?>,
+							type: 'line',
+							data : [<?php echo join($dataRrMonth, ',') ?>],
+							boostThreshold: 20,
 							zIndex: 2,
 							yAxis: 1,
 							color: '#486cb0',
@@ -422,8 +452,9 @@
 							}
 						},{
 							name : 'Cumul annuel',
-							type: 'spline',
-							data : <?php echo $dataRRYear ?>,
+							type: 'line',
+							data : [<?php echo join($dataRrYear, ',') ?>],
+							boostThreshold: 20,
 							zIndex: 3,
 							yAxis: 1,
 							color: '#39404d',
