@@ -20,10 +20,10 @@
 		$query_string = "SELECT `dateDay` AS `dateDay`,
 							`Tn` AS `Tn`,
 							`TnDt` AS `TnDt`,
-							`TnRec` AS `TnRec`,
+							`TnFiab` AS `TnFiab`,
 							`Tx` AS `Tx`,
 							`TxDt` AS `TxDt`,
-							`TxRec` AS `TxRec`,
+							`TxFiab` AS `TxFiab`,
 							`Tmoy` AS `Tmoy`,
 							`RR` AS `RR`,
 							`RRateMax` AS `RRateMax`,
@@ -46,7 +46,7 @@
 				// Tn
 					$Tn    = "null";
 					$TnTs  = "null";
-					$TnRec = "null";
+					$TnFiab = "null";
 					if (!is_null ($row['Tn'])) {
 						$Tn = round($row['Tn'],1);
 					}
@@ -54,16 +54,16 @@
 						$TnTs = strtotime($row['TnDt'])*1000;
 					}
 					// Fiab
-					if (!is_null ($row['TnRec'])) {
-						$TnRec = $row['TnRec'];
+					if (!is_null ($row['TnFiab'])) {
+						$TnFiab = $row['TnFiab'];
 					}
 					$dataTn[] = "[$tsDateDay, $Tn]";
-					$metaTn[] = "[$TnTs, $TnRec]";
+					$metaTn[] = "[$TnTs, $TnFiab]";
 
 				// Tx
 					$Tx    = "null";
 					$TxTs  = "null";
-					$TxRec = "null";
+					$TxFiab = "null";
 					if (!is_null ($row['Tx'])) {
 						$Tx = round($row['Tx'],1);
 					}
@@ -71,11 +71,11 @@
 						$TxTs = strtotime($row['TxDt'])*1000;
 					}
 					// Fiab
-					if (!is_null ($row['TxRec'])) {
-						$TxRec = $row['TxRec'];
+					if (!is_null ($row['TxFiab'])) {
+						$TxFiab = $row['TxFiab'];
 					}
 					$dataTx[] = "[$tsDateDay, $Tx]";
-					$metaTx[] = "[$TxTs, $TxRec]";
+					$metaTx[] = "[$TxTs, $TxFiab]";
 
 				// Tmoy
 					$Tmoy = "null";
@@ -97,8 +97,8 @@
 					if (!is_null ($row['RRateMaxDt'])) {
 						$RRateMaxTs = strtotime($row['RRateMaxDt'])*1000;
 					}
-					$dataRR[] = "[$tsDateDay, $RR]"; // On utilise le TxRec pour le nb de rec de la pluie
-					$metaRR[] = "[$RRateMax, $RRateMaxTs, $TxRec]"; // On utilise le TxRec pour le nb de rec de la pluie
+					$dataRR[] = "[$tsDateDay, $RR]"; // On utilise le TxFiab pour le nb de rec de la pluie
+					$metaRR[] = "[$RRateMax, $RRateMaxTs, $TxFiab]"; // On utilise le TxFiab pour le nb de rec de la pluie
 
 				// RR Cumul month
 					$RRDtMonth = date('d', strtotime($row['dateDay']));

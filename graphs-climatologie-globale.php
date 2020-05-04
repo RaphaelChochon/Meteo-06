@@ -114,7 +114,7 @@
 							<li>Tn : Pour le jour J, température minimale de 18h J-1, à 18h jour J (UTC)</li>
 							<li>Précipitations : Cumul de pluie pour le jour J de 6h jour J, à 6h J+1 (UTC)</li>
 						</ul>
-						<!-- Un indice de fiabilité est donné pour certains paramètres calculés. Il est exprimé en pourcentage et indique si toutes les données de la journée en question sont présentes. 100% indiquent une très bonne fiabilité, alors qu'une valeur inférieure peut indiquer un manque de données, et donc une approximation.<br><b>Cet indice représente donc principalement la fiabilité de la transmission. Il est présent afin d'aider à l'interprétation mais ne représente en aucun cas un indicateur de validation/invalidation des données affichées.</b><br><br> -->
+						Un indice de fiabilité est donné pour certains paramètres calculés. Il est exprimé en pourcentage et indique si toutes les données de la journée en question sont présentes. 100% indiquent une très bonne fiabilité, alors qu'une valeur inférieure peut indiquer un manque de données, et donc une approximation.<br><b>Cet indice représente donc principalement la fiabilité de la transmission. Il est présent afin d'aider à l'interprétation mais ne représente en aucun cas un indicateur de validation/invalidation des données affichées.</b><br><br>
 						
 						Les données sont mises à jour plusieurs fois par heure, mais il est important de noter que <b>les données affichées pour la journée en cours sont incomplètes et/ou provisoires</b>. Il faut attendre le lendemain à 6h UTC pour que toutes les données de la veille soit complètes.
 					</p>
@@ -287,7 +287,7 @@
 								useHTML: true,
 								pointFormatter: function () {
 									var TnDate = new Date(metaTn[this.index][0]);
-									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' °C</b> le <b>'+("0"+TnDate.getUTCDate()).slice(-2)+'/'+("0"+(TnDate.getUTCMonth()+1)).slice(-2)+'</b> à <b>'+("0"+TnDate.getUTCHours()).slice(-2)+':'+("0"+TnDate.getUTCMinutes()).slice(-2)+' UTC</b><br/><span style="color:'+this.series.color+'">\u25CF</span> Nb d\'enregistrement : '+metaTn[this.index][1]+'<br/>'+
+									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' °C</b> le <b>'+("0"+TnDate.getUTCDate()).slice(-2)+'/'+("0"+(TnDate.getUTCMonth()+1)).slice(-2)+'</b> à <b>'+("0"+TnDate.getUTCHours()).slice(-2)+':'+("0"+TnDate.getUTCMinutes()).slice(-2)+' UTC</b><br/><span style="color:'+this.series.color+'">\u25CF</span> Indice de fiabilité : '+metaTn[this.index][1]+'%<br/>'+
 									'----<br>';
 								}
 							}
@@ -318,7 +318,7 @@
 								useHTML: true,
 								pointFormatter: function () {
 									var TxDate = new Date(metaTx[this.index][0]);
-									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' °C</b> le <b>'+("0"+TxDate.getUTCDate()).slice(-2)+'/'+("0"+(TxDate.getUTCMonth()+1)).slice(-2)+'</b> à <b>'+("0"+TxDate.getUTCHours()).slice(-2)+':'+("0"+TxDate.getUTCMinutes()).slice(-2)+' UTC</b><br/><span style="color:'+this.series.color+'">\u25CF</span> Nb d\'enregistrement : '+metaTx[this.index][1]+'<br/>';
+									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' °C</b> le <b>'+("0"+TxDate.getUTCDate()).slice(-2)+'/'+("0"+(TxDate.getUTCMonth()+1)).slice(-2)+'</b> à <b>'+("0"+TxDate.getUTCHours()).slice(-2)+':'+("0"+TxDate.getUTCMinutes()).slice(-2)+' UTC</b><br/><span style="color:'+this.series.color+'">\u25CF</span> Indice de fiabilité : '+metaTx[this.index][1]+'%<br/>';
 								}
 							}
 						}]
@@ -426,11 +426,11 @@
 										return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' mm</b><br>'+
 										'<span style="color:'+this.series.color+'">\u25CF</span> Intensité max. de '+metaRR[this.index][0]+' mm/h'+
 										' le <b>'+("0"+RRMaxIntDt.getUTCDate()).slice(-2)+'/'+("0"+(RRMaxIntDt.getUTCMonth()+1)).slice(-2)+'</b> à <b>'+("0"+RRMaxIntDt.getUTCHours()).slice(-2)+':'+("0"+RRMaxIntDt.getUTCMinutes()).slice(-2)+' UTC</b><br/>'+
-										'<span style="color:'+this.series.color+'">\u25CF</span> Nb d\'enregistrement : '+metaRR[this.index][2]+'<br/>'+
+										'<span style="color:'+this.series.color+'">\u25CF</span> Indice de fiabilité : '+metaRR[this.index][2]+'%<br/>'+
 										'----<br>';
 									} else {
 										return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' mm</b><br>'+
-										'<span style="color:'+this.series.color+'">\u25CF</span> Nb d\'enregistrement : '+metaRR[this.index][2]+'<br/>'+
+										'<span style="color:'+this.series.color+'">\u25CF</span> Indice de fiabilité : '+metaRR[this.index][2]+'%<br/>'+
 										'----<br>';
 									}
 								}
