@@ -43,7 +43,7 @@
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="/comparatif-moyenne.php">Comparatif de moyennes de<br>températures</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="/fiabilite-climatologie.php">Indice de fiabilité de la<br>climato.</a>
+					<a class="dropdown-item" href="/graphs-climatologie-fiabilite.php">Indice de fiabilité de la<br>climato.</a>
 				</div>
 			</li>
 			<?php if ($additional_menu){

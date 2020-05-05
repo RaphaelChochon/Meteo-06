@@ -54,8 +54,7 @@
 		<script defer src="content/highcharts/modules/exporting-8.0.4.js"></script>
 		<script defer src="content/highcharts/modules/offline-exporting-8.0.4.js"></script>
 		<script defer src="content/highcharts/modules/export-data-8.0.4.js"></script>
-		<!-- @ToDo Mettre en place boost sur ces graphs -->
-		<!-- <script defer src="content/highcharts/modules/boost-8.0.4.js"></script> -->
+		<script defer src="content/highcharts/modules/boost-8.0.4.js"></script>
 
 		<!-- Font Awesome CSS -->
 		<link href="../content/fontawesome-5.13.0/css/all.min.css" rel="stylesheet">
@@ -82,7 +81,7 @@
 			<?php endif; ?>
 
 			<!-- On récupère les valeurs en BDD pour peupler les tableaux ci-après -->
-			<?php include __DIR__ . '/sql/req_fiabilite-climatologie.php';?>
+			<?php include __DIR__ . '/sql/req_graphs-climatologie-fiabilite.php';?>
 
 			<div class="row">
 				<div class="col-md-12">
@@ -103,8 +102,7 @@
 				<div class="col-md-12 ">
 					<h3 class="text-center">Fiabilité de la climatologie quotidienne</h3>
 					<p class="text-justify">
-						Vous trouverez sur cette page un indice de fiabilité de la climatologie quotidienne de la station sous forme de graphiques. Il est exprimé en pourcentage et indique si toutes les données de la journée en question sont présentes. 100% indiquent une très bonne fiabilité, alors qu'une valeur inférieure peut indiquer un manque de données, et donc une approximation.<br><b>Cet indice représente donc principalement la fiabilité de la transmission. Il est présent afin d'aider à l'interprétation mais ne représente en aucun cas un indicateur de validation/invalidation des données affichées.</b><br><br>
-						Vous pouvez zoomer sur une zone spécifique, faire apparaitre une infobulle au passage de la souris ou au clic sur mobile, et afficher/masquer un paramètre météo en cliquant sur son intitulé dans la légende. Ils sont également exportables en cliquant sur le bouton au-dessus à droite de chaque graphique.
+						Vous trouverez sur cette page un indice de fiabilité de la climatologie quotidienne de la station sous forme de graphiques. Il est exprimé en pourcentage et indique si toutes les données de la journée en question sont présentes. 100% indiquent une très bonne fiabilité, alors qu'une valeur inférieure peut indiquer un manque de données, et donc une approximation.<br><b>Cet indice représente donc principalement la fiabilité de la transmission. Il est présent afin d'aider à l'interprétation mais ne représente en aucun cas un indicateur de validation/invalidation des données affichées.</b>
 					</p>
 				</div>
 			</div>
@@ -160,6 +158,19 @@
 									fontSize: "9px",
 									padding: "0.5em 0.5em"
 								}
+						},
+						credits: {
+							enabled: false
+						},
+						plotOptions: {
+							series: {
+								states: {
+									hover: {
+										enabled: true,
+										lineWidthPlus: 0 // désactive le highlighting des series
+									}
+								}
+							}
 						}
 					});
 					// GRAPHS
@@ -169,10 +180,10 @@
 							zoomType: 'x',
 						},
 						title: {
-							text: 'Fiabilité des mesures de températures et de précipitations'
+							text: 'Fiabilité des mesures de températures'
 						},
 						subtitle: {
-							text: 'Fiabilité Tn, Tx, RR | UTC<br>Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
+							text: 'Fiabilité Tn, et Tx | UTC<br>Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres | <?php echo $name_manager_graph; ?>',
 						},
 						credits: {
 							text: '<?php echo $name_manager_graph; ?>',
@@ -228,24 +239,16 @@
 							// xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 							xDateFormat: '<b>%e %B %Y</b>',
 						},
+						boost: {
+							enabled:true,
+							useGPUTranslations: false,
+							seriesThreshold:1,
+						},
 						series: [{
-							name : 'Fiabilité Tx',
-							type: 'spline',
-							data : <?php echo $dataFiabTx ?>,
-							zIndex: 1,
-							color: '#ff0000',
-							turboThreshold: 0,
-							tooltip: {
-								useHTML: true,
-								pointFormatter: function () {
-									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' %</b><br>'+
-									'----<br>';
-								}
-							}
-						},{
 							name : 'Fiabilité Tn',
-							type: 'spline',
-							data : <?php echo $dataFiabTn ?>,
+							type: 'line',
+							data : [<?php echo join($fiabTn, ',') ?>],
+							boostThreshold: 20,
 							zIndex: 1,
 							color: '#003bff',
 							turboThreshold: 0,
@@ -257,17 +260,17 @@
 								}
 							}
 						},{
-							name : 'Fiabilité RR',
-							type: 'spline',
-							data : <?php echo $dataFiabRR ?>,
+							name : 'Fiabilité Tx',
+							type: 'line',
+							data : [<?php echo join($fiabTx, ',') ?>],
+							boostThreshold: 20,
 							zIndex: 1,
-							color: '#292a2d',
+							color: '#ff0000',
 							turboThreshold: 0,
 							tooltip: {
 								useHTML: true,
 								pointFormatter: function () {
-									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' %</b><br>'+
-									'----<br>';
+									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' %</b><br>';
 								}
 							}
 						}]
