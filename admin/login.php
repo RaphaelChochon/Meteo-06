@@ -129,6 +129,8 @@ require_once __DIR__ . '/../sql/connect_auth.php';
 								echo '<br>';
 								if (defined('USER_IS_PROPRIO')){
 									echo '<b>Vous êtes le propriétaire de cette station.</b>';
+								} else {
+									echo '<b>Vous n\'êtes pas le propriétaire de cette station.</b>';
 								}
 							?>
 						</p>

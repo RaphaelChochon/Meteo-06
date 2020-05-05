@@ -76,7 +76,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<p class="text-justify">
-						Cette page permet l'accès à différents outils de gestion de la station. Ces outils sont réservés au propriétaire et à l'équipe de gestion.
+						Cette page permet l'accès à différents outils de gestion de la station. Ces outils sont réservés au propriétaire de la station et à l'équipe de gestion.
 					</p>
 				</div>
 			</div>

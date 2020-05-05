@@ -5,7 +5,7 @@
 		header('Location: /admin/login.php'); 
 		exit();
 	}
-	if (!defined('USER_IS_ADMIN') || !defined('USER_IS_TEAM')) {
+	if ( !(defined('USER_IS_ADMIN') || defined('USER_IS_TEAM')) ) {
 		// Redirection
 		header('Location: /admin/index.php'); 
 		exit();

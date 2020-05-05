@@ -63,7 +63,7 @@
 			</nav>
 			<br>
 			<!-- Vérif des droits d'accès -->
-			<?php if (!defined('USER_IS_ADMIN') || !defined('USER_IS_TEAM') || !defined('USER_IS_PROPRIO')) :?>
+			<?php if ( !(defined('USER_IS_ADMIN') || defined('USER_IS_TEAM') || defined('USER_IS_PROPRIO')) ) :?>
 			<div class="row">
 				<div class="col-md-6 mx-auto">
 					<div class="alert alert-danger">
