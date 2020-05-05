@@ -1,6 +1,6 @@
 <?php
 	// Date UTC
-	date_default_timezone_set('UTC');
+		date_default_timezone_set('UTC');
 
 	// INIT
 		$dataTn = array();
