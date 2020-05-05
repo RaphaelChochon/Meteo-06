@@ -54,9 +54,15 @@
 
 		<!-- Bootstrap 4.4.1 -->
 		<link href="content/bootstrap/css/bootswatch-united-4.4.1.min.css" rel="stylesheet">
-		<link href="content/custom/custom.css?v=1.4" rel="stylesheet">
+		<link href="content/custom/custom.css?v=1.5" rel="stylesheet">
 		<script defer src="content/bootstrap/js/popper-1.16.0.min.js"></script>
 		<script defer src="content/bootstrap/js/bootstrap-4.4.1.min.js"></script>
+
+		<script>
+			$(function () {
+				$('[data-toggle="tooltip"]').tooltip()
+			})
+		</script>
 
 		<!-- ######### Pour Highcharts ######### -->
 		<!-- Highcharts BASE -->
@@ -190,7 +196,7 @@
 			<!-- Résumé journée -->
 			<div class="row">
 				<div class="col-md-12">
-					<h4 class="text-center mb-4">Résumé du <?php echo date('d/m/Y',$tsOptDay) ?></h4>
+					<h4 class="text-center mb-4">Résumé du <?php echo date('d/m/Y',$tsOptDay) ?> <span style="font-size:0.7em;">en&nbsp;heures&nbsp;<span class="badge badge-primary">UTC</span></span></h4>
 					<?php date_default_timezone_set('UTC'); if (time() >= $tsOptDayStart && time() < $tsOptDayStop) : ?>
 						<!-- Résultats partiels car journée en cours -->
 						<div class="row justify-content-md-center mb-5">
@@ -208,7 +214,7 @@
 						</div>
 					<?php endif; ?>
 
-					<?php if ($fiabTn <= 95 || $fiabTx <= 95 || $fiabRr <= 95) : ?>
+					<?php if ($TnFiab <= 95 || $TxFiab <= 95) : ?>
 						<!-- Problème de fiabilité -->
 						<div class="row justify-content-md-center mb-5">
 							<div class="col-md-6">
@@ -219,8 +225,8 @@
 										<br>
 										L'indice de fiabilité d'une des valeurs suivantes est insuffisant :
 										<ul>
-											<li>Fiabilité Tn : <?php if ($fiabTn<=95) {echo '<span class="textOfflineStation">'.$fiabTn.'%</span>';}else{ echo $fiabTn.'%';}?></li>
-											<li>Fiabilité Tx : <?php if ($fiabTx<=95) {echo '<span class="textOfflineStation">'.$fiabTx.'%</span>';}else{ echo $fiabTx.'%';}?></li>
+											<li>Fiabilité Tn : <?php if ($TnFiab<=95) {echo '<span class="textOfflineStation">'.$TnFiab.'%</span>';}else{ echo '<span class="textOnlineStation">'.$TnFiab.'%</span>';}?></li>
+											<li>Fiabilité Tx : <?php if ($TxFiab<=95) {echo '<span class="textOfflineStation">'.$TxFiab.'%</span>';}else{ echo '<span class="textOnlineStation">'.$TxFiab.'%</span>';}?></li>
 										</ul>
 										Cela peut indiquer un manque de données sur une partie de la journée, et par conséquent, rendre les statistiques présentées ci-dessous incomplètes.
 										<a role="button" class="btn btn-block btn-primary mt-3" href="/fiabilite-climatologie.php">Retrouvez plus de détails sur cet indice ici</a>
@@ -232,163 +238,195 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-4">
-					<h5>Température</h5>
-					<table class="table table-striped table-bordered table-hover table-sm">
-						<thead>
-							<tr>
-								<th>Params.</th>
-								<th>Valeur</th>
-							</tr>
-						</thead>
+				<div class="col-sm-4">
+					<table class="table table-striped table-bordered table-hover table-sm table-resume-quoti">
 						<tbody>
 							<tr>
-								<th>Tn</th>
-								<td class="textMin"><?php echo $TnDay; ?>&#8239;°C</td>
+								<th data-toggle="tooltip" data-placement="top" data-html="true" title="La Tn est calculée d'après la méthode officielle OMM, il s'agit donc de la <u>température minimale</u> qui s'est produite entre 18h UTC la veille et 18h UTC le jour même">Tn</th>
+								<td class="textMin">
+									<?php echo $Tn; ?>&#8239;°C
+									<?php if (!is_null($TnDt)) {
+										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($TnDt)).'</span>';
+									} ?>
+								</td>
 							</tr>
 							<tr>
-								<th>Tx</th>
-								<td class="textMax"><?php echo $TxDay; ?>&#8239;°C</td>
+								<th data-toggle="tooltip" data-placement="top" data-html="true" title="La Tx est calculée d'après la méthode officielle OMM, il s'agit donc de la <u>température maximale</u> qui s'est produite entre 06h UTC le jour même et 06h UTC le lendemain">Tx</th>
+								<td class="textMax">
+									<?php echo $Tx; ?>&#8239;°C
+									<?php if (!is_null($TxDt)) {
+										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($TxDt)).'</span>';
+									} ?>
+								</td>
 							</tr>
 							<tr>
-								<th>Tmoy</th>
-								<td><?php if (is_numeric($TnDay) && is_numeric($TxDay)){ echo round(($TnDay + $TxDay)/2,1);} else {echo "N/A";} ?>&#8239;°C</td>
+								<th data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>température moyenne</u> est donnée selon la méthode officielle OMM comme la <u>moyenne de la Tn + la Tx</u>, c'est à dire : (Tn + Tx) / 2">Tmoy</th>
+								<td><?php echo $Tmoy; ?>&#8239;°C</td>
 							</tr>
 							<tr>
-								<th>Amplitude</th>
-								<td><?php if (is_numeric($TnDay) && is_numeric($TxDay)){ echo round(($TxDay - $TnDay),1);} else {echo "N/A";} ?>&#8239;°C</td>
+								<th data-toggle="tooltip" data-placement="top" data-html="true" title="L'<u>amplitude</u> de température est simplement la différence entre la Tx et la Tn, c'est à dire : Tx - Tn">Amplitude</th>
+								<td><?php echo $TempRange; ?>&#8239;°C</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="table table-striped table-bordered table-hover table-sm table-resume-quoti">
+						<tbody>
+							<tr>
+								<th data-toggle="tooltip" data-placement="top" data-html="true" title="<u>Indice UV</u> maximale de la journée, entre 00h UTC et 23h59 UTC inclus">UV max</th>
+								<td class="textMax">
+									<?php echo $UvMax; ?>
+									<?php if (!is_null($UvMaxDt)) {
+										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($UvMaxDt)).'</span>';
+									} ?>
+								</td>
+							</tr>
+							<tr>
+								<th data-toggle="tooltip" data-placement="top" data-html="true" title="Le <u>rayonnement solaire</u> maximale de la journée, entre 00h UTC et 23h59 UTC inclus">Ray. sol. max</th>
+								<td class="textMax">
+									<?php echo $RadMax; ?>&#8239;W/m²
+									<?php if (!is_null($RadMaxDt)) {
+										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($RadMaxDt)).'</span>';
+									} ?>
+								</td>
+							</tr>
+							<tr>
+								<th data-toggle="tooltip" data-placement="top" data-html="true" title="Le <u>cumul d'évapotranspiration</u> de la journée, entre 00h UTC et 23h59 UTC inclus">Cumul d'évapotransp.</th>
+								<td class="textSum"><?php echo $EtSum; ?>&#8239;mm</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<div class="col-md-4">
-					<h5>Humidité/Pt. de rosée</h5>
+				<div class="col-sm-8">
 					<table class="table table-striped table-bordered table-hover table-sm">
 						<thead>
 							<tr>
 								<th>Params.</th>
-								<th>Valeur</th>
+								<th>Minimum</th>
+								<th>Maximum</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<th>Humidité min</th>
-								<td class="textMin"><?php echo $HrMin; ?>&#8239;%</td>
+								<th data-toggle="tooltip" data-placement="top" data-html="true" title="L'<u>humidité relative</u> minimale et maximale de la journée, entre 00h UTC et 23h59 inclus">Humidité</th>
+								<td class="textMin">
+									<?php echo $HrMin; ?>&#8239;%
+									<?php if (!is_null($HrMinDt)) {
+										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($HrMinDt)).'</span>';
+									} ?>
+								</td>
+								<td class="textMax">
+									<?php echo $HrMax; ?>&#8239;%
+									<?php if (!is_null($HrMaxDt)) {
+										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($HrMaxDt)).'</span>';
+									} ?>
+								</td>
 							</tr>
 							<tr>
-								<th>Humidité max</th>
-								<td class="textMax"><?php echo $HrMax; ?>&#8239;%</td>
+								<th data-toggle="tooltip" data-placement="top" data-html="true" title="Le <u>point de rosée</u> minimal et maximal de la journée, entre 00h UTC et 23h59 inclus">Point de rosée</th>
+								<td class="textMin">
+									<?php echo $TdMin; ?>&#8239;°C
+									<?php if (!is_null($TdMinDt)) {
+										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($TdMinDt)).'</span>';
+									} ?>
+								</td>
+								<td class="textMax">
+									<?php echo $TdMax; ?>&#8239;°C
+									<?php if (!is_null($TdMaxDt)) {
+										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($TdMaxDt)).'</span>';
+									} ?>
+								</td>
 							</tr>
 							<tr>
-								<th>Td min</th>
-								<td class="textMin"><?php echo $TdMin; ?>&#8239;°C</td>
+								<th data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>température ressentie</u> minimale et maximale de la journée, entre 00h UTC et 23h59 inclus">Température ressentie</th>
+								<td class="textMin" data-toggle="tooltip" data-placement="top" data-html="true" title="La température ressentie minimale correspond au windchill, aussi appelé refroidissement éolien, ou parfois facteur vent dans le langage populaire : désigne la sensation de froid produite par le vent sur un organisme qui dégage de la chaleur, alors que la température réelle de l'air ambiant ne s'abaisse pas. (Source : Wikipedia). <b>Cette information n'a pas d'unité et ne correspond pas à une température observée</b>.">
+									<?php echo $windChillMin; ?>&#8239;°C
+									<?php if (!is_null($windChillMinDt)) {
+										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($windChillMinDt)).'</span>';
+									} ?>
+								</td>
+								<td class="textMax" data-toggle="tooltip" data-placement="top" data-html="true" title="La température ressentie maximale correspond à l'humidex, c'est un indice développé aux États-Unis qui combine la température de l'air ambiant et l'humidité relative pour tenter de déterminer la perception de la température que ressent le corps humain. (Source : Wikipedia). <b>Cette information n'a pas d'unité et ne correspond pas à une température observée</b>.">
+									<?php echo $heatIndexMax; ?>&#8239;°C
+									<?php if (!is_null($heatIndexMaxDt)) {
+										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($heatIndexMaxDt)).'</span>';
+									} ?>
+								</td>
 							</tr>
 							<tr>
-								<th>Td max</th>
-								<td class="textMax"><?php echo $TdMax; ?>&#8239;°C</td>
+								<th data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>pression atmosphérique</u> minimale et maximale de la journée, entre 00h UTC et 23h59 inclus">Pression</th>
+								<td class="textMin">
+									<?php echo $PrMin; ?>&#8239;hPa
+									<?php if (!is_null($PrMinDt)) {
+										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($PrMinDt)).'</span>';
+									} ?>
+								</td>
+								<td class="textMax">
+									<?php echo $PrMax; ?>&#8239;hPa
+									<?php if (!is_null($PrMaxDt)) {
+										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($PrMaxDt)).'</span>';
+									} ?>
+								</td>
 							</tr>
 						</tbody>
 					</table>
-				</div>
-				<div class="col-md-4">
-					<h5>Pression/UV/Ray. sol.</h5>
 					<table class="table table-striped table-bordered table-hover table-sm">
 						<thead>
 							<tr>
-								<th>Params.</th>
-								<th>Valeur</th>
+								<th>Vent</th>
+								<th>Vitesse</th>
+								<th>Direction</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<th>Pression min</th>
-								<td class="textMin"><?php echo $PrMin; ?>&#8239;hPa</td>
-							</tr>
-							<tr>
-								<th>Pression max</th>
-								<td class="textMax"><?php echo $PrMax; ?>&#8239;hPa</td>
-							</tr>
-							<tr>
-								<th>UV max</th>
-								<td class="textMax"><?php echo $UvMax; ?></td>
-							</tr>
-							<tr>
-								<th>Ray. sol. max</th>
-								<td class="textMax"><?php echo $RadMax; ?>&#8239;W/m²</td>
+								<th data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>rafale de vent</u> maximale de la journée, entre 00h UTC et 23h59 inclus">Rafale max</th>
+								<td class="textMax"><?php echo $windGustMax; ?>&#8239;km/h
+									<?php if (!is_null($windGustMaxDt)) {
+										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($windGustMaxDt)).'</span>';
+									} ?>
+								</td>
+								<td><?php echo $windGustMaxDirCardinal.' ('.$windGustMaxDir; ?>&#8239;°)</td>
 							</tr>
 						</tbody>
 					</table>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<h5>Précipitations/ET</h5>
 					<table class="table table-striped table-bordered table-hover table-sm">
 						<thead>
 							<tr>
-								<th>Params.</th>
-								<th>Valeur</th>
+								<th>Précips.</th>
+								<th>Aujd.</th>
+								<th>Hier</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<th>Cumul de pluie</th>
-								<td class="textSum"><?php echo $RrCumul; ?>&#8239;mm</td>
+								<th data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>cumul de précipitations</u> de la journée (et celle d'hier à côté), est calculée d'après la méthode officielle OMM, il s'agit donc de la <u>somme des précipitations</u> qui se sont produites entre 06h UTC le jour même et 06h UTC le lendemain">Cumul de pluie</th>
+								<td class="textSum"><?php echo $RrAujd; ?>&#8239;mm</td>
+								<td class="textSum"><?php echo $RrHier; ?>&#8239;mm</td>
 							</tr>
 							<tr>
-								<th>Intensité pluie max</th>
-								<td class="textMax"><?php echo $RRateMax; ?>&#8239;mm/h</td>
-							</tr>
-							<tr>
-								<th>Cumul d'évapotranspiration</th>
-								<td class="textSum"><?php echo $EtCumul; ?>&#8239;mm</td>
-							</tr>
-							<tr>
-								<th>ET horaire max</th>
-								<td class="textMax"><?php echo $EtMax; ?>&#8239;mm/h</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="col-md-8">
-					<h5>Vent</h5>
-					<table class="table table-striped table-bordered table-hover table-sm">
-						<thead>
-							<tr>
-								<th>Params.</th>
-								<th>Valeur</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th>Rafale max</th>
-								<td><?php //echo $rainrate; ?>&#8239;km/h</td>
-							</tr>
-							<tr>
-								<th>Vent moyen</th>
-								<td><?php //echo $Rr3h; ?>&#8239;km/h</td>
-							</tr>
-							<tr>
-								<th>Cumul d'évapotranspiration</th>
-								<td><?php //echo $Rr3h; ?>&#8239;mm</td>
-							</tr>
-							<tr>
-								<th>ET horaire max</th>
-								<td><?php //echo $Rr3h; ?>&#8239;mm/h</td>
+								<th>Intensité pluie max.</th>
+								<td><?php echo $RRateMaxAujd; ?>&#8239;mm/h
+									<?php if (!is_null($RRateMaxAujdDt)) {
+										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($RRateMaxAujdDt)).'</span>';
+									} ?>
+								</td>
+								<td><?php echo $RRateMaxHier; ?>&#8239;mm/h
+									<?php if (!is_null($RRateMaxHierDt)) {
+										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($RRateMaxHierDt)).'</span>';
+									} ?>
+								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 			<hr class="my-4">
-			<!-- Tableau de données 30/10 minutes -->
+			<!-- Tableau de données 10 minutes -->
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-sm-12">
 					<h4 class="text-center">Tableau de données</h4>
 					<p class="text-justify">
-						Affichage des données de la veille à 18h UTC au lendemain à 6h UTC, au pas de temps de 10 minutes.
+						Affichage des enregistrements de la station météo, au pas de temps de 10 minutes, de la veille à 18h UTC, au lendemain à 06h UTC.
 					</p>
-					<?php //var_dump($tabRecapQuoti) ?>
 					<div class="table-responsive table-scroll-quotidien">
 						<table class="table table-striped table-bordered table-hover table-sm table-sticky">
 							<thead>
@@ -465,12 +503,12 @@
 			<hr class="my-4">
 			<!-- Graphiques -->
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-sm-12">
 					<h4 class="text-center">Graphiques</h4>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-sm-12">
 					<div id="graph_temp_hygro" style="width:100%; height: 500px;"></div>
 					<div class="text-center mt-1">
 						<button type="button" class="btn btn-info" id="removeAnnoTnTx">⇧ Masquer les étiquettes ⇧</button>
@@ -479,19 +517,19 @@
 			</div>
 			<hr>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-sm-12">
 					<div id="graph_pression" style="width:100%; height:500px;"></div>
 				</div>
 			</div>
 			<hr>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-sm-12">
 					<div id="graph_vent" style="width:100%; height:500px;"></div>
 				</div>
 			</div>
 			<hr>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-sm-12">
 					<div id="graph_precip" style="width:100%; height:500px;"></div>
 					<div class="text-center mt-1">
 						<button type="button" class="btn btn-info" id="removeAnnoRR">⇧ Masquer les étiquettes ⇧</button>
@@ -501,7 +539,7 @@
 			<?php if ($presence_uv) : ?>
 			<hr>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-sm-12">
 					<div id="graph_uv" style="width:100%; height:500px;"></div>
 				</div>
 			</div>
@@ -509,13 +547,13 @@
 			<?php if ($presence_radiation) : ?>
 			<hr>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-sm-12">
 					<div id="graph_rad" style="width:100%; height:500px;"></div>
 				</div>
 			</div>
 			<hr>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-sm-12">
 					<div id="graph_et" style="width:100%; height:500px;"></div>
 				</div>
 			</div>
@@ -583,7 +621,7 @@
 
 				// RRClimato Labels
 					$annotJsRRClim = array();
-					foreach($dataRRClimato as $annotation){
+					foreach($dataRr as $annotation){
 						$dateRRClim = date('d/m', strtotime($annotation['dateDay']));
 						if ($annotation['RRmaxInt'] != null) {
 							$dateRRMaxInt = date('H:i', $annotation['RRmaxIntDt']/1000);
@@ -597,7 +635,7 @@
 										'y' => 0,
 									),
 									'useHTML' => true,
-									'text' => $dateRRClim.' : '.$annotation['RR'].' mm<br>Int.max '.$annotation['RRmaxInt'].' mm/h à '.$dateRRMaxInt,
+									'text' => 'Cumul du '.$dateRRClim.' : '.$annotation['RR'].' mm<br>Int.max '.$annotation['RRmaxInt'].' mm/h à '.$dateRRMaxInt,
 								)),
 								'labelOptions' => array(
 									'borderRadius' => 5,
@@ -620,7 +658,7 @@
 										'y' => 0,
 									),
 									'useHTML' => true,
-									'text' => $dateRRClim.' : '.$annotation['RR'].' mm',
+									'text' => 'Cumul du '.$dateRRClim.' : '.$annotation['RR'].' mm',
 								)),
 								'labelOptions' => array(
 									'borderRadius' => 5,

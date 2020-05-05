@@ -99,6 +99,17 @@ body{
 	font-size: 0.8em;
 }
 
+/* ## Table de la page résumé quotidien
+--------------------------------------------- */
+.table-resume-quoti tbody tr th {
+	width: 60%;
+	overflow: hidden;
+}
+.table-resume-quoti tbody tr td {
+	width: 40%;
+	overflow: hidden;
+}
+
 /* ## Vigi MF
 --------------------------------------------- */
 #vigi_mf {

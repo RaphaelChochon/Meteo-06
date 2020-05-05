@@ -20,6 +20,8 @@
 	$optYesterday = date('Y-m-d', strtotime($optDay.'-1 day'));
 	$optTomorrow = date('Y-m-d', strtotime($optDay.'+1 day'));
 
+	$dataRr = array();
+
 // Diff si journée en cours
 	if (time() >= $tsOptDayStart && time() < $tsOptDayStop) {
 		$dtOptDayStart = DateTime::createFromFormat('U', $tsOptDayStart);
@@ -59,136 +61,236 @@
 if (!$lessValue) {
 
 	/**
-	 * STATS OMM
-	 * Calcul des Tn, Tx, min et max de chaque params et somme de pluie et ET
+	 * Récup des données pour la journée demandée
 	 */
-	
-	// Tn
-		$tsStop18h = $tsOptDayStart + (24*3600); // 18h le jour meme
-		$query_string = "SELECT MIN(`outTemp`) AS TnDay
-						FROM $db_table
-						WHERE `dateTime` >= '$tsOptDayStart' AND `dateTime` < '$tsStop18h';";
+		$query_string = "SELECT *
+						FROM `$db_name_climato`.`$db_table_climato`
+						WHERE `dateDay` = $optDay_quoted;";
 		$result       = $db_handle_pdo->query($query_string);
-		if (!$result) {
-			// Erreur
-			echo "Erreur dans la requete ".$query_string."\n";
-			echo "\nPDO::errorInfo():\n";
-			print_r($db_handle_pdo->errorInfo());
-			exit("\n");
-		}
-		if ($result) {
-			$row = $result->fetch(PDO::FETCH_ASSOC);
-			$TnDay = 'N/A';
-			if (!is_null($row['TnDay'])) {
-				$TnDay = round($row['TnDay'],1);
-			}
-		}
 
-	// Tx + RR + RRate
-		$tsStart6h = $tsOptDayStop - (24*3600); // 6h le jour meme
-		$query_string = "SELECT MAX(`outTemp`) AS TxDay,
-								SUM(`rain`) AS RrCumul,
-								MAX(`rainRate`) AS RRateMax
-						FROM $db_table
-						WHERE `dateTime` >= '$tsStart6h' AND `dateTime` < '$tsOptDayStop';";
-		$result       = $db_handle_pdo->query($query_string);
 		if (!$result) {
 			// Erreur
 			echo "Erreur dans la requete ".$query_string."\n";
 			echo "\nPDO::errorInfo():\n";
 			print_r($db_handle_pdo->errorInfo());
-			exit("\n");
 		}
 		if ($result) {
 			$row = $result->fetch(PDO::FETCH_ASSOC);
-			$TxDay = 'N/A';
-			$RrCumul = 'N/A';
-			$RRateMax = 'N/A';
-			if (!is_null($row['TxDay'])) {
-				$TxDay = round($row['TxDay'],1);
-			}
-			if (!is_null($row['RrCumul'])) {
-				$RrCumul = round($row['RrCumul']*10,1);
-			}
-			if (!is_null($row['RRateMax'])) {
-				$RRateMax = round($row['RRateMax']*10,1);
-			}
-		}
 
-	// Hr + Td + P
-		$query_string = "SELECT MIN(`outHumidity`) AS HrMin,
-								MAX(`outHumidity`) AS HrMax,
-								MIN(`dewpoint`) AS TdMin,
-								MAX(`dewpoint`) AS TdMax,
-								MIN(`barometer`) AS PrMin,
-								MAX(`barometer`) AS PrMax,
-								MAX(`UV`) AS UvMax,
-								MAX(`radiation`) AS RadMax,
-								SUM(`ET`) AS EtCumul,
-								MAX(`ET`) AS EtMax
-						FROM $db_table
-						WHERE `dateTime` >= '$tsMinuit1' AND `dateTime` < '$tsMinuit2';";
-		$result       = $db_handle_pdo->query($query_string);
-		if (!$result) {
-			// Erreur
-			echo "Erreur dans la requete ".$query_string."\n";
-			echo "\nPDO::errorInfo():\n";
-			print_r($db_handle_pdo->errorInfo());
-			exit("\n");
-		}
-		if ($result) {
-			$row = $result->fetch(PDO::FETCH_ASSOC);
-			$HrMin = 'N/A';
-			$HrMax = 'N/A';
-			$TdMin = 'N/A';
-			$TdMax = 'N/A';
-			$PrMin = 'N/A';
-			$PrMax = 'N/A';
-			$UvMax = 'N/A';
-			$RadMax = 'N/A';
-			$EtCumul = 'N/A';
-			$EtMax = 'N/A';
+			// Tn
+			$Tn     = "nd.";
+			$TnDt   = null;
+			$TnFiab = 0;
+			// Annotations HC
+			            $dataTn    = array();
+			$rowArrayTn['Tn']      = null;
+			$rowArrayTn['TnDt']    = null;
+			$rowArrayTn['dateDay'] = strtotime($row['dateDay'])*1000;
+
+			if (!is_null($row['Tn'])) {
+				$Tn = round($row['Tn'], 1);
+				$TnDt = $row['TnDt'];
+				$rowArrayTn['Tn'] = $row['Tn']; // Annotations HC
+				$rowArrayTn['TnDt'] = strtotime($row['TnDt'])*1000; // Annotations HC
+			}
+			if (!is_null($row['TnFiab'])) {
+				$TnFiab = round($row['TnFiab'], 0);
+			}
+			array_push($dataTn,$rowArrayTn); // Annotations HC
+
+			// Tx
+			$Tx     = "nd.";
+			$TxDt   = null;
+			$TxFiab = 0;
+			// Annotations HC
+			$dataTx    = array();
+			$rowArrayTx['Tx']      = null;
+			$rowArrayTx['TxDt']    = null;
+			$rowArrayTx['dateDay'] = strtotime($row['dateDay'])*1000;
+
+			if (!is_null($row['Tx'])) {
+				$Tx = round($row['Tx'], 1);
+				$TxDt = $row['TxDt'];
+				$rowArrayTx['Tx'] = $row['Tx']; // Annotations HC
+				$rowArrayTx['TxDt'] = strtotime($row['TxDt'])*1000; // Annotations HC
+			}
+			if (!is_null($row['TxFiab'])) {
+				$TxFiab = round($row['TxFiab'], 0);
+			}
+			array_push($dataTx,$rowArrayTx); // Annotations HC
+
+			// Tmoy
+			$Tmoy = "nd.";
+			if (!is_null($row['Tmoy'])) {
+				$Tmoy = round($row['Tmoy'], 1);
+			}
+
+			// Amplitude
+			$TempRange = "nd.";
+			if (!is_null($row['TempRange'])) {
+				$TempRange = round($row['TempRange'], 1);
+			}
+
+			// UvMax
+			$UvMax = "nd.";
+			$UvMaxDt = null;
+			if (!is_null($row['UvMax'])) {
+				$UvMax = round($row['UvMax'], 1);
+				$UvMaxDt = $row['UvMaxDt'];
+			}
+
+			// Rayonnement solaire
+			$RadMax = "nd.";
+			$RadMaxDt = null;
+			if (!is_null($row['RadMax'])) {
+				$RadMax = round($row['RadMax'], 0);
+				$RadMaxDt = $row['RadMaxDt'];
+			}
+
+			// Hr
+			$HrMin = "nd.";
+			$HrMax = "nd.";
+			$HrMinDt = null;
+			$HrMaxDt = null;
 			if (!is_null($row['HrMin'])) {
-				$HrMin = round($row['HrMin'],0);
+				$HrMin = round($row['HrMin'], 0);
+				$HrMinDt = $row['HrMinDt'];
 			}
 			if (!is_null($row['HrMax'])) {
-				$HrMax = round($row['HrMax'],0);
+				$HrMax = round($row['HrMax'], 0);
+				$HrMaxDt = $row['HrMaxDt'];
 			}
+
+			// Td
+			$TdMin = "nd.";
+			$TdMax = "nd.";
+			$TdMinDt = null;
+			$TdMaxDt = null;
 			if (!is_null($row['TdMin'])) {
-				$TdMin = round($row['TdMin'],1);
+				$TdMin = round($row['TdMin'], 1);
+				$TdMinDt = $row['TdMinDt'];
 			}
 			if (!is_null($row['TdMax'])) {
-				$TdMax = round($row['TdMax'],1);
+				$TdMax = round($row['TdMax'], 1);
+				$TdMaxDt = $row['TdMaxDt'];
 			}
+
+			// Pression
+			$PrMin = "nd.";
+			$PrMax = "nd.";
+			$PrMinDt = null;
+			$PrMaxDt = null;
 			if (!is_null($row['PrMin'])) {
-				$PrMin = round($row['PrMin'],1);
+				$PrMin = round($row['PrMin'], 1);
+				$PrMinDt = $row['PrMinDt'];
 			}
 			if (!is_null($row['PrMax'])) {
-				$PrMax = round($row['PrMax'],1);
+				$PrMax = round($row['PrMax'], 1);
+				$PrMaxDt = $row['PrMaxDt'];
 			}
-			if ($presence_radiation) {
-				if (!is_null($row['UvMax'])) {
-					$UvMax = round($row['UvMax'],1);
+
+			// Tempé ressentie
+			$windChillMin = "nd.";
+			$windChillMinDt = null;
+			$heatIndexMax = "nd.";
+			$heatIndexMaxDt = null;
+			if (!is_null($row['windChillMin'])) {
+				$windChillMin = round($row['windChillMin'], 1);
+				$windChillMinDt = $row['windChillMinDt'];
+			}
+			if (!is_null($row['heatIndexMax'])) {
+				$heatIndexMax = round($row['heatIndexMax'], 1);
+				$heatIndexMaxDt = $row['heatIndexMaxDt'];
+			}
+
+			// Rafale
+			$windGustMax = "nd.";
+			$windGustMaxDt = null;
+			$windGustMaxDir = "nd.";
+			$windGustMaxDirCardinal = "nd.";
+			if (!is_null($row['windGust'])) {
+				$windGustMax = round($row['windGust'], 1);
+				$windGustMaxDt = $row['windGustDt'];
+				if (!is_null($row['windGustDir'])) {
+					$windGustMaxDir = round($row['windGustDir'], 1);
+					$windGustMaxDirCardinal = wind_cardinals($windGustMaxDir);
 				}
 			}
-			if ($presence_radiation) {
-				if (!is_null($row['RadMax'])) {
-					$RadMax = round($row['RadMax'],0);
-				}
-				if (!is_null($row['EtCumul'])) {
-					$EtCumul = round($row['EtCumul'],2);
-				}
-				if (!is_null($row['EtMax'])) {
-					$EtMax = round($row['EtMax'],2);
-				}
+
+			// RR
+			$RrAujd = "nd.";
+			$RRateMaxAujd = 0;
+			$RRateMaxAujdDt = null;
+			// Annotations HC
+			$rowArrayRr['RR'] = null;
+			$rowArrayRr['RRmaxInt'] = null;
+			$rowArrayRr['RRmaxIntDt'] = null;
+			$rowArrayRr['dateDay'] = $row['dateDay'];
+			$rowArrayRr['dateDay6h'] = (strtotime($row['dateDay'])+108000)*1000;
+			if (!is_null($row['RR'])) {
+				$RrAujd = round($row['RR'], 1);
+				$rowArrayRr['RR'] = round($row['RR'],1); // Annotations HC
+			}
+			if (!is_null($row['RRateMax'])) {
+				$RRateMaxAujd = round($row['RRateMax'], 1);
+				$RRateMaxAujdDt = $row['RRateMaxDt'];
+				$rowArrayRr['RRmaxInt'] = round($row['RRateMax'],1); // Annotations HC
+				$rowArrayRr['RRmaxIntDt'] = strtotime($row['RRateMaxDt'])*1000; // Annotations HC
+			}
+			array_push($dataRr,$rowArrayRr); // Annotations HC
+
+			// ET
+			$EtSum = "nd.";
+			if (!is_null($row['EtSum'])) {
+				$EtSum = round($row['EtSum'], 2);
 			}
 		}
+
+	/**
+	 * Récup de la pluie d'hier
+	 */
+		$query_string = "SELECT `dateDay`, `RR`, `RRateMax`, `RRateMaxDt`
+						FROM `$db_name_climato`.`$db_table_climato`
+						WHERE `dateDay` = '$optYesterday';";
+		$result       = $db_handle_pdo->query($query_string);
+
+		if (!$result) {
+			// Erreur
+			echo "Erreur dans la requete ".$query_string."\n";
+			echo "\nPDO::errorInfo():\n";
+			print_r($db_handle_pdo->errorInfo());
+		}
+		if ($result) {
+			$row = $result->fetch(PDO::FETCH_ASSOC);
+			// RR hier
+			$RrHier = "nd.";
+			$RRateMaxHier = 0;
+			$RRateMaxHierDt = null;
+			// Annotations HC
+			$rowArrayRr['RR'] = null;
+			$rowArrayRr['RRmaxInt'] = null;
+			$rowArrayRr['RRmaxIntDt'] = null;
+			$rowArrayRr['dateDay'] = $row['dateDay'];
+			$rowArrayRr['dateDay6h'] = (strtotime($row['dateDay'])+108000)*1000;
+			if (!is_null($row['RR'])) {
+				$RrHier = round($row['RR'], 1);
+				$rowArrayRr['RR'] = round($row['RR'],1); // Annotations HC
+			}
+			if (!is_null($row['RRateMax'])) {
+				$RRateMaxHier = round($row['RRateMax'], 1);
+				$RRateMaxHierDt = $row['RRateMaxDt'];
+				$rowArrayRr['RRmaxInt'] = round($row['RRateMax'],1); // Annotations HC
+				$rowArrayRr['RRmaxIntDt'] = strtotime($row['RRateMaxDt'])*1000; // Annotations HC
+			}
+			array_push($dataRr,$rowArrayRr); // Annotations HC
+		}
+	
 
 	/**
 	 * TABLEAU DATA
 	 */
 
-	// Récup des xx derniers enregistrement avec modulo 30 minutes
+		// Récup des xx derniers enregistrement avec modulo 30 minutes
 		// On récupère les enregistrements en BDD
 		$query_string = "SELECT `dateTime` AS `ts`,
 							`outTemp` AS `TempMod`,
@@ -283,7 +385,7 @@ if (!$lessValue) {
 			}
 		}
 
-	// Extrèmes et cumul
+		// Extrèmes et cumul
 		$query_string = "SELECT CEIL(`dateTime`/600)*600 AS `ts`,
 										SUM(`rain`) AS `rainCumulMod`,
 										MAX(`rainRate`) AS `rainRateMaxMod`
@@ -320,7 +422,7 @@ if (!$lessValue) {
 			}
 		}
 
-	// Rafales max 30 minutes
+		// Rafales max 30 minutes
 		// On sort un tableau contenant le dt "CEIL", et ensuite le dt de la rafale max, sa direction et sa vitesse
 		$query_string = "SELECT CEIL(`dateTime`/600)*600 AS `ts`, a.`dateTime`, a.`windGust`, a.`windGustDir`
 						FROM $db_table a
@@ -363,7 +465,7 @@ if (!$lessValue) {
 			}
 		}
 
-	// Taille du tableau
+		// Taille du tableau
 		$countTabRecapQuoti = count($tabRecapQuoti);
 
 
@@ -371,9 +473,9 @@ if (!$lessValue) {
 	/**
 	 * GRAPHIQUES
 	 */
-	$cumulRR = 0;
+		$cumulRR = 0;
 
-	// Requete pour tous les params sauf le vent avec modulo de 5 minutes
+		// Requete pour tous les params sauf le vent avec modulo de 5 minutes
 		$query_string = "SELECT `dateTime` AS `ts`,
 						`outTemp` AS `TempNow`,
 						`outHumidity` AS `HrNow`,
@@ -457,7 +559,7 @@ if (!$lessValue) {
 			}
 		}
 
-	// PARAMS VENT RAFALES
+		// PARAMS VENT RAFALES
 		// On sort un tableau contenant le dt "CEIL", et ensuite le dt de la rafale max, sa direction et sa vitesse
 		$query_string = "SELECT CEIL(`dateTime`/300)*300 AS `ts`, a.`dateTime`, a.`windGust`, a.`windGustDir`
 						FROM $db_table a
@@ -497,7 +599,7 @@ if (!$lessValue) {
 			}
 		}
 
-	// PARAMS VENT MOYEN VITESSE
+		// PARAMS VENT MOYEN VITESSE
 		$query_string = "SELECT CEIL(`dateTime`/300)*300 AS `ts`,
 										AVG(`windSpeed`) AS `windSpeedAvg5m`
 						FROM $db_table WHERE `dateTime` >= '$tsOptDayStart' AND `dateTime` <= '$tsOptDayStop'
@@ -522,7 +624,7 @@ if (!$lessValue) {
 			}
 		}
 
-	// PARAMS VENT MOYEN direction
+		// PARAMS VENT MOYEN direction
 		$query_string = "SELECT CEIL(`dateTime`/300)*300 AS `ts`,
 										GROUP_CONCAT(`windDir`) AS `windDirConcat`
 						FROM $db_table WHERE `dateTime` >= '$tsOptDayStart' AND `dateTime` <= '$tsOptDayStop'
@@ -558,7 +660,7 @@ if (!$lessValue) {
 			}
 		}
 
-	// PARAMS MIN MAX et SUM RR
+		// PARAMS MIN MAX et SUM RR
 		$query_string = "SELECT CEIL(`dateTime`/300)*300 AS `ts`,
 										MIN(`outTemp`) AS `TnMod`,
 										MAX(`outTemp`) AS `TxMod`,
@@ -608,6 +710,11 @@ if (!$lessValue) {
 					$RRincrement = $cumulRR;
 					$cumulRR = $RRincrement + $rainCumulMod;
 				}
+				// Si le ts est inférieur à 6h de la journée alors = 0
+				$ts6h = $tsOptDay + (6 * 60 * 60); // 6h le jour meme
+				if ( ($ts/1000) < $ts6h) {
+					$cumulRR = 0;
+				}
 				$dataRR[] = "[$ts, $rainCumulMod]";
 				$dataRRCumul[] = "[$ts, $cumulRR]";
 
@@ -639,80 +746,6 @@ if (!$lessValue) {
 					$dataUvMinMax[] = "[$ts, $UvMinMod, $UvMaxMod]";
 				}
 			}
-		}
-
-	// Récupération des valeurs climatos
-		$db_name_climato = "climato_station";
-		$a = explode("_",$db_name);
-		$aCount = count($a);
-		if ($aCount == '2') {
-			$db_table_climato = $a[1]."_day";
-		} elseif ($aCount == '3') {
-			$db_table_climato = $a[1]."_".$a[2]."_day";
-		}
-
-		$dataTn = array();
-		$dataTx = array();
-		$dataRRClimato = array();
-
-		$query_string = "SELECT date_day AS dateTime,
-							Tn AS Tn, Tn_datetime AS TnDt,
-							Tx AS Tx, Tx_datetime AS TxDt,
-							RR AS RR, RR_max_intensite AS RRmaxInt, RR_maxInt_datetime AS RRmaxIntDt,
-							RRRecord AS RRRecord, TnRecord AS TnRecord, TxRecord AS TxRecord,
-							expectedRecord06 AS expectedRecordTx, expectedRecord18 AS expectedRecordTn, expectedRecord00 AS expectedRecord00
-						FROM $db_name_climato.$db_table_climato
-						WHERE date_day = $optDay_quoted;";
-		$result       = $db_handle_pdo->query($query_string);
-
-		if (!$result) {
-			// Erreur
-			echo "Erreur dans la requete ".$query_string."\n";
-			echo "\nPDO::errorInfo():\n";
-			print_r($db_handle_pdo->errorInfo());
-			exit("Erreur.\n");
-		}
-		if ($result) {
-			$row = $result->fetch(PDO::FETCH_ASSOC);
-			$dateDay = $row['dateTime'];
-			if ($row['Tn'] != null) { $rowArrayTn['Tn'] = round($row['Tn'],1); } else {$rowArrayTn['Tn'] = null;};
-			if ($row['TnDt'] != null) { $rowArrayTn['TnDt'] = strtotime($row['TnDt'])*1000; } else {$rowArrayTn['TnDt'] = null;};
-			if ($row['dateTime'] != null) { $rowArrayTn['dateDay'] = strtotime($row['dateTime'])*1000; } else {$rowArrayTn['dateDay'] = null;};
-
-			if ($row['Tx'] != null) { $rowArrayTx['Tx'] = round($row['Tx'],1); } else {$rowArrayTx['Tx'] = null;};
-			if ($row['TxDt'] != null) { $rowArrayTx['TxDt'] = strtotime($row['TxDt'])*1000; } else {$rowArrayTx['TxDt'] = null;};
-			if ($row['dateTime'] != null) { $rowArrayTx['dateDay'] = strtotime($row['dateTime'])*1000; } else {$rowArrayTx['dateDay'] = null;};
-
-			$rowArrayClim['dateDay'] = $dateDay;
-			$rowArrayClim['dateDay6h'] = (strtotime($dateDay)+108000)*1000;
-			if ($row['RR'] != null) { $rowArrayClim['RR'] = round($row['RR'],1); } else {$rowArrayClim['RR'] = null;};
-			if ($row['RRmaxInt'] != null) { $rowArrayClim['RRmaxInt'] = round($row['RRmaxInt'],1); $rowArrayClim['RRmaxIntDt'] = strtotime($row['RRmaxIntDt'])*1000; } else {$rowArrayClim['RRmaxInt'] = null; $rowArrayClim['RRmaxIntDt'] = null; };
-
-			array_push($dataTn,$rowArrayTn);
-			array_push($dataTx,$rowArrayTx);
-			array_push($dataRRClimato,$rowArrayClim);
-
-			// Tn Fiab
-			if ($row['TnRecord'] != null && $row['TnRecord'] != 0 && $row['expectedRecordTn'] != null && $row['expectedRecordTn'] != 0) {
-				$fiabTn = round(($row['TnRecord']*100)/$row['expectedRecordTn'],1);
-			} else {
-				$fiabTn = null;
-			}
-
-			// Tx Fiab
-			if ($row['TxRecord'] != null && $row['TxRecord'] != 0 && $row['expectedRecordTx'] != null && $row['expectedRecordTx'] != 0) {
-				$fiabTx = round(($row['TxRecord']*100)/$row['expectedRecordTx'],1);
-			} else {
-				$fiabTx = null;
-			}
-
-			// RR Fiab
-			if ($row['RRRecord'] != null && $row['RRRecord'] != 0 && $row['expectedRecordTx'] != null && $row['expectedRecordTx'] != 0) {
-				$fiabRr = round(($row['RRRecord']*100)/$row['expectedRecordTx'],1);
-			} else {
-				$fiabRr = null;
-			}
-
 		}
 } // fin lessValue
 
