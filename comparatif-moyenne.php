@@ -54,8 +54,7 @@
 		<script defer src="content/highcharts/modules/exporting-8.0.4.js"></script>
 		<script defer src="content/highcharts/modules/offline-exporting-8.0.4.js"></script>
 		<script defer src="content/highcharts/modules/export-data-8.0.4.js"></script>
-		<!-- @ToDo Mettre en place boost sur ces graphs -->
-		<!-- <script defer src="content/highcharts/modules/boost-8.0.4.js"></script> -->
+		<script defer src="content/highcharts/modules/boost-8.0.4.js"></script>
 
 		<!-- Font Awesome CSS -->
 		<link href="../content/fontawesome-5.13.0/css/all.min.css" rel="stylesheet">
@@ -82,7 +81,7 @@
 			<?php endif; ?>
 
 			<!-- On récupère les valeurs en BDD pour peupler les tableaux ci-après -->
-			<?php include __DIR__ . '/sql/req_climato_quotidienne.php';?>
+			<?php include __DIR__ . '/sql/req_comparatif-moyenne.php';?>
 
 			<div class="row">
 				<div class="col-md-12">
@@ -174,10 +173,30 @@
 									fontSize: "9px",
 									padding: "0.5em 0.5em"
 								}
+						},
+						credits: {
+							enabled: false
+						},
+						plotOptions: {
+							series: {
+								states: {
+									hover: {
+										enabled: true,
+										lineWidthPlus: 0 // désactive le highlighting des series
+									}
+								}
+							}
 						}
 					});
 					// GRAPHS
-					
+					var dataTn = [<?php echo join($dataTn, ',') ?>];
+					var metaTn = [<?php echo join($metaTn, ',') ?>];
+					var dataTx = [<?php echo join($dataTx, ',') ?>];
+					var metaTx = [<?php echo join($metaTx, ',') ?>];
+					var dataTmoy = [<?php echo join($dataTmoy, ',') ?>];
+					var dataTmoyReel = [<?php echo join($dataTmoyReel, ',') ?>];
+					var dataTmoy1h = [<?php echo join($dataTmoy1h, ',') ?>];
+					var dataTmoy3h = [<?php echo join($dataTmoy3h, ',') ?>];
 					var graphTempMoy = Highcharts.chart('graphTempMoy', {
 						chart: {
 							type : 'line',
@@ -187,14 +206,14 @@
 							text: 'Comparaison de différentes méthodes de calcul de la moyenne des températures'
 						},
 						subtitle: {
-							text: 'Tmoy : Tn+Tx/2 | TmoyReel : Moy. de ttes les vals. de 0h à 24h UTC | Tmoy1h : Moy. des 24 vals. horaires loc. | Tmoy3h : Moy. des 8 vals. tri-horaires loc.<br>Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres',
+							text: 'Tmoy : Tn+Tx/2 | TmoyReel : Moy. de ttes les vals. de 0h à 24h UTC | Tmoy1h : Moy. des 24 vals. horaires UTC | Tmoy3h : Moy. des 8 vals. tri-horaires UTC<br>Station <?php echo $station_name; ?> | Altitude : <?php echo $station_altitude; ?> mètres | <?php echo $name_manager_graph; ?>',
 						},
 						credits: {
 							text: '<?php echo $name_manager_graph; ?>',
 							href: '<?php echo $site_manager_graph; ?>'
 						},
 						exporting: {
-							filename: '<?php echo $short_station_name; ?> climato_tempMoy',
+							filename: '<?php echo $short_station_name; ?>_climato_tempMoy',
 							sourceHeight: '500',
 							sourceWidth: '1200',
 							csv: {
@@ -243,10 +262,16 @@
 							xDateFormat: '<b>%e %B %Y</b>',
 							headerFormat: '<small>{point.key}</small><br>----<br>',
 						},
+						boost: {
+							enabled:true,
+							useGPUTranslations: false,
+							seriesThreshold:1,
+						},
 						series: [{
 							name : 'Tmoy',
-							type: 'spline',
-							data : <?php echo $dataTmoy ?>,
+							type: 'line',
+							data : dataTmoy,
+							boostThreshold: 20,
 							zIndex: 1,
 							color: '#292a2d',
 							turboThreshold: 0,
@@ -259,8 +284,9 @@
 							}
 						},{
 							name : 'TmoyReel',
-							type: 'spline',
-							data : <?php echo $dataTmoyReel ?>,
+							type: 'line',
+							data : dataTmoyReel,
+							boostThreshold: 20,
 							zIndex: 2,
 							color: '#9c0ba1',
 							turboThreshold: 0,
@@ -268,15 +294,15 @@
 								useHTML: true,
 								pointFormatter: function () {
 									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' °C</b><br>'+
-									'<span style="color:'+this.series.color+'">\u25CF</span> Indice de fiabilité : '+this.Fiab+'%<br/>'+
 									'----<br>';
 								}
 							}
 						},{
 							name : 'Tmoy1h',
 							visible: false,
-							type: 'spline',
-							data : <?php echo $dataTmoy1h ?>,
+							type: 'line',
+							data : dataTmoy1h,
+							boostThreshold: 20,
 							zIndex: 2,
 							color: '#258f0a',
 							turboThreshold: 0,
@@ -284,15 +310,15 @@
 								useHTML: true,
 								pointFormatter: function () {
 									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' °C</b><br>'+
-									'<span style="color:'+this.series.color+'">\u25CF</span> Indice de fiabilité : '+this.Fiab+'%<br/>'+
 									'----<br>';
 								}
 							}
 						},{
 							name : 'Tmoy3h',
 							visible: false,
-							type: 'spline',
-							data : <?php echo $dataTmoy3h ?>,
+							type: 'line',
+							data : dataTmoy3h,
+							boostThreshold: 20,
 							zIndex: 2,
 							color: '#c29006',
 							turboThreshold: 0,
@@ -300,39 +326,40 @@
 								useHTML: true,
 								pointFormatter: function () {
 									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' °C</b><br>'+
-									'<span style="color:'+this.series.color+'">\u25CF</span> Indice de fiabilité : '+this.Fiab+'%<br/>'+
-									'----<br>';
-								}
-							}
-						},{
-							name : 'Tx',
-							visible: false,
-							type: 'spline',
-							data : <?php echo $dataTx ?>,
-							zIndex: 1,
-							color: '#ff0000',
-							turboThreshold: 0,
-							tooltip: {
-								useHTML: true,
-								pointFormatter: function () {
-									var TxDate = new Date(this.TxDt);
-									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' °C</b> le <b>'+("0"+TxDate.getUTCDate()).slice(-2)+'/'+("0"+(TxDate.getUTCMonth()+1)).slice(-2)+'</b> à <b>'+("0"+TxDate.getUTCHours()).slice(-2)+':'+("0"+TxDate.getUTCMinutes()).slice(-2)+' UTC</b><br/><span style="color:'+this.series.color+'">\u25CF</span> Indice de fiabilité : '+this.TxFiab+'%<br/>'+
 									'----<br>';
 								}
 							}
 						},{
 							name : 'Tn',
 							visible: false,
-							type: 'spline',
-							data : <?php echo $dataTn ?>,
+							type: 'line',
+							data : dataTn,
+							boostThreshold: 20,
 							zIndex: 1,
 							color: '#003bff',
 							turboThreshold: 0,
 							tooltip: {
 								useHTML: true,
 								pointFormatter: function () {
-									var TnDate = new Date(this.TnDt);
-									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' °C</b> le <b>'+("0"+TnDate.getUTCDate()).slice(-2)+'/'+("0"+(TnDate.getUTCMonth()+1)).slice(-2)+'</b> à <b>'+("0"+TnDate.getUTCHours()).slice(-2)+':'+("0"+TnDate.getUTCMinutes()).slice(-2)+' UTC</b><br/><span style="color:'+this.series.color+'">\u25CF</span> Indice de fiabilité : '+this.TnFiab+'%<br/>';
+									var TnDate = new Date(metaTn[this.index][0]);
+									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' °C</b> le <b>'+("0"+TnDate.getUTCDate()).slice(-2)+'/'+("0"+(TnDate.getUTCMonth()+1)).slice(-2)+'</b> à <b>'+("0"+TnDate.getUTCHours()).slice(-2)+':'+("0"+TnDate.getUTCMinutes()).slice(-2)+' UTC</b><br/><span style="color:'+this.series.color+'">\u25CF</span> Indice de fiabilité : '+metaTn[this.index][1]+'%<br/>'+
+									'----<br>';
+								}
+							}
+						},{
+							name : 'Tx',
+							visible: false,
+							type: 'line',
+							data : dataTx,
+							boostThreshold: 20,
+							zIndex: 1,
+							color: '#ff0000',
+							turboThreshold: 0,
+							tooltip: {
+								useHTML: true,
+								pointFormatter: function () {
+									var TxDate = new Date(metaTx[this.index][0]);
+									return '<span style="color:'+this.series.color+'">\u25CF</span> '+this.series.name+': <b>'+this.y+' °C</b> le <b>'+("0"+TxDate.getUTCDate()).slice(-2)+'/'+("0"+(TxDate.getUTCMonth()+1)).slice(-2)+'</b> à <b>'+("0"+TxDate.getUTCHours()).slice(-2)+':'+("0"+TxDate.getUTCMinutes()).slice(-2)+' UTC</b><br/><span style="color:'+this.series.color+'">\u25CF</span> Indice de fiabilité : '+metaTx[this.index][1]+'%<br/>';
 								}
 							}
 						}]
