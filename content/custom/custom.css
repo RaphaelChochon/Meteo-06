@@ -102,11 +102,11 @@ body{
 /* ## Table de la page résumé quotidien
 --------------------------------------------- */
 .table-resume-quoti tbody tr th {
-	width: 60%;
+	width: 55%;
 	overflow: hidden;
 }
 .table-resume-quoti tbody tr td {
-	width: 40%;
+	width: 45%;
 	overflow: hidden;
 }
 

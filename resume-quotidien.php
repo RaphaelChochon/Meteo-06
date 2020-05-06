@@ -50,7 +50,7 @@
 			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		<!-- JQUERY JS -->
-		<script src="content/jquery/jquery-slim-3.4.1.min.js"></script>
+		<script defer src="content/jquery/jquery-slim-3.4.1.min.js"></script>
 
 		<!-- Bootstrap 4.4.1 -->
 		<link href="content/bootstrap/css/bootswatch-united-4.4.1.min.css" rel="stylesheet">
@@ -59,9 +59,11 @@
 		<script defer src="content/bootstrap/js/bootstrap-4.4.1.min.js"></script>
 
 		<script>
-			$(function () {
-				$('[data-toggle="tooltip"]').tooltip()
-			})
+			document.addEventListener('DOMContentLoaded', function () {
+				$(function () {
+					$('[data-toggle="tooltip"]').tooltip()
+				})
+			});
 		</script>
 
 		<!-- ######### Pour Highcharts ######### -->
@@ -136,23 +138,25 @@
 							</div>
 						</div>
 						<script type="text/javascript">
-							$(function () {
-								var defaultDate = <?php echo $optDay_quoted;?>;
-								var firstDay = '<?php echo $dtFisrtDay;?>';
-								$('#dtPicker').datetimepicker({
-									format: 'ddd DD MMM YYYY',
-									locale: moment.locale('fr'),
-									minDate: moment(firstDay, 'YYYY-MM-DD'),
-									maxDate: moment(),
-									useCurrent: false,
-									ignoreReadonly: true,
-									defaultDate: moment(defaultDate, 'YYYY-MM-DD')
-								});
-								$("#dtPicker").on("change.datetimepicker", function (e) {
-									moment.locale('fr');
-									d = moment(e.date,'ddd DD MMM YYYY').format('YYYY-MM-DD');
-									var url = "./resume-quotidien.php?day=" + d + "#anchorDate";
-									window.location.href = url;
+							document.addEventListener('DOMContentLoaded', function () {
+								$(function () {
+									var defaultDate = <?php echo $optDay_quoted;?>;
+									var firstDay = '<?php echo $dtFisrtDay;?>';
+									$('#dtPicker').datetimepicker({
+										format: 'ddd DD MMM YYYY',
+										locale: moment.locale('fr'),
+										minDate: moment(firstDay, 'YYYY-MM-DD'),
+										maxDate: moment(),
+										useCurrent: false,
+										ignoreReadonly: true,
+										defaultDate: moment(defaultDate, 'YYYY-MM-DD')
+									});
+									$("#dtPicker").on("change.datetimepicker", function (e) {
+										moment.locale('fr');
+										d = moment(e.date,'ddd DD MMM YYYY').format('YYYY-MM-DD');
+										var url = "./resume-quotidien.php?day=" + d + "#anchorDate";
+										window.location.href = url;
+									});
 								});
 							});
 						</script>
@@ -202,7 +206,13 @@
 						<div class="row justify-content-md-center mb-5">
 							<div class="col-md-6">
 								<div class="alert alert-warning">
-									<h4 class="alert-heading">Attention !</h4>
+									<h4 class="alert-heading">
+									<svg class="bi bi-exclamation-diamond" width="1em" height="1em" viewBox="0 0 16 16" fill="red" xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 010-2.098L6.95.435zm1.4.7a.495.495 0 00-.7 0L1.134 7.65a.495.495 0 000 .7l6.516 6.516a.495.495 0 00.7 0l6.516-6.516a.495.495 0 000-.7L8.35 1.134z" clip-rule="evenodd"/>
+										<path d="M7.002 11a1 1 0 112 0 1 1 0 01-2 0zM7.1 4.995a.905.905 0 111.8 0l-.35 3.507a.552.552 0 01-1.1 0L7.1 4.995z"/>
+									</svg>
+										&nbsp;Attention !
+									</h4>
 									<p class="mb-0 text-justify">
 										Résultats partiels, la journée n'est pas terminée (<?php echo $percentIntervalInMinutes.'%'; ?>)
 									</p>
@@ -219,7 +229,13 @@
 						<div class="row justify-content-md-center mb-5">
 							<div class="col-md-6">
 								<div class="alert alert-warning">
-									<h4 class="alert-heading">Attention, problème de fiabilité</h4>
+									<h4 class="alert-heading">
+									<svg class="bi bi-exclamation-triangle" width="1em" height="1em" viewBox="0 0 16 16" fill="red" xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" d="M7.938 2.016a.146.146 0 00-.054.057L1.027 13.74a.176.176 0 00-.002.183c.016.03.037.05.054.06.015.01.034.017.066.017h13.713a.12.12 0 00.066-.017.163.163 0 00.055-.06.176.176 0 00-.003-.183L8.12 2.073a.146.146 0 00-.054-.057A.13.13 0 008.002 2a.13.13 0 00-.064.016zm1.044-.45a1.13 1.13 0 00-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z" clip-rule="evenodd"/>
+										<path d="M7.002 12a1 1 0 112 0 1 1 0 01-2 0zM7.1 5.995a.905.905 0 111.8 0l-.35 3.507a.552.552 0 01-1.1 0L7.1 5.995z"/>
+									</svg>
+										&nbsp;Attention, problème de fiabilité
+									</h4>
 									<p class="mb-0 text-justify">
 										Nous avons identifié un potentiel problème pour cette journée.
 										<br>
@@ -229,7 +245,7 @@
 											<li>Fiabilité Tx : <?php if ($TxFiab<=95) {echo '<span class="textOfflineStation">'.$TxFiab.'%</span>';}else{ echo '<span class="textOnlineStation">'.$TxFiab.'%</span>';}?></li>
 										</ul>
 										Cela peut indiquer un manque de données sur une partie de la journée, et par conséquent, rendre les statistiques présentées ci-dessous incomplètes.
-										<a role="button" class="btn btn-block btn-primary mt-3" href="/fiabilite-climatologie.php">Retrouvez plus de détails sur cet indice ici</a>
+										<a role="button" class="btn btn-block btn-primary mt-3" href="/graphs-climatologie-fiabilite.php">Retrouvez plus de détails sur cet indice ici</a>
 									</p>
 								</div>
 							</div>
@@ -242,56 +258,111 @@
 					<table class="table table-striped table-bordered table-hover table-sm table-resume-quoti">
 						<tbody>
 							<tr>
-								<th data-toggle="tooltip" data-placement="top" data-html="true" title="La Tn est calculée d'après la méthode officielle OMM, il s'agit donc de la <u>température minimale</u> qui s'est produite entre 18h UTC la veille et 18h UTC le jour même">Tn</th>
+								<th>Tn</th>
 								<td class="textMin">
 									<?php echo $Tn; ?>&#8239;°C
 									<?php if (!is_null($TnDt)) {
 										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($TnDt)).'</span>';
 									} ?>
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="La Tn est calculée d'après la méthode officielle OMM, il s'agit donc de la <u>température minimale</u> qui s'est produite entre 18h UTC la veille et 18h UTC le jour même">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
 								</td>
 							</tr>
 							<tr>
-								<th data-toggle="tooltip" data-placement="top" data-html="true" title="La Tx est calculée d'après la méthode officielle OMM, il s'agit donc de la <u>température maximale</u> qui s'est produite entre 06h UTC le jour même et 06h UTC le lendemain">Tx</th>
+								<th>Tx</th>
 								<td class="textMax">
 									<?php echo $Tx; ?>&#8239;°C
 									<?php if (!is_null($TxDt)) {
 										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($TxDt)).'</span>';
 									} ?>
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="La Tx est calculée d'après la méthode officielle OMM, il s'agit donc de la <u>température maximale</u> qui s'est produite entre 06h UTC le jour même et 06h UTC le lendemain">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
 								</td>
 							</tr>
 							<tr>
-								<th data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>température moyenne</u> est donnée selon la méthode officielle OMM comme la <u>moyenne de la Tn + la Tx</u>, c'est à dire : (Tn + Tx) / 2">Tmoy</th>
-								<td><?php echo $Tmoy; ?>&#8239;°C</td>
+								<th>Tmoy</th>
+								<td>
+									<?php echo $Tmoy; ?>&#8239;°C
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>température moyenne</u> est donnée selon la méthode officielle OMM comme la <u>moyenne de la Tn + la Tx</u>, c'est à dire : (Tn + Tx) / 2">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</td>
 							</tr>
 							<tr>
-								<th data-toggle="tooltip" data-placement="top" data-html="true" title="L'<u>amplitude</u> de température est simplement la différence entre la Tx et la Tn, c'est à dire : Tx - Tn">Amplitude</th>
-								<td><?php echo $TempRange; ?>&#8239;°C</td>
+								<th>Amplitude</th>
+								<td>
+									<?php echo $TempRange; ?>&#8239;°C
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="L'<u>amplitude</u> de température est simplement la différence entre la Tx et la Tn, c'est à dire : Tx - Tn">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</td>
 							</tr>
 						</tbody>
 					</table>
 					<table class="table table-striped table-bordered table-hover table-sm table-resume-quoti">
 						<tbody>
 							<tr>
-								<th data-toggle="tooltip" data-placement="top" data-html="true" title="<u>Indice UV</u> maximale de la journée, entre 00h UTC et 23h59 UTC inclus">UV max</th>
+								<th>UV max</th>
 								<td class="textMax">
 									<?php echo $UvMax; ?>
 									<?php if (!is_null($UvMaxDt)) {
 										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($UvMaxDt)).'</span>';
 									} ?>
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="<u>Indice UV</u> maximale de la journée, entre 00h UTC et 23h59 UTC inclus">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
 								</td>
 							</tr>
 							<tr>
-								<th data-toggle="tooltip" data-placement="top" data-html="true" title="Le <u>rayonnement solaire</u> maximale de la journée, entre 00h UTC et 23h59 UTC inclus">Ray. sol. max</th>
+								<th>Ray. sol. max</th>
 								<td class="textMax">
 									<?php echo $RadMax; ?>&#8239;W/m²
 									<?php if (!is_null($RadMaxDt)) {
 										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($RadMaxDt)).'</span>';
 									} ?>
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="Le <u>rayonnement solaire</u> maximale de la journée, entre 00h UTC et 23h59 UTC inclus">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
 								</td>
 							</tr>
 							<tr>
-								<th data-toggle="tooltip" data-placement="top" data-html="true" title="Le <u>cumul d'évapotranspiration</u> de la journée, entre 00h UTC et 23h59 UTC inclus">Cumul d'évapotransp.</th>
-								<td class="textSum"><?php echo $EtSum; ?>&#8239;mm</td>
+								<th>Cumul d'évapotransp.</th>
+								<td class="textSum">
+									<?php echo $EtSum; ?>&#8239;mm
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="Le <u>cumul d'évapotranspiration</u> de la journée, entre 00h UTC et 23h59 UTC inclus">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -307,7 +378,16 @@
 						</thead>
 						<tbody>
 							<tr>
-								<th data-toggle="tooltip" data-placement="top" data-html="true" title="L'<u>humidité relative</u> minimale et maximale de la journée, entre 00h UTC et 23h59 inclus">Humidité</th>
+								<th>
+									Humidité
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="L'<u>humidité relative</u> minimale et maximale de la journée, entre 00h UTC et 23h59 inclus">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</th>
 								<td class="textMin">
 									<?php echo $HrMin; ?>&#8239;%
 									<?php if (!is_null($HrMinDt)) {
@@ -322,7 +402,16 @@
 								</td>
 							</tr>
 							<tr>
-								<th data-toggle="tooltip" data-placement="top" data-html="true" title="Le <u>point de rosée</u> minimal et maximal de la journée, entre 00h UTC et 23h59 inclus">Point de rosée</th>
+								<th>
+									Point de rosée
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="Le <u>point de rosée</u> minimal et maximal de la journée, entre 00h UTC et 23h59 inclus">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</th>
 								<td class="textMin">
 									<?php echo $TdMin; ?>&#8239;°C
 									<?php if (!is_null($TdMinDt)) {
@@ -337,22 +426,54 @@
 								</td>
 							</tr>
 							<tr>
-								<th data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>température ressentie</u> minimale et maximale de la journée, entre 00h UTC et 23h59 inclus">Température ressentie</th>
-								<td class="textMin" data-toggle="tooltip" data-placement="top" data-html="true" title="La température ressentie minimale correspond au windchill, aussi appelé refroidissement éolien, ou parfois facteur vent dans le langage populaire : désigne la sensation de froid produite par le vent sur un organisme qui dégage de la chaleur, alors que la température réelle de l'air ambiant ne s'abaisse pas. (Source : Wikipedia). <b>Cette information n'a pas d'unité et ne correspond pas à une température observée</b>.">
+								<th>
+									Température ressentie
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>température ressentie</u> minimale et maximale de la journée, entre 00h UTC et 23h59 inclus">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</th>
+								<td class="textMin">
 									<?php echo $windChillMin; ?>&#8239;°C
 									<?php if (!is_null($windChillMinDt)) {
 										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($windChillMinDt)).'</span>';
 									} ?>
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="La température ressentie minimale correspond au windchill, aussi appelé refroidissement éolien, ou parfois facteur vent dans le langage populaire : désigne la sensation de froid produite par le vent sur un organisme qui dégage de la chaleur, alors que la température réelle de l'air ambiant ne s'abaisse pas. (Source : Wikipedia). <b>Cette information n'a pas d'unité et ne correspond pas à une température observée</b>.">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
 								</td>
-								<td class="textMax" data-toggle="tooltip" data-placement="top" data-html="true" title="La température ressentie maximale correspond à l'humidex, c'est un indice développé aux États-Unis qui combine la température de l'air ambiant et l'humidité relative pour tenter de déterminer la perception de la température que ressent le corps humain. (Source : Wikipedia). <b>Cette information n'a pas d'unité et ne correspond pas à une température observée</b>.">
+								<td class="textMax">
 									<?php echo $heatIndexMax; ?>&#8239;°C
 									<?php if (!is_null($heatIndexMaxDt)) {
 										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($heatIndexMaxDt)).'</span>';
 									} ?>
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="La température ressentie maximale correspond à l'humidex, c'est un indice développé aux États-Unis qui combine la température de l'air ambiant et l'humidité relative pour tenter de déterminer la perception de la température que ressent le corps humain. (Source : Wikipedia). <b>Cette information n'a pas d'unité et ne correspond pas à une température observée</b>.">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
 								</td>
 							</tr>
 							<tr>
-								<th data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>pression atmosphérique</u> minimale et maximale de la journée, entre 00h UTC et 23h59 inclus">Pression</th>
+								<th>
+									Pression
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>pression atmosphérique</u> minimale et maximale de la journée, entre 00h UTC et 23h59 inclus">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</th>
 								<td class="textMin">
 									<?php echo $PrMin; ?>&#8239;hPa
 									<?php if (!is_null($PrMinDt)) {
@@ -378,7 +499,16 @@
 						</thead>
 						<tbody>
 							<tr>
-								<th data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>rafale de vent</u> maximale de la journée, entre 00h UTC et 23h59 inclus">Rafale max</th>
+								<th>
+									Rafale max
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>rafale de vent</u> maximale de la journée, entre 00h UTC et 23h59 inclus">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</th>
 								<td class="textMax"><?php echo $windGustMax; ?>&#8239;km/h
 									<?php if (!is_null($windGustMaxDt)) {
 										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($windGustMaxDt)).'</span>';
@@ -398,7 +528,16 @@
 						</thead>
 						<tbody>
 							<tr>
-								<th data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>cumul de précipitations</u> de la journée (et celle d'hier à côté), est calculée d'après la méthode officielle OMM, il s'agit donc de la <u>somme des précipitations</u> qui se sont produites entre 06h UTC le jour même et 06h UTC le lendemain">Cumul de pluie</th>
+								<th>
+									Cumul de pluie
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>cumul de précipitations</u> de la journée (et celle d'hier à côté), est calculée d'après la méthode officielle OMM, il s'agit donc de la <u>somme des précipitations</u> qui se sont produites entre 06h UTC le jour même et 06h UTC le lendemain">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</th>
 								<td class="textSum"><?php echo $RrAujd; ?>&#8239;mm</td>
 								<td class="textSum"><?php echo $RrHier; ?>&#8239;mm</td>
 							</tr>
