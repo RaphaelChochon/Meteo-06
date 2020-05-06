@@ -154,6 +154,9 @@ body{
 	color: #4B77BE; /* STEEL BLUE bootflat */
 	font-weight: bold;
 }
+.textBold {
+	font-weight: bold;
+}
 
 /* ## Carte d'emplacement de la station dans le a-propos
 --------------------------------------------- */

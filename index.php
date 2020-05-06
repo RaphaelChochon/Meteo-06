@@ -49,14 +49,13 @@
 		<script defer src="content/bootstrap/js/popper-1.16.0.min.js"></script>
 		<script defer src="content/bootstrap/js/bootstrap-4.4.1.min.js"></script>
 
-		<!-- Font Awesome CSS -->
-		<link href="content/fontawesome-5.13.0/css/all.min.css" rel="stylesheet">
-
-		<!-- <script>
-			$(function () {
-				$('[data-toggle="popover"]').popover()
-			})
-		</script> -->
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+				$(function () {
+					$('[data-toggle="tooltip"]').tooltip()
+				})
+			});
+		</script>
 	</head>
 	<body>
 		<div class="container">
@@ -84,21 +83,17 @@
 
 			<!-- Texte de prez -->
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-sm-12">
 					<p class="text-justify">
-						Bienvenue sur le site de la station météo de <?php echo $station_name; ?>. Vous y touverez les données météos de la station en direct, mais aussi des tableaux récapitulatifs sur plusieurs périodes et des graphiques. <?php if ($presence_webcam){echo'Une webcam est également disponible sur cette station <a href="webcam.php">en cliquant ici</a>';};?>
+						Bienvenue sur le site de la station météo de <?php echo $station_name; ?>. Vous y touverez les données météos de la station en direct, mais aussi des tableaux récapitulatifs sur plusieurs périodes et des graphiques. <?php if ($presence_webcam){echo'Une webcam est également disponible sur cette station <a href="webcam.php">en cliquant ici</a>.';};?>
 					</p>
 				</div>
 			</div>
-			<!-- Tab 3 heures + webcam -->
+
 			<div class="row">
-				<?php if ($presence_gif) : ?>
-				<div class="col-md-9">
-				<?php else : ?>
-				<div class="col-md-12">
-				<?php endif; ?>
-				<!-- START module en ligne/Hors ligne -->
-					<h3 <?php if ($diff>$offline_time){echo'class="offline_station"';}echo'class="textOnlineStation text-center"';?>>
+				<div class="col-sm-12 mb-3">
+					<!-- START module en ligne/Hors ligne -->
+					<h3 <?php if ($diff>$offline_time){echo'class="textOfflineStation text-center"';}echo'class="textOnlineStation text-center"';?>>
 						Derniers relevés de la station le <?php echo $date; ?> à <?php echo $heure; ?>
 					</h3>
 					<?php if ($diff>$offline_time) : ?>
@@ -107,116 +102,406 @@
 							<?php echo $jours; ?> jour(s) <?php echo $heures; ?> h et <?php echo $minutes; ?> min
 						</h4>
 					<?php endif; ?>
-				<!-- FIN module en ligne/Hors ligne -->
-				<!-- START tableau 24 dernières heures -->
-				<div class="table-responsive table-scroll">
-					<table class="table table-striped table-bordered table-hover table-sm table-sticky">
-						<!-- <caption class="textTabsCaption">⇧ Principaux paramètres sur les 24 dernières heures ⇧</caption> -->
+					<!-- FIN module en ligne/Hors ligne -->
+				</div>
+			</div>
+			<!-- Tab now + min + max -->
+			<div class="row">
+				<div class="col-sm-8">
+					<table class="table table-striped table-bordered table-hover table-sm">
 						<thead>
 							<tr>
-								<th>Heure <span class="badge badge-success">loc.</span></th>
-								<th>Température</th>
-								<th>Hygrométrie</th>
-								<th>Pt. de rosée</th>
-								<th>Pression atmo.</th>
-								<?php if ($presence_uv) : ?>
-								<th>Indice UV</th>
-								<?php endif; ?>
-								<?php if ($presence_radiation) : ?>
-								<th>Ray. sol.</th>
-								<th>ET</th>
-								<?php endif; ?>
+								<th>Params.</th>
+								<th>Actu.</th>
+								<th class="textMin">Mini.</th>
+								<th class="textMax">Maxi.</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<th class="textTabPrimary">
-									<?php
-										date_default_timezone_set('Europe/Paris');
-										echo date('H\hi',$stop);
-										date_default_timezone_set('UTC');
-									?>
+								<th>
+									Température
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="0.7em" height="0.7em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="Les <u>températures</u> minimales et maximales de la journée sont calculées d'après la méthode officielle OMM : entre 18h UTC la veille et 18h UTC le jour même pour la Tn (minimale), et entre 06h UTC le jour même et 06h UTC le lendemain pour la Tx (maximale)">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
 								</th>
-								<td class="textTabPrimary"><?php echo $temp; ?>&#8239;°C</td>
-								<td class="textTabPrimary"><?php echo $hygro; ?>&#8239;%</td>
-								<td class="textTabPrimary"><?php echo $dewpoint; ?>&#8239;°C</td>
-								<td class="textTabPrimary"><?php echo $barometer; ?>&#8239;hPa</td>
-								<?php if ($presence_uv) : ?>
-								<td class="textTabPrimary"><?php echo $uv; ?></td>
-								<?php endif; ?>
-								<?php if ($presence_radiation) : ?>
-								<td class="textTabPrimary"><?php echo $radiation; ?>&#8239;W/m²</td>
-								<td class="textTabPrimary"><?php echo $et; ?>&#8239;mm/h</td>
-								<?php endif; ?>
-							</tr>
-							<?php
-							foreach ($tabAccueil as $ts => $value) {
-								if ($stop == $ts) continue; // Supprime si doublon
-								echo "<tr>";
-								date_default_timezone_set('Europe/Paris');
-								$dt = date('H\hi',$ts);
-								date_default_timezone_set('UTC');
-								echo "<th>$dt</th>";
-								echo "<td>".$value['TempMod']."&#8239;°C</td>";
-								echo "<td>".$value['HrMod']."&#8239;%</td>";
-								echo "<td>".$value['TdMod']."&#8239;°C</td>";
-								echo "<td>".$value['barometerMod']."&#8239;hPa</td>";
-								if ($presence_uv) {
-								echo "<td>".$value['UvMod']."</td>";
-								}
-								if ($presence_radiation) {
-								echo "<td>".$value['radiationMod']."&#8239;W/m²</td>";
-								echo "<td>".$value['EtMod']."&#8239;mm/h</td>";
-								}
-								echo "</tr>";
-							}
-							?>
-							<!--<tr>
-								<th class="text-info">Mini.</th>
-								<td><?php echo $mintemp; ?>&#8239;°C<br><span class="textTabsHourly">à&#8239;<?php echo $mintemptime; ?></span></td>
-								<td><?php echo $minhygro; ?>&#8239;%<br><span class="textTabsHourly">à&#8239;<?php echo $minhygrotime; ?></span></td>
-								<td><?php echo $mindewpoint; ?>&#8239;°C<br><span class="textTabsHourly">à&#8239;<?php echo $mindewpointtime; ?></span></td>
-								<td><?php echo $minbarometer; ?>&#8239;hPa<br><span class="textTabsHourly">à&#8239;<?php echo $minbarometertime; ?></span></td>
+								<td class="textBold">
+									<?php echo $TempNow; ?>&#8239;°C
+								</td>
+								<td class="textMin">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($TnDt)) { echo 'à&nbsp;'.date('H:i',strtotime($TnDt));} ?>">
+										<?php echo $Tn; ?>&#8239;°C
+										<sup>
+											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											</svg>
+										</sup>
+									</span>
+								</td>
+								<td class="textMax">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($TxDt)) { echo 'à&nbsp;'.date('H:i',strtotime($TxDt));} ?>">
+										<?php echo $Tx; ?>&#8239;°C
+										<sup>
+											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											</svg>
+										</sup>
+									</span>
+								</td>
 							</tr>
 							<tr>
-								<th class="text-danger">Maxi.</th>
-								<td><?php echo $maxtemp; ?>&#8239;°C<br><span class="textTabsHourly">à&#8239;<?php echo $maxtemptime; ?></span></td>
-								<td><?php echo $maxhygro; ?>&#8239;%<br><span class="textTabsHourly">à&#8239;<?php echo $maxhygrotime; ?></span></td>
-								<td><?php echo $maxdewpoint; ?>&#8239;°C<br><span class="textTabsHourly">à&#8239;<?php echo $maxdewpointtime; ?></span></td>
-								<td><?php echo $maxbarometer; ?>&#8239;hPa<br><span class="textTabsHourly">à&#8239;<?php echo $maxbarometertime; ?></span></td>
-							</tr>-->
+								<th>
+									Humidité
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="0.7em" height="0.7em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="L'<u>humidité relative</u> minimale et maximale de la journée est calculée entre 00h UTC et 23h59 inclus">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</th>
+								<td class="textBold">
+									<?php echo $HrNow; ?>&#8239;%
+								</td>
+								<td class="textMin">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($HrMinDt)) { echo 'à&nbsp;'.date('H:i',strtotime($HrMinDt));} ?>">
+										<?php echo $HrMin; ?>&#8239;%
+										<sup>
+											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											</svg>
+										</sup>
+									</span>
+								</td>
+								<td class="textMax">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($HrMaxDt)) { echo 'à&nbsp;'.date('H:i',strtotime($HrMaxDt));} ?>">
+										<?php echo $HrMax; ?>&#8239;%
+										<sup>
+											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											</svg>
+										</sup>
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									Point de rosée
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="0.7em" height="0.7em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="Le <u>point de rosée</u> minimal et maximal de la journée est calculé entre 00h UTC et 23h59 inclus">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</th>
+								<td class="textBold">
+									<?php echo $TdNow; ?>&#8239;°C
+								</td>
+								<td class="textMin">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($TdMinDt)) { echo 'à&nbsp;'.date('H:i',strtotime($TdMinDt));} ?>">
+										<?php echo $TdMin; ?>&#8239;°C
+										<sup>
+											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											</svg>
+										</sup>
+									</span>
+								</td>
+								<td class="textMax">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($TdMaxDt)) { echo 'à&nbsp;'.date('H:i',strtotime($TdMaxDt));} ?>">
+										<?php echo $TdMax; ?>&#8239;°C
+										<sup>
+											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											</svg>
+										</sup>
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									Tempé. ressentie
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="0.7em" height="0.7em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>température ressentie</u> minimale et maximale de la journée est calculée entre 00h UTC et 23h59 inclus">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</th>
+								<td class="textBold">
+									<?php echo ''; ?>
+								</td>
+								<td class="textMin">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($windChillMinDt)) { echo 'à&nbsp;'.date('H:i',strtotime($windChillMinDt));} ?>">
+										<?php echo $windChillMin; ?>&#8239;
+										<sup>
+											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											</svg>
+										</sup>
+									</span>
+									
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="0.7em" height="0.7em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="La température ressentie minimale correspond au windchill, aussi appelé refroidissement éolien, ou parfois facteur vent dans le langage populaire : désigne la sensation de froid produite par le vent sur un organisme qui dégage de la chaleur, alors que la température réelle de l'air ambiant ne s'abaisse pas. (Source : Wikipedia). <b>Cette information n'a pas d'unité et ne correspond pas à une température observée</b>.">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</td>
+								<td class="textMax">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($heatIndexMaxDt)) { echo 'à&nbsp;'.date('H:i',strtotime($heatIndexMaxDt));} ?>">
+										<?php echo $heatIndexMax; ?>&#8239;
+										<sup>
+											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											</svg>
+										</sup>
+									</span>
+
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="0.7em" height="0.7em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="La température ressentie maximale correspond à l'humidex, c'est un indice développé aux États-Unis qui combine la température de l'air ambiant et l'humidité relative pour tenter de déterminer la perception de la température que ressent le corps humain. (Source : Wikipedia). <b>Cette information n'a pas d'unité et ne correspond pas à une température observée</b>.">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									Pression
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="0.7em" height="0.7em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>pression atmosphérique</u> minimale et maximale de la journée est calculée entre 00h UTC et 23h59 inclus">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</th>
+								<td class="textBold">
+									<?php echo $PrNow; ?>&#8239;hPa
+								</td>
+								<td class="textMin">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($PrMinDt)) { echo 'à&nbsp;'.date('H:i',strtotime($PrMinDt));} ?>">
+										<?php echo $PrMin; ?>&#8239;hPa
+										<sup>
+											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											</svg>
+										</sup>
+									</span>
+								</td>
+								<td class="textMax">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($PrMaxDt)) { echo 'à&nbsp;'.date('H:i',strtotime($PrMaxDt));} ?>">
+										<?php echo $PrMax; ?>&#8239;hPa
+										<sup>
+											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											</svg>
+										</sup>
+									</span>
+								</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>
-				<p class="d-none d-lg-block source bg-light text-center">
-					⇧ <span class="badge badge-info"><?php echo $countTabAccueil; ?> lignes</span>  Principaux params. sur 24h ⇧
-				</p>
-				<p class="d-lg-none source bg-light text-right">
-					⇧ <span class="badge badge-info"><?php echo $countTabAccueil; ?> lignes</span>  Principaux params. sur 24h ⇨
-				</p>
-				</div><!-- FIN tableau 3 dernières heures -->
-				<!-- START Webcam -->
-				<?php if ($presence_gif) : ?>
-				<div class="col-md-3">
-					<h3 class="text-center">Webcam</h3>
-					<p class="text-center">
-						Animation <?php echo $gif_time; ?> heures<br>
-						<span style="font-size: 0.6em">Cliquez dessus pour accéder à la dernière image</span>
-					</p>
-					<a href="webcam.php">
-						<div class="img-thumbnail text-center">
-							<img class="img-fluid" src="<?php echo $gif_url; ?>" alt="Animation GIF de la webcam de <?php echo $station_name; ?>">
-						</div>
-					</a>
+				<div class="col-sm-4">
+					<table class="table table-striped table-bordered table-hover table-sm">
+						<thead>
+							<tr>
+								<th>Params.</th>
+								<th>Actu.</th>
+								<th class="textMax">Maxi.</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>
+									UV max
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="0.7em" height="0.7em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="<u>Indice UV</u> maximale de la journée, entre 00h UTC et 23h59 UTC inclus">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</th>
+								<td class="textBold">
+									<?php echo $UvNow; ?>
+								</td>
+								<td class="textMax">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($UvMaxDt)) { echo 'à&nbsp;'.date('H:i',strtotime($UvMaxDt));} ?>">
+										<?php echo $UvMax; ?>
+										<sup>
+											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											</svg>
+										</sup>
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									Ray. sol. max
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="0.7em" height="0.7em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="Le <u>rayonnement solaire</u> maximale de la journée, entre 00h UTC et 23h59 UTC inclus">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</th>
+								<td class="textBold">
+									<?php echo $RadNow; ?>&#8239;W/m²
+								</td>
+								<td class="textMax">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($RadMaxDt)) { echo 'à&nbsp;'.date('H:i',strtotime($RadMaxDt));} ?>">
+										<?php echo $RadMax; ?>&#8239;W/m²
+										<sup>
+											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											</svg>
+										</sup>
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<th colspan="2">
+									Cumul ET
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="0.7em" height="0.7em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="Le <u>cumul d'évapotranspiration</u> de la journée, entre 00h UTC et 23h59 UTC inclus">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</th>
+								<td class="textSum">
+									<?php echo $EtSum; ?>&#8239;mm
+								</td>
+							</tr>
+							<tr>
+								<th colspan="2">
+									Cumul de pluie aujd.
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="0.7em" height="0.7em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>cumul de précipitations</u> d'une journée, est calculée d'après la méthode officielle OMM, il s'agit donc de la <u>somme des précipitations</u> qui se sont produites entre 06h UTC le jour même et 06h UTC le lendemain">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</th>
+								<td class="textSum">
+									<?php echo $RrAujd; ?>&#8239;mm
+								</td>
+							</tr>
+							<tr>
+								<th colspan="2">
+									Cumul de pluie hier.
+									<span class="float-right">
+										<svg class="bi bi-info-circle" width="0.7em" height="0.7em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="La <u>cumul de précipitations</u> d'une journée, est calculée d'après la méthode officielle OMM, il s'agit donc de la <u>somme des précipitations</u> qui se sont produites entre 06h UTC le jour même et 06h UTC le lendemain">
+											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											<path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+											<circle cx="8" cy="4.5" r="1"/>
+										</svg>
+									</span>
+								</th>
+								<td class="textSum">
+									<?php echo $RrHier; ?>&#8239;mm
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
-				<?php endif; ?>
 			</div>
-			<br>
-			<!-- Tableaux de précip, vent et radar + vigi MF et RS -->
+
+			<!-- Row Vent + RR -->
 			<div class="row">
-				<div class="col-md-9">
+				<div class="col-sm-7">
+					<!-- START tableau vent -->
+					<h5 class="text-center">Vent</h5>
+					<table class="table table-striped table-bordered table-hover table-sm">
+						<thead>
+							<tr>
+								<th>Paramètre</th>
+								<th>Valeur</th>
+								<th>Direction</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th><b>Vent moyen instant.</b></th>
+								<td><b><?php echo $wind; ?> km/h</b></td>
+								<td><b><?php echo $cardinalWindDir; ?> (<?php echo $windDir; ?>°)</b></td>
+							</tr>
+							<tr>
+								<th>Moyen sur 10 min.</th>
+								<td><?php echo $avg_wind_10; ?> km/h</td>
+								<td><?php echo $cardinalDir10; ?> (<?php echo $avg_windDir_10; ?>°)</td>
+							</tr>
+							<tr>
+								<th>Moyen sur 1 heure</th>
+								<td><?php echo $avg_wind_1h; ?> km/h</td>
+								<td><?php echo $cardinalDir1h; ?> (<?php echo $avg_windDir_1h; ?>°)</td>
+							</tr>
+							<tr>
+								<th><b>Rafales instant.</b></th>
+								<td><b><?php echo $windgust; ?> km/h</b></td>
+								<td><b><?php echo $cardinalWindGustDir; ?> (<?php echo $windGustDir; ?>°)</b></td>
+							</tr>
+							<tr>
+								<th>Rafales sur 10 min.</th>
+								<td><?php echo $avg_windGust_10; ?> km/h</td>
+								<td><?php echo $cardinalGustDir10; ?> (<?php echo $avg_windGustDir_10; ?>°)</td>
+							</tr>
+							<tr>
+								<th>Rafales sur 1 heure</th>
+								<td><?php echo $avg_windGust_1h; ?> km/h</td>
+								<td><?php echo $cardinalGustDir1h; ?> (<?php echo $avg_windGustDir_1h; ?>°)</td>
+							</tr>
+							<tr>
+								<th><b>Rafale max du jour</b></th>
+								<td><b><?php echo $maxwind; ?> km/h à <?php echo $maxwindtime; ?></b></td>
+								<td><b><?php echo $cardinalMaxWindDir; ?> (<?php echo $maxwinddir; ?>°)</b></td>
+							</tr>
+						</tbody>
+					</table>
+					<!-- END tableau vent -->
+				</div>
+					<div class="col-sm-5">
 					<!-- START tableau Précip -->
-					<h3 class="text-center">Cumuls de précipitations</h3>
+					<h5 class="text-center">Cumuls de précipitations</h5>
 					<ul class="nav nav-tabs">
 						<li class="nav-item">
 							<a class="nav-link active" data-toggle="tab" href="#PrecipNow">Cumuls récents</a>
@@ -249,17 +534,17 @@
 									</tr>
 									<tr>
 										<th>Cumul 6h-6h UTC</th>
-										<td><?php echo $RrTodayOMM; ?>&#8239;mm
-											<?php if ($RRateMaxToday != 0) {
-												echo '<br>'.$RRateMaxToday.'&#8239;mm/h <span class="textTabsHourly">à '.$dtRRateMaxToday.'</span>';
+										<td><?php echo $RrAujd; ?>&#8239;mm
+											<?php if ($RRateMaxAujd != 0) {
+												echo '<br>'.$RRateMaxAujd.'&#8239;mm/h <span class="textTabsHourly">à '.$RRateMaxAujdDt.'</span>';
 											}?>
 										</td>
 									</tr>
 									<tr>
 										<th>Cumul de la veille 6h-6h&nbsp;UTC</th>
-										<td><?php echo $RrYesterdayOMM; ?>&#8239;mm
-											<?php if ($RRateMaxYesterday != 0) {
-												echo '<br>'.$RRateMaxYesterday.'&#8239;mm/h <span class="textTabsHourly">à '.$dtRRateMaxYesterday.'</span>';
+										<td><?php echo $RrHier; ?>&#8239;mm
+											<?php if ($RRateMaxHier != 0) {
+												echo '<br>'.$RRateMaxHier.'&#8239;mm/h <span class="textTabsHourly">à '.$RRateMaxHierDt.'</span>';
 											}?>
 										</td>
 									</tr>
@@ -296,57 +581,13 @@
 						</div>
 					</div>
 					<!-- END tableau Précip -->
-					<!-- START tableau vent -->
-					<h3 class="text-center">Vent</h3>
-						<table class="table table-striped table-bordered table-hover table-sm">
-							<thead>
-								<tr>
-									<th>Paramètre</th>
-									<th>Valeur</th>
-									<th>Direction</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th><b>Vent moyen instant.</b></th>
-									<td><b><?php echo $wind; ?> km/h</b></td>
-									<td><b><?php echo $cardinalWindDir; ?> (<?php echo $windDir; ?>°)</b></td>
-								</tr>
-								<tr>
-									<th>Moyen sur 10 min.</th>
-									<td><?php echo $avg_wind_10; ?> km/h</td>
-									<td><?php echo $cardinalDir10; ?> (<?php echo $avg_windDir_10; ?>°)</td>
-								</tr>
-								<tr>
-									<th>Moyen sur 1 heure</th>
-									<td><?php echo $avg_wind_1h; ?> km/h</td>
-									<td><?php echo $cardinalDir1h; ?> (<?php echo $avg_windDir_1h; ?>°)</td>
-								</tr>
-								<tr>
-									<th><b>Rafales instant.</b></th>
-									<td><b><?php echo $windgust; ?> km/h</b></td>
-									<td><b><?php echo $cardinalWindGustDir; ?> (<?php echo $windGustDir; ?>°)</b></td>
-								</tr>
-								<tr>
-									<th>Rafales sur 10 min.</th>
-									<td><?php echo $avg_windGust_10; ?> km/h</td>
-									<td><?php echo $cardinalGustDir10; ?> (<?php echo $avg_windGustDir_10; ?>°)</td>
-								</tr>
-								<tr>
-									<th>Rafales sur 1 heure</th>
-									<td><?php echo $avg_windGust_1h; ?> km/h</td>
-									<td><?php echo $cardinalGustDir1h; ?> (<?php echo $avg_windGustDir_1h; ?>°)</td>
-								</tr>
-								<tr>
-									<th><b>Rafale max du jour</b></th>
-									<td><b><?php echo $maxwind; ?> km/h à <?php echo $maxwindtime; ?></b></td>
-									<td><b><?php echo $cardinalMaxWindDir; ?> (<?php echo $maxwinddir; ?>°)</b></td>
-								</tr>
-							</tbody>
-						</table>
-					<!-- END tableau vent -->
+				</div>
+			</div>
+			<hr class="my-3">
+			<div class="row mt-3">
+				<div class="col-sm-9">
 					<!-- START radar de précip -->
-					<h3 class="text-center">Radar de précipitations</h3>
+					<h5 class="text-center">Radar de précipitations</h5>
 					<div class="img-thumbnail text-center">
 						<img class="img-fluid" src="<?php echo $radar_url; ?>" alt="Image radar des précipitations par <?php echo $radar_source; ?>">
 					</div>
@@ -355,14 +596,25 @@
 					</p>
 					<!-- END radar de précip -->
 				</div>
-				<div class="col-md-3 text-center">
+				<div class="col-sm-3 text-center">
+					<!-- START Webcam -->
+					<?php if ($presence_gif) : ?>
+					<div class="mb-3">
+						<h5 class="text-center">Webcam</h5>
+						<p class="text-center mb-0">
+							Animation <?php echo $gif_time; ?> heures<br>
+							<span style="font-size: 0.6em">Cliquez dessus pour accéder à la dernière image</span>
+						</p>
+						<a href="webcam.php">
+							<div class="img-thumbnail text-center">
+								<img class="img-fluid" src="<?php echo $gif_url; ?>" alt="Animation GIF de la webcam de <?php echo $station_name; ?>">
+							</div>
+						</a>
+					</div>
+					<?php endif; ?>
 					<!-- START VIGI MF + RS -->
-					<h3 class="text-center">Vigi. Météo-France</h3>
+					<h5 class="text-center">Vigi. Météo-France</h5>
 					<?php include __DIR__ . '/config/widget_vigi.php'; ?>
-					<br><br>
-					<h3>Réseaux sociaux</h3>
-					<?php include __DIR__ . '/config/res_sociaux.php';?>
-					<!-- END VIGI MF + RS -->
 				</div>
 			</div>
 

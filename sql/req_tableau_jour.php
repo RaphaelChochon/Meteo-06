@@ -29,172 +29,260 @@
 		$yesterday6h = mktime(6,0,0,date("m"),date("d")-1, date("Y"));
 
 		// On récup les dernières valeurs
+		$TdNow = 'nd.';
 		if (!is_null($row['dewpoint'])) {
-			$dewpoint = round($row['dewpoint'],1);
-		} else {
-			$dewpoint = 'N/A';
+			$TdNow = round($row['dewpoint'],1);
 		}
-
+	
+		$TempNow = 'nd.';
 		if (!is_null($row['outTemp'])) {
-			$temp = round($row['outTemp'],1);
-		} else {
-			$temp = 'N/A';
+			$TempNow = round($row['outTemp'],1);
 		}
 
+		$HrNow = 'nd.';
 		if (!is_null($row['outHumidity'])) {
-			$hygro = round($row['outHumidity'],0);
-		} else {
-			$hygro = 'N/A';
+			$HrNow = round($row['outHumidity'],0);
 		}
 
+		$PrNow = 'nd.';
 		if (!is_null($row['barometer'])) {
-			$barometer = round($row['barometer'],1);
-		} else {
-			$barometer = 'N/A';
+			$PrNow = round($row['barometer'],1);
 		}
 
 		if (!is_null($row['windSpeed'])) {
 			$wind = round($row['windSpeed'],1);
 		} else {
-			$wind = 'N/A';
+			$wind = 'nd.';
 		}
 
 		if (!is_null($row['windGust'])) {
 			$windgust = round($row['windGust'],1);
 		} else {
-			$windgust = 'N/A';
+			$windgust = 'nd.';
 		}
 
+		$RadNow = 'nd.';
 		if ($presence_radiation){
 			if (!is_null($row['radiation'])) {
-				$radiation = round($row['radiation'],0);
-			} else {
-				$radiation = 'N/A';
+				$RadNow = round($row['radiation'],0);
 			}
 		};
 
+		$UvNow = 'nd.';
 		if ($presence_uv){
 			if (!is_null($row['UV'])) {
-				$uv = round($row['UV'],1);
-			} else {
-				$uv = 'N/A';
+				$UvNow = round($row['UV'],1);
 			}
 		};
 
 		if (!is_null($row['heatindex'])) {
 			$heatindex = round($row['heatindex'],1);
 		} else {
-			$heatindex = 'N/A';
+			$heatindex = 'nd.';
 		}
 
 		if (!is_null($row['windchill'])) {
 			$windchill = round($row['windchill'],1);
 		} else {
-			$windchill = 'N/A';
+			$windchill = 'nd.';
 		}
 
 		if (!is_null($row['rainRate'])) {
 			$rainrate = round($row['rainRate']*10,1);
 		} else {
-			$rainrate = 'N/A';
+			$rainrate = 'nd.';
 		}
 	}
 
-// Récup des xx derniers enregistrement avec modulo 30 minutes
-	// On récupère le dernier enregistrement en BDD
-	$query_string = "SELECT `dateTime` AS `ts`,
-						`outTemp` AS `TempMod`,
-						`outHumidity` AS `HrMod`,
-						`dewpoint` AS `TdMod`,
-						`barometer` AS `barometerMod`,
-						`radiation` AS `radiationMod`,
-						`UV` AS `UvMod`,
-						`ET` AS `EtMod`
-					FROM $db_table
-					WHERE `dateTime` % 1800 = 0
-					AND `dateTime` >= '$start24h'
-					AND `dateTime` < '$stop'
-					ORDER BY `dateTime` DESC;";
-	$result       = $db_handle_pdo->query($query_string);
-	if (!$result) {
-		// Erreur
-		echo "Erreur dans la requete ".$query_string."\n";
-		echo "\nPDO::errorInfo():\n";
-		print_r($db_handle_pdo->errorInfo());
-		exit("\n");
-	}
-	if ($result) {
-		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			$TempMod      = 'N/A';
-			$HrMod        = 'N/A';
-			$TdMod        = 'N/A';
-			$barometerMod = 'N/A';
-			$rainRateMod  = 'N/A';
-			$radiationMod = 'N/A';
-			$UvMod        = 'N/A';
-			$row['ts'] = (string)round($row['ts']);
 
-			// Insert dans le tableau
-			$tabAccueil [$row['ts']] = array();
+	/**
+	 * Récup des données min et max et dt pour la journée demandée
+	 */
+		$dateDay = date('Y-m-d');
+		$query_string = "SELECT *
+						FROM `$db_name_climato`.`$db_table_climato`
+						WHERE `dateDay` = '$dateDay';";
+		$result       = $db_handle_pdo->query($query_string);
 
-		// Traitement des données
-			// Temp
-			if ($row['TempMod'] != null) {
-				$TempMod = round($row['TempMod'],1);
-			}
-
-			// Humidité
-			if ($row['HrMod'] != null) {
-				$HrMod = round($row['HrMod'],1);
-			}
-
-			// Point de rosée
-			if ($row['TdMod'] != null) {
-				$TdMod = round($row['TdMod'],1);
-			}
-
-			// Barometer
-			if ($row['barometerMod'] != null) {
-				$barometerMod = round($row['barometerMod'],1);
-			}
-
-			// UV
-			if ($presence_uv){
-				if ($row['UvMod'] != null) {
-					$UvMod = round($row['UvMod'],1);
-				}
-			}
-
-			// Radiation & ET
-			if ($presence_radiation){
-				// Radiation
-				if ($row['radiationMod'] != null) {
-					$radiationMod = round($row['radiationMod'],0);
-				}
-
-				// ET
-				if ($row['EtMod'] != null) {
-					$EtMod = round($row['EtMod']*10,1);
-				}
-			}
-
-			// Insert dans le tableau
-			$tabAccueil [$row['ts']] ['TempMod'] = $TempMod;
-			$tabAccueil [$row['ts']] ['HrMod'] = $HrMod;
-			$tabAccueil [$row['ts']] ['TdMod'] = $TdMod;
-			$tabAccueil [$row['ts']] ['barometerMod'] = $barometerMod;
-
-			if ($presence_radiation) {
-				$tabAccueil [$row['ts']] ['radiationMod'] = $radiationMod;
-				$tabAccueil [$row['ts']] ['EtMod'] = $EtMod;
-			}
-			if ($presence_uv) {
-				$tabAccueil [$row['ts']] ['UvMod'] = $UvMod;
-			}
-			
-			$countTabAccueil = count($tabAccueil);
+		if (!$result) {
+			// Erreur
+			echo "Erreur dans la requete ".$query_string."\n";
+			echo "\nPDO::errorInfo():\n";
+			print_r($db_handle_pdo->errorInfo());
 		}
-	}
+		if ($result) {
+			$row = $result->fetch(PDO::FETCH_ASSOC);
+
+			// Tn
+			$Tn     = "nd.";
+			$TnDt   = null;
+			$TnFiab = 0;
+			if (!is_null($row['Tn'])) {
+				$Tn = round($row['Tn'], 1);
+				$TnDt = $row['TnDt'];
+			}
+			if (!is_null($row['TnFiab'])) {
+				$TnFiab = round($row['TnFiab'], 0);
+			}
+
+			// Tx
+			$Tx     = "nd.";
+			$TxDt   = null;
+			$TxFiab = 0;
+			if (!is_null($row['Tx'])) {
+				$Tx = round($row['Tx'], 1);
+				$TxDt = $row['TxDt'];
+			}
+			if (!is_null($row['TxFiab'])) {
+				$TxFiab = round($row['TxFiab'], 0);
+			}
+
+			// Tmoy
+			$Tmoy = "nd.";
+			if (!is_null($row['Tmoy'])) {
+				$Tmoy = round($row['Tmoy'], 1);
+			}
+
+			// Amplitude
+			$TempRange = "nd.";
+			if (!is_null($row['TempRange'])) {
+				$TempRange = round($row['TempRange'], 1);
+			}
+
+			// UvMax
+			$UvMax = "nd.";
+			$UvMaxDt = null;
+			if (!is_null($row['UvMax'])) {
+				$UvMax = round($row['UvMax'], 1);
+				$UvMaxDt = $row['UvMaxDt'];
+			}
+
+			// Rayonnement solaire
+			$RadMax = "nd.";
+			$RadMaxDt = null;
+			if (!is_null($row['RadMax'])) {
+				$RadMax = round($row['RadMax'], 0);
+				$RadMaxDt = $row['RadMaxDt'];
+			}
+
+			// Hr
+			$HrMin = "nd.";
+			$HrMax = "nd.";
+			$HrMinDt = null;
+			$HrMaxDt = null;
+			if (!is_null($row['HrMin'])) {
+				$HrMin = round($row['HrMin'], 0);
+				$HrMinDt = $row['HrMinDt'];
+			}
+			if (!is_null($row['HrMax'])) {
+				$HrMax = round($row['HrMax'], 0);
+				$HrMaxDt = $row['HrMaxDt'];
+			}
+
+			// Td
+			$TdMin = "nd.";
+			$TdMax = "nd.";
+			$TdMinDt = null;
+			$TdMaxDt = null;
+			if (!is_null($row['TdMin'])) {
+				$TdMin = round($row['TdMin'], 1);
+				$TdMinDt = $row['TdMinDt'];
+			}
+			if (!is_null($row['TdMax'])) {
+				$TdMax = round($row['TdMax'], 1);
+				$TdMaxDt = $row['TdMaxDt'];
+			}
+
+			// Pression
+			$PrMin = "nd.";
+			$PrMax = "nd.";
+			$PrMinDt = null;
+			$PrMaxDt = null;
+			if (!is_null($row['PrMin'])) {
+				$PrMin = round($row['PrMin'], 1);
+				$PrMinDt = $row['PrMinDt'];
+			}
+			if (!is_null($row['PrMax'])) {
+				$PrMax = round($row['PrMax'], 1);
+				$PrMaxDt = $row['PrMaxDt'];
+			}
+
+			// Tempé ressentie
+			$windChillMin = "nd.";
+			$windChillMinDt = null;
+			$heatIndexMax = "nd.";
+			$heatIndexMaxDt = null;
+			if (!is_null($row['windChillMin'])) {
+				$windChillMin = round($row['windChillMin'], 1);
+				$windChillMinDt = $row['windChillMinDt'];
+			}
+			if (!is_null($row['heatIndexMax'])) {
+				$heatIndexMax = round($row['heatIndexMax'], 1);
+				$heatIndexMaxDt = $row['heatIndexMaxDt'];
+			}
+
+			// Rafale
+			$windGustMax = "nd.";
+			$windGustMaxDt = null;
+			$windGustMaxDir = "nd.";
+			$windGustMaxDirCardinal = "nd.";
+			if (!is_null($row['windGust'])) {
+				$windGustMax = round($row['windGust'], 1);
+				$windGustMaxDt = $row['windGustDt'];
+				if (!is_null($row['windGustDir'])) {
+					$windGustMaxDir = round($row['windGustDir'], 1);
+					$windGustMaxDirCardinal = wind_cardinals($windGustMaxDir);
+				}
+			}
+
+			// RR
+			$RrAujd = "nd.";
+			$RRateMaxAujd = 0;
+			$RRateMaxAujdDt = null;
+			if (!is_null($row['RR'])) {
+				$RrAujd = round($row['RR'], 1);
+			}
+			if (!is_null($row['RRateMax'])) {
+				$RRateMaxAujd = round($row['RRateMax'], 1);
+				$RRateMaxAujdDt = $row['RRateMaxDt'];
+			}
+
+			// ET
+			$EtSum = "nd.";
+			if (!is_null($row['EtSum'])) {
+				$EtSum = round($row['EtSum'], 2);
+			}
+		}
+
+	/**
+	 * Récup de la pluie d'hier
+	 */
+		$dateYesterday = date('Y-m-d', strtotime($dateDay.'-1 day'));
+		$query_string = "SELECT `dateDay`, `RR`, `RRateMax`, `RRateMaxDt`
+						FROM `$db_name_climato`.`$db_table_climato`
+						WHERE `dateDay` = '$dateYesterday';";
+		$result       = $db_handle_pdo->query($query_string);
+
+		if (!$result) {
+			// Erreur
+			echo "Erreur dans la requete ".$query_string."\n";
+			echo "\nPDO::errorInfo():\n";
+			print_r($db_handle_pdo->errorInfo());
+		}
+		if ($result) {
+			$row = $result->fetch(PDO::FETCH_ASSOC);
+			// RR hier
+			$RrHier = "nd.";
+			$RRateMaxHier = 0;
+			$RRateMaxHierDt = null;
+			if (!is_null($row['RR'])) {
+				$RrHier = round($row['RR'], 1);
+			}
+			if (!is_null($row['RRateMax'])) {
+				$RRateMaxHier = round($row['RRateMax'], 1);
+				$RRateMaxHierDt = $row['RRateMaxDt'];
+			}
+		}
 
 	/*
 	 * VITESSE VENT
@@ -249,12 +337,12 @@
 	$avg_windDir_10 = mean_of_angles($windDir10Array);
 
 	// Maintenant on vérifie que la moyenne ne soit pas NULL
-	// si elle est NULL ou si la chaine est vide, on renvoie N/A
+	// si elle est NULL ou si la chaine est vide, on renvoie nd.
 	// sinon on execute la fonction pour la convertir en position cardinale
 	$avg_windDir_10_check = $avg_windDir_10;
 		if ($avg_windDir_10_check === null || $avg_windDir_10_check == ''){
-			$cardinalDir10 = 'N/A';
-			$avg_windDir_10 = 'N/A';
+			$cardinalDir10 = 'nd.';
+			$avg_windDir_10 = 'nd.';
 		}
 		else{
 			$cardinalDir10 = wind_cardinals($avg_windDir_10);
@@ -283,12 +371,12 @@
 	$avg_windDir_1h = mean_of_angles($windDir1hArray);
 
 	// Maintenant on vérifie que la moyenne ne soit pas NULL
-	// si elle est NULL ou si la chaine est vide, on renvoie N/A
+	// si elle est NULL ou si la chaine est vide, on renvoie nd.
 	// sinon on execute la fonction pour la convertir en position cardinale
 	$avg_windDir_1h_check = $avg_windDir_1h;
 		if ($avg_windDir_1h_check === null || $avg_windDir_1h_check == ''){
-			$cardinalDir1h = 'N/A';
-			$avg_windDir_1h = 'N/A';
+			$cardinalDir1h = 'nd.';
+			$avg_windDir_1h = 'nd.';
 		}
 		else{
 			$cardinalDir1h = wind_cardinals($avg_windDir_1h);
@@ -317,12 +405,12 @@
 	$avg_windGustDir_10 = mean_of_angles($windGustDir10Array);
 
 	// Maintenant on vérifie que la moyenne ne soit pas NULL
-	// si elle est NULL ou si la chaine est vide, on renvoie N/A
+	// si elle est NULL ou si la chaine est vide, on renvoie nd.
 	// sinon on execute la fonction pour la convertir en position cardinale
 	$avg_windGustDir_10_check = $avg_windGustDir_10;
 		if ($avg_windGustDir_10_check === null || $avg_windGustDir_10_check == ''){
-			$cardinalGustDir10 = 'N/A';
-			$avg_windGustDir_10 = 'N/A';
+			$cardinalGustDir10 = 'nd.';
+			$avg_windGustDir_10 = 'nd.';
 		}
 		else{
 			$cardinalGustDir10 = wind_cardinals($avg_windGustDir_10);
@@ -351,12 +439,12 @@
 	$avg_windGustDir_1h = mean_of_angles($windGustDir1hArray);
 
 	// Maintenant on vérifie que la moyenne ne soit pas NULL
-	// si elle est NULL ou si la chaine est vide, on renvoie N/A
+	// si elle est NULL ou si la chaine est vide, on renvoie nd.
 	// sinon on execute la fonction pour la convertir en position cardinale
 	$avg_windGustDir_1h_check = $avg_windGustDir_1h;
 		if ($avg_windGustDir_1h_check === null || $avg_windGustDir_1h_check == ''){
-			$cardinalGustDir1h = 'N/A';
-			$avg_windGustDir_1h = 'N/A';
+			$cardinalGustDir1h = 'nd.';
+			$avg_windGustDir_1h = 'nd.';
 		}
 		else{
 			$cardinalGustDir1h = wind_cardinals($avg_windGustDir_1h);
@@ -375,8 +463,8 @@
 
 	$windDir_check = $row[0];
 	if ($windDir_check === null || $windDir_check == ''){
-		$windDir = 'N/A';
-		$cardinalWindDir = 'N/A';
+		$windDir = 'nd.';
+		$cardinalWindDir = 'nd.';
 	}else{
 		$cardinalWindDir = wind_cardinals($windDir_check);
 		$windDir = round($windDir_check,1);
@@ -389,8 +477,8 @@
 
 	$windGustDir_check = $row[0];
 	if ($windGustDir_check === null || $windGustDir_check == ''){
-		$windGustDir = 'N/A';
-		$cardinalWindGustDir = 'N/A';
+		$windGustDir = 'nd.';
+		$cardinalWindGustDir = 'nd.';
 	}else{
 		$cardinalWindGustDir = wind_cardinals($windGustDir_check);
 		$windGustDir = round($windGustDir_check,1);
@@ -399,21 +487,6 @@
 	/*
 	 * FIN DE CALCUL DE LA DIRECTION DU VENT
 	 */
-
-	// ET
-	if ($presence_radiation){
-		// Calcul de l'ET sur la dernière heure
-		$sql = "SELECT sum(ET) FROM $db_name.$db_table WHERE dateTime>= '$start1' AND dateTime <= '$stop';";
-		$et_1h = $conn->query($sql);
-		$et_1h_requ = mysqli_fetch_row($et_1h);
-		$et = round($et_1h_requ[0]*10,1);
-
-		// Calcul du cumul d'ET de la journée
-		$sql = "SELECT sum(ET) FROM $db_name.$db_table WHERE dateTime>'$today';";
-		$etreq = $conn->query($sql);
-		$etrequ = mysqli_fetch_row($etreq);
-		$etcumul = round($etrequ[0]*10,2);
-	};
 
 
 // Calcul du cumul de précips sur 3h
@@ -430,54 +503,13 @@
 	}
 	if ($result) {
 		$row = $result->fetch(PDO::FETCH_ASSOC);
-		$Rr3h = 'N/A';
+		$Rr3h = 'nd.';
 
 		if (!is_null($row['Rr3h'])) {
 			$Rr3h = round($row['Rr3h']*10,1);
 		}
 	}
 
-// Calcul du cumul de précips 6h-6h UTC (aujourd'hui)
-	$query_string = "SELECT SUM(`rain`) AS `RrTodayOMM`
-					FROM $db_table
-					WHERE `dateTime` >= '$today6h' AND `dateTime` <= '$stop';";
-	$result       = $db_handle_pdo->query($query_string);
-	if (!$result) {
-		// Erreur
-		echo "Erreur dans la requete ".$query_string."\n";
-		echo "\nPDO::errorInfo():\n";
-		print_r($db_handle_pdo->errorInfo());
-		exit("\n");
-	}
-	if ($result) {
-		$row = $result->fetch(PDO::FETCH_ASSOC);
-		$RrTodayOMM = 'N/A';
-
-		if (!is_null($row['RrTodayOMM'])) {
-			$RrTodayOMM = round($row['RrTodayOMM']*10,1);
-		}
-	}
-
-// Calcul du cumul de précips de la veille 6h-6h UTC
-	$query_string = "SELECT SUM(`rain`) AS `RrYesterdayOMM`
-					FROM $db_table
-					WHERE `dateTime` >= '$yesterday6h' AND `dateTime` < '$today6h';";
-	$result       = $db_handle_pdo->query($query_string);
-	if (!$result) {
-		// Erreur
-		echo "Erreur dans la requete ".$query_string."\n";
-		echo "\nPDO::errorInfo():\n";
-		print_r($db_handle_pdo->errorInfo());
-		exit("\n");
-	}
-	if ($result) {
-		$row = $result->fetch(PDO::FETCH_ASSOC);
-		$RrYesterdayOMM = 'N/A';
-
-		if (!is_null($row['RrYesterdayOMM'])) {
-			$RrYesterdayOMM = round($row['RrYesterdayOMM']*10,1);
-		}
-	}
 
 // Calcul du cumul de précipitations depuis 0h locale
 	$todayMidnight = strtotime('today midnight');
@@ -494,7 +526,7 @@
 	}
 	if ($result) {
 		$row = $result->fetch(PDO::FETCH_ASSOC);
-		$RrTodayMidnight = 'N/A';
+		$RrTodayMidnight = 'nd.';
 
 		if (!is_null($row['RrTodayMidnight'])) {
 			$RrTodayMidnight = round($row['RrTodayMidnight']*10,1);
@@ -515,7 +547,7 @@
 	}
 	if ($result) {
 		$row = $result->fetch(PDO::FETCH_ASSOC);
-		$Rr12h = 'N/A';
+		$Rr12h = 'nd.';
 
 		if (!is_null($row['Rr12h'])) {
 			$Rr12h = round($row['Rr12h']*10,1);
@@ -536,7 +568,7 @@
 	}
 	if ($result) {
 		$row = $result->fetch(PDO::FETCH_ASSOC);
-		$Rr24h = 'N/A';
+		$Rr24h = 'nd.';
 
 		if (!is_null($row['Rr24h'])) {
 			$Rr24h = round($row['Rr24h']*10,1);
@@ -557,7 +589,7 @@
 	}
 	if ($result) {
 		$row = $result->fetch(PDO::FETCH_ASSOC);
-		$Rr7j = 'N/A';
+		$Rr7j = 'nd.';
 
 		if (!is_null($row['Rr7j'])) {
 			$Rr7j = round($row['Rr7j']*10,1);
@@ -583,8 +615,8 @@
 	}
 	if ($result) {
 		$row = $result->fetch(PDO::FETCH_ASSOC);
-		$RRateMax3h = 'N/A';
-		$dtRRateMax3h = 'N/A';
+		$RRateMax3h = 'nd.';
+		$dtRRateMax3h = 'nd.';
 
 		if (!is_null($row['RRateMax3h'])) {
 			$RRateMax3h = round($row['RRateMax3h']*10,1);
@@ -592,107 +624,6 @@
 		}
 	}
 
-// Calcul de l'intensité max 6h-6h (aujourd'hui)
-	$query_string = "SELECT `dateTime` AS `tsRRateMaxToday`, `rainRate` AS `RRateMaxToday`
-					FROM $db_table
-					WHERE dateTime >= '$today6h' AND dateTime <= '$stop'
-					AND `rainRate` = (
-						SELECT MAX(`rainRate`)
-						FROM $db_table
-						WHERE `dateTime` >= '$today6h' AND `dateTime` <= '$stop'
-					);";
-	$result       = $db_handle_pdo->query($query_string);
-	if (!$result) {
-		// Erreur
-		echo "Erreur dans la requete ".$query_string."\n";
-		echo "\nPDO::errorInfo():\n";
-		print_r($db_handle_pdo->errorInfo());
-		exit("\n");
-	}
-	if ($result) {
-		$row = $result->fetch(PDO::FETCH_ASSOC);
-		$RRateMaxToday = 'N/A';
-		$dtRRateMaxToday = 'N/A';
-
-		if (!is_null($row['RRateMaxToday'])) {
-			$RRateMaxToday = round($row['RRateMaxToday']*10,1);
-			$dtRRateMaxToday = date('H\hi',$row['tsRRateMaxToday']);
-		}
-	}
-
-// Calcul de l'intensité max de la veille 6h-6h
-	$query_string = "SELECT `dateTime` AS `tsRRateMaxYesterday`, `rainRate` AS `RRateMaxYesterday`
-					FROM $db_table
-					WHERE dateTime >= '$yesterday6h' AND dateTime < '$today6h'
-					AND `rainRate` = (
-						SELECT MAX(`rainRate`)
-						FROM $db_table
-						WHERE `dateTime` >= '$yesterday6h' AND `dateTime` < '$today6h'
-					);";
-	$result       = $db_handle_pdo->query($query_string);
-	if (!$result) {
-		// Erreur
-		echo "Erreur dans la requete ".$query_string."\n";
-		echo "\nPDO::errorInfo():\n";
-		print_r($db_handle_pdo->errorInfo());
-		exit("\n");
-	}
-	if ($result) {
-		$row = $result->fetch(PDO::FETCH_ASSOC);
-		$RRateMaxYesterday = 'N/A';
-		$dtRRateMaxYesterday = 'N/A';
-
-		if (!is_null($row['RRateMaxYesterday'])) {
-			$RRateMaxYesterday = round($row['RRateMaxYesterday']*10,1);
-			$dtRRateMaxYesterday = date('H\hi',$row['tsRRateMaxYesterday']);
-		}
-	}
-
-
-
-
-	// On récupère les valeurs max et min de la température
-	$sql = "SELECT * FROM $db_name.archive_day_outTemp ORDER BY dateTime DESC LIMIT 1;";
-	$res = $conn->query($sql);
-	$row = mysqli_fetch_row($res);
-	$mintemptime = date('H\hi',$row[2]);
-	$mintemp = round($row[1],1);
-	$maxtemp = round($row[3],1);
-	$maxtemptime = date('H\hi',$row[4]);
-
-	// On récupère les valeurs max et min de l'hygro
-	$sql = "SELECT * FROM $db_name.archive_day_outHumidity ORDER BY dateTime DESC LIMIT 1;";
-	$res = $conn->query($sql);
-	$row = mysqli_fetch_row($res);
-	$minhygrotime = date('H\hi',$row[2]);
-	$minhygro = round($row[1],1);
-	$maxhygro = round($row[3],1);
-	$maxhygrotime = date('H\hi',$row[4]);
-
-	// On récupère les valeurs max et min du pt de rosée
-	$sql = "SELECT * FROM $db_name.archive_day_dewpoint ORDER BY dateTime DESC LIMIT 1;";
-	$res = $conn->query($sql);
-	$row = mysqli_fetch_row($res);
-	$mindewpointtime = date('H\hi',$row[2]);
-	$mindewpoint = round($row[1],1);
-	$maxdewpoint = round($row[3],1);
-	$maxdewpointtime = date('H\hi',$row[4]);
-
-	// On récupère les valeurs max et min de la pression
-	$sql = "SELECT * FROM $db_name.archive_day_barometer ORDER BY dateTime DESC LIMIT 1;";
-	$res = $conn->query($sql);
-	$row = mysqli_fetch_row($res);
-	$minbarometertime = date('H\hi',$row[2]);
-	$minbarometer = round($row[1],1);
-	$maxbarometer = round($row[3],1);
-	$maxbarometertime = date('H\hi',$row[4]);
-
-	// On récupère les valeurs max et min des précipitations
-	$sql = "SELECT * FROM $db_name.archive_day_rainRate ORDER BY dateTime DESC LIMIT 1;";
-	$res = $conn->query($sql);
-	$row = mysqli_fetch_row($res);
-	$maxrainRate = round($row[3]*10,1);
-	$maxrainRatetime = date('H\hi',$row[4]);
 
 	// On récupère les valeurs max des rafales de vent
 	$sql = "SELECT * FROM $db_name.archive_day_wind ORDER BY dateTime DESC LIMIT 1;";
@@ -702,63 +633,8 @@
 	$maxwindtime = date('H\hi',$row[4]);
 	$maxwinddir = round($row[9],2);
 	if ($maxwinddir === null || $maxwinddir == '') {
-		$maxwinddir = 'N/A';
-		$cardinalMaxWindDir = 'N/A';
+		$maxwinddir = 'nd.';
+		$cardinalMaxWindDir = 'nd.';
 	} else {
 		$cardinalMaxWindDir = wind_cardinals($maxwinddir);
 	}
-	
-	// UV
-	if ($presence_uv){
-		// Calcul de la moyenne sur 10 minutes de l'indice UV
-		$sql = "SELECT AVG(UV) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';";
-		$res = $conn->query($sql);
-		$row = mysqli_fetch_row($res);
-		$avg_UV_10 = round($row[0],1);
-
-		// On récupère les valeurs max de l'UV
-		$sql = "SELECT * FROM $db_name.archive_day_UV ORDER BY dateTime DESC LIMIT 1;";
-		$res = $conn->query($sql);
-		$row = mysqli_fetch_row($res);
-		$maxuv = round($row[3],1);
-		$maxuvtime = date('H\hi',$row[4]);
-	};
-
-	// On récupère la valeur min du refroidissement éolien
-	$sql = "SELECT * FROM $db_name.archive_day_windchill ORDER BY dateTime DESC LIMIT 1;";
-	$res = $conn->query($sql);
-	$row = mysqli_fetch_row($res);
-	$minwindchilltime = date('H\hi',$row[2]);
-	$minwindchill = round($row[1],1);
-
-	// On récupère la valeur max de l'indice de chaleur
-	$sql = "SELECT * FROM $db_name.archive_day_heatindex ORDER BY dateTime DESC LIMIT 1;";
-	$res = $conn->query($sql);
-	$row = mysqli_fetch_row($res);
-	$maxheatindex = round($row[3],1);
-	$maxheatindextime = date('H\hi',$row[4]);
-
-	// Rayonnement solaire et ET
-	if ($presence_radiation){
-		// Calcul de la moyenne sur 10 minutes du rayonnement solaire (radiation)
-		$sql = "SELECT AVG(radiation) FROM $db_name.$db_table WHERE dateTime>='$minutes10' AND dateTime <= '$stop';";
-		$res = $conn->query($sql);
-		$row = mysqli_fetch_row($res);
-		$avg_radiation_10 = round($row[0],1);
-
-		// On récupère les valeurs max du rayonnement solaire
-		$sql = "SELECT * FROM $db_name.archive_day_radiation ORDER BY dateTime DESC LIMIT 1;";
-		$res = $conn->query($sql);
-		$row = mysqli_fetch_row($res);
-		$maxradiation = round($row[3],1);
-		$maxradiationtime = date('H\hi',$row[4]);
-
-		// On récupère les valeurs max de l'ET
-		$sql = "SELECT * FROM $db_name.archive_day_ET ORDER BY dateTime DESC LIMIT 1;";
-		$res = $conn->query($sql);
-		$row = mysqli_fetch_row($res);
-		$maxet = round($row[3]*10,3);
-		$maxettime = date('H\hi',$row[4]);
-	};
-
-?>
