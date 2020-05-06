@@ -437,7 +437,7 @@
 									</span>
 								</th>
 								<td class="textMin">
-									<?php echo $windChillMin; ?>&#8239;°C
+									<?php echo $windChillMin; ?>&#8239;
 									<?php if (!is_null($windChillMinDt)) {
 										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($windChillMinDt)).'</span>';
 									} ?>
@@ -450,7 +450,7 @@
 									</span>
 								</td>
 								<td class="textMax">
-									<?php echo $heatIndexMax; ?>&#8239;°C
+									<?php echo $heatIndexMax; ?>&#8239;
 									<?php if (!is_null($heatIndexMaxDt)) {
 										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($heatIndexMaxDt)).'</span>';
 									} ?>
