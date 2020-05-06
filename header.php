@@ -13,6 +13,7 @@
 			<?php 
 				echo $station_name;
 				if (!is_null($site_manager_link)) {
+					echo '<br>';
 					echo $site_manager_link;
 				};
 			?>
