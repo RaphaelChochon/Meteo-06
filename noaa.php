@@ -97,7 +97,7 @@
 				<div class="col-md-12">
 					<h3 class="text-center">Rapports climatologiques de la station au format NOAA</h3>
 					<!-- START module en ligne/Hors ligne -->
-					<h3 <?php if ($diff>$offline_time){echo'class="offline_station"';}echo'class="textOnlineStation text-center"';?>>
+					<h3 <?php if ($diff>$offline_time){echo'class="textOfflineStation text-center"';}echo'class="textOnlineStation text-center"';?>>
 						Derniers relevés de la station le <?php echo $date; ?> à <?php echo $heure; ?>
 					</h3>
 					<?php if ($diff>$offline_time) : ?>

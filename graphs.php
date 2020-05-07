@@ -171,7 +171,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<!-- START module en ligne/Hors ligne -->
-					<h3 <?php if ($diff>$offline_time){echo'class="offline_station"';}echo'class="textOnlineStation text-center"';?>>
+					<h3 <?php if ($diff>$offline_time){echo'class="textOfflineStation text-center"';}echo'class="textOnlineStation text-center"';?>>
 						Derniers relevés de la station le <?php echo $date; ?> à <?php echo $heure; ?>
 					</h3>
 					<?php if ($diff>$offline_time) : ?>
