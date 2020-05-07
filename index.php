@@ -45,7 +45,7 @@
 
 		<!-- Bootstrap 4.4.1 -->
 		<link href="content/bootstrap/css/bootswatch-united-4.4.1.min.css" rel="stylesheet">
-		<link href="content/custom/custom.css?v=1.2" rel="stylesheet">
+		<link href="content/custom/custom.css?v=1.3" rel="stylesheet">
 		<script defer src="content/bootstrap/js/popper-1.16.0.min.js"></script>
 		<script defer src="content/bootstrap/js/bootstrap-4.4.1.min.js"></script>
 
@@ -82,7 +82,7 @@
 			<?php include __DIR__ . "/sql/req_tableau_jour.php";?>
 
 			<!-- Texte de prez -->
-			<div class="row">
+			<div class="row d-none d-md-block">
 				<div class="col-sm-12">
 					<p class="text-justify">
 						Bienvenue sur le site de la station météo de <?php echo $station_name; ?>. Vous y touverez les données météos de la station en direct, mais aussi des tableaux récapitulatifs sur plusieurs périodes et des graphiques. <?php if ($presence_webcam){echo'Une webcam est également disponible sur cette station <a href="webcam.php">en cliquant ici</a>.';};?>
@@ -107,7 +107,7 @@
 			</div>
 			<!-- Tab now + min + max -->
 			<div class="row">
-				<div class="col-sm-8">
+				<div class="col-md-8">
 					<table class="table table-striped table-bordered table-hover table-sm">
 						<thead>
 							<tr>
@@ -120,7 +120,7 @@
 						<tbody>
 							<tr>
 								<th>
-									Température
+									Tempé.
 									<span class="float-right">
 										<svg class="bi bi-info-circle" width="0.7em" height="0.7em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="Les <u>températures</u> minimales et maximales de la journée sont calculées d'après la méthode officielle OMM : entre 18h UTC la veille et 18h UTC le jour même pour la Tn (minimale), et entre 06h UTC le jour même et 06h UTC le lendemain pour la Tx (maximale)">
 											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
@@ -133,7 +133,7 @@
 									<?php echo $TempNow; ?>&#8239;°C
 								</td>
 								<td class="textMin">
-									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($TnDt)) { echo 'à&nbsp;'.date('H:i',strtotime($TnDt));} ?>">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($TnDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',strtotime("${TnDt}Z")).' loc.'; date_default_timezone_set("UTC");} ?>">
 										<?php echo $Tn; ?>&#8239;°C
 										<sup>
 											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -145,7 +145,7 @@
 									</span>
 								</td>
 								<td class="textMax">
-									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($TxDt)) { echo 'à&nbsp;'.date('H:i',strtotime($TxDt));} ?>">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($TxDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',strtotime("${TxDt}Z")).' loc.'; date_default_timezone_set("UTC");} ?>">
 										<?php echo $Tx; ?>&#8239;°C
 										<sup>
 											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -172,7 +172,7 @@
 									<?php echo $HrNow; ?>&#8239;%
 								</td>
 								<td class="textMin">
-									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($HrMinDt)) { echo 'à&nbsp;'.date('H:i',strtotime($HrMinDt));} ?>">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($HrMinDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',strtotime("${HrMinDt}Z")).' loc.'; date_default_timezone_set("UTC");} ?>">
 										<?php echo $HrMin; ?>&#8239;%
 										<sup>
 											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -184,7 +184,7 @@
 									</span>
 								</td>
 								<td class="textMax">
-									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($HrMaxDt)) { echo 'à&nbsp;'.date('H:i',strtotime($HrMaxDt));} ?>">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($HrMaxDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',strtotime("${HrMaxDt}Z")).' loc.'; date_default_timezone_set("UTC");} ?>">
 										<?php echo $HrMax; ?>&#8239;%
 										<sup>
 											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -211,7 +211,7 @@
 									<?php echo $TdNow; ?>&#8239;°C
 								</td>
 								<td class="textMin">
-									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($TdMinDt)) { echo 'à&nbsp;'.date('H:i',strtotime($TdMinDt));} ?>">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($TdMinDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',strtotime("${TdMinDt}Z")).' loc.'; date_default_timezone_set("UTC");} ?>">
 										<?php echo $TdMin; ?>&#8239;°C
 										<sup>
 											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -223,7 +223,7 @@
 									</span>
 								</td>
 								<td class="textMax">
-									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($TdMaxDt)) { echo 'à&nbsp;'.date('H:i',strtotime($TdMaxDt));} ?>">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($TdMaxDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',strtotime("${TdMaxDt}Z")).' loc.'; date_default_timezone_set("UTC");} ?>">
 										<?php echo $TdMax; ?>&#8239;°C
 										<sup>
 											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -250,7 +250,7 @@
 									<?php echo ''; ?>
 								</td>
 								<td class="textMin">
-									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($windChillMinDt)) { echo 'à&nbsp;'.date('H:i',strtotime($windChillMinDt));} ?>">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($windChillMinDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',strtotime("${windChillMinDt}Z")).' loc.'; date_default_timezone_set("UTC");} ?>">
 										<?php echo $windChillMin; ?>&#8239;
 										<sup>
 											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -270,7 +270,7 @@
 									</span>
 								</td>
 								<td class="textMax">
-									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($heatIndexMaxDt)) { echo 'à&nbsp;'.date('H:i',strtotime($heatIndexMaxDt));} ?>">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($heatIndexMaxDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',strtotime("${heatIndexMaxDt}Z")).' loc.'; date_default_timezone_set("UTC");} ?>">
 										<?php echo $heatIndexMax; ?>&#8239;
 										<sup>
 											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -302,11 +302,11 @@
 									</span>
 								</th>
 								<td class="textBold">
-									<?php echo $PrNow; ?>&#8239;hPa
+									<?php echo $PrNow; ?> hPa
 								</td>
 								<td class="textMin">
-									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($PrMinDt)) { echo 'à&nbsp;'.date('H:i',strtotime($PrMinDt));} ?>">
-										<?php echo $PrMin; ?>&#8239;hPa
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($PrMinDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',strtotime("${PrMinDt}Z")).' loc.'; date_default_timezone_set("UTC");} ?>">
+										<?php echo $PrMin; ?> hPa
 										<sup>
 											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 												<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
@@ -317,8 +317,8 @@
 									</span>
 								</td>
 								<td class="textMax">
-									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($PrMaxDt)) { echo 'à&nbsp;'.date('H:i',strtotime($PrMaxDt));} ?>">
-										<?php echo $PrMax; ?>&#8239;hPa
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($PrMaxDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',strtotime("${PrMaxDt}Z")).' loc.'; date_default_timezone_set("UTC");} ?>">
+										<?php echo $PrMax; ?> hPa
 										<sup>
 											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 												<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
@@ -332,7 +332,7 @@
 						</tbody>
 					</table>
 				</div>
-				<div class="col-sm-4">
+				<div class="col-md-4">
 					<table class="table table-striped table-bordered table-hover table-sm">
 						<thead>
 							<tr>
@@ -357,7 +357,7 @@
 									<?php echo $UvNow; ?>
 								</td>
 								<td class="textMax">
-									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($UvMaxDt)) { echo 'à&nbsp;'.date('H:i',strtotime($UvMaxDt));} ?>">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($UvMaxDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',strtotime("${UvMaxDt}Z")).' loc.'; date_default_timezone_set("UTC");} ?>">
 										<?php echo $UvMax; ?>
 										<sup>
 											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -384,7 +384,7 @@
 									<?php echo $RadNow; ?>&#8239;W/m²
 								</td>
 								<td class="textMax">
-									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($RadMaxDt)) { echo 'à&nbsp;'.date('H:i',strtotime($RadMaxDt));} ?>">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($RadMaxDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',strtotime("${RadMaxDt}Z")).' loc.'; date_default_timezone_set("UTC");} ?>">
 										<?php echo $RadMax; ?>&#8239;W/m²
 										<sup>
 											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -448,7 +448,7 @@
 
 			<!-- Row Vent + RR -->
 			<div class="row">
-				<div class="col-sm-7">
+				<div class="col-md-7">
 					<!-- START tableau vent -->
 					<h5 class="text-center">Vent</h5>
 					<table class="table table-striped table-bordered table-hover table-sm">
@@ -462,44 +462,115 @@
 						<tbody>
 							<tr>
 								<th><b>Vent moyen instant.</b></th>
-								<td><b><?php echo $wind; ?> km/h</b></td>
-								<td><b><?php echo $cardinalWindDir; ?> (<?php echo $windDir; ?>°)</b></td>
+								<td class="textBold">
+									<?php echo $windSpeedNow; ?>&#8239;km/h
+								</td>
+								<td class="textBold">
+									<?php if (!is_null($windDirCardinalNow)) {
+										echo $windDirCardinalNow.' ('.$windDirNow.'°)';
+									}?>
+								</td>
 							</tr>
 							<tr>
-								<th>Moyen sur 10 min.</th>
-								<td><?php echo $avg_wind_10; ?> km/h</td>
-								<td><?php echo $cardinalDir10; ?> (<?php echo $avg_windDir_10; ?>°)</td>
+								<th>Vent moyen 10 min.</th>
+								<td>
+									<?php echo $windSpeedAvg10min; ?>&#8239;km/h
+								</td>
+								<td>
+									<?php if (!is_null($windDirAvg10min)) {
+										echo $windDirCardinal10min.' ('.$windDirAvg10min.'°)';
+									}?>
+								</td>
 							</tr>
 							<tr>
-								<th>Moyen sur 1 heure</th>
-								<td><?php echo $avg_wind_1h; ?> km/h</td>
-								<td><?php echo $cardinalDir1h; ?> (<?php echo $avg_windDir_1h; ?>°)</td>
+								<th>Vent moyen 1 heure</th>
+								<td>
+									<?php echo $windSpeedAvg1h; ?>&#8239;km/h
+								</td>
+								<td>
+									<?php if (!is_null($windDirAvg1h)) {
+										echo $windDirCardinal1h.' ('.$windDirAvg1h.'°)';
+									}?>
+								</td>
 							</tr>
 							<tr>
-								<th><b>Rafales instant.</b></th>
-								<td><b><?php echo $windgust; ?> km/h</b></td>
-								<td><b><?php echo $cardinalWindGustDir; ?> (<?php echo $windGustDir; ?>°)</b></td>
+								<th><b>Rafale instant.</b></th>
+								<td class="textBold">
+									<?php echo $windGustNow; ?>&#8239;km/h
+								</td>
+								<td class="textBold">
+									<?php if (!is_null($windGustDirCardinalNow)) {
+										echo $windGustDirCardinalNow.' ('.$windGustDirNow.'°)';
+									}?>
+								</td>
 							</tr>
 							<tr>
-								<th>Rafales sur 10 min.</th>
-								<td><?php echo $avg_windGust_10; ?> km/h</td>
-								<td><?php echo $cardinalGustDir10; ?> (<?php echo $avg_windGustDir_10; ?>°)</td>
+								<th>Rafale max. 10 min.</th>
+								<td>
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($tsWindGustMax10min)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',$tsWindGustMax10min).' loc.'; date_default_timezone_set("UTC");} ?>">
+										<?php echo $windGustMax10min; ?>&#8239;km/h
+										<sup>
+											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											</svg>
+										</sup>
+									</span>
+								</td>
+								<td>
+									<?php if (!is_null($windGustMaxDirCardinal10min)) {
+										echo $windGustMaxDirCardinal10min.' ('.$windGustMaxDir10min.'°)';
+									}?>
+								</td>
 							</tr>
 							<tr>
-								<th>Rafales sur 1 heure</th>
-								<td><?php echo $avg_windGust_1h; ?> km/h</td>
-								<td><?php echo $cardinalGustDir1h; ?> (<?php echo $avg_windGustDir_1h; ?>°)</td>
+								<th>Rafale max. 1 heure</th>
+								<td>
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($tsWindGustMax1h)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',$tsWindGustMax1h).' loc.'; date_default_timezone_set("UTC");} ?>">
+										<?php echo $windGustMax1h; ?>&#8239;km/h
+										<sup>
+											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											</svg>
+										</sup>
+									</span>
+								</td>
+								<td>
+									<?php if (!is_null($windGustMaxDirCardinal1h)) {
+										echo $windGustMaxDirCardinal1h.' ('.$windGustMaxDir1h.'°)';
+									}?>
+								</td>
 							</tr>
 							<tr>
-								<th><b>Rafale max du jour</b></th>
-								<td><b><?php echo $maxwind; ?> km/h à <?php echo $maxwindtime; ?></b></td>
-								<td><b><?php echo $cardinalMaxWindDir; ?> (<?php echo $maxwinddir; ?>°)</b></td>
+								<th class="textBold">
+									Rafale max du jour
+								</th>
+								<td class="textBold">
+									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($windGustMaxDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',strtotime("${windGustMaxDt}Z")).' loc.'; date_default_timezone_set("UTC");} ?>">
+										<?php echo $windGustMax; ?>&#8239;km/h
+										<sup>
+											<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+												<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+											</svg>
+										</sup>
+									</span>
+								</td>
+								<td class="textBold">
+									<?php if (!is_null($windGustMaxDirCardinal)) {
+										echo $windGustMaxDirCardinal.' ('.$windGustMaxDir.'°)';
+									}?>
+								</td>
 							</tr>
 						</tbody>
 					</table>
 					<!-- END tableau vent -->
 				</div>
-					<div class="col-sm-5">
+				<div class="col-md-5">
 					<!-- START tableau Précip -->
 					<h5 class="text-center">Cumuls de précipitations</h5>
 					<ul class="nav nav-tabs">
@@ -516,36 +587,66 @@
 								<thead>
 									<tr>
 										<th>Paramètre</th>
-										<th>Cumul<br>(intensité&nbsp;max)</th>
+										<th>Cumul (intensité&nbsp;max)</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
-										<th>Intensité instantanée</th>
-										<td><?php echo $rainrate; ?>&#8239;mm/h</td>
+										<th>Intensité instant.</th>
+										<td><?php echo $RrateNow; ?>&#8239;mm/h</td>
 									</tr>
 									<tr>
-										<th>Cumul sur 3 heures gliss.</th>
-										<td><?php echo $Rr3h; ?>&#8239;mm
-											<?php if ($RRateMax3h != 0) {
-												echo '<br>'.$RRateMax3h.'&#8239;mm/h <span class="textTabsHourly">à '.$dtRRateMax3h.'</span>';
-											}?>
+										<th>Cumul 3h gliss.</th>
+										<td>
+											<?php echo $Rr3h; ?>&#8239;mm
+											<?php if ($RRateMax3h != 0) : ?>
+												<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($RRateMax3hDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',$RRateMax3hDt).' loc.'; date_default_timezone_set("UTC");} ?>">
+													(<?php echo $RRateMax3h; ?>&#8239;mm/h)
+													<sup>
+														<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+															<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+															<path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+															<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+														</svg>
+													</sup>
+												</span>
+											<?php endif; ?>
 										</td>
 									</tr>
 									<tr>
 										<th>Cumul 6h-6h UTC</th>
-										<td><?php echo $RrAujd; ?>&#8239;mm
-											<?php if ($RRateMaxAujd != 0) {
-												echo '<br>'.$RRateMaxAujd.'&#8239;mm/h <span class="textTabsHourly">à '.$RRateMaxAujdDt.'</span>';
-											}?>
+										<td>
+											<?php echo $RrAujd; ?>&#8239;mm
+											<?php if ($RRateMaxAujd != 0) : ?>
+												<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($RRateMaxAujdDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',strtotime("${RRateMaxAujdDt}Z")).' loc.'; date_default_timezone_set("UTC");} ?>">
+													(<?php echo $RRateMaxAujd; ?>&#8239;mm/h)
+													<sup>
+														<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+															<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+															<path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+															<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+														</svg>
+													</sup>
+												</span>
+											<?php endif; ?>
 										</td>
 									</tr>
 									<tr>
-										<th>Cumul de la veille 6h-6h&nbsp;UTC</th>
-										<td><?php echo $RrHier; ?>&#8239;mm
-											<?php if ($RRateMaxHier != 0) {
-												echo '<br>'.$RRateMaxHier.'&#8239;mm/h <span class="textTabsHourly">à '.$RRateMaxHierDt.'</span>';
-											}?>
+										<th>Cumul veille 6h-6h&nbsp;UTC</th>
+										<td>
+											<?php echo $RrHier; ?>&#8239;mm
+											<?php if ($RRateMaxHier != 0) : ?>
+												<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($RRateMaxHierDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',strtotime("${RRateMaxHierDt}Z")).' loc.'; date_default_timezone_set("UTC");} ?>">
+													(<?php echo $RRateMaxHier; ?>&#8239;mm/h)
+													<sup>
+														<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+															<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+															<path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z" clip-rule="evenodd"/>
+															<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
+														</svg>
+													</sup>
+												</span>
+											<?php endif; ?>
 										</td>
 									</tr>
 								</tbody>
@@ -581,11 +682,35 @@
 						</div>
 					</div>
 					<!-- END tableau Précip -->
+					<!-- Boutton vers récap quotidien -->
+					<div class="row bg-light py-2 mx-1 rounded">
+						<div class="col-sm-12">
+							<h5 class="text-center">
+								Plus de données et graphiques pour :
+							</h5>
+						</div>
+						<div class="col text-left" style="width:100%;">
+							<a role="button" class="btn btn-sm btn-primary" href="./resume-quotidien.php?day=<?php date_default_timezone_set("Europe/Paris"); echo date('Y-m-d', strtotime($dateDay.'-1 day')); date_default_timezone_set("UTC"); ?>">
+								<svg class="bi bi-caret-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" d="M10 12.796L4.519 8 10 3.204v9.592zm-.659.753l-5.48-4.796a1 1 0 010-1.506l5.48-4.796A1 1 0 0111 3.204v9.592a1 1 0 01-1.659.753z" clip-rule="evenodd"/>
+								</svg>
+								Journée d'hier
+							</a>
+						</div>
+						<div class="col text-right" style="width:100%;">
+							<a role="button" class="btn btn-sm btn-primary" href="./resume-quotidien.php?day=<?php date_default_timezone_set("Europe/Paris"); echo date('Y-m-d'); date_default_timezone_set("UTC"); ?>">
+								Aujourd'hui
+								<svg class="bi bi-caret-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" d="M6 12.796L11.481 8 6 3.204v9.592zm.659.753l5.48-4.796a1 1 0 000-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 001.659.753z" clip-rule="evenodd"/>
+								</svg>
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
 			<hr class="my-3">
 			<div class="row mt-3">
-				<div class="col-sm-9">
+				<div class="col-lg-9">
 					<!-- START radar de précip -->
 					<h5 class="text-center">Radar de précipitations</h5>
 					<div class="img-thumbnail text-center">
@@ -596,7 +721,7 @@
 					</p>
 					<!-- END radar de précip -->
 				</div>
-				<div class="col-sm-3 text-center">
+				<div class="col-lg-3 text-center">
 					<!-- START Webcam -->
 					<?php if ($presence_gif) : ?>
 					<div class="mb-3">
