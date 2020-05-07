@@ -3,6 +3,50 @@
 ### ToDo
 Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 
+### 1.0.0 - xx/05/2020 - Rupture
+* Migration vers Bootstrap 4.4
+* Internalisation de nombreuses librairies
+* Modif des balises SEO et og:
+* Toutes les données "climatologiques" du site proviennent maintenant d'une BDD à part, plus de calcul à la volée : meilleures performances
+
+#### Refonte graphique de l'ensemble du site :
+* Page d'accueil :
+  * Tableaux plus compacts
+  * Suppression des modules RS
+* Page des graphiques 24h/48/7j
+  * Possibilité de masquer les étiquettes (annotations HighCharts dans les graphs de tempé et RR)
+  * Possibilité de déplacer ces mêmes étiquettes de façon indépendantes les unes des autres
+* Réorganisation du menu en fonction des nouvelles pages
+* Accès facilité aux rapports NOAA (rubrique climatologie)
+
+#### Nouvelles pages :
+* Page de "résumé quotidien", permettant la consultation de statistiques à la journée. Cette page comprends aussi un tableau déroulant avec tous les enregistrements au pas de temps de 10 minutes, et des graphiques couvrant la période de 18h la veille à 6h le lendemain (UTC). Un champs date permet de changer de journée.
+* Pages "Climatos" :
+  * Page de climatologie mensuelle :
+    * Tableaux et graphiques permettant la consultation des stats d'un mois donné (Tn et Tx de toutes les journées du mois par exemple, et caclul de la TnX, TxX, etc.)
+  * Page de climatologie annuelle :
+    * Tableaux et graphiques permettant la consultation des stats d'une année donnée (Tn et Tx de tous les mois de l'année par exemple, et caclul de la TnX, TxX, etc.)
+  * Page de climatologie globale :
+    * Accès à quelques graphiques globaux sur la vie de la station, pourra évoluer
+* Pages "Admin" :
+  * Une première page de connexion (utilisation du module PHP-Auth) pour autoriser ou non l'accès en fonction du type de compte (cookies avec portée sur tous les sous-domaines *.meteo06.fr et only https)
+  * Un index avec des cards donnant l'accès à 4 rubriques :
+  * Accès aux données des sondes intérieures (température et humidité) au travers d'un mini-tableau et de graphiques
+  * Accès aux statistiques de réception entre l'ISS et la console et la tension des piles de la console (si c'est une VP2) au travers de graphiques
+  * Accès à un module d'export des données au format CSV. Possibilité de choisir la période couverte (max de 3 mois), le pas de temps désiré (10 min, 1h ou brut) et les paramètres météo.
+  * Pour les membres de l'équipe seulement : accès à un module de modification de la bannière du site (pour annoncer une panne par exemple)
+
+#### Modif au niveau des calculs/données
+* Page d'accueil :
+  * Affichage des heures en locale (seule page du site ou l'heure locale persiste)
+  * Récup des min, max et cumul depuis la BDD climato_day
+  * Norme OMM pour tous les calculs
+* Page des graphiques 24h/48/7j
+  * Pas de temps de 5 min, 10 min ou 1 heure en fonction de la période demandée : allégement des données à charger côté client et donc meilleure fluidité
+  * Améliorations au niveau des étiquettes (annotations)
+* Pages de climatologie (mensuelle, annuelle, globale) : Requêtes directement dans la BDD climato_* de la station (amélioration des performanes)
+* Pages de climatologie globale, comparatif de moyennes de tempé, et indice de fiabilité : Activation du mode Boost de HighCharts
+
 ### 0.15.2 - 03/09/2019
 * Désactivation de la connection entre les valeurs ``null`` sur les graphiques de la page ``graphs.php``
 * Ajout de deux nouvelles options horaires sur la page ``graphs.php``: 144h (6 jours) et 168h (7 jours)
