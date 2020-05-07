@@ -187,7 +187,7 @@ require_once __DIR__ . '/../sql/connect_auth.php';
 					<?php endif; ?>
 				</div>
 			</div>
-			<footer class="footer bg-light">
+			<footer class="footer bg-light rounded">
 				<?php include '../footer.php';?>
 			</footer>
 		</div>

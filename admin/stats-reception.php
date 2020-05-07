@@ -631,7 +631,7 @@
 			<hr class="my-4">
 			<!-- Fin de vérif des droits proprios -->
 			<?php endif; ?>
-			<footer class="footer bg-light">
+			<footer class="footer bg-light rounded">
 				<?php include __DIR__ . '/../footer.php';?>
 			</footer>
 		</div>

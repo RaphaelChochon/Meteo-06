@@ -1,5 +1,5 @@
 <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-primary"> -->
-<nav class="navbar navbar-expand-xl navbar-light bg-light">
+<nav class="navbar navbar-expand-xl navbar-light bg-light rounded">
 	<a class="navbar-brand" href="/">Accueil</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarPrincipale" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
