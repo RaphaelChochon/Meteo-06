@@ -52,7 +52,7 @@
 	function wind_cardinals($deg) {
 		$cardinalDirections = array(
 			'N'   => array(348.75, 361),
-			'N'   => array(0, 11.25),
+			'N2'   => array(0, 11.25),
 			'NNE' => array(11.25, 33.75),
 			'NE'  => array(33.75, 56.25),
 			'ENE' => array(56.25, 78.75),
