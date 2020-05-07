@@ -43,7 +43,7 @@
 		<br>
 		<div class="row">
 			<div class="col-md-12">
-				<div class="alert alert-dismissible alert-danger">
+				<div class="alert alert-danger">
 					<h1 class="text-center">Réserves de responsabilités</h1>
 					<h3 class="text-center">Toutes les données sont fournies uniquement à titre indicatif</h3>
 						<ul>
