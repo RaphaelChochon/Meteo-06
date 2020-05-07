@@ -30,7 +30,7 @@
 
 		<!-- Bootstrap 4.4.1 -->
 		<link href="../content/bootstrap/css/bootswatch-united-4.4.1.min.css" rel="stylesheet">
-		<link href="../content/custom/custom.css?v=1.2" rel="stylesheet">
+		<link href="../content/custom/custom.css?v=1.3" rel="stylesheet">
 		<script defer src="../content/bootstrap/js/popper-1.16.0.min.js"></script>
 		<script defer src="../content/bootstrap/js/bootstrap-4.4.1.min.js"></script>
 

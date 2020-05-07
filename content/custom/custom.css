@@ -168,7 +168,8 @@ body{
 /* ## Admin
 --------------------------------------------- */
 .card-admin {
-	width: 22rem;
+	width: auto;
+	max-width: 22.2rem;
 	height: 16rem;
 }
 .card-text-admin {
