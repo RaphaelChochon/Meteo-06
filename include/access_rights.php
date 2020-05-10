@@ -26,6 +26,9 @@
 			if ($row['is_team'] == 1) {
 				define('USER_IS_TEAM', true);
 			}
+			if ($row['resetPwd'] == 1) {
+				define('RESET_PWD', true);
+			}
 		}
 
 		// Récup des droits stations

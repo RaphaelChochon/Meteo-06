@@ -55,6 +55,11 @@ require_once __DIR__ . '/../sql/connect_auth.php';
 			if ($row['is_team'] == 1) {
 				define('USER_IS_TEAM', true);
 			}
+			if ($row['resetPwd'] == 1) {
+				define('RESET_PWD', true);
+				header('Location: https://auth.meteo06.fr/reset-pwd.php');
+				exit();
+			}
 		}
 
 		// Récup des droits stations

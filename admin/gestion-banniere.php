@@ -10,6 +10,11 @@
 		header('Location: /admin/index.php'); 
 		exit();
 	}
+	if (defined('RESET_PWD')) {
+		// Redirection
+		header('Location: https://auth.meteo06.fr/reset-pwd.php');
+		exit();
+	}
 
 	// Init
 	$messageBanniere = false;
