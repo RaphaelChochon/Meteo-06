@@ -11,8 +11,10 @@ require_once __DIR__ . '/../sql/connect_auth.php';
 	$auth = new \Delight\Auth\Auth($db_auth);
 
 // Init var
-	$wrongUsername = false;
-	$wrongPassword = false;
+	$wrongUsername           = false;
+	$wrongPassword           = false;
+	$messageEmailNotVerified = false;
+	$messageTooManyRequests  = false;
 
 // Validation du form de connexion si pas connecté
 	if (isset($_POST['username']) && isset($_POST['password']) && !$auth->isLoggedIn()) {
@@ -35,6 +37,31 @@ require_once __DIR__ . '/../sql/connect_auth.php';
 		}
 		catch (\Delight\Auth\InvalidPasswordException $e) {
 			$wrongPassword = true;
+		}
+		catch (\Delight\Auth\EmailNotVerifiedException $e) {
+			$messageEmailNotVerified = '
+				<div class="alert alert-danger" id="message">
+					<h4 class="alert-heading mt-1">Erreur !</h4>
+					<p class="text-justify mb-0">
+						Vous n\'avez pas validé votre adresse email !
+						<br>
+						Lisez bien le mail d\'activation que vous avez reçu.
+					</p>
+				</div>
+			';
+		}
+		catch (\Delight\Auth\TooManyRequestsException $e) {
+			die('');
+			$messageTooManyRequests = '
+				<div class="alert alert-danger" id="message">
+					<h4 class="alert-heading mt-1">Erreur !</h4>
+					<p class="text-justify mb-0">
+						Trop de requêtes.
+						<br>
+						Veuillez contacter un admin.
+					</p>
+				</div>
+			';
 		}
 	}
 
@@ -148,6 +175,14 @@ require_once __DIR__ . '/../sql/connect_auth.php';
 					<?php endif; ?>
 					<?php if (!$auth->isLoggedIn()) : ?>
 						<!-- Si pas connecté -->
+
+						<!-- Si erreur -->
+						<?php if ($messageEmailNotVerified || $messageTooManyRequests) : ?>
+							<!-- Message -->
+							<?php if ($messageEmailNotVerified) { echo $messageEmailNotVerified; } ?>
+							<?php if ($messageTooManyRequests) { echo $messageTooManyRequests; } ?>
+						<?php endif; ?>
+
 						<div class="form-group">
 							<form method="post" action="login.php">
 								<h2 class="text-center">Connexion utilisateur</h2>
