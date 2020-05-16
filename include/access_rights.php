@@ -36,11 +36,11 @@
 		$query_string = "SELECT `id`, `station` FROM `station_access` WHERE `id_user` = '$userId';";
 		$result       = $db_auth->query($query_string);
 		if ($result) {
-			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				if ($row['station'] != null) {
+			$row = $result->fetch(PDO::FETCH_ASSOC);
+				if (!is_null($row['station'])) {
 					$userStationAccess[] = $row['station'];
 				}
-			}
+			
 			if (in_array($db_name,$userStationAccess)) {
 				define('USER_IS_PROPRIO', true);
 			}
