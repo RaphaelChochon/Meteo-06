@@ -90,19 +90,37 @@ require_once __DIR__ . '/../sql/connect_auth.php';
 		}
 
 		// Récup des droits stations
-		$userStationAccess = array();
+		$userStationArray = array();
+		$userStationAccessMeta = array();
+		$userStationAccess = null;
 		$query_string = "SELECT `id`, `station` FROM `station_access` WHERE `id_user` = '$userId';";
 		$result       = $db_auth->query($query_string);
 		if ($result) {
-			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				if ($row['station'] != null) {
-					$userStationAccess[] = $row['station'];
+			$row = $result->fetch(PDO::FETCH_ASSOC);
+			if (!is_null($row['station'])) {
+				$userStationArray =  $row['station'];
+				$userStationAccess = explode(',', $userStationArray);
+				foreach ($userStationAccess as $bddName) {
+					$userStationAccessMeta [$bddName] = array();
+					// On va chercher quelques métadaonnées sur ces stations
+					$query_string = "SELECT `station_name`, `url_site` FROM `$db_name_meta`.`config_environnement` WHERE `bdd_name` = '$bddName';";
+					$result       = $pdo_meta->query($query_string);
+					if ($result) {
+						$row = $result->fetch(PDO::FETCH_ASSOC);
+						$userStationAccessMeta [$bddName] ['stationName'] = $row['station_name'];
+						$userStationAccessMeta [$bddName] ['stationUrl'] = $row['url_site'];
+					}
 				}
 			}
-			if (in_array($db_name,$userStationAccess)) {
-				define('USER_IS_PROPRIO', true);
+			if (!is_null($userStationAccess)) {
+				if (in_array($db_name,$userStationAccess)) {
+					define('USER_IS_PROPRIO', true);
+				}
 			}
 		}
+		// echo '<pre>';
+		// print_r($userStationAccessMeta);
+		// echo '</pre>';
 	}
 ?>
 <!DOCTYPE html>
@@ -163,6 +181,16 @@ require_once __DIR__ . '/../sql/connect_auth.php';
 									echo '<b>Vous êtes le propriétaire de cette station.</b>';
 								} else {
 									echo '<b>Vous n\'êtes pas le propriétaire de cette station.</b>';
+								}
+								if (!is_null($userStationAccess)) {
+									echo '<br><br>';
+									echo 'Propriétaire de :';
+									echo '<ul>';
+									foreach ($userStationAccessMeta as $bddName => $meta) {
+										echo '<li> <a href="'.$meta['stationUrl'].'">'.$meta['stationName'].'</a></li>';
+									}
+									echo '</ul>';
+									echo '<br>';
 								}
 							?>
 						</p>
