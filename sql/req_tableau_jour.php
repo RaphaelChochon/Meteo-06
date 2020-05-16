@@ -73,16 +73,14 @@
 			}
 		};
 
+		$heatindexNow = 'nd.';
 		if (!is_null($row['heatindex'])) {
-			$heatindex = round($row['heatindex'],1);
-		} else {
-			$heatindex = 'nd.';
+			$heatindexNow = round($row['heatindex'],1);
 		}
 
+		$windchillNow = 'nd.';
 		if (!is_null($row['windchill'])) {
-			$windchill = round($row['windchill'],1);
-		} else {
-			$windchill = 'nd.';
+			$windchillNow = round($row['windchill'],1);
 		}
 
 		$RrateNow = 'nd.';

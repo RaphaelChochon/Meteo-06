@@ -247,7 +247,15 @@
 									</span>
 								</th>
 								<td class="textBold">
-									<?php echo ''; ?>
+									<?php
+										if ($windchillNow === $heatindexNow) {
+											echo $windchillNow;
+										} elseif ($windchillNow < $TempNow) {
+											echo '<span class="textMin textBold">'.$windchillNow.'</span>';
+										} elseif ($heatindexNow > $TempNow) {
+											echo '<span class="textMax textBold">'.$heatindexNow.'</span>';
+										}
+									?>
 								</td>
 								<td class="textMin">
 									<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($windChillMinDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',strtotime("${windChillMinDt}Z")).' loc.'; date_default_timezone_set("UTC");} ?>">
