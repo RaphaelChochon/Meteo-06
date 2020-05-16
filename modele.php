@@ -73,6 +73,13 @@
 		<!-- Tempus Dominus -->
 		<script defer type="text/javascript" src="content/tempusdominus/tempusdominus-bootstrap-4.min.js"></script>
 		<link rel="stylesheet" href="content/tempusdominus/tempusdominus-bootstrap-4.min.css" />
+
+		<!-- Pour les popup Bootstrap -->
+		<script>
+			$(function () {
+				$('[data-toggle="popover"]').popover()
+			})
+		</script>
 	</head>
 	<body>
 		<div class="container">
