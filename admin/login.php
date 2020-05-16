@@ -184,7 +184,7 @@ require_once __DIR__ . '/../sql/connect_auth.php';
 								}
 								if (!is_null($userStationAccess)) {
 									echo '<br><br>';
-									echo 'Propriétaire de :';
+									echo 'Votre/vos station(s) :';
 									echo '<ul>';
 									foreach ($userStationAccessMeta as $bddName => $meta) {
 										echo '<li> <a href="'.$meta['stationUrl'].'">'.$meta['stationName'].'</a></li>';
