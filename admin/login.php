@@ -104,7 +104,7 @@ require_once __DIR__ . '/../sql/connect_auth.php';
 					$userStationAccessMeta [$bddName] = array();
 					// On va chercher quelques métadaonnées sur ces stations
 					$query_string = "SELECT `station_name`, `url_site` FROM `$db_name_meta`.`config_environnement` WHERE `bdd_name` = '$bddName';";
-					$result       = $pdo_meta->query($query_string);
+					$result       = $db_auth->query($query_string);
 					if ($result) {
 						$row = $result->fetch(PDO::FETCH_ASSOC);
 						$userStationAccessMeta [$bddName] ['stationName'] = $row['station_name'];
