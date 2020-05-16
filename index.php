@@ -587,21 +587,25 @@
 								<thead>
 									<tr>
 										<th>Paramètre</th>
-										<th>Cumul (intensité&nbsp;max)</th>
+										<th><span class="textSum">Cumul</span> <span class="textMax">(intensité&nbsp;max)</span></th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
 										<th>Intensité instant.</th>
-										<td><?php echo $RrateNow; ?>&#8239;mm/h</td>
+										<td class="textMax"><?php echo $RrateNow; ?>&#8239;mm/h</td>
 									</tr>
 									<tr>
 										<th>Cumul 3h gliss.</th>
 										<td>
-											<?php echo $Rr3h; ?>&#8239;mm
+											<span class="textSum">
+												<?php echo $Rr3h; ?>&#8239;mm
+											</span>
 											<?php if ($RRateMax3h != 0) : ?>
 												<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($RRateMax3hDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',$RRateMax3hDt).' loc.'; date_default_timezone_set("UTC");} ?>">
-													(<?php echo $RRateMax3h; ?>&#8239;mm/h)
+													<span class="textMax">
+														(<?php echo $RRateMax3h; ?>&#8239;mm/h)
+													</span>
 													<sup>
 														<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 															<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
@@ -615,11 +619,15 @@
 									</tr>
 									<tr>
 										<th>Cumul 6h-6h UTC</th>
-										<td>
-											<?php echo $RrAujd; ?>&#8239;mm
+										<td class="textSum">
+											<span class="textSum">
+												<?php echo $RrAujd; ?>&#8239;mm
+											</span>
 											<?php if ($RRateMaxAujd != 0) : ?>
 												<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($RRateMaxAujdDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',strtotime("${RRateMaxAujdDt}Z")).' loc.'; date_default_timezone_set("UTC");} ?>">
-													(<?php echo $RRateMaxAujd; ?>&#8239;mm/h)
+													<span class="textMax">
+														(<?php echo $RRateMaxAujd; ?>&#8239;mm/h)
+													</span>
 													<sup>
 														<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 															<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
@@ -633,11 +641,15 @@
 									</tr>
 									<tr>
 										<th>Cumul veille 6h-6h&nbsp;UTC</th>
-										<td>
-											<?php echo $RrHier; ?>&#8239;mm
+										<td class="textSum">
+											<span class="textSum">
+												<?php echo $RrHier; ?>&#8239;mm
+											</span>
 											<?php if ($RRateMaxHier != 0) : ?>
 												<span data-toggle="tooltip" data-placement="top" data-html="true" title="<?php if (!is_null($RRateMaxHierDt)) { date_default_timezone_set("Europe/Paris"); echo 'à&nbsp;'.date('H\hi',strtotime("${RRateMaxHierDt}Z")).' loc.'; date_default_timezone_set("UTC");} ?>">
-													(<?php echo $RRateMaxHier; ?>&#8239;mm/h)
+													<span class="textMax">
+														(<?php echo $RRateMaxHier; ?>&#8239;mm/h)
+													</span>
 													<sup>
 														<svg class="bi bi-plus-circle" width="0.9em" height="0.9em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 															<path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
