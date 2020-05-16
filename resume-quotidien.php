@@ -522,8 +522,8 @@
 						<thead>
 							<tr>
 								<th>Précips.</th>
-								<th>Aujd.</th>
-								<th>Hier</th>
+								<th><?php list($jour, $mois) = explode('-', date('d-n', strtotime($optDay))); echo $jour.' '.$moisFrancaisAbrev[$mois];?><span class="d-md-none"><br></span><span class="textTabsHourly"> (ce&nbsp;jour)</span></th>
+								<th><?php list($jour, $mois) = explode('-', date('d-n', strtotime($optYesterday))); echo $jour.' '.$moisFrancaisAbrev[$mois];?><span class="d-md-none"><br></span><span class="textTabsHourly"> (veille)</span></th>
 							</tr>
 						</thead>
 						<tbody>
