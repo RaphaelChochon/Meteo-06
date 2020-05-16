@@ -6,13 +6,13 @@ Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 ### 1.0.0 - xx/05/2020 - Rupture
 * Migration vers Bootstrap 4.4
 * Internalisation de nombreuses librairies
-* Modif des balises SEO et og:
+* Modif des balises SEO et og
 * Toutes les données "climatologiques" du site proviennent maintenant d'une BDD à part, plus de calcul à la volée : meilleures performances
 
 #### Refonte graphique de l'ensemble du site :
 * Page d'accueil :
   * Tableaux plus compacts
-  * Suppression des modules RS
+  * Suppression des modules RS (bye le pistage !)
 * Page des graphiques 24h/48/7j
   * Possibilité de masquer les étiquettes (annotations HighCharts dans les graphs de tempé et RR)
   * Possibilité de déplacer ces mêmes étiquettes de façon indépendantes les unes des autres
@@ -31,17 +31,17 @@ Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 * Pages "Admin" :
   * Une première page de connexion (utilisation du module PHP-Auth) pour autoriser ou non l'accès en fonction du type de compte (cookies avec portée sur tous les sous-domaines *.meteo06.fr et only https)
   * Un index avec des cards donnant l'accès à 4 rubriques :
-  * Accès aux données des sondes intérieures (température et humidité) au travers d'un mini-tableau et de graphiques
-  * Accès aux statistiques de réception entre l'ISS et la console et la tension des piles de la console (si c'est une VP2) au travers de graphiques
-  * Accès à un module d'export des données au format CSV. Possibilité de choisir la période couverte (max de 3 mois), le pas de temps désiré (10 min, 1h ou brut) et les paramètres météo.
-  * Pour les membres de l'équipe seulement : accès à un module de modification de la bannière du site (pour annoncer une panne par exemple)
+    * Accès aux données des sondes intérieures (température et humidité) au travers d'un mini-tableau et de graphiques
+    * Accès aux statistiques de réception entre l'ISS et la console et la tension des piles de la console (si c'est une VP2) au travers de graphiques
+    * Accès à un module d'export des données au format CSV. Possibilité de choisir la période couverte (max de 3 mois), le pas de temps désiré (10 min, 1h ou brut) et les paramètres météo.
+    * Pour les membres de l'équipe seulement : accès à un module de modification de la bannière du site (pour annoncer une panne par exemple)
 
 #### Modif au niveau des calculs/données
 * Page d'accueil :
   * Affichage des heures en locale (seule page du site ou l'heure locale persiste)
   * Récup des min, max et cumul depuis la BDD climato_day
   * Norme OMM pour tous les calculs
-* Page des graphiques 24h/48/7j
+* Page des graphiques 24h/48h/7j
   * Pas de temps de 5 min, 10 min ou 1 heure en fonction de la période demandée : allégement des données à charger côté client et donc meilleure fluidité
   * Améliorations au niveau des étiquettes (annotations)
 * Pages de climatologie (mensuelle, annuelle, globale) : Requêtes directement dans la BDD climato_* de la station (amélioration des performanes)
