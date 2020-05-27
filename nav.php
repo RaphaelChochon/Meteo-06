@@ -30,7 +30,7 @@
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="/graphs-climatologie-globale.php">Graphs. climato. globale</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="/tableau_records.php">Records de la station -> a revoir</a>
+					<a class="dropdown-item" href="/records.php">Records de la station</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="/noaa.php">Accès aux tableaux NOAA<br>Rapports mensuels et annuels</a>
 				</div>
