@@ -98,6 +98,20 @@ if (!$lessValue) {
 			}
 			array_push($dataTn,$rowArrayTn); // Annotations HC
 
+
+			// Rang/Position de la Tn
+			if (is_numeric($Tn)) {
+				$query_string = "SELECT COUNT(`Tn`) AS `TnRang`
+						FROM `$db_name_climato`.`$db_table_climato`
+						WHERE `Tn` <= ($Tn+1e-6);";
+				$resultTnRang       = $db_handle_pdo->query($query_string);
+			}
+			$TnPos = "nd.";
+			if ($resultTnRang) {
+				$rowTnRang = $resultTnRang->fetch(PDO::FETCH_ASSOC);
+				$TnPos = $rowTnRang['TnRang'];
+			}
+
 			// Tx
 			$Tx     = "nd.";
 			$TxDt   = null;
@@ -118,6 +132,19 @@ if (!$lessValue) {
 				$TxFiab = round($row['TxFiab'], 0);
 			}
 			array_push($dataTx,$rowArrayTx); // Annotations HC
+
+			// Rang/Position de la Tx
+			if (is_numeric($Tx)) {
+				$query_string = "SELECT COUNT(`Tx`) AS `TxRang`
+						FROM `$db_name_climato`.`$db_table_climato`
+						WHERE `Tx` >= ($Tx-1e-6);";
+				$resultTxRang       = $db_handle_pdo->query($query_string);
+			}
+			$TxPos = "nd.";
+			if ($resultTxRang) {
+				$rowTxRang = $resultTxRang->fetch(PDO::FETCH_ASSOC);
+				$TxPos = $rowTxRang['TxRang'];
+			}
 
 			// Tmoy
 			$Tmoy = "nd.";
@@ -217,6 +244,19 @@ if (!$lessValue) {
 				}
 			}
 
+			// Rang/Position de la rafale
+			if (is_numeric($windGustMax)) {
+				$query_string = "SELECT COUNT(`windGust`) AS `windGustRang`
+						FROM `$db_name_climato`.`$db_table_climato`
+						WHERE `windGust` >= ($windGustMax-1e-6);";
+				$resultWindGustRang       = $db_handle_pdo->query($query_string);
+			}
+			$windGustMaxPos = "nd.";
+			if ($resultWindGustRang) {
+				$rowWindGustRang = $resultWindGustRang->fetch(PDO::FETCH_ASSOC);
+				$windGustMaxPos = $rowWindGustRang['windGustRang'];
+			}
+
 			// RR
 			$RrAujd = "nd.";
 			$RRateMaxAujd = 0;
@@ -238,6 +278,22 @@ if (!$lessValue) {
 				$rowArrayRr['RRmaxIntDt'] = strtotime($row['RRateMaxDt'])*1000; // Annotations HC
 			}
 			array_push($dataRr,$rowArrayRr); // Annotations HC
+
+			// Rang/Position du cumul RR du jour
+			$resultRrRang = false;
+			if (is_numeric($RrAujd) && $RrAujd > 0) {
+				$query_string = "SELECT COUNT(`RR`) AS `RrRang`
+						FROM `$db_name_climato`.`$db_table_climato`
+						WHERE `RR` >= ($RrAujd-1e-6)
+						AND `RR` != 0
+						AND `RR` IS NOT NULL;";
+				$resultRrRang       = $db_handle_pdo->query($query_string);
+			}
+			$RrPos = "nd.";
+			if ($resultRrRang) {
+				$rowRrRang = $resultRrRang->fetch(PDO::FETCH_ASSOC);
+				$RrPos = $rowRrRang['RrRang'];
+			}
 
 			// ET
 			$EtSum = "nd.";

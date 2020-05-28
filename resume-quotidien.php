@@ -54,7 +54,7 @@
 
 		<!-- Bootstrap 4.4.1 -->
 		<link href="content/bootstrap/css/bootswatch-united-4.4.1.min.css" rel="stylesheet">
-		<link href="content/custom/custom.css?v=1.5" rel="stylesheet">
+		<link href="content/custom/custom.css?v=1.6" rel="stylesheet">
 		<script defer src="content/bootstrap/js/popper-1.16.0.min.js"></script>
 		<script defer src="content/bootstrap/js/bootstrap-4.4.1.min.js"></script>
 
@@ -264,6 +264,20 @@
 									<?php if (!is_null($TnDt)) {
 										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($TnDt)).'</span>';
 									} ?>
+									<?php
+										if (is_numeric($TnPos)) {
+											echo '<span class="badge badge-pill';
+											if ($TnPos <= 10) { echo ' badge-success"'; } else { echo ' badge-light"'; }
+											echo 'data-toggle="tooltip" data-placement="top" data-html="true" title="Rang de la Tn">';
+											echo $TnPos;
+											if ($TnPos == 1) {
+												echo '<sup>&nbsp;ère</sup>';
+											} else {
+												echo '<sup>&nbsp;ème</sup>';
+											}
+											echo '</span>';
+										}
+									?>
 									<span class="float-right">
 										<svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="La Tn est calculée d'après la méthode officielle OMM, il s'agit donc de la <u>température minimale</u> qui s'est produite entre 18h UTC la veille et 18h UTC le jour même">
 											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
@@ -280,6 +294,21 @@
 									<?php if (!is_null($TxDt)) {
 										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($TxDt)).'</span>';
 									} ?>
+									<?php
+										if (is_numeric($TxPos)) {
+											echo '<span class="badge badge-pill';
+											if ($TxPos <= 10) { echo ' badge-success"'; } else { echo ' badge-light"'; }
+											echo 'data-toggle="tooltip" data-placement="top" data-html="true" title="Rang de la Tx">';
+											echo $TxPos;
+											if ($TxPos == 1) {
+												echo '<sup>&nbsp;ère</sup>';
+											} else {
+												echo '<sup>&nbsp;ème</sup>';
+											}
+											echo '</span>';
+										}
+									?>
+									</span>
 									<span class="float-right">
 										<svg class="bi bi-info-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-toggle="tooltip" data-placement="top" data-html="true" title="La Tx est calculée d'après la méthode officielle OMM, il s'agit donc de la <u>température maximale</u> qui s'est produite entre 06h UTC le jour même et 06h UTC le lendemain">
 											<path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
@@ -352,7 +381,7 @@
 								</td>
 							</tr>
 							<tr>
-								<th>Cumul d'évapotransp.</th>
+								<th>Cumul d'ET</th>
 								<td class="textSum">
 									<?php echo $EtSum; ?>&#8239;mm
 									<span class="float-right">
@@ -513,6 +542,20 @@
 									<?php if (!is_null($windGustMaxDt)) {
 										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($windGustMaxDt)).'</span>';
 									} ?>
+									<?php
+										if (is_numeric($windGustMaxPos)) {
+											echo '<span class="badge badge-pill';
+											if ($windGustMaxPos <= 10) { echo ' badge-success"'; } else { echo ' badge-light"'; }
+											echo 'data-toggle="tooltip" data-placement="top" data-html="true" title="Rang de la rafale">';
+											echo $windGustMaxPos;
+											if ($windGustMaxPos == 1) {
+												echo '<sup>&nbsp;ère</sup>';
+											} else {
+												echo '<sup>&nbsp;ème</sup>';
+											}
+											echo '</span>';
+										}
+									?>
 								</td>
 								<td><?php echo $windGustMaxDirCardinal.' ('.$windGustMaxDir; ?>&#8239;°)</td>
 							</tr>
@@ -538,7 +581,23 @@
 										</svg>
 									</span>
 								</th>
-								<td class="textSum"><?php echo $RrAujd; ?>&#8239;mm</td>
+								<td class="textSum">
+									<?php echo $RrAujd; ?>&#8239;mm
+									<?php
+										if (is_numeric($RrPos)) {
+											echo '<span class="badge badge-pill';
+											if ($RrPos <= 10) { echo ' badge-success"'; } else { echo ' badge-light"'; }
+											echo 'data-toggle="tooltip" data-placement="top" data-html="true" title="Rang du cumul quotidien">';
+											echo $RrPos;
+											if ($RrPos == 1) {
+												echo '<sup>&nbsp;ère</sup>';
+											} else {
+												echo '<sup>&nbsp;ème</sup>';
+											}
+											echo '</span>';
+										}
+									?>
+								</td>
 								<td class="textSum"><?php echo $RrHier; ?>&#8239;mm</td>
 							</tr>
 							<tr>
