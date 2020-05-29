@@ -52,7 +52,7 @@
 	}
 	if ($result) {
 		$row = $result->fetch(PDO::FETCH_ASSOC);
-		if ($row['nbDt'] == 0) {
+		if ($row['nbDt'] <= 1) {
 			$lessValue = true;
 		}
 	}
@@ -100,6 +100,7 @@ if (!$lessValue) {
 
 
 			// Rang/Position de la Tn
+			$resultTnRang = false;
 			if (is_numeric($Tn)) {
 				$query_string = "SELECT COUNT(`Tn`) AS `TnRang`
 						FROM `$db_name_climato`.`$db_table_climato`
@@ -134,6 +135,7 @@ if (!$lessValue) {
 			array_push($dataTx,$rowArrayTx); // Annotations HC
 
 			// Rang/Position de la Tx
+			$resultTxRang = false;
 			if (is_numeric($Tx)) {
 				$query_string = "SELECT COUNT(`Tx`) AS `TxRang`
 						FROM `$db_name_climato`.`$db_table_climato`
@@ -245,6 +247,7 @@ if (!$lessValue) {
 			}
 
 			// Rang/Position de la rafale
+			$resultWindGustRang = false;
 			if (is_numeric($windGustMax)) {
 				$query_string = "SELECT COUNT(`windGust`) AS `windGustRang`
 						FROM `$db_name_climato`.`$db_table_climato`
