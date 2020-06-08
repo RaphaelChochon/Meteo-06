@@ -216,9 +216,9 @@
 									<p class="mb-0 text-justify">
 										Résultats partiels, la journée n'est pas terminée (<?php echo $percentIntervalInMinutes.'%'; ?>)
 									</p>
-								</div>
-								<div class="progress">
-									<div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo $percentIntervalInMinutes.'%'; ?>" aria-valuenow="<?php echo $percentIntervalInMinutes; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+									<div class="progress mt-2">
+										<div class="progress-bar progress-bar-striped" role="progressbar" style="width: <?php echo $percentIntervalInMinutes.'%'; ?>" aria-valuenow="<?php echo $percentIntervalInMinutes; ?>" aria-valuemin="0" aria-valuemax="100"></div>
+									</div>
 								</div>
 							</div>
 						</div>

@@ -374,13 +374,14 @@ if (!$lessValue) {
 		}
 		if ($result) {
 			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				$TempMod      = 'N/A';
-				$HrMod        = 'N/A';
-				$TdMod        = 'N/A';
-				$barometerMod = 'N/A';
-				$rainRateMod  = 'N/A';
-				$radiationMod = 'N/A';
-				$UvMod        = 'N/A';
+				$TempMod      = 'nd.';
+				$HrMod        = 'nd.';
+				$TdMod        = 'nd.';
+				$barometerMod = 'nd.';
+				$rainRateMod  = 'nd.';
+				$radiationMod = 'nd.';
+				$UvMod        = 'nd.';
+				$EtMod        = 'nd.';
 				$row['ts'] = (string)round($row['ts']);
 
 				// Insert dans le tableau
@@ -501,7 +502,6 @@ if (!$lessValue) {
 			echo "Erreur dans la requete ".$query_string."\n";
 			echo "\nPDO::errorInfo():\n";
 			print_r($db_handle_pdo->errorInfo());
-			exit("Erreur.\n");
 		}
 		if ($result) {
 			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
