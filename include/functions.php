@@ -22,6 +22,34 @@
 		);
 	}
 
+// FONCTION de création d'un tableau d'objet avec un datetime en clé, selon un intervalle souhaité
+	/**
+	 * getDatesFromRange
+	 * Fonction pour créer un tableau d'objet avec un datetime en clé, selon un intervalle souhaité
+	 * 
+	 * @param string $start datetime de départ
+	 * @param string $end datetime de fin inclus
+	 * @param string $interval intervalle voulu au format PHP : P1D pour un jour, PT10M pour 10 minutes, PT1H pour une heure, etc
+	 * @param string $format FACULTATIF le format de sortie du tableau
+	 * 
+	 * @return array $array = [$format] => array()
+	 */
+	function getDatesFromRange($start, $end, $interval, $format = 'Y-m-d H:i:00') {
+		$array = array();
+		$inter = new DateInterval($interval);
+
+		$realEnd = new DateTime($end);
+		$realEnd->add($inter);
+
+		$period = new DatePeriod(new DateTime($start), $inter, $realEnd);
+
+		foreach($period as $date) {
+			$array[$date->format($format)] = array();
+		}
+
+		return $array;
+	}
+
 // FONCTION moyenne d'angles angulaires
 	function mean_of_angles( $angles, $degrees = true ) {
 		if ( $degrees ) {
