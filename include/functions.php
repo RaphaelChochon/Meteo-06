@@ -30,16 +30,19 @@
 	 * @param string $start datetime de départ
 	 * @param string $end datetime de fin inclus
 	 * @param string $interval intervalle voulu au format PHP : P1D pour un jour, PT10M pour 10 minutes, PT1H pour une heure, etc
+	 * @param boolean $endInclusif FACULTATIF true pour ajouter 1 interval à la date de fin, false pour que $end soit exclusif ?
 	 * @param string $format FACULTATIF le format de sortie du tableau
 	 * 
 	 * @return array $array = [$format] => array()
 	 */
-	function getDatesFromRange($start, $end, $interval, $format = 'Y-m-d H:i:00') {
+	function getDatesFromRange($start, $end, $interval, $endInclusif = true, $format = 'Y-m-d H:i:00') {
 		$array = array();
 		$inter = new DateInterval($interval);
 
 		$realEnd = new DateTime($end);
-		$realEnd->add($inter);
+		if ($endInclusif) {
+			$realEnd->add($inter);
+		}
 
 		$period = new DatePeriod(new DateTime($start), $inter, $realEnd);
 

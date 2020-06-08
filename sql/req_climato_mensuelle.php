@@ -88,7 +88,7 @@ if (!$lessValue) {
 	/**
 	 * Création du tableau avec tous les ts du mois en cours
 	 */
-		$tabClimatoMonth = getDatesFromRange($dtOptMonth.'-01', $latestDtOfMonth, 'P1D', 'U');
+		$tabClimatoMonth = getDatesFromRange($dtOptMonth.'-01', $latestDtOfMonth, 'P1D', true, 'U');
 
 	/**
 	 * Récup des données pour le mois demandé
