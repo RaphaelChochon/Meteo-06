@@ -202,9 +202,9 @@ if (!$lessValue) {
 			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 				$tsDateDay = (string) strtotime($row['dateDay']);
 				$TnMin = null;
-				$tabClimatoMonth [$tsDateDay] ['TnMin'] = 1;
 				if (!is_null($row['Tn'])) {
 					$TnMin = round($row['Tn'], 1);
+					$tabClimatoMonth [$tsDateDay] ['TnMin'] = 1;
 				}
 			}
 		}
