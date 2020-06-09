@@ -476,11 +476,6 @@
 							type: 'datetime',
 							min: <?php echo $tsOptYear*1000; ?>, // Premier jour du mois
 							max: <?php echo strtotime(date('Y-m', strtotime($latestDtOfYear)))*1000; ?>, // dernier jour du mois
-							dateTimeLabelFormats: {
-								day: '%e',
-								month: '%b',
-								year: '%b'
-							},
 							title: {
 								text: 'Mois de l\'année'
 							}
@@ -539,8 +534,7 @@
 						tooltip: {
 							shared: true,
 							valueDecimals: 1,
-							// xDateFormat: '<b>%e %B à %H:%M UTC</b>',
-							xDateFormat: '<b>%e %B %Y</b>',
+							xDateFormat: '<b>%B %Y</b>',
 						},
 						boost: {
 							enabled:false,
@@ -619,7 +613,6 @@
 						tooltip: {
 							shared: true,
 							valueDecimals: 1,
-							// xDateFormat: '<b>%e %B à %H:%M UTC</b>',
 							xDateFormat: '<b>%B %Y</b>',
 						},
 						boost: {
