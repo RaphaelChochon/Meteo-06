@@ -415,5 +415,89 @@ if (!$lessValue) {
 				$RrSumYear = round($row['RrSum'], 1);
 			}
 		}
+	
+	/**
+	 * Heatmap
+	 */
+	if ($heatmap) {
+		/**
+		 * @todo transférer le calcul du SUM RR dans une table ou en cache
+		 */
 
-}
+		// Détermination des tsStart tsStop
+		$tsStartYear =strtotime($dtOptYear.'-01-01 00:00:00');
+		$tsStopYear =strtotime($dtOptYear.'-12-31 23:59:59');
+
+		// Récup des données de température et humidité
+		$query_string = "SELECT `dateTime` AS `ts`,
+						`outTemp` AS `TempHourly`,
+						`outHumidity` AS `HumidityHourly`,
+						`dewpoint` AS `DewPointHourly`
+						FROM $db_table
+						WHERE `dateTime` >= $tsStartYear AND `dateTime` <= $tsStopYear 
+						AND (`dateTime`%3600)=0
+						ORDER BY `ts` ASC;";
+		$result       = $db_handle_pdo->query($query_string);
+		
+		if (!$result) {
+			// Erreur
+			echo "Erreur dans la requete ".$query_string."\n";
+			echo "\nPDO::errorInfo():\n";
+			print_r($db_handle_pdo->errorInfo());
+		}
+		if ($result) {
+			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+				$ts = strtotime(date('Y-m-d',$row['ts']))*1000;
+				$heureHourly = date('G',$row['ts']); // heure au format 24h de 0 à 23
+				$TempHourly        = "null";
+				$HumidityHourly        = "null";
+				$DewPointHourly        = "null";
+
+				// Traitement des données
+				if ($row['TempHourly'] != null) {
+					$TempHourly = round($row['TempHourly'],1);
+				}
+				$dataTempHourly[] = "[$ts, $heureHourly, $TempHourly]";
+
+				if ($row['HumidityHourly'] != null) {
+					$HumidityHourly = round($row['HumidityHourly'],1);
+				}
+				$dataHumidityHourly[] = "[$ts, $heureHourly, $HumidityHourly]";
+
+				if ($row['DewPointHourly'] != null) {
+					$DewPointHourly = round($row['DewPointHourly'],1);
+				}
+				$dataDewPointHourly[] = "[$ts, $heureHourly, $DewPointHourly]";
+			}
+		}
+
+		// Récup des données de précipitations
+		$query_string = "SELECT CEIL(`dateTime`/3600)*3600 AS `ts`,
+							SUM(`rain`) AS `rainCumulHourly`
+							FROM $db_table
+							WHERE `dateTime` >= $tsStartYear AND `dateTime` <= $tsStopYear
+							GROUP BY `ts` ORDER BY `ts` ASC;";
+		$result       = $db_handle_pdo->query($query_string);
+
+		if (!$result) {
+			// Erreur
+			echo "Erreur dans la requete ".$query_string."\n";
+			echo "\nPDO::errorInfo():\n";
+			print_r($db_handle_pdo->errorInfo());
+		}
+		if ($result) {
+			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+				$ts = strtotime(date('Y-m-d',$row['ts']))*1000;
+				$heureRrHourly = date('G',$row['ts']); // heure au format 24h de 0 à 23
+				$RrHourly        = "null";
+
+				// Traitement des données
+				if ($row['rainCumulHourly'] != null) {
+					$RrHourly = round($row['rainCumulHourly']*10,1);
+				}
+				$dataRrHourly[] = "[$ts, $heureRrHourly, $RrHourly]";
+			}
+		}
+	}
+
+} // END lessValue
