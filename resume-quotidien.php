@@ -265,7 +265,7 @@
 										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($TnDt)).'</span>';
 									} ?>
 									<?php
-										if (is_numeric($TnPos)) {
+										if (is_numeric($TnPos) && $TnPos <= 30) {
 											echo '<span class="badge badge-pill';
 											if ($TnPos <= 10) { echo ' badge-success"'; } else { echo ' badge-light"'; }
 											echo 'data-toggle="tooltip" data-placement="top" data-html="true" title="Rang de la Tn">';
@@ -295,7 +295,7 @@
 										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($TxDt)).'</span>';
 									} ?>
 									<?php
-										if (is_numeric($TxPos)) {
+										if (is_numeric($TxPos) && $TxPos <= 30) {
 											echo '<span class="badge badge-pill';
 											if ($TxPos <= 10) { echo ' badge-success"'; } else { echo ' badge-light"'; }
 											echo 'data-toggle="tooltip" data-placement="top" data-html="true" title="Rang de la Tx">';
@@ -543,7 +543,7 @@
 										echo '<span class="textTabsHourly">à&nbsp;'.date('H:i',strtotime($windGustMaxDt)).'</span>';
 									} ?>
 									<?php
-										if (is_numeric($windGustMaxPos)) {
+										if (is_numeric($windGustMaxPos) && $windGustMaxPos <= 30) {
 											echo '<span class="badge badge-pill';
 											if ($windGustMaxPos <= 10) { echo ' badge-success"'; } else { echo ' badge-light"'; }
 											echo 'data-toggle="tooltip" data-placement="top" data-html="true" title="Rang de la rafale">';
@@ -584,7 +584,7 @@
 								<td class="textSum">
 									<?php echo $RrAujd; ?>&#8239;mm
 									<?php
-										if (is_numeric($RrPos)) {
+										if (is_numeric($RrPos)  && $RrPos <= 30) {
 											echo '<span class="badge badge-pill';
 											if ($RrPos <= 10) { echo ' badge-success"'; } else { echo ' badge-light"'; }
 											echo 'data-toggle="tooltip" data-placement="top" data-html="true" title="Rang du cumul quotidien">';

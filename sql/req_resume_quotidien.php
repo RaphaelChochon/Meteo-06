@@ -102,9 +102,10 @@ if (!$lessValue) {
 			// Rang/Position de la Tn
 			$resultTnRang = false;
 			if (is_numeric($Tn)) {
-				$query_string = "SELECT COUNT(`Tn`) AS `TnRang`
+				$query_string = "SELECT COUNT( DISTINCT `Tn`) AS `TnRang`
 						FROM `$db_name_climato`.`$db_table_climato`
-						WHERE `Tn` <= ($Tn+1e-6);";
+						WHERE `Tn` IS NOT NULL
+						AND `Tn` <= $Tn;";
 				$resultTnRang       = $db_handle_pdo->query($query_string);
 			}
 			$TnPos = "nd.";
@@ -137,9 +138,10 @@ if (!$lessValue) {
 			// Rang/Position de la Tx
 			$resultTxRang = false;
 			if (is_numeric($Tx)) {
-				$query_string = "SELECT COUNT(`Tx`) AS `TxRang`
+				$query_string = "SELECT COUNT( DISTINCT `Tx`) AS `TxRang`
 						FROM `$db_name_climato`.`$db_table_climato`
-						WHERE `Tx` >= ($Tx-1e-6);";
+						WHERE `Tx` IS NOT NULL
+						AND `Tx` >= $Tx;";
 				$resultTxRang       = $db_handle_pdo->query($query_string);
 			}
 			$TxPos = "nd.";
@@ -249,9 +251,10 @@ if (!$lessValue) {
 			// Rang/Position de la rafale
 			$resultWindGustRang = false;
 			if (is_numeric($windGustMax)) {
-				$query_string = "SELECT COUNT(`windGust`) AS `windGustRang`
+				$query_string = "SELECT COUNT( DISTINCT `windGust`) AS `windGustRang`
 						FROM `$db_name_climato`.`$db_table_climato`
-						WHERE `windGust` >= ($windGustMax-1e-6);";
+						WHERE `windGust` IS NOT NULL
+						AND `windGust` >= $windGustMax;";
 				$resultWindGustRang       = $db_handle_pdo->query($query_string);
 			}
 			$windGustMaxPos = "nd.";
@@ -285,9 +288,9 @@ if (!$lessValue) {
 			// Rang/Position du cumul RR du jour
 			$resultRrRang = false;
 			if (is_numeric($RrAujd) && $RrAujd > 0) {
-				$query_string = "SELECT COUNT(`RR`) AS `RrRang`
+				$query_string = "SELECT COUNT( DISTINCT `RR`) AS `RrRang`
 						FROM `$db_name_climato`.`$db_table_climato`
-						WHERE `RR` >= ($RrAujd-1e-6)
+						WHERE `RR` >= $RrAujd
 						AND `RR` != 0
 						AND `RR` IS NOT NULL;";
 				$resultRrRang       = $db_handle_pdo->query($query_string);
