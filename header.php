@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-3 d-flex justify-content-center align-items-center">
-		<a href="/"><img src="/img/logo.<?php echo $extension_logo; ?>" class="rounded mx-auto d-block" alt="Logo Association Nice Météo 06"></a>
+		<a href="/"><img src="/img/logo.<?php echo $extension_logo; ?>" class="rounded mx-auto d-block" style="max-height: 130px;" alt="Logo Association Nice Météo 06"></a>
 	</div>
 	<div class="col-md-9 d-flex justify-content-center align-items-center">
 		<h1 class="text-center">
