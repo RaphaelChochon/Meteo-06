@@ -3,8 +3,8 @@
 ### ToDo
 Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 
-### 1.0.0 - xx/05/2020 - Rupture
-* Migration vers Bootstrap 4.4
+### 1.0.0 - 14/06/2020 - Rupture
+* Migration vers Bootstrap 4.4 --> refonte graphique de l'ensemble du site
 * Internalisation de nombreuses librairies
 * Modif des balises SEO et og
 * Toutes les données "climatologiques" du site proviennent maintenant d'une BDD à part, plus de calcul à la volée : meilleures performances
@@ -28,6 +28,8 @@ Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
     * Tableaux et graphiques permettant la consultation des stats d'une année donnée (Tn et Tx de tous les mois de l'année par exemple, et caclul de la TnX, TxX, etc.)
   * Page de climatologie globale :
     * Accès à quelques graphiques globaux sur la vie de la station, pourra évoluer
+  * Page des records :
+    * Refonte de la page avec des tableaux affichant les 10 dernières valeurs records pour de nombreux paramètres (et possibilité d’en afficher jusqu’à 30)
 * Pages "Admin" :
   * Une première page de connexion (utilisation du module PHP-Auth) pour autoriser ou non l'accès en fonction du type de compte (cookies avec portée sur tous les sous-domaines *.meteo06.fr et only https)
   * Un index avec des cards donnant l'accès à 4 rubriques :
