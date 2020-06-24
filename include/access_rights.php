@@ -32,17 +32,20 @@
 		}
 
 		// Récup des droits stations
-		$userStationAccess = array();
+		$userStationArray = array();
+		$userStationAccess = null;
 		$query_string = "SELECT `id`, `station` FROM `station_access` WHERE `id_user` = '$userId';";
 		$result       = $db_auth->query($query_string);
 		if ($result) {
 			$row = $result->fetch(PDO::FETCH_ASSOC);
-				if (!is_null($row['station'])) {
-					$userStationAccess[] = $row['station'];
+			if (!is_null($row['station'])) {
+				$userStationArray =  $row['station'];
+				$userStationAccess = explode(',', $userStationArray);
+			}
+			if (!is_null($userStationAccess)) {
+				if (in_array($db_name,$userStationAccess)) {
+					define('USER_IS_PROPRIO', true);
 				}
-			
-			if (in_array($db_name,$userStationAccess)) {
-				define('USER_IS_PROPRIO', true);
 			}
 		}
 	}
