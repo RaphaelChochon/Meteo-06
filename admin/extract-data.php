@@ -109,7 +109,7 @@
 				<div class="col-md-7">
 					<h5 class="text-center">Documentation</h5>
 					<p class="text-justify">
-						Les dates de débuts et de fins sélectionnées dans le formulaire <b>doivent être exprimées en heure UTC</b>. <b>La période couverte</b> par la date de début et de fin doit être <b>inférieure ou égale à 3 mois</b>.
+						Les dates de débuts et de fins sélectionnées dans le formulaire <b>doivent être exprimées en heure UTC</b>. <b>La période couverte</b> par la date de début et de fin doit être <b>inférieure ou égale à 12 mois</b>.
 						<br>
 						Le pas de temps au choix permet trois options :
 						<ul>
