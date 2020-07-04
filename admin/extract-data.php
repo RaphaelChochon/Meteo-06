@@ -92,7 +92,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<p class="text-justify">
-						Cet outil vous permet de télécharger les données de la station "<?php echo $station_name; ?>" à différents pas de temps et <b>sur une période maximale de 3 mois</b>.
+						Cet outil vous permet de télécharger les données de la station "<?php echo $station_name; ?>" à différents pas de temps et <b>sur une période maximale de 12 mois</b>.
 						<br>
 						Le formulaire ci-dessous vous permet de sélectionner les paramètres que vous souhaitez, le pas de temps (1 heure, 10 minutes, ou brut (pour cette station, l'intervalle brut est actuellement de <?php echo $archive_interval; ?> minute(s))), et la période.
 						<br>
@@ -254,11 +254,11 @@
 								$datetimepickerEnd = DateTime::createFromFormat('d-m-Y H:i', $_POST['datetimepickerEnd']);
 								$tsStop = $datetimepickerEnd->format('U');
 
-								// Vérif que la requête ne dépasse pas 3 mois (93 jours)
-								if ( ($tsStop - $tsStart) > (93 * 24 * 3600) ) {
+								// Vérif que la requête ne dépasse pas 12 mois (370 jours)
+								if ( ($tsStop - $tsStart) > (370 * 24 * 3600) ) {
 									// Dépassement de la valeur
 									echo '<div id="csv" class="alert alert-danger my-4" role="alert">';
-										echo '<p class="text-justify">La période demandée est supérieure à 3 mois, merci de refaire votre requête pour une période inférieure.</p>';
+										echo '<p class="text-justify">La période demandée est supérieure à 12 mois, merci de refaire votre requête pour une période inférieure.</p>';
 									echo '</div>';
 								} else {
 
@@ -307,14 +307,6 @@
 									echo '<div id="csv" class="alert alert-success my-4" role="alert">';
 										echo '<p class="text-justify">La génération du fichier est terminée, vous pouvez le télécharger en cliquant sur le bouton ci-dessous.</p>';
 										echo '<a role="button" class="btn btn-primary" href="'.$csvFile.'">Télécharger le fichier</a>';
-
-										// echo '<pre>';
-										// 	var_dump($_POST);
-										// echo '</pre>';
-
-										// echo '<pre>';
-										// 	print_r($csvTab);
-										// echo '</pre>';
 
 									echo '</div>';
 								}
