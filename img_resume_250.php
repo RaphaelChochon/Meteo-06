@@ -2,10 +2,103 @@
 	require_once __DIR__ . '/config/config.php';
 	require_once __DIR__ . '/sql/connect_pdo.php';
 	require_once __DIR__ . '/sql/import.php';
-	require_once __DIR__ . '/sql/req_last_records.php';
+	require_once __DIR__ . '/include/functions.php';
+
+	// Init
+	$temp            = 'nd.';
+	$Tn = 'nd.';
+	$Tx = 'nd.';
+	$wind            = 'nd.';
+	$RR           = 'nd.';
+	$RRhier           = 'nd.';
+	$RRateMax     = 'nd.';
+	$RRateMaxDt = 'nd.';
+	$windGust         = 'nd.';
+	$windGustDirCardinal      = 'nd.';
+	$windGustDt     = 'nd.';
+
+	// Récup de la tempé et du vent instantanné
+	$query_string = "SELECT * FROM $db_table ORDER BY `dateTime` DESC LIMIT 1;";
+	$result       = $db_handle_pdo->query($query_string);
+	if ($result) {
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+
+		if ( !is_null($row['outTemp']) ) {
+			$temp = round($row['outTemp'],1);
+		}
+		if ( !is_null($row['windSpeed']) ) {
+			$wind = round($row['windSpeed'],1);
+		}
+	}
+
+	// Récup de params climato (cumul RR, intensité RR, rafale)
+	$dateDay = date('Y-m-d'); // date du jour en cours
+	$query_string = "SELECT `Tn`, `Tx`, `RR`, `RRateMax`, `RRateMaxDt`, `windGust`, `windGustDir`, `windGustDt`
+						FROM `$db_name_climato`.`$db_table_climato`
+						WHERE `dateDay` = '$dateDay';";
+	$result       = $db_handle_pdo->query($query_string);
+	if ($result) {
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+
+		// Tn & Tx
+		if ( !is_null($row['Tn']) ) {
+			$Tn = round($row['Tn'],1);
+		}
+		if ( !is_null($row['Tx']) ) {
+			$Tx = round($row['Tx'],1);
+		}
+
+		// RR
+		if ( !is_null($row['RR']) ) {
+			$RR = round($row['RR']*10,1);
+		}
+
+		// RRate
+		if ( !is_null($row['RRateMax']) ) {
+			$RRateMax = round($row['RRateMax']*10,1);
+		} else {
+			$RRateMax = '--';
+		}
+		if ( !is_null($row['RRateMaxDt']) ) {
+				date_default_timezone_set("Europe/Paris");
+					$RRateMaxDtTemp = $row['windGustDt'];
+					$RRateMaxDt = date('H\hi', strtotime("${RRateMaxDtTemp}Z"));
+				date_default_timezone_set("UTC");
+		} else {
+			$RRateMaxDt = '--';
+		}
+
+		// wind
+		if ( !is_null($row['windGust']) ) {
+			$windGust = round($row['windGust'],1);
+				date_default_timezone_set("Europe/Paris");
+					$windGustDtTemp = $row['windGustDt'];
+					$windGustDt = date('H\hi', strtotime("${windGustDtTemp}Z"));
+				date_default_timezone_set("UTC");
+			if (!is_null($row['windGustDir'])) {
+				$windGustDir = round($row['windGustDir'], 1);
+				$windGustDirCardinal = wind_cardinals($windGustDir);
+			}
+		}
+	}
+
+	// Récup pluie hier
+	$dateYesterday = date('Y-m-d', strtotime($dateDay.'-1 day'));
+	$query_string = "SELECT `RR`
+						FROM `$db_name_climato`.`$db_table_climato`
+						WHERE `dateDay` = '$dateYesterday';";
+	$result       = $db_handle_pdo->query($query_string);
+	if ($result) {
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+
+		// RR
+		if ( !is_null($row['RR']) ) {
+			$RRhier = round($row['RR']*10,1);
+		}
+	}
 
 	header ("Content-type: image/png");
-	//$image = imagecreate(200,200);
+	//$image = imagecreate(250,175);
 	$image = imagecreatefrompng("img/blank.png");
 
 	$orange = imagecolorallocate($image, 255, 128, 0);
@@ -18,11 +111,11 @@
 	$string1 = utf8_decode("Station $short_station_name");
 	$string2 = utf8_decode("Le $date a $heure");
 	$stringTiret = utf8_decode("---------------");
-	$string3 = utf8_decode("Température : $temp °C");
-	$string4 = utf8_decode("Pluie auj. : $cumul mm");
-	$string5 = utf8_decode("Intensité max. : $maxrainRate mm/h a $maxrainRatetime");
-	$string6 = utf8_decode("Vent : $wind km/h");
-	$string7 = utf8_decode("Vent max. : $maxwind km/h ($maxwinddir °) a $maxwindtime");
+	$string3 = utf8_decode("Tempé: ".$temp." °C | Min/Max: ".$Tn."/".$Tx);
+	$string4 = utf8_decode("Pluie 6h-6h: $RR mm | Hier : $RRhier mm");
+	$string5 = utf8_decode("Int. max: $RRateMax mm/h a $RRateMaxDt");
+	$string6 = utf8_decode("Vent: $wind km/h");
+	$string7 = utf8_decode("Vent max: $windGust km/h (dir. $windGustDirCardinal) a $windGustDt");
 	$string8 = utf8_decode("Association");
 	$string9 = utf8_decode("Nice Météo 06");
 
