@@ -5,17 +5,17 @@
 	require_once __DIR__ . '/include/functions.php';
 
 	// Init
-	$temp            = 'nd.';
-	$Tn = 'nd.';
-	$Tx = 'nd.';
-	$wind            = 'nd.';
-	$RR           = 'nd.';
-	$RRhier           = 'nd.';
-	$RRateMax     = 'nd.';
-	$RRateMaxDt = 'nd.';
-	$windGust         = 'nd.';
-	$windGustDirCardinal      = 'nd.';
-	$windGustDt     = 'nd.';
+	$temp                = 'nd.';
+	$Tn                  = 'nd.';
+	$Tx                  = 'nd.';
+	$wind                = 'nd.';
+	$RR                  = 'nd.';
+	$RRhier              = 'nd.';
+	$RRateMax            = 'nd.';
+	$RRateMaxDt          = 'nd.';
+	$windGust            = 'nd.';
+	$windGustDirCardinal = 'nd.';
+	$windGustDt          = 'nd.';
 
 	// Récup de la tempé et du vent instantanné
 	$query_string = "SELECT * FROM $db_table ORDER BY `dateTime` DESC LIMIT 1;";
@@ -50,12 +50,12 @@
 
 		// RR
 		if ( !is_null($row['RR']) ) {
-			$RR = round($row['RR']*10,1);
+			$RR = round($row['RR'],1);
 		}
 
 		// RRate
 		if ( !is_null($row['RRateMax']) ) {
-			$RRateMax = round($row['RRateMax']*10,1);
+			$RRateMax = round($row['RRateMax'],1);
 		} else {
 			$RRateMax = '--';
 		}
@@ -93,7 +93,7 @@
 
 		// RR
 		if ( !is_null($row['RR']) ) {
-			$RRhier = round($row['RR']*10,1);
+			$RRhier = round($row['RR'],1);
 		}
 	}
 
