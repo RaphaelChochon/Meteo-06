@@ -3,6 +3,9 @@
 ### ToDo
 Voir les "issues" sur GitHub : https://github.com/RaphaelChochon/Meteo-06/issues
 
+### 1.0.1 - 21/07/2020
+* Divers fix mineurs
+
 ### 1.0.0 - 14/06/2020 - Rupture
 * Migration vers Bootstrap 4.4 --> refonte graphique de l'ensemble du site
 * Internalisation de nombreuses librairies
