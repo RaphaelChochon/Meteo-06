@@ -85,7 +85,7 @@ if (!$lessValue) {
 	/**
 	 * Création du tableau avec les ts de chaque mois de l'année
 	 */
-		$tabClimatoYear = getDatesFromRange($dtOptYear.'-01-01', $latestDtOfYear, 'P1M', false, 'U');
+		$tabClimatoYear = getDatesFromRange($dtOptYear.'-01-01', $latestDtOfYear, 'P1M', false, 'Y-m');
 
 	/**
 	 * Récup des données pour l'année demandée
@@ -137,11 +137,11 @@ if (!$lessValue) {
 
 				$windGust    = null;
 
-				$tsDateMonth   = (string) strtotime($row['dateDay']);
+				$dtDateMonth   = date('Y-m', strtotime($row['dateDay']));
 				$tsDateMonthJS = (string) strtotime($row['dateDay'])*1000;
 
 				// Insert dans le tableau
-				$tabClimatoYear [$tsDateMonth] ['dateMonth'] = date('Y-m', strtotime($row['dateDay']));
+				$tabClimatoYear [$dtDateMonth] ['dateMonth'] = date('Y-m', strtotime($row['dateDay']));
 
 				// Traitement des données
 				// TnMin
@@ -149,8 +149,8 @@ if (!$lessValue) {
 					$Tn = round($row['TnMin'], 1);
 					$TnGraph = round($row['TnMin'], 1);
 				}
-				$tabClimatoYear [$tsDateMonth] ['TnMin'] = $Tn;
-				$tabClimatoYear [$tsDateMonth] ['TnMinAbs'] = 0;
+				$tabClimatoYear [$dtDateMonth] ['TnMin'] = $Tn;
+				$tabClimatoYear [$dtDateMonth] ['TnMinAbs'] = 0;
 				$dataTnMin[] = "[$tsDateMonthJS, $TnGraph]";
 				
 				// TxMax
@@ -158,47 +158,47 @@ if (!$lessValue) {
 					$Tx = round($row['TxMax'], 1);
 					$TxGraph = round($row['TxMax'], 1);
 				}
-				$tabClimatoYear [$tsDateMonth] ['TxMax'] = $Tx;
-				$tabClimatoYear [$tsDateMonth] ['TxMaxAbs'] = 0;
+				$tabClimatoYear [$dtDateMonth] ['TxMax'] = $Tx;
+				$tabClimatoYear [$dtDateMonth] ['TxMaxAbs'] = 0;
 				$dataTxMax[] = "[$tsDateMonthJS, $TxGraph]";
 
 				// TmoyMin
 				if (!is_null($row['TmoyMin'])) {
 					$TmoyMin = round($row['TmoyMin'], 1);
 				}
-				$tabClimatoYear [$tsDateMonth] ['TmoyMin'] = $TmoyMin;
-				$tabClimatoYear [$tsDateMonth] ['TmoyMinAbs'] = 0;
+				$tabClimatoYear [$dtDateMonth] ['TmoyMin'] = $TmoyMin;
+				$tabClimatoYear [$dtDateMonth] ['TmoyMinAbs'] = 0;
 
 				// TmoyAvg
 				if (!is_null($row['TmoyAvg'])) {
 					$TmoyAvg = round($row['TmoyAvg'], 1);
 					$TmoyGraph = round($row['TmoyAvg'], 1);
 				}
-				$tabClimatoYear [$tsDateMonth] ['TmoyAvg'] = $TmoyAvg;
+				$tabClimatoYear [$dtDateMonth] ['TmoyAvg'] = $TmoyAvg;
 				$dataTmoy[] = "[$tsDateMonthJS, $TmoyGraph]";
 
 				// TmoyMax
 				if (!is_null($row['TmoyMax'])) {
 					$TmoyMax = round($row['TmoyMax'], 1);
 				}
-				$tabClimatoYear [$tsDateMonth] ['TmoyMax'] = $TmoyMax;
-				$tabClimatoYear [$tsDateMonth] ['TmoyMaxAbs'] = 0;
+				$tabClimatoYear [$dtDateMonth] ['TmoyMax'] = $TmoyMax;
+				$tabClimatoYear [$dtDateMonth] ['TmoyMaxAbs'] = 0;
 
 				// RrSum
 				if (!is_null($row['RrSum'])) {
 					$RrSum = round($row['RrSum'], 1);
 					$RrSumGraph = round($row['RrSum'], 1);
 				}
-				$tabClimatoYear [$tsDateMonth] ['RrSum'] = $RrSum;
-				$tabClimatoYear [$tsDateMonth] ['RrMaxAbs'] = 0;
+				$tabClimatoYear [$dtDateMonth] ['RrSum'] = $RrSum;
+				$tabClimatoYear [$dtDateMonth] ['RrMaxAbs'] = 0;
 				$dataRR[] = "[$tsDateMonthJS, $RrSumGraph]";
 
 				// windGust
 				if (!is_null($row['WgMax'])) {
 					$windGust = round($row['WgMax'], 1);
 				}
-				$tabClimatoYear [$tsDateMonth] ['windGust'] = $windGust;
-				$tabClimatoYear [$tsDateMonth] ['WgMaxAbs'] = 0;
+				$tabClimatoYear [$dtDateMonth] ['windGust'] = $windGust;
+				$tabClimatoYear [$dtDateMonth] ['WgMaxAbs'] = 0;
 			}
 		}
 
@@ -223,11 +223,11 @@ if (!$lessValue) {
 		}
 		if ($result) {
 			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				$tsDateMonth = (string) strtotime(date('Y-m', strtotime($row['dateDay'])));
+				$dtDateMonth = date('Y-m', strtotime($row['dateDay']));
 				$TnMinYear = null;
 				if (!is_null($row['Tn'])) {
 					$TnMinYear = round($row['Tn'], 1);
-					$tabClimatoYear [$tsDateMonth] ['TnMinAbs'] = 1;
+					$tabClimatoYear [$dtDateMonth] ['TnMinAbs'] = 1;
 				}
 			}
 		}
@@ -254,10 +254,10 @@ if (!$lessValue) {
 		if ($result) {
 			$TmoyMinYear = null;
 			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				$tsDateMonth = (string) strtotime(date('Y-m', strtotime($row['dateDay'])));
+				$dtDateMonth = date('Y-m', strtotime($row['dateDay']));
 				if (!is_null($row['Tmoy'])) {
 					$TmoyMinYear = round($row['Tmoy'], 1);
-					$tabClimatoYear [$tsDateMonth] ['TmoyMinAbs'] = 1;
+					$tabClimatoYear [$dtDateMonth] ['TmoyMinAbs'] = 1;
 				}
 			}
 		}
@@ -284,10 +284,10 @@ if (!$lessValue) {
 		if ($result) {
 			$TxMaxYear = null;
 			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				$tsDateMonth = (string) strtotime(date('Y-m', strtotime($row['dateDay'])));
+				$dtDateMonth = date('Y-m', strtotime($row['dateDay']));
 				if (!is_null($row['Tx'])) {
 					$TxMaxYear = round($row['Tx'], 1);
-					$tabClimatoYear [$tsDateMonth] ['TxMaxAbs'] = 1;
+					$tabClimatoYear [$dtDateMonth] ['TxMaxAbs'] = 1;
 				}
 				
 			}
@@ -315,10 +315,10 @@ if (!$lessValue) {
 		if ($result) {
 			$TmoyMaxYear = null;
 			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				$tsDateMonth = (string) strtotime(date('Y-m', strtotime($row['dateDay'])));
+				$dtDateMonth = date('Y-m', strtotime($row['dateDay']));
 				if (!is_null($row['Tmoy'])) {
 					$TmoyMaxYear = round($row['Tmoy'], 1);
-					$tabClimatoYear [$tsDateMonth] ['TmoyMaxAbs'] = 1;
+					$tabClimatoYear [$dtDateMonth] ['TmoyMaxAbs'] = 1;
 				}
 			}
 		}
@@ -344,8 +344,8 @@ if (!$lessValue) {
 		}
 		if ($result) {
 			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				$tsDateMonth = (string) strtotime(date('Y-m', strtotime($row['dateDay'])));
-				$tabClimatoYear [$tsDateMonth] ['RrMaxAbs'] = 1;
+				$dtDateMonth = date('Y-m', strtotime($row['dateDay']));
+				$tabClimatoYear [$dtDateMonth] ['RrMaxAbs'] = 1;
 				$RrMaxYear = $row['RR'];
 			}
 		}
@@ -371,8 +371,8 @@ if (!$lessValue) {
 		}
 		if ($result) {
 			while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-				$tsDateMonth = (string) strtotime(date('Y-m', strtotime($row['dateDay'])));
-				$tabClimatoYear [$tsDateMonth] ['WgMaxAbs'] = 1;
+				$dtDateMonth = date('Y-m', strtotime($row['dateDay']));
+				$tabClimatoYear [$dtDateMonth] ['WgMaxAbs'] = 1;
 				$WgMaxYear = $row['windGust'];
 			}
 		}

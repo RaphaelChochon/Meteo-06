@@ -285,10 +285,10 @@
 							<tbody>
 								<?php
 								date_default_timezone_set('UTC');
-								foreach ($tabClimatoYear as $ts => $value) {
+								foreach ($tabClimatoYear as $dt => $value) {
 									echo "<tr>";
-									$mois = date('n', $ts);
-									echo '<th><a target="_blank" href="/climatologie-mensuelle.php?month='.date('Y-m', $ts).'">'.$moisFrancaisAbrev[$mois].' '.date("y", $ts).'</a></th>';
+									$mois = date('n', strtotime($dt));
+									echo '<th><a target="_blank" href="/climatologie-mensuelle.php?month='.date('Y-m', strtotime($dt)).'">'.$moisFrancaisAbrev[$mois].' '.date("y", strtotime($dt)).'</a></th>';
 
 									if (!is_null(@$value['TnMin'])) {
 										echo '<td class="textMin';
