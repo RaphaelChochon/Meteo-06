@@ -6,5 +6,4 @@ Disallow: /install/
 Disallow: /NOAA/
 Disallow: /sql/
 Disallow: /vendor/
-Disallow: /webcam/
 Disallow: /modele.php
