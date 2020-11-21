@@ -184,29 +184,23 @@
 								zoomControl    : true,
 							});
 							// Chargement des différents fonds carto
-							var MapBox = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-								attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+							var MapBoxStreets = L.tileLayer('https://maps.meteo06.fr/mapbox_proxy/streets/{z}/{x}/{y}', {
+								attribution: '© <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
 								tileSize: 512,
 								maxZoom: 18,
-								zoomOffset: -1,
-								id: 'mapbox/streets-v11',
-								accessToken: '<?php echo $mapbox_token; ?>'
+								zoomOffset: -1
 							}).addTo(map);
-							var MapBoxOutdoors = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-								attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-								maxZoom: 18,
-								id: 'mapbox.outdoors',
-								accessToken: '<?php echo $mapbox_token; ?>'
+							var MapBoxOutdoors = L.tileLayer('https://maps.meteo06.fr/mapbox_proxy/outdoors/{z}/{x}/{y}',{
+								attribution: '© <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
+								maxZoom    : 18
 							});
-							var MapBoxSatellite = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-								attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-								maxZoom: 18,
-								id: 'mapbox.satellite',
-								accessToken: '<?php echo $mapbox_token; ?>'
+							var MapBoxSatellite = L.tileLayer('https://maps.meteo06.fr/mapbox_proxy/satellite-streets/{z}/{x}/{y}', {
+								attribution: '© <a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
+								maxZoom    : 18
 							});
-							var OSM = L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-								maxZoom    : 18,
+							var OSM = L.tileLayer('https://maps.meteo06.fr/osm_proxy/{z}/{x}/{y}',{
 								attribution:'© <a href="http://osm.org/copyright" target="_blank">OpenStreetMap</a>',
+								maxZoom    : 18
 							});
 							// Markers de la station
 							var marker = L.marker([<?php echo $station_coord; ?>]).addTo(map);
@@ -214,7 +208,7 @@
 							map.options.maxZoom = 18;
 							// Control Layers
 							var baseMaps = {
-								"MapBox"       :MapBox,
+								"Streets"      :MapBoxStreets,
 								"Outdoors"     :MapBoxOutdoors,
 								"Satellite"    :MapBoxSatellite,
 								"OpenStreetMap":OSM,
