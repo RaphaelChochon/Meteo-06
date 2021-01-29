@@ -248,7 +248,7 @@
 								</th>
 								<td class="textBold">
 									<?php
-										if ($windchillNow === $heatindexNow) {
+										if ($windchillNow === $heatindexNow || $windchillNow === $TempNow || $heatindexNow === $TempNow) {
 											echo $windchillNow;
 										} elseif ($windchillNow < $TempNow) {
 											echo '<span class="textMin textBold">'.$windchillNow.'</span>';
