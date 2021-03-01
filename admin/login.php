@@ -84,7 +84,7 @@ require_once __DIR__ . '/../sql/connect_auth.php';
 			}
 			if ($row['resetPwd'] == 1) {
 				define('RESET_PWD', true);
-				header('Location: https://auth.meteo06.fr/reset-pwd.php');
+				header('Location: https://asso.meteo06.fr/change-pwd.php');
 				exit();
 			}
 		}
@@ -194,7 +194,7 @@ require_once __DIR__ . '/../sql/connect_auth.php';
 								}
 							?>
 						</p>
-						<a role="button" class="btn btn-primary btn-block my-3" href="https://auth.meteo06.fr/modif-profil.php" target="_blank"><i class="fas fa-users-cog"></i> Modifier mes infos sur auth.meteo06.fr</a>
+						<a role="button" class="btn btn-primary btn-block my-3" href="https://asso.meteo06.fr/modif-profil.php" target="_blank"><i class="fas fa-users-cog"></i> Modifier mes infos sur asso.meteo06.fr</a>
 						<div class="form-group">
 							<form method="post" action="logout.php">
 								<button type="submit" class="btn btn-danger btn-block"><i class="fas fa-user-slash"></i> Se déconnecter</button>

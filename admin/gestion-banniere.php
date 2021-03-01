@@ -12,7 +12,7 @@
 	}
 	if (defined('RESET_PWD')) {
 		// Redirection
-		header('Location: https://auth.meteo06.fr/reset-pwd.php');
+		header('Location: https://asso.meteo06.fr/change-pwd.php');
 		exit();
 	}
 
